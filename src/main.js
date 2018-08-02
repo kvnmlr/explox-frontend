@@ -1,7 +1,9 @@
 /* Material Design Bootstrap imports */
+import './assets/css/app.css'
 import 'font-awesome/css/font-awesome.min.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'mdbvue/build/css/mdb.css'
+import './assets/css/app.css'
 
 /* Vue imports */
 import Vue from 'vue'

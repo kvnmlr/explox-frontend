@@ -43,7 +43,7 @@
     color: White;
     vertical-align: middle;
     margin: 0;
-    position: fixed;
+    position: relative;
     bottom: 0px;
     width: 100%;
   }

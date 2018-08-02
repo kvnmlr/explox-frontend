@@ -1,19 +1,24 @@
 <template>
   <div id="app">
-    <app-header></app-header>
-    <router-view/>
+    <div id="wrapper">
+      <app-header></app-header>
+      <div class="separator"></div>
+      <container>
+        <router-view/>
+      </container>
+    </div>
     <app-footer></app-footer>
   </div>
 </template>
 
 <script>
-  import { Btn } from 'mdbvue';
+  import { Btn, Container } from 'mdbvue';
   import Footer from './components/includes/Footer.vue'
   import Header from './components/includes/Header.vue'
 
   export default {
     components: {
-      Btn,
+      Btn, Container,
       'app-header': Header,
       'app-footer': Footer
     },
@@ -23,5 +28,8 @@
 
 <style src="./assets/css/app.css"></style>
 
-<style scoped>
+<style>
+  .separator{
+    height:20px;
+  }
 </style>
