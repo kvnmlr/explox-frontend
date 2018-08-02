@@ -1,23 +1,27 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <app-header></app-header>
     <router-view/>
+    <app-footer></app-footer>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'App'
-}
+  import { Btn } from 'mdbvue';
+  import Footer from './components/includes/Footer.vue'
+  import Header from './components/includes/Header.vue'
+
+  export default {
+    components: {
+      Btn,
+      'app-header': Header,
+      'app-footer': Footer
+    },
+    name: 'App'
+  }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style src="./assets/css/app.css"></style>
+
+<style scoped>
 </style>
