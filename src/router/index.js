@@ -4,8 +4,10 @@ import About from '../components/general/About'
 import Home from '../components/general/Home'
 import Landing from '../components/general/Landing'
 import Routes from '../components/routes/list'
-import Explore from '../components/routes/Explore'
 import RouteDetails from '../components/routes/RouteDetails'
+import Explore from '../components/routes/Explore'
+import Admin from '../components/profile/Admin'
+
 Vue.use(Router)
 
 export default new Router({
@@ -40,7 +42,11 @@ export default new Router({
       path: '/explore',
       name: 'Explore',
       component: Explore
+    },
+    {
+      path: '/dashboard',
+      name: 'Dashboard',
+      component: Admin
     }
-
   ]
 })
