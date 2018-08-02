@@ -3,9 +3,9 @@ import Router from 'vue-router'
 import About from '../components/general/About'
 import Home from '../components/general/Home'
 import Landing from '../components/general/Landing'
-import Routes from '../components/routes/Routes'
+import Routes from '../components/routes/list'
 import Explore from '../components/routes/Explore'
-
+import RouteDetails from '../components/routes/RouteDetails'
 Vue.use(Router)
 
 export default new Router({
@@ -30,6 +30,11 @@ export default new Router({
       path: '/routes',
       name: 'Routes',
       component: Routes
+    },
+    {
+      path: '/route/:name',
+      name: 'Route Details',
+      component: RouteDetails
     },
     {
       path: '/explore',

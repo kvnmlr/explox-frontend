@@ -69,7 +69,7 @@
       Column,
       CardFooter
     },
-    name: 'Landing Page'
+    name: 'Landing'
   }
 </script>
 

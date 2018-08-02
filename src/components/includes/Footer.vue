@@ -1,5 +1,5 @@
 <template>
-  <Footer color="orange" class="font-small pt-4 mt-4">
+  <Footer color="stylish-color" class="font-small pt-4 mt-4">
     <container class="text-left">
       <row>
         <column sm="6">

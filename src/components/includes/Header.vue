@@ -16,11 +16,11 @@
           <router-link to='/about'><navbar-item><b>About</b></navbar-item></router-link>
 
         </navbar-nav>
-        <btn color="amber">Login</btn>
+        <btn color="orange darken-1">Login</btn>
         <btn color="elegant">Register</btn>
 
         <dropdown>
-          <dropdown-toggle tag="btn" style="margin-right: 15px;" color="amber" slot="toggle">
+          <dropdown-toggle tag="btn" style="margin-right: 15px;" color="orange darken-1" slot="toggle">
             <i class="fa fa-plus"></i>
             New
           </dropdown-toggle>

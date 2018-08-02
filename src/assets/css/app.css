@@ -2,6 +2,26 @@
 
 }
 
+/* unvisited link */
+a:link {
+  color: #fb8c00 ;
+}
+
+/* visited link */
+a:visited {
+  color: #e65100;
+}
+
+/* mouse over link */
+a:hover {
+  color: #ffb74d;
+}
+
+/* selected link */
+a:active {
+  color: #fb8c00;
+}
+
 #brand{
   color: white;
 }
