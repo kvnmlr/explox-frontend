@@ -1,7 +1,29 @@
 <template>
   <div>
-    <h2>{{ name }}</h2>
-    <btn color="primary" @click.native="showModal = true">Edit</btn>
+    <card>
+      <card-body>
+        <row>
+          <column col="4">
+            <h3>{{ name }}</h3>
+            <badge v-for="tag in route.tags" v-bind:key="tag" tag="a" href="#" color="orange darken-1" style="margin-right: 10px;">{{ tag }}</badge>
+            &nbsp;
+
+            <div class="separator"/>
+            <p>Distance: 1000 km</p>
+            <p>Athlete:
+              <router-link :to="{path: '/'}">Admin</router-link>
+            </p>
+
+            <btn color="orange" @click.native="showModal = true">Edit</btn>
+            <btn color="orange" @click.native="showModal = true">Delete</btn>
+
+          </column>
+          <column col="8">
+            <simple-map></simple-map>
+          </column>
+        </row>
+      </card-body>
+    </card>
     <modal v-if="showModal" @close="showModal = false">
       <modal-header>
         <modal-title>Edit Route</modal-title>
@@ -35,7 +57,7 @@
                   <span>
                     <btn color="orange darken-1" type="submit">Save</btn>
                   &nbsp;
-                  <btn outline="oragen darken-1" tag="a" href="/routes" title="cancel">Cancel</btn>
+                  <btn outline="orange darken-1" tag="a" href="/routes" title="cancel">Cancel</btn>
                   </span>
           </div>
         </form>
@@ -45,17 +67,20 @@
 </template>
 
 <script>
-  import {Btn, Modal, ModalHeader, ModalBody, ModalFooter} from 'mdbvue'
+  import {Row, Column, Badge, Card, CardBody, Btn, Modal, ModalHeader, ModalBody, ModalFooter} from 'mdbvue'
+  import SimpleMap from '../map/Simple'
 
   export default {
     name: "RouteDetails",
     components: {
-      Btn, Modal, ModalHeader, ModalBody, ModalFooter
+      Row, Column, Badge, Card, CardBody, Btn, Modal, ModalHeader, ModalBody, ModalFooter,
+      'simple-map': SimpleMap
     },
     data() {
       return {
         name: this.$route.params.name,
         showModal: false,
+        route: {name: 'Ryu', speciality: 'Vue Components', tags: ["running", "trail", "mountain"]}
       }
     },
   }

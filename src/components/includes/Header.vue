@@ -11,8 +11,10 @@
           <form class="form-inline">
             <input class="form-control mr-auto p-2" type="text" placeholder="Search" aria-label="Search">
           </form>
-          <router-link to='/explore'><navbar-item><b>Explore</b></navbar-item></router-link>
-          <router-link to='/routes'><navbar-item><b>Routes</b></navbar-item></router-link>
+          <router-link to='/explore'><navbar-item><b>Route Finder</b></navbar-item></router-link>
+          <router-link to='/routes'><navbar-item><b>Analytics</b></navbar-item></router-link>
+          <router-link to='/routes'><navbar-item><b>Athletes</b></navbar-item></router-link>
+          <router-link to='/about'><navbar-item><b>Get Started</b></navbar-item></router-link>
           <router-link to='/about'><navbar-item><b>About</b></navbar-item></router-link>
 
         </navbar-nav>

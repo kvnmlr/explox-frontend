@@ -14,8 +14,7 @@
         </span>
         <span>
           <row v-for="tag in route.tags" v-bind:key="tag">
-            <badge tag="a" href="#" color="orange darken-1">{{ tag }}</badge>
-            &nbsp;
+            <badge tag="a" href="#" color="orange darken-1">{{ tag }}</badge>&nbsp;
           </row>
         </span>
       </card-body>

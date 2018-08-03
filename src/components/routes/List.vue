@@ -1,7 +1,9 @@
 <template>
   <div>
     <h1>{{ title }}</h1>
-    <div v-for="route in routes">
+    <input type="text" v-model="search" placeholder="search"/>
+    <div class="separator"></div>
+    <div v-for="route in filteredRoutes">
       <route v-bind:route="route"></route>
       <div class="separator"></div>
     </div>
@@ -10,15 +12,17 @@
 
 <script>
   import Route from './Route'
+  import routeSearchMixin from "../../mixins/routeSearchMixin";
 
   export default {
     name: "List",
     components: {
-      route: Route
+      route: Route,
     },
     data() {
       return {
         title: "List",
+        search: '',
         routes: [
           {name: 'Ryu', speciality: 'Vue Components', tags: ["running","trail","mountain"]},
           {name: 'Crystal', speciality: 'HTML Wizardry',},
@@ -29,6 +33,7 @@
         ],
       }
     },
+    mixins:[routeSearchMixin]
   }
 
 
