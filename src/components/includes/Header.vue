@@ -1,74 +1,120 @@
 <template>
   <Header>
-    <navbar position="sticky-top" class="navbar-expand-lg black navbar-dark shadow">
-      <mdb-navbar-brand href="/">
-        <router-link to='/'>
-          <img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Logo_Strava.png" height="30px">
-        </router-link>
-      </mdb-navbar-brand>
-      <navbar-collapse class="collapse">
-        <navbar-nav class="mr-auto">
-          <form class="form-inline">
-            <input class="form-control mr-auto p-2" type="text" placeholder="Search" aria-label="Search">
-          </form>
-          <router-link to='/explore'><navbar-item><b>Route Finder</b></navbar-item></router-link>
-          <router-link to='/routes'><navbar-item><b>Analytics</b></navbar-item></router-link>
-          <router-link to='/routes'><navbar-item><b>Athletes</b></navbar-item></router-link>
-          <router-link to='/about'><navbar-item><b>Get Started</b></navbar-item></router-link>
-          <router-link to='/about'><navbar-item><b>About</b></navbar-item></router-link>
+    <v-navigation-drawer :clipped="$vuetify.breakpoint.lgAndUp" v-model="drawer" fixed app>
+      <v-list dense>
+        <template v-for="item in items">
 
-        </navbar-nav>
-        <btn color="orange darken-1">Login</btn>
-        <btn color="elegant">Register</btn>
+          <!-- List of existing items -->
+          <router-link :to="{path: '/' + item.link}">
+            <v-list-group class="spacer" v-if="item.children" v-model="item.model"
+                          :key="item.text"
+                          :prepend-icon="item.model ? item.icon : item['icon-alt']"
+                          append-icon="" style="background-color: lightgray">
 
-        <dropdown>
-          <dropdown-toggle tag="btn" style="margin-right: 15px;" color="orange darken-1" slot="toggle">
-            <i class="fa fa-plus"></i>
-            New
-          </dropdown-toggle>
-          <dropdown-menu left>
-            <dropdown-item>Create Route</dropdown-item>
-            <dropdown-item>Create Plan</dropdown-item>
-            <dropdown-item>Find Routes</dropdown-item>
-          </dropdown-menu>
-        </dropdown>
-        <dropdown>
-          <dropdown-toggle tag="btn" color="elegant" slot="toggle">
-            <i class="fa fa-user"></i>
-            Profile
-          </dropdown-toggle>
-          <dropdown-menu right>
-            <dropdown-item>Profile</dropdown-item>
-            <dropdown-item>Statistics</dropdown-item>
-            <dropdown-item>Friends</dropdown-item>
-          </dropdown-menu>
-        </dropdown>
-      </navbar-collapse>
-    </navbar>
+              <v-list-tile slot="activator">
+                <v-list-tile-content>
+                  <v-list-tile-title>
+                    <b>{{ item.text }}</b>
+                  </v-list-tile-title>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile v-for="(child, i) in item.children" :key="i" @click="">
+                <v-list-tile-action v-if="child.icon">
+                  <v-icon>{{ child.icon }}</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                  <v-list-tile-title>
+                    {{ child.text }}
+                  </v-list-tile-title>
+                </v-list-tile-content>
+              </v-list-tile>
+            </v-list-group>
+
+            <!-- Normal items -->
+            <v-list-tile v-else :key="item.text" @click="">
+              <v-list-tile-action>
+                <v-icon>{{ item.icon }}</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>
+
+                  {{ item.text }}
+                </v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+          </router-link>
+
+        </template>
+      </v-list>
+    </v-navigation-drawer>
+
+    <v-toolbar :clipped-left="$vuetify.breakpoint.lgAndUp" dark app fixed>
+      <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
+        <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+        <span class="hidden-sm-and-down">
+          <router-link to="/" class="brand">ExploX</router-link>
+        </span>
+      </v-toolbar-title>
+      <v-text-field flat solo-inverted hide-details prepend-inner-icon="search" label="Search"
+                    class="hidden-sm-and-down"
+      ></v-text-field>
+      <v-spacer></v-spacer>
+      <v-btn icon>
+        <v-icon>apps</v-icon>
+      </v-btn>
+      <v-btn icon>
+        <v-icon>notifications</v-icon>
+      </v-btn>
+      <v-btn icon large>
+        <v-avatar size="32px" tile>
+          <img src="https://cdn.vuetifyjs.com/images/logos/logo.svg" alt="Vuetify">
+        </v-avatar>
+      </v-btn>
+    </v-toolbar>
   </Header>
 </template>
 
 <script>
-  import {
-    Navbar,
-    NavbarCollapse,
-    NavbarItem,
-    NavbarNav,
-    Dropdown,
-    DropdownToggle,
-    DropdownItem,
-    DropdownMenu,
-    mdbNavbarBrand,
-    Btn
-  } from 'mdbvue';
-
   export default {
-    components: {
-      Navbar, NavbarNav, NavbarItem, NavbarCollapse, Dropdown, DropdownToggle, DropdownItem, DropdownMenu, Btn, mdbNavbarBrand
-    },
-    name: "header"
+    data: () => ({
+      dialog: false,
+      drawer: null,
+      items: [
+        {icon: 'contacts', text: 'Hub', link: 'hub'},
+        {icon: 'contacts', text: 'Dashboard', link: 'user'},
+        {icon: 'contacts', text: 'Routes', link: 'routes'},
+        {icon: 'contacts', text: 'Route Finder', link: 'explore'},
+        {icon: 'history', text: 'Analytics', link: 'analytics'},
+        {icon: 'content_copy', text: 'Athletes', link: 'athletes'},
+        {icon: 'content_copy', text: 'Get Started', link: 'guide'},
+        {icon: 'content_copy', text: 'About', link: 'about'},
+
+        {
+          icon: 'keyboard_arrow_up',
+          'icon-alt': 'keyboard_arrow_down',
+          text: 'Creator',
+          model: true,
+          children: [
+            {icon: 'add', text: 'Create Route'},
+            {icon: 'add', text: 'Create Activity'},
+            {icon: 'add', text: 'Create Plan'}
+          ]
+        },
+        {icon: 'settings', text: 'Settings', link: 'settings'},
+        {icon: 'chat_bubble', text: 'Send feedback', link: 'feedback'},
+        {icon: 'phonelink', text: 'App downloads', link: 'apps'},
+      ]
+    }),
+    props: {
+      source: String
+    }
+
   }
 </script>
 
 <style scoped>
+  .spacer {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
 </style>

@@ -5,7 +5,7 @@
     <b>Short Term</b>
     <p>20 out of 100</p>
     <v-progress-linear
-      color="warning"
+      color="success"
       height="15"
       value="20"
     ></v-progress-linear>

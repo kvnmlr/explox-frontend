@@ -1,35 +1,30 @@
 <template>
-  <div id="app">
-    <div id="wrapper">
-      <app-header></app-header>
-      <div class="separator"></div>
-      <container>
-        <router-view/>
-      </container>
-    </div>
+  <v-app id="app">
+    <app-header></app-header>
+    <v-content style="background-color: #FFFFFF">
+      <v-card style="margin:30px">
+        <v-container fill-height fill-width>
+          <v-layout justify-center>
+            <v-flex>
+              <router-view></router-view>
+            </v-flex>
+          </v-layout>
+        </v-container>
+      </v-card>
+    </v-content>
     <app-footer></app-footer>
-  </div>
+  </v-app>
 </template>
 
 <script>
-  import { Btn, Container } from 'mdbvue';
-  import Footer from './components/includes/Footer.vue'
-  import Header from './components/includes/Header.vue'
+  import Header from "./components/includes/Header"
+  import Footer from "./components/includes/Footer"
 
   export default {
     components: {
-      Btn, Container,
       'app-header': Header,
       'app-footer': Footer
-    },
-    name: 'App'
+    }
+
   }
 </script>
-
-<style src="./assets/css/app.css"></style>
-
-<style>
-  .separator{
-    height:20px;
-  }
-</style>

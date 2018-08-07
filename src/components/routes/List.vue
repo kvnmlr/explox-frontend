@@ -3,10 +3,12 @@
     <h1>{{ title }}</h1>
     <input type="text" v-model="search" placeholder="search"/>
     <div class="separator"></div>
-    <div v-for="route in filteredRoutes">
-      <route v-bind:route="route"></route>
-      <div class="separator"></div>
-    </div>
+    <v-container fluid grid-list-lg>
+      <v-layout row wrap>
+        <route v-for="route in filteredRoutes" v-bind:route="route" :key="route.details"></route>
+      </v-layout>
+    </v-container>
+    <div class="separator"></div>
   </div>
 </template>
 
@@ -21,10 +23,10 @@
     },
     data() {
       return {
-        title: "List",
+        title: "Routes",
         search: '',
         routes: [
-          {name: 'Ryu', speciality: 'Vue Components', tags: ["running","trail","mountain"]},
+          {name: 'Ryu', speciality: 'Vue Components', tags: ["running", "trail", "mountain"]},
           {name: 'Crystal', speciality: 'HTML Wizardry',},
           {name: 'Hitoshi', speciality: 'Click Events'},
           {name: 'Tango', speciality: 'Conditionals'},
@@ -33,7 +35,7 @@
         ],
       }
     },
-    mixins:[routeSearchMixin]
+    mixins: [routeSearchMixin]
   }
 
 
