@@ -13,6 +13,7 @@ import Settings from '../components/general/Settings'
 import Feedback from '../components/general/Feedback'
 import MobileApps from '../components/general/MobileApps'
 import SignUp from '../components/profile/SignUp'
+import LogIn from '../components/profile/LogIn'
 
 Vue.use(Router);
 
@@ -83,6 +84,11 @@ export default new Router({
       path: '/signup',
       name: 'SignUp',
       component: SignUp
+    },
+    {
+      path: '/login',
+      name: 'LogIn',
+      component: LogIn
     }
   ]
 })

@@ -9,7 +9,7 @@
             <v-list-group class="spacer" v-if="item.children" v-model="item.model"
                           :key="item.text"
                           :prepend-icon="item.model ? item.icon : item['icon-alt']"
-                          append-icon="" style="background-color: lightgray">
+                          append-icon="">
 
               <v-list-tile slot="activator">
                 <v-list-tile-content>
@@ -92,6 +92,7 @@
         {
           icon: 'keyboard_arrow_up',
           'icon-alt': 'keyboard_arrow_down',
+          link: '',
           text: 'Creator',
           model: true,
           children: [

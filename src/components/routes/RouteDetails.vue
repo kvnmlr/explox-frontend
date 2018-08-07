@@ -1,7 +1,7 @@
 <template>
   <div>
-    <v-layout row>
-      <v-flex md4>
+    <v-layout row wrap>
+      <v-flex xs12 sm12 md4>
         <h3>{{ name }}</h3>
         <v-chip v-for="tag in route.tags" v-bind:key="tag" tag="a" href="#">{{ tag }}
         </v-chip>
@@ -69,8 +69,8 @@
           </v-flex>
         </v-layout>
       </v-flex>
-      <v-flex md8>
-        <simple-map></simple-map>
+      <v-flex xs12 sm12 md8>
+        <simple-map style="margin-top:20px"></simple-map>
       </v-flex>
     </v-layout>
   </div>
