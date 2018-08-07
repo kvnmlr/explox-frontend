@@ -12,6 +12,7 @@ import GetStarted from '../components/general/GetStarted'
 import Settings from '../components/general/Settings'
 import Feedback from '../components/general/Feedback'
 import MobileApps from '../components/general/MobileApps'
+import SignUp from '../components/profile/SignUp'
 
 Vue.use(Router);
 
@@ -77,6 +78,11 @@ export default new Router({
       path: '/user',
       name: 'User',
       component: User
+    },
+    {
+      path: '/signup',
+      name: 'SignUp',
+      component: SignUp
     }
   ]
 })
