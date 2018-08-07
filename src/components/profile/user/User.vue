@@ -1,10 +1,10 @@
 <template>
-    <h2>Edit Route</h2>
+    $END$
 </template>
 
 <script>
     export default {
-        name: "Edit"
+        name: "User"
     }
 </script>
 
