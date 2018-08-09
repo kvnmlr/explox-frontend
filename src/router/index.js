@@ -61,7 +61,7 @@ export default new Router({
       component: Routes
     },
     {
-      path: '/route/:name',
+      path: '/route/:id',
       name: 'Route Details',
       component: RouteDetails
     },

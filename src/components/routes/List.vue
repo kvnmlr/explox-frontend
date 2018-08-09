@@ -25,14 +25,21 @@
       return {
         title: "Routes",
         search: '',
-        routes: [
-          {name: 'Ryu', speciality: 'Vue Components', tags: ["running", "trail", "mountain"]},
-          {name: 'Crystal', speciality: 'HTML Wizardry',},
-          {name: 'Hitoshi', speciality: 'Click Events'},
-          {name: 'Tango', speciality: 'Conditionals'},
-          {name: 'Kami', speciality: 'Webpack'},
-          {name: 'Yoshi', speciality: 'Data Diggin'}
-        ],
+        routes: [],
+      }
+    },
+    created() {
+      this.requestData();
+    },
+    methods: {
+      async requestData() {
+        this.$http.get('http://localhost:3000/routes?segments=false&page=1').then(response => {
+          const data = response.body;
+          console.log(data);
+          this.routes = data.routes;
+        }, error => {
+          console.log(error.body);
+        });
       }
     },
     mixins: [routeSearchMixin]

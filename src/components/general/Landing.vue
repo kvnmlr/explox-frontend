@@ -5,7 +5,7 @@
     <p>Tired of running or cycling the same old routes over and over again? Explox takes your and other
       atheltes' activity history and creates new and unique routes for you. All you need is an account on Strava.</p>
 
-    <v-btn outline="orange darken-1">Log In</v-btn>
+    <v-btn color="orange darken-1">Log In</v-btn>
     &nbsp;
     <v-btn color="orange darken-1">Sign Up</v-btn>
     <div class="separator"></div>
@@ -26,10 +26,10 @@
             <v-card-title>
               <p>Find out which routes other athletes take, try them out and give feedback.</p>
             </v-card-title>
-            <card-actions>
+            <v-card-actions>
               <v-btn color="orange darken-1">Find Out More</v-btn>
               <v-btn color="orange darken-1">See Routes</v-btn>
-            </card-actions>
+            </v-card-actions>
           </v-card>
         </v-flex>
         <v-flex sm4 xs12>
@@ -46,10 +46,10 @@
             <v-card-title>
               <p>Mix up your routine by finding areas that you have not visited yet.</p>
             </v-card-title>
-            <card-actions>
+            <v-card-actions>
               <v-btn color="orange darken-1">Find Out More</v-btn>
               <v-btn color="orange darken-1">See Yours</v-btn>
-            </card-actions>
+            </v-card-actions>
           </v-card>
         </v-flex>
         <v-flex sm4 xs12>
@@ -66,10 +66,10 @@
             <v-card-title>
               <p>Get personalized route recommendations and explore your area.</p>
             </v-card-title>
-            <card-actions>
+            <v-card-actions>
               <v-btn color="orange darken-1">Find Out More</v-btn>
               <v-btn color="orange darken-1">See Yours</v-btn>
-            </card-actions>
+            </v-card-actions>
           </v-card>
         </v-flex>
       </v-layout>
@@ -79,7 +79,20 @@
 
 <script>
   export default {
-    name: 'Landing'
+    name: 'Landing',
+    created() {
+      this.requestData();
+    },
+    methods: {
+      async requestData() {
+        this.$http.get('http://localhost:3000/').then(response => {
+          const data = response.body;
+          console.log(data.text);
+        }, error => {
+          console.log(error.body);
+        });
+      }
+    }
   }
 </script>
 

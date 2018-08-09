@@ -2,14 +2,14 @@
   <div>
     <v-layout row wrap>
       <v-flex xs12 sm12 md4>
-        <h3>{{ name }}</h3>
+        <h3>{{ route.title }}</h3>
         <v-chip v-for="tag in route.tags" v-bind:key="tag" tag="a" href="#">{{ tag }}
         </v-chip>
-        &nbsp;
         <div class="separator"></div>
-        <p>Distance: 1000 km</p>
-        <p>Athlete:
-          <router-link :to="{path: '/'}">Admin</router-link>
+        <p>{{ route.body }}</p>
+        <p>Distance: {{ route.distance }} km</p>
+        <p v-if="route.user">Athlete:
+          <router-link :to="{path: '/users/' + route.user._id}">{{ route.user.name}}</router-link>
         </p>
 
         <v-layout row justify-center>
@@ -19,22 +19,12 @@
               <v-card>
                 <v-card-title class="headline">Update Route Details</v-card-title>
                 <v-card-text>
-                  <v-form ref="form" v-model="valid" lazy-validation>
-                    <v-text-field
-                      v-model="route.name"
-                      :rules="nameRules"
-                      label="Name"
-                      required
+                  <v-form ref="form" lazy-validation>
+                    <v-text-field v-model="updatedRoute.title" label="Name" required
                     ></v-text-field>
-                    <v-textarea
-                      v-model="route.speciality"
-                      :rules="descriptionRules"
-                      label="Description"
-                      required
+                    <v-textarea v-model="updatedRoute.body" label="Description" required
                     ></v-textarea>
-                    <v-btn flat color="primary"
-                           :disabled="!valid"
-                           @click="dialog = false">
+                    <v-btn flat color="primary" v-on:click.prevent="update">
                       Update
                     </v-btn>
                     <v-btn flat @click="dialog = false">Cancel</v-btn>
@@ -52,10 +42,8 @@
               <v-card>
                 <v-card-title class="headline">Delete this Route?</v-card-title>
                 <v-card-text>
-                  <v-form ref="form" v-model="valid" lazy-validation>
-                    <v-btn flat color="primary"
-                           :disabled="!valid"
-                           @click="deleteDialog = false">
+                  <v-form ref="form" lazy-validation>
+                    <v-btn flat color="primary" v-on:click="deleteRoute">
                       Delete
                     </v-btn>
                     <v-btn flat @click="deleteDialog = false">Cancel</v-btn>
@@ -86,10 +74,63 @@
     },
     data() {
       return {
-        name: this.$route.params.name,
+        id: this.$route.params.id,
+        name: '',
         dialog: false,
         deleteDialog: false,
-        route: {name: 'Ryu', speciality: 'Vue Components', tags: ["running", "trail", "mountain"]}
+        route: {},
+        updatedRoute: {},
+      }
+    },
+    created() {
+      this.requestData();
+    },
+    methods: {
+      requestData() {
+        this.$http.get('http://localhost:3000/routes/' + this.id).then(response => {
+          const data = response.body;
+          console.log(data);
+          this.route = data.route;
+          this.updatedRoute = {
+            title: this.route.title,
+            body: this.route.body,
+            tags: this.route.tags
+          }
+        }, error => {
+          console.log(error.body);
+        });
+      },
+      async update() {
+        const formData = {
+          _csrf: this.csrfToken,
+          title: this.updatedRoute.title,
+          body: this.updatedRoute.body,
+          tags: this.updatedRoute.tags
+        };
+        const requestParams = {
+          method: 'PUT',
+          responseType: 'text',
+          emulateJSON: true
+        };
+        this.$http.put('http://localhost:3000/routes/' + this.id, formData, requestParams).then(response => {
+          console.log(response);
+          this.dialog = false;
+          this.requestData();
+        }, error => {
+          console.error(error.body.errors);
+          this.dialog = false;
+        });
+      },
+
+      async deleteRoute() {
+        this.$http.delete('http://localhost:3000/routes/' + this.id).then(response => {
+          console.log(response);
+          this.deleteDialog= false;
+          this.$router.push('/');
+        }, error => {
+          console.error(error.body.errors);
+          this.deleteDialog= false;
+        });
       }
     },
   }

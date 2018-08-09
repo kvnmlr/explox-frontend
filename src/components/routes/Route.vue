@@ -1,12 +1,12 @@
 <template>
   <v-flex xs12>
-      <v-card hover dark :to="{path: '/route/' + route.name}">
+      <v-card hover dark :to="{path: '/route/' + route._id}">
         <v-card-title primary-title>
           <v-layout column>
             <v-flex class="headline">
-              {{ route.name }}
+              {{ route.title }}
             </v-flex>
-            <v-flex>{{ route.speciality }}</v-flex>
+            <v-flex>{{ route.body }}</v-flex>
           </v-layout>
         </v-card-title>
         <v-card-actions>

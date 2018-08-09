@@ -15,6 +15,7 @@
   "dependencies": {
     "material-design-icons-iconfont": "^3.0.3",
     "vue": "^2.5.2",
+    "vue-cookies": "^1.5.6",
     "vue-meta": "^1.5.2",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.0.1",

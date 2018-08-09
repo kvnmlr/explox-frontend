@@ -14,7 +14,7 @@
   export default {
     components: {
     },
-    name: "footer"
+    name: "app-footer"
   }
 </script>
 

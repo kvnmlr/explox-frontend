@@ -10,9 +10,13 @@ import App from './App'
 import Router from './router'
 import Meta from 'vue-meta'
 import Vuetify from 'vuetify'
-
+import VueResource from 'vue-resource'
+import VueCookies from 'vue-cookies'
 Vue.config.productionTip = false;
 
+Vue.use(VueCookies);
+Vue.use(Meta);
+Vue.use(VueResource);
 Vue.use(Vuetify, {
   theme: {
     primary: colors.orange.darken1,
@@ -25,12 +29,12 @@ Vue.use(Vuetify, {
   }
 });
 
-Vue.use(Meta);
-
+Vue.http.options.credentials = true
+Vue.http.options.xhr = {withCredentials: true}
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router: Router,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
 });

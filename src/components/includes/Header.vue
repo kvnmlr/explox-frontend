@@ -70,6 +70,7 @@
           <img src="https://cdn.vuetifyjs.com/images/logos/logo.svg" alt="Vuetify">
         </v-avatar>
       </v-btn>
+      <h2 v-if="user !== undefined">{{user.name}}</h2>
     </v-toolbar>
   </Header>
 </template>
@@ -107,7 +108,8 @@
       ]
     }),
     props: {
-      source: String
+      source: String,
+      user: Object
     }
 
   }
