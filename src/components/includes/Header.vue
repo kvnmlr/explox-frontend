@@ -78,7 +78,7 @@
 <script>
   export default {
     data: () => ({
-      dialog: false,
+      editDialog: false,
       drawer: null,
       items: [
         {icon: 'contacts', text: 'Hub', link: 'hub'},

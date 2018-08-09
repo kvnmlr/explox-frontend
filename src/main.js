@@ -1,7 +1,7 @@
 /* Material Design Bootstrap imports */
+import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import './assets/css/app.css'
 import 'vuetify/dist/vuetify.min.css'
-import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import colors from 'vuetify/es5/util/colors'
 
 /* Vue imports */
@@ -12,6 +12,9 @@ import Meta from 'vue-meta'
 import Vuetify from 'vuetify'
 import VueResource from 'vue-resource'
 import VueCookies from 'vue-cookies'
+import Axios from 'axios'
+Axios.defaults.withCredentials = true;
+
 Vue.config.productionTip = false;
 
 Vue.use(VueCookies);
