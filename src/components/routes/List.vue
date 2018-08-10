@@ -15,6 +15,7 @@
 <script>
   import Route from './Route'
   import routeSearchMixin from "../../mixins/routeSearchMixin";
+  import axios from 'axios'
 
   export default {
     name: "List",
@@ -33,13 +34,15 @@
     },
     methods: {
       async requestData() {
-        this.$http.get('http://localhost:3000/routes?segments=false&page=1').then(response => {
-          const data = response.body;
-          console.log(data);
-          this.routes = data.routes;
-        }, error => {
-          console.log(error.body);
-        });
+        axios.get('http://localhost:3000/routes?segments=false&page=1')
+          .then(response => {
+            const data = response.data;
+            console.log(data);
+            this.routes = data.routes;
+          })
+          .catch(error => {
+            console.log(error.body);
+          });
       }
     },
     mixins: [routeSearchMixin]

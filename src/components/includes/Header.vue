@@ -65,24 +65,39 @@
       <v-btn icon>
         <v-icon>notifications</v-icon>
       </v-btn>
-      <v-btn icon large>
-        <v-avatar size="32px" tile>
-          <img src="https://cdn.vuetifyjs.com/images/logos/logo.svg" alt="Vuetify">
-        </v-avatar>
-      </v-btn>
+      <v-menu offset-y v-model="loginMenu" :close-on-content-click="false">
+        <v-btn icon large slot="activator" dark>
+          <v-avatar size="32px" tile>
+            <img src="https://cdn.vuetifyjs.com/images/logos/logo.svg" alt="Vuetify">
+          </v-avatar>
+        </v-btn>
+        <div style="background-color: white; padding:10px;">
+          <log-in v-if="!user"
+                  v-on:authorizeUser="() => {$emit('authorizeUser'); this.loginMenu=false}">
+          </log-in>
+          <v-list v-else>
+            <v-list-tile v-on:click="() => {$emit('logout'); this.loginMenu=false}">
+              <v-list-tile-title>LOGOUT</v-list-tile-title>
+            </v-list-tile>
+          </v-list>
+        </div>
+      </v-menu>
       <h2 v-if="user !== undefined">{{user.name}}</h2>
     </v-toolbar>
   </Header>
 </template>
 
 <script>
+  import LogIn from "../profile/LogIn";
   export default {
+    components: {LogIn},
     data: () => ({
       editDialog: false,
       drawer: null,
+      loginMenu: false,
       items: [
         {icon: 'contacts', text: 'Hub', link: 'hub'},
-        {icon: 'contacts', text: 'Dashboard', link: 'user'},
+        {icon: 'contacts', text: 'Dashboard', link: 'dashboard'},
         {icon: 'contacts', text: 'Routes', link: 'routes'},
         {icon: 'contacts', text: 'Route Finder', link: 'explore'},
         {icon: 'history', text: 'Analytics', link: 'analytics'},

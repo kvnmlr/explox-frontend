@@ -78,6 +78,8 @@
 </template>
 
 <script>
+  import axios from 'axios'
+
   export default {
     name: 'Landing',
     created() {
@@ -85,12 +87,14 @@
     },
     methods: {
       async requestData() {
-        this.$http.get('http://localhost:3000/').then(response => {
-          const data = response.body;
-          console.log(data.text);
-        }, error => {
-          console.log(error.body);
-        });
+        axios.get('http://localhost:3000/')
+          .then(response => {
+            const data = response.data;
+            console.log(data.text);
+          })
+          .catch(error => {
+            console.log(error.response.data.error);
+          });
       }
     }
   }

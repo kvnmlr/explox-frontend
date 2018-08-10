@@ -82,7 +82,8 @@
           <p>{{email}}</p>
 
           <v-checkbox :label="checkbox1_text" v-model="emailsCheckbox"></v-checkbox>
-          <v-checkbox :rules="[rules.required]" :label="checkbox2_text" v-model="termsCheckbox" v-bind:error="termsError"></v-checkbox>
+          <v-checkbox :rules="[rules.required]" :label="checkbox2_text" v-model="termsCheckbox"
+                      v-bind:error="termsError"></v-checkbox>
 
           <v-btn color="primary" v-on:click="signup">Finish & Go To Profile</v-btn>
         </v-layout>
@@ -92,6 +93,8 @@
 </template>
 
 <script>
+  import axios from 'axios'
+
   export default {
     name: "SignUp",
     data() {
@@ -134,15 +137,16 @@
         const requestParams = {
           method: 'POST',
           responseType: 'text',
-          emulateJSON: true
         };
-        this.$http.post('http://localhost:3000/signup', formData, requestParams).then(response => {
-          console.log(response);
-          this.$emit('authorizeUser');
-          this.$router.push('/user');
-        }, error => {
-          console.error(error.body.errors);
-        });
+        axios.post('http://localhost:3000/signup', formData, requestParams)
+          .then(response => {
+            console.log(response);
+            this.$emit('authorizeUser');
+            this.$router.push('/user');
+          })
+          .catch(error => {
+            console.error(error.response.data.error);
+          });
       }
     },
   }

@@ -1,23 +1,12 @@
 <template>
   <div>
-    <form action="http://localhost:3000/users/session" method="post" role="form" v-on:submit.prevent="login">
-      <input type="hidden" name="_csrf" v-bind:value="csrfToken">
-
-      Favorite color: <input type="text" name="favoriteColor">
-      <button type="submit">Submit</button>
-    </form>
-
-
-    <v-layout row>
-      <v-flex>
-        <v-btn color="primary">Login with Strava</v-btn>
+    <v-layout row wrap>
+      <v-flex xs12 sm6 md6>
+        <v-btn large color="primary" style="display: block; width: 80%; align: center;">Login with <br> Strava</v-btn>
 
       </v-flex>
-      <v-flex xs1>
-        <v-divider vertical></v-divider>
-      </v-flex>
-
-      <v-flex>
+      <br>
+      <v-flex xs12 sm6 md6>
         <v-form>
           <v-text-field prepend-icon="person" name="login" label="Login" type="text" v-model="email"></v-text-field>
           <v-text-field id="password" prepend-icon="lock" name="password" label="Password" type="password"
@@ -33,6 +22,8 @@
 </template>
 
 <script>
+  import axios from 'axios'
+
   export default {
     name: "LogIn",
     data: () => ({
@@ -56,15 +47,16 @@
         const requestParams = {
           method: 'POST',
           responseType: 'text',
-          emulateJSON: true
         };
-        this.$http.post('http://localhost:3000/login', formData, requestParams).then(response => {
-          console.log(response);
-          this.$emit('authorizeUser');
-          this.$router.push('/user');
-        }, error => {
-          console.log(error.body);
-        });
+        axios.post('http://localhost:3000/login', formData, requestParams)
+          .then(response => {
+            console.log(response);
+            this.$emit('authorizeUser');
+            this.$router.push('/dashboard');
+          })
+          .catch(error => {
+            console.log(error.response.data.error);
+          });
       }
     },
     created() {

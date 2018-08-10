@@ -22,10 +22,8 @@
                       <v-card-title class="headline">Update Route Details</v-card-title>
                       <v-card-text>
                         <v-form ref="form" lazy-validation>
-                          <v-text-field v-model="updatedRoute.title" label="Name" required
-                          ></v-text-field>
-                          <v-textarea v-model="updatedRoute.body" label="Description" required
-                          ></v-textarea>
+                          <v-text-field v-model="updatedRoute.title" label="Name" required></v-text-field>
+                          <v-textarea v-model="updatedRoute.body" label="Description" required></v-textarea>
                           <v-btn flat color="primary" v-on:click.prevent="update">
                             Update
                           </v-btn>
@@ -137,7 +135,7 @@
             tags: this.route.tags
           }
         }, error => {
-          console.log(error.body);
+          console.log(error.response.data.error);
         });
       },
       async update() {
@@ -172,8 +170,7 @@
             console.error(error.response.data.error);
           })
           .finally(() => this.deleteDialog = false);
-      }
-      ,
+      },
 
       async exportRoute() {
         Axios.get('http://localhost:3000/routes/' + this.id + '/export')

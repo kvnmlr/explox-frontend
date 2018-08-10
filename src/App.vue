@@ -1,6 +1,6 @@
 <template>
   <v-app id="app">
-    <app-header v-bind:user="user" v-on:logout="logout"></app-header>
+    <app-header v-bind:user="user" v-on:logout="logout" v-on:authorizeUser="authorizeUser"></app-header>
     <v-content style="background-color: #FFFFFF">
       <v-card style="margin:30px">
         <v-container fill-height fill-width>
@@ -19,6 +19,8 @@
 <script>
   import Header from "./components/includes/Header"
   import Footer from "./components/includes/Footer"
+  import axios from "axios"
+
   export default {
     components: {
       'app-header': Header,
@@ -33,21 +35,25 @@
     },
     methods: {
       async logout() {
-        this.$http.get('http://localhost:3000/logout').then(response => {
-          console.log(response);
-          this.user = undefined;
-          this.$router.push('/login');
-        }, error => {
-          console.log(error.body);
-        });
+        axios.get('http://localhost:3000/logout')
+          .then(response => {
+            console.log(response);
+            this.user = undefined;
+            this.$router.push('/login');
+          })
+          .catch(error => {
+            console.log(error.response.data.error);
+          });
       },
       async authorizeUser() {
-        this.$http.get('http://localhost:3000/authorize').then(response => {
-          console.log(response);
-          this.user = response.body.user;
-        }, error => {
-          console.log(error.body);
-        });
+        axios.get('http://localhost:3000/authorize')
+          .then(response => {
+            console.log(response);
+            this.user = response.data.user;
+          })
+          .catch(error => {
+            console.log(error.response.data.error);
+          });
       },
     }
   }

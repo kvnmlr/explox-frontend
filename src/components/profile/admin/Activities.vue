@@ -76,18 +76,18 @@
       };
     },
     props: {
-      users: Array,
+      activities: Array,
     },
     created() {
     },
     computed: {
       rows() {
         let rows = [];
-        if (this.users.length > 0) {
-          this.users.forEach(function (u) {
-            u.activities = u.activities.length;
-            u.routes = u.routes.length;
-            rows.push(u);
+        if (this.activities.length > 0) {
+          this.activities.forEach(function (a) {
+            a.activities = a.activities.length;
+            a.routes = a.routes.length;
+            rows.push(a);
           });
           return rows;
         }

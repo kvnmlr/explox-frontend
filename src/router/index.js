@@ -7,7 +7,7 @@ import Routes from '../components/routes/list'
 import RouteDetails from '../components/routes/RouteDetails'
 import Explore from '../components/routes/Explore'
 import Admin from '../components/profile/admin/Admin'
-import User from '../components/profile/user/User'
+import Dashboard from '../components/profile/user/Dashboard'
 import GetStarted from '../components/general/GetStarted'
 import Settings from '../components/general/Settings'
 import Feedback from '../components/general/Feedback'
@@ -71,14 +71,14 @@ export default new Router({
       component: Explore
     },
     {
-      path: '/dashboard',
-      name: 'Dashboard',
+      path: '/admin/dashboard',
+      name: 'AdminDashboard',
       component: Admin
     },
     {
-      path: '/user',
-      name: 'User',
-      component: User
+      path: '/dashboard',
+      name: 'Dashboard',
+      component: Dashboard
     },
     {
       path: '/signup',
