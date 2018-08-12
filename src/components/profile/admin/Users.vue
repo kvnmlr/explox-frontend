@@ -18,8 +18,8 @@
         <td class="text-xs-left">{{ props.item.email }}</td>
         <td class="text-xs-left">{{ props.item.provider }}</td>
         <td class="text-xs-left">{{ props.item.role }}</td>
-        <td class="text-xs-left">{{ props.item.activities }}</td>
-        <td class="text-xs-left">{{ props.item.routes }}</td>
+        <td class="text-xs-left">{{ props.item.activitiesCount }}</td>
+        <td class="text-xs-left">{{ props.item.routesCount }}</td>
         <td class="text-xs-left">{{ props.item.createdAt }}</td>
         <td class="text-xs-left">{{ props.item.lastLogin }}</td>
       </template>
@@ -58,11 +58,11 @@
           },
           {
             text: 'Activities',
-            value: 'activities',
+            value: 'activitiesCount',
           },
           {
             text: 'Routes',
-            value: 'routes',
+            value: 'routesCount',
           },
           {
             text: 'Registered',
@@ -83,13 +83,15 @@
     computed: {
       rows() {
         let rows = [];
-        if (this.users.length > 0) {
-          this.users.forEach(function (u) {
-            u.activities = u.activities.length;
-            u.routes = u.routes.length;
-            rows.push(u);
-          });
-          return rows;
+        if (this.users) {
+          if (this.users.length > 0) {
+            for (let u of this.users) {
+              u.activitiesCount = 5;
+              u.routesCount = 5;
+              rows.push(u);
+            }
+            return rows;
+          }
         }
       }
     }

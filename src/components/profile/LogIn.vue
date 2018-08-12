@@ -1,11 +1,15 @@
 <template>
   <div>
     <v-layout row wrap>
-      <v-flex xs12 sm6 md6>
-        <v-btn large color="primary" style="display: block; width: 80%; align: center;">Login with <br> Strava</v-btn>
-
+      <v-flex xs12 sm5 md5>
+        <v-btn large v-on:click="loginStrava" color="primary" style="display: block; width: 95%; text-align: center; margin-bottom: 20px">
+          Strava Login
+        </v-btn>
       </v-flex>
-      <br>
+      <br><br><br>
+      <v-flex xs0 sm1 md1>
+        <v-divider vertical></v-divider>
+      </v-flex>
       <v-flex xs12 sm6 md6>
         <v-form>
           <v-text-field prepend-icon="person" name="login" label="Login" type="text" v-model="email"></v-text-field>
@@ -38,6 +42,24 @@
       user: Object
     },
     methods: {
+      async loginStrava() {
+        window.location.href = 'http://localhost:3000/auth/strava';
+        return;
+
+        axios.get('https://www.strava.com/oauth/authorize?response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fauth%2Fstrava%2Fcallback&client_id=21869', {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+          }})
+          .then(response => {
+            console.log('Data');
+            console.log(response);
+          })
+          .catch(error => {
+            console.log(error);
+            console.log(error.response.data.error);
+          })
+      },
+
       async login() {
         const formData = {
           _csrf: this.csrfToken,

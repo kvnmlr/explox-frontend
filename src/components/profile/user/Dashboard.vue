@@ -119,15 +119,14 @@
         axios.get('http://localhost:3000/dashboard')
           .then(response => {
             const data = response.data;
-            console.log("asd");
             console.log(data);
-            this.user = data.user;
-            if (this.user) {
-              if (this.user.role === 'admin') {
+            if (data.user) {
+              if (data.user.role === 'admin') {
                 this.$router.push('/admin/dashboard');
                 return;
               }
             }
+            this.user = data.user;
             this.updatedUser = {
               name: this.user.name,
               username: this.user.username,
@@ -136,7 +135,10 @@
 
           })
           .catch(error => {
-            console.log(error.response.data.error);
+            const data = error.response.data;
+            if (data.flash) {
+              this.$emit('flash', data.flash);
+            }
           });
       },
       async update() {
@@ -152,8 +154,12 @@
         };
         axios.put('http://localhost:3000/users/' + this.user._id, formData, requestParams)
           .then(response => {
-            console.log(response);
+            const data = response.data;
+            console.log(data);
             this.requestData();
+            if (data.flash) {
+              this.$emit('flash', data.flash);
+            }
           })
           .catch(error => {
             console.error(error.response.data.error);
