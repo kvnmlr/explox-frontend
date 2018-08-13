@@ -1,11 +1,25 @@
 <template>
-    $END$
+  <v-container fluid>
+    <h2>Activities</h2>
+    <strava-alert v-if="user.provider !== 'strava'" style="height:400px;"></strava-alert>
+  </v-container>
 </template>
 
 <script>
-    export default {
-        name: "Activities"
+  import StravaAlert from "../../includes/StravaAlert";
+
+  export default {
+    name: "Activities",
+    components: {
+      StravaAlert,
+    },
+    props: {
+      user: {
+        type: Object,
+        required: true,
+      }
     }
+  }
 </script>
 
 <style scoped>

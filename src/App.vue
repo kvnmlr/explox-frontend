@@ -24,8 +24,8 @@
 </template>
 
 <script>
-  import Header from "./components/includes/Header"
-  import Footer from "./components/includes/Footer"
+  import Header from "./components/layout/Header"
+  import Footer from "./components/layout/Footer"
   import axios from "axios"
 
   export default {

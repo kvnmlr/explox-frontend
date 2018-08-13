@@ -23,8 +23,8 @@ Vue.use(VueResource);
 Vue.use(Vuetify, {
   theme: {
     primary: colors.orange.darken1,
-    secondary: colors.amber.darken2,
-    accent: colors.grey.darken2,
+    secondary: colors.orange.darken3,
+    accent: colors.grey.darken3,
     error: colors.red.base,
     warning: colors.yellow.base,
     info: colors.lightBlue.accent3,

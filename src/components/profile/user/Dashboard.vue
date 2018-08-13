@@ -15,80 +15,145 @@
         Routes
       </v-tab>
     </v-tabs>
-
     <v-tabs-items v-model="currentTab">
       <v-tab-item :id="`tab-profile`">
+
         <v-layout row wrap>
           <v-flex xs12 sm12 md6>
             <v-container>
-              <h2>{{ user.name.toUpperCase() }}</h2>
-              <h3>{{ user.username }}</h3>
+              <img class="elevation-5" style="width:100%"
+                   src="https://www.wpfreeware.com/wp-content/uploads/2014/09/placeholder-images.jpg">
               <br>
-              <img style="width:100%" src="https://www.wpfreeware.com/wp-content/uploads/2014/09/placeholder-images.jpg">
+              <v-layout row>
+                <v-flex xs10 sm10 md10>
+                  <h2 color="primary">{{ user.name.toUpperCase() }}</h2>
+                  <h4>{{ user.username }}</h4>
+                  <p></p>
+                  <h4>Email</h4>
+                  <p>{{ user.email }}</p>
+                  <h4>A member since</h4>
+                  <p>{{ user.createdAt }}</p>
+
+                  <h4>Routes:</h4>
+                  <p>{{ user.routes.length }}</p>
+                  <h4>Activities:</h4>
+                  <p>{{ user.activities.length }}</p>
+                </v-flex>
+                <v-flex xs2 sm2 md2>
+                  <v-menu dark transition="slide-y-transition" bottom right>
+                    <v-btn color="secondary" dark fab relative right slot="activator">
+                      <v-icon>edit</v-icon>
+                    </v-btn>
+                    <v-list>
+                      <v-list-tile v-on:click="editDialog = true">
+                        <v-list-tile-title>
+                          <v-icon>edit</v-icon>
+                          Edit
+                        </v-list-tile-title>
+                      </v-list-tile>
+                      <v-list-tile v-on:click="exportDialog = true">
+                        <v-list-tile-title>
+                          <v-icon>import_export</v-icon>
+                          Export/Save
+                        </v-list-tile-title>
+                        <v-dialog v-model="exportDialog" persistent max-width="290">
+                          <v-card dark>
+                            <v-card-title class="headline">Save/Export Route</v-card-title>
+                            <v-card-text>
+                              <v-form ref="form" lazy-validation>
+                                <v-btn flat color="primary" v-on:click="exportRoutes">
+                                  Download All Routes
+                                </v-btn>
+                                <v-btn flat color="primary" v-on:click="exportActivities">
+                                  Download All Activities
+                                </v-btn>
+                                <v-btn flat @click="exportDialog = false">Cancel</v-btn>
+                              </v-form>
+                            </v-card-text>
+                            <v-card-actions>
+                              <v-spacer></v-spacer>
+                            </v-card-actions>
+                          </v-card>
+                        </v-dialog>
+
+                      </v-list-tile>
+                      <v-list-tile v-on:click="deleteDialog = true">
+                        <v-list-tile-title>
+                          <v-icon>delete</v-icon>
+                          Delete Account
+                        </v-list-tile-title>
+                        <v-dialog v-model="deleteDialog" persistent max-width="290">
+                          <v-card dark>
+                            <v-card-title class="headline">Are You Sure?</v-card-title>
+                            <v-card-text>
+                              <v-alert :value=true outline type="error" transition="slide-y-transition">
+                                <v-layout row wrap>
+                                  <v-flex xs12>
+                                    Deleting your account can <b>not</b> be undone.
+                                  </v-flex>
+                                </v-layout>
+                              </v-alert>
+                              <v-form ref="form" lazy-validation>
+                                <v-btn flat v-on:click="deleteUser">
+                                  Yes, Delete It
+                                </v-btn>
+                                <v-btn flat @click="deleteDialog = false">Keep Using ExploX</v-btn>
+                              </v-form>
+                            </v-card-text>
+                            <v-card-actions>
+                              <v-spacer></v-spacer>
+                            </v-card-actions>
+                          </v-card>
+                        </v-dialog>
+                      </v-list-tile>
+                    </v-list>
+                  </v-menu>
+                </v-flex>
+              </v-layout>
               <br>
-              <h3>{{ user.email }}</h3>
-              <h3>A member since {{ user.createdAt }}</h3>
-              <h3>Routes: {{ user.routes.length }}</h3>
-              <h3>Activities: {{ user.activities.length }}</h3>
+
+
             </v-container>
           </v-flex>
           <v-flex xs12 sm12 md6>
             <v-container>
               <v-flex row>
-                <v-container>
-                  <h2>Feed</h2>
-                  <p>No Activity</p>
-                  <v-btn flat v-on:click="currentTab='tab-activities'">View All</v-btn>
-                </v-container>
+                <v-card dark color="accent" class="elevation-5">
+                  <v-container>
+                    <h3>Feed</h3>
+                    <p>No Activity</p>
+                    <v-btn flat v-on:click="currentTab='tab-activities'">View All</v-btn>
+                  </v-container>
+
+                </v-card>
               </v-flex>
+              <v-spacer style="margin: 20px;"></v-spacer>
               <v-flex row>
-                <v-container>
-                  <h2>Routes</h2>
-                  <p>No Routes</p>
-                  <v-btn flat v-on:click="currentTab='tab-routes'">View All</v-btn>
-                </v-container>
+                <v-card class="elevation-5">
+                  <v-container>
+                    <h3>Routes</h3>
+                    <p>No Routes</p>
+                    <v-btn flat v-on:click="currentTab='tab-routes'">View All</v-btn>
+                  </v-container>
+
+                </v-card>
               </v-flex>
             </v-container>
 
           </v-flex>
         </v-layout>
-        <v-divider style="margin: 30px;" horizontal></v-divider>
-        <v-btn :to="{path: '/users/'+this.user._id}">View Public Profile</v-btn>
-        <v-dialog v-if="updatedUser" v-model="editDialog" persistent max-width="290">
-          <v-btn slot="activator">Edit Profile</v-btn>
-
-          <v-card>
-            <v-card-title class="headline">Update Route Details</v-card-title>
-            <v-card-text>
-              <v-form ref="form" lazy-validation>
-                <v-text-field v-model="updatedUser.name" label="Name" required></v-text-field>
-                <v-text-field v-model="updatedUser.username" label="Username" required></v-text-field>
-                <v-text-field v-model="updatedUser.email" label="E-Mail" required></v-text-field>
-                <v-btn flat color="primary" v-on:click.prevent="update">
-                  Update
-                </v-btn>
-                <v-btn flat @click="editDialog = false">Cancel</v-btn>
-              </v-form>
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
+        <v-btn color="primary" :to="{path: '/users/'+this.user._id}">View Public Profile</v-btn>
         <v-btn v-on:click="$emit('logout')">Logout</v-btn>
-        <v-btn v-on:click="deleteUser">Delete Account</v-btn>
 
       </v-tab-item>
       <v-tab-item :id="`tab-activity-map`">
-        <p>Activity Map</p>
+        <activity-map v-bind:user="user"></activity-map>
       </v-tab-item>
       <v-tab-item :id="`tab-activities`">
-        <p>Activities</p>
-
+        <Activities v-bind:user="user"></Activities>
       </v-tab-item>
       <v-tab-item :id="`tab-routes`">
-        <p>Routes</p>
-
+        <personal-routes v-bind:user="user"></personal-routes>
       </v-tab-item>
     </v-tabs-items>
 
@@ -97,14 +162,21 @@
 
 <script>
   import axios from 'axios'
+  import ActivityMap from "./ActivityMap";
+  import Activities from "./Activities";
+  import PersonalRoutes from "./PersonalRoutes";
+  import StravaAlert from "../../includes/StravaAlert";
 
   export default {
     name: "User",
+    components: {StravaAlert, PersonalRoutes, Activities, ActivityMap},
     data() {
       return {
         currentTab: 'tab-profile',
         editDialog: false,
         updatedUser: {},
+        exportDialog: false,
+        deleteDialog: false,
       };
     },
     props: {
@@ -178,6 +250,14 @@
             console.error(error.response.data.error);
           })
           .finally(() => this.deleteDialog = false);
+      },
+
+      async exportRoutes() {
+        console.log("Export Routes");
+      },
+
+      async exportActivities() {
+        console.log("Export Activities");
       },
     }
   }

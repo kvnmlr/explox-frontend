@@ -10,7 +10,7 @@
           </v-flex>
           <v-flex xs2 sm2 md2>
 
-            <v-menu transition="slide-y-transition" bottom right>
+            <v-menu dark transition="slide-y-transition" bottom right>
               <v-btn color="secondary" dark relative fab right slot="activator">
                 <v-icon>more_horiz</v-icon>
               </v-btn>
@@ -21,7 +21,7 @@
                     Edit
                   </v-list-tile-title>
                   <v-dialog v-model="editDialog" persistent max-width="290">
-                    <v-card>
+                    <v-card dark>
                       <v-card-title class="headline">Update Route Details</v-card-title>
                       <v-card-text>
                         <v-form ref="form" lazy-validation>
@@ -45,7 +45,7 @@
                     Export/Save
                   </v-list-tile-title>
                   <v-dialog v-model="exportDialog" persistent max-width="290">
-                    <v-card>
+                    <v-card dark>
                       <v-card-title class="headline">Save/Export Route</v-card-title>
                       <v-card-text>
                         <v-form ref="form" lazy-validation>
@@ -71,7 +71,7 @@
                     Delete
                   </v-list-tile-title>
                   <v-dialog v-model="deleteDialog" persistent max-width="290">
-                    <v-card>
+                    <v-card dark>
                       <v-card-title class="headline">Delete this Route?</v-card-title>
                       <v-card-text>
                         <v-form ref="form" lazy-validation>
@@ -103,26 +103,24 @@
       </v-flex>
     </v-layout>
 
-    <v-card style="margin-top: 30px;">
+    <v-card class="elevation-5" style="margin-top: 30px;">
       <v-card-text>
-        <h3>Comments</h3>
+        <h2>Comments</h2>
         <v-textarea
           name="comment_input"
           label="Your comment"
           value=""
-          hint="What do you thing about this route?"
           :auto-grow="true"
           rows="1"
-          v-model="commentText"
-        ></v-textarea>
-        <v-btn v-on:click="addComment">Post Comment</v-btn>
+          v-model="commentText"></v-textarea>
+        <v-btn color="primary" v-on:click="addComment">Post Comment</v-btn>
 
         <v-list two-line style="margin-top: 20px;">
           <template v-for="(comment, index) in route.comments">
             <v-list-tile :key="comment._id" avatar @click="">
               <v-list-tile-action>
                 <!-- TODO if this is the users comment -->
-                <v-icon color="accent">thumb_up</v-icon>
+                <v-icon>thumb_up</v-icon>
               </v-list-tile-action>
               <v-list-tile-action v-if="comment._id">
                 <!-- TODO otherwise -->
@@ -275,6 +273,11 @@
         Axios.delete('http://localhost:3000/routes/' + this.id + '/comments/' + id)
           .then(response => {
             const data = response.data;
+            this.route.comments.forEach((comment, index) => {
+              if (comment._id === id) {
+                this.route.comments.splice(index, 1);
+              }
+            });
             if (data.flash) {
               this.$emit('flash', data.flash);
             }

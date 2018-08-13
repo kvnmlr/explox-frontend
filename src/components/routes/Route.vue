@@ -4,13 +4,13 @@
         <v-card-title primary-title>
           <v-layout column>
             <v-flex class="headline">
-              {{ route.title }}
+              <h3>{{ route.title }}</h3>
             </v-flex>
             <v-flex>{{ route.body }}</v-flex>
           </v-layout>
         </v-card-title>
         <v-card-actions>
-          <v-btn flat>Show Details</v-btn>
+          <v-btn flat color="primary">Show Details</v-btn>
         </v-card-actions>
       </v-card>
   </v-flex>

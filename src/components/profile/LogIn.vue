@@ -2,9 +2,8 @@
   <div>
     <v-layout row wrap>
       <v-flex xs12 sm5 md5>
-        <v-btn large v-on:click="loginStrava" color="primary" style="display: block; width: 95%; text-align: center; margin-bottom: 20px">
-          Strava Login
-        </v-btn>
+        <strava-login v-bind:text="'Strava Login'"></strava-login>
+        <v-btn outline color="primary" v-on:click="() => this.$router.push('/strava')">Learn More</v-btn>
       </v-flex>
       <br><br><br>
       <v-flex xs0 sm1 md1>
@@ -13,7 +12,7 @@
       <v-flex xs12 sm6 md6>
         <v-form>
           <v-text-field prepend-icon="person" name="login" label="Login" type="text" v-model="email"></v-text-field>
-          <v-text-field id="password" prepend-icon="lock" name="password" label="Password" type="password"
+          <v-text-field prepend-icon="lock" name="password" label="Password" type="password"
                         v-model="password"></v-text-field>
           <v-spacer></v-spacer>
           <v-btn color="accent" v-on:click.prevent="login">Login</v-btn>
@@ -27,9 +26,11 @@
 
 <script>
   import axios from 'axios'
+  import StravaLogin from "../includes/StravaLogin";
 
   export default {
     name: "LogIn",
+    components: {StravaLogin},
     data: () => ({
       drawer: null,
       email: '',
@@ -49,7 +50,8 @@
         axios.get('https://www.strava.com/oauth/authorize?response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fauth%2Fstrava%2Fcallback&client_id=21869', {
           headers: {
             'Access-Control-Allow-Origin': '*',
-          }})
+          }
+        })
           .then(response => {
             console.log('Data');
             console.log(response);

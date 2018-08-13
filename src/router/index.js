@@ -14,6 +14,7 @@ import Feedback from '../components/general/Feedback'
 import MobileApps from '../components/general/MobileApps'
 import SignUp from '../components/profile/SignUp'
 import LogIn from '../components/profile/LogIn'
+import ConnectToStrava from '../components/general/home/ConnectToStrava'
 
 Vue.use(Router);
 
@@ -89,6 +90,11 @@ export default new Router({
       path: '/login',
       name: 'LogIn',
       component: LogIn
+    },
+    {
+      path: '/strava',
+      name: 'Strava',
+      component: ConnectToStrava
     }
   ]
 })

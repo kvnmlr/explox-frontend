@@ -48,16 +48,15 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-toolbar :clipped-left="$vuetify.breakpoint.lgAndUp" dark app fixed>
+    <v-toolbar :clipped-left="$vuetify.breakpoint.lgAndUp" dark app color="#212121" fixed>
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
         <span class="hidden-sm-and-down">
           <router-link to="/" class="brand">ExploX</router-link>
         </span>
       </v-toolbar-title>
-      <v-text-field flat solo-inverted hide-details prepend-inner-icon="search" label="Search"
-                    class="hidden-sm-and-down"
-      ></v-text-field>
+      <v-text-field color="primary" hide-details prepend-inner-icon="search" label="Search" class="hidden-sm-and-down">
+      </v-text-field>
       <v-spacer></v-spacer>
       <v-btn icon>
         <v-icon>apps</v-icon>
@@ -82,7 +81,7 @@
           </v-list>
         </div>
       </v-menu>
-      <h2 v-if="user !== undefined">{{user.name}}</h2>
+      <p v-if="user !== undefined">{{user.name}}</p>
     </v-toolbar>
   </Header>
 </template>
