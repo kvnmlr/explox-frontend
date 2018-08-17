@@ -41,6 +41,7 @@
   import Users from './Users'
   import Activities from './Activities'
   import axios from 'axios'
+  import apiMixin from "../../../mixins/apiMixin";
 
   export default {
     components: {
@@ -62,19 +63,16 @@
     },
     methods: {
       async requestData() {
-        axios.get('http://localhost:3000/dashboard')
-          .then(response => {
-            const data = response.data;
+        this.GET('dashboard', (data, err) => {
+          if (!err) {
             this.users = data.users;
             this.activities = data.activities;
             this.routes = data.routes;
-            console.log(data);
-          })
-          .catch(error => {
-            console.log(error.response.data.error);
-          });
+          }
+        });
       },
-    }
+    },
+    mixins: [apiMixin]
   }
 </script>
 

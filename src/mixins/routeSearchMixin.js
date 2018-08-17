@@ -6,5 +6,5 @@ export default {
           || route.body.toUpperCase().match(this.search.toUpperCase()));
       })
     }
-  }
+  },
 }

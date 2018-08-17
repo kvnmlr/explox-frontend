@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container fluid style="min-height:500px;">
     <h2>Personal Routes</h2>
     <strava-alert v-if="user.provider !== 'strava'" style="height:400px;"></strava-alert>
   </v-container>

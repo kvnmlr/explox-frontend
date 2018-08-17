@@ -1,24 +1,24 @@
 <template>
-  <v-container fluid>
-    <h2>Activity Map</h2>
+  <v-container v-else style="min-height:500px;">
     <strava-alert v-if="user.provider !== 'strava'" style="height:400px;"></strava-alert>
-    <simple-map v-else></simple-map>
-  </v-container>
+      <simple-map v-else style="width: 100%;"></simple-map>
+    </v-container>
 </template>
 
 <script>
   import StravaAlert from "../../includes/StravaAlert";
-  import SimpleMap from "../../map/Simple";
+  import SimpleMap from "../../map/LeafletMap";
+  import FullscreenRoute from "../../general/FullscreenRoute";
 
   export default {
     name: "ActivityMap",
-    components: {StravaAlert, SimpleMap},
+    components: {FullscreenRoute, StravaAlert, SimpleMap},
     props: {
       user: {
         type: Object,
         required: true,
       }
-    }
+    },
   }
 </script>
 

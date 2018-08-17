@@ -1,15 +1,6 @@
 <template>
   <div>
-    <h1>Welcome Athletes!</h1>
-
-    <p>Tired of running or cycling the same old routes over and over again? Explox takes your and other
-      atheltes' activity history and creates new and unique routes for you. All you need is an account on Strava.</p>
-
-    <v-btn color="orange darken-1">Log In</v-btn>
-    &nbsp;
-    <v-btn color="orange darken-1">Sign Up</v-btn>
-    <div class="separator"></div>
-
+    <welcome></welcome>
     <v-container align baseline grid-list-md text-xs-center>
       <v-layout row wrap>
         <v-flex sm4 xs12>
@@ -27,8 +18,8 @@
               <p>Find out which routes other athletes take, try them out and give feedback.</p>
             </v-card-title>
             <v-card-actions>
-              <v-btn color="orange darken-1">Find Out More</v-btn>
-              <v-btn color="orange darken-1">See Routes</v-btn>
+              <v-btn class="gradient gradient-orange" dark round>Find Out More</v-btn>
+              <v-btn class="gradient gradient-orange" dark round>See Routes</v-btn>
             </v-card-actions>
           </v-card>
         </v-flex>
@@ -47,8 +38,8 @@
               <p>Mix up your routine by finding areas that you have not visited yet.</p>
             </v-card-title>
             <v-card-actions>
-              <v-btn color="orange darken-1">Find Out More</v-btn>
-              <v-btn color="orange darken-1">See Yours</v-btn>
+              <v-btn class="gradient gradient-orange" dark round>Find Out More</v-btn>
+              <v-btn class="gradient gradient-orange" dark round>See Yours</v-btn>
             </v-card-actions>
           </v-card>
         </v-flex>
@@ -67,8 +58,8 @@
               <p>Get personalized route recommendations and explore your area.</p>
             </v-card-title>
             <v-card-actions>
-              <v-btn color="orange darken-1">Find Out More</v-btn>
-              <v-btn color="orange darken-1">See Yours</v-btn>
+              <v-btn class="gradient gradient-orange" dark round>Find Out More</v-btn>
+              <v-btn class="gradient gradient-orange" dark round>See Yours</v-btn>
             </v-card-actions>
           </v-card>
         </v-flex>
@@ -78,25 +69,23 @@
 </template>
 
 <script>
-  import axios from 'axios'
+  import Welcome from './Welcome'
+  import apiMixin from "../../mixins/apiMixin";
 
   export default {
     name: 'Landing',
+    components: {Welcome,},
     created() {
       this.requestData();
     },
     methods: {
       async requestData() {
-        axios.get('http://localhost:3000/')
-          .then(response => {
-            const data = response.data;
-            console.log(data.text);
-          })
-          .catch(error => {
-            console.log(error.response.data.error);
-          });
+        this.GET('', (data, err) => {
+          // TODO
+        });
       }
-    }
+    },
+    mixins: [apiMixin]
   }
 </script>
 

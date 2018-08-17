@@ -1,13 +1,67 @@
 <template>
   <div>
     <h1>{{ title }}</h1>
-    <input type="text" v-model="search" placeholder="search"/>
     <div class="separator"></div>
-    <v-container fluid grid-list-lg>
-      <v-layout row wrap>
-        <route v-for="route in filteredRoutes" v-bind:route="route" :key="route.details"></route>
-      </v-layout>
-    </v-container>
+    <v-layout row wrap>
+      <v-flex d-flex xs12 sm7 md7>
+        <v-card class="gradient-no-switch gradient-secondary" dark>
+          <v-card-title primary class="title">
+            <v-icon>show_chart</v-icon>&nbsp;Search Community Routes
+          </v-card-title>
+          <v-card-text>
+            <v-layout row wrap>
+              <v-flex xs12 sm7>
+                <v-text-field color="primary" v-model="search" prepend-inner-icon="search" label="Search">
+                </v-text-field>
+              </v-flex>
+              <v-flex xs12 sm1>
+                <br>
+              </v-flex>
+              <v-flex xs12 sm4>
+                <v-text-field color="primary" hide-details v-model="distance" prepend-inner-icon="search"
+                              label="Distance"
+                              suffix="m">
+                </v-text-field>
+                <br>
+              </v-flex>
+            </v-layout>
+            <v-layout row>
+              <v-flex xs12 sm6>
+                <div v-for="(layer, i) in featureLayers" :key="i">
+                  <v-switch v-on:change="layerChanged(layer.id)" v-model="selectedFeatures" v-bind:label="layer.name"
+                            v-bind:value="layer.id" color="primary" hide-details>{{layer.name}}
+                  </v-switch>
+                </div>
+              </v-flex>
+              <v-flex xs12 sm6>
+                <v-btn large class="gradient gradient-orange" style="width: 95%;">Search</v-btn>
+              </v-flex>
+            </v-layout>
+
+          </v-card-text>
+        </v-card>
+      </v-flex>
+      <v-flex d-flex xs12 sm1 md1 style="text-align: center; align-items: center;">
+        <h3>OR</h3>
+      </v-flex>
+      <v-flex d-flex xs12 sm4 md4>
+        <v-card class="gradient-no-switch gradient-green">
+          <v-card-title primary class="title">
+            <v-icon>show_chart</v-icon>&nbsp;Create New Route
+          </v-card-title>
+          <v-card-text>
+            <p>See your personal profile and statistics.</p>
+            <v-btn large dark class="gradient gradient-orange" style="width: 95%; height: 100px; vertical-align: bottom">
+              Creator
+            </v-btn>
+          </v-card-text>
+        </v-card>
+      </v-flex>
+    </v-layout>
+    <div class="separator"></div>
+    <v-layout row wrap>
+      <route v-for="route in filteredRoutes" v-bind:route="route" :key="route.details"></route>
+    </v-layout>
     <div class="separator"></div>
   </div>
 </template>
@@ -15,7 +69,7 @@
 <script>
   import Route from './Route'
   import routeSearchMixin from "../../mixins/routeSearchMixin";
-  import axios from 'axios'
+  import apiMixin from "../../mixins/apiMixin";
 
   export default {
     name: "List",
@@ -24,9 +78,22 @@
     },
     data() {
       return {
-        title: "Routes",
+        title: "Route Finder",
         search: '',
+        distance: '',
+
         routes: [],
+        featureLayers: [
+          {
+            id: 0,
+            name: 'Round-Trips Only',
+          },
+          {
+            id: 1,
+            name: 'Segments',
+          },
+        ],
+        selectedFeatures: [0, 1],
       }
     },
     created() {
@@ -34,18 +101,14 @@
     },
     methods: {
       async requestData() {
-        axios.get('http://localhost:3000/routes?segments=false&page=1')
-          .then(response => {
-            const data = response.data;
-            console.log(data);
+       this.GET('routes?segments=false&page=1', (data, err) => {
+          if (!err) {
             this.routes = data.routes;
-          })
-          .catch(error => {
-            console.log(error.body);
-          });
+          }
+        });
       }
     },
-    mixins: [routeSearchMixin]
+    mixins: [routeSearchMixin, apiMixin]
   }
 
 

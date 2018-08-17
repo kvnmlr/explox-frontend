@@ -1,27 +1,29 @@
 <template>
-  <h1>About</h1>
+  <div>
+    <h1>About</h1>
+    <under-construction></under-construction>
+  </div>
+
 </template>
 
 <script>
-  import axios from 'axios'
+  import UnderConstruction from "../includes/UnderConstruction";
+  import apiMixin from "../../mixins/apiMixin";
 
   export default {
     name: 'About',
+    components: {UnderConstruction},
     created() {
       this.requestData();
     },
     methods: {
       async requestData() {
-        axios.get('http://localhost:3000/about')
-          .then(response => {
-            const data = response.data;
-            console.log(data.text);
-          })
-          .catch(error => {
-            console.log(error.response.data.error);
+        this.GET('about', (data, err) => {
+          // TODO
         });
       }
-    }
+    },
+    mixins: [apiMixin]
   }
 </script>
 

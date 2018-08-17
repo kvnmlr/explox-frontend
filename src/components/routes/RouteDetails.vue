@@ -9,9 +9,8 @@
             </v-chip>
           </v-flex>
           <v-flex xs2 sm2 md2>
-
             <v-menu dark transition="slide-y-transition" bottom right>
-              <v-btn color="secondary" dark relative fab right slot="activator">
+              <v-btn light class="gradient gradient-green" relative fab right slot="activator">
                 <v-icon>more_horiz</v-icon>
               </v-btn>
               <v-list>
@@ -99,56 +98,51 @@
         </p>
       </v-flex>
       <v-flex xs12 sm12 md8>
-        <simple-map style="margin-top:20px"></simple-map>
+        <simple-map></simple-map>
       </v-flex>
     </v-layout>
 
-    <v-card class="elevation-5" style="margin-top: 30px;">
-      <v-card-text>
-        <h2>Comments</h2>
-        <v-textarea
-          name="comment_input"
-          label="Your comment"
-          value=""
-          :auto-grow="true"
-          rows="1"
-          v-model="commentText"></v-textarea>
-        <v-btn color="primary" v-on:click="addComment">Post Comment</v-btn>
+    <div class="separator"></div>
+    <h2>Comments</h2>
+    <v-textarea
+      name="comment_input"
+      label="Your comment"
+      value=""
+      :auto-grow="true"
+      rows="1"
+      v-model="commentText"></v-textarea>
+    <v-btn class="gradient gradient-orange" round dark v-on:click="addComment">Post Comment</v-btn>
 
-        <v-list two-line style="margin-top: 20px;">
-          <template v-for="(comment, index) in route.comments">
-            <v-list-tile :key="comment._id" avatar @click="">
-              <v-list-tile-action>
-                <!-- TODO if this is the users comment -->
-                <v-icon>thumb_up</v-icon>
-              </v-list-tile-action>
-              <v-list-tile-action v-if="comment._id">
-                <!-- TODO otherwise -->
-                <v-icon color="red" v-on:click="deleteComment(comment._id)">delete</v-icon>
-              </v-list-tile-action>
-              <br>
-              <v-list-tile-content>
-                <v-list-tile-title v-html="comment.body"></v-list-tile-title>
-                <v-list-tile-sub-title v-html="comment.user.name"></v-list-tile-sub-title>
-              </v-list-tile-content>
-              <v-list-tile-avatar>
-                <img :src="comment.avatar">
-              </v-list-tile-avatar>
-            </v-list-tile>
-            <v-divider :key="index"></v-divider>
-          </template>
-        </v-list>
-
-      </v-card-text>
-
-    </v-card>
+    <v-list two-line style="margin-top: 20px;">
+      <template v-for="(comment, index) in route.comments">
+        <v-list-tile :key="comment._id" avatar @click="">
+          <v-list-tile-action>
+            <!-- TODO if this is the users comment -->
+            <v-icon>thumb_up</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-action v-if="comment._id">
+            <!-- TODO otherwise -->
+            <v-icon color="red" v-on:click="deleteComment(comment._id)">delete</v-icon>
+          </v-list-tile-action>
+          <br>
+          <v-list-tile-content>
+            <v-list-tile-title v-html="comment.body"></v-list-tile-title>
+            <v-list-tile-sub-title v-html="comment.user.name"></v-list-tile-sub-title>
+          </v-list-tile-content>
+          <v-list-tile-avatar>
+            <img :src="comment.avatar">
+          </v-list-tile-avatar>
+        </v-list-tile>
+        <v-divider :key="index"></v-divider>
+      </template>
+    </v-list>
 
   </div>
 </template>
 
 <script>
-  import SimpleMap from '../map/Simple'
-  import Axios from 'axios'
+  import SimpleMap from '../map/LeafletMap'
+  import apiMixin from "../../mixins/apiMixin";
 
   export default {
     name: "RouteDetails",
@@ -167,6 +161,7 @@
         updatedRoute: {},
         commentText: '',
         alert: false,
+        overlay: false,
       }
     },
     created() {
@@ -174,17 +169,15 @@
     },
     methods: {
       async requestData() {
-        this.$http.get('http://localhost:3000/routes/' + this.id).then(response => {
-          const data = response.body;
-          console.log(data);
-          this.route = data.route;
-          this.updatedRoute = {
-            title: this.route.title,
-            body: this.route.body,
-            tags: this.route.tags
+        this.GET('routes/' + this.id, (data, err) => {
+          if (!err) {
+            this.route = data.route;
+            this.updatedRoute = {
+              title: this.route.title,
+              body: this.route.body,
+              tags: this.route.tags
+            }
           }
-        }, error => {
-          console.log(error.response.data.error);
         });
       },
       async update() {
@@ -198,51 +191,29 @@
           method: 'PUT',
           responseType: 'text',
         };
-        Axios.put('http://localhost:3000/routes/' + this.id, formData, requestParams)
-          .then(response => {
-            const data = response.data;
-            console.log(response);
+
+        this.PUT('routes/' + this.id, formData, requestParams, (data, err) => {
+          if (!err) {
             this.requestData();
-            if (data.flash) {
-              this.$emit('flash', data.flash);
-            }
-          })
-          .catch(error => {
-            const data = error.response.data;
-            if (data.flash) {
-              this.$emit('flash', data.flash);
-            }
-          })
-          .finally(() => this.editDialog = false);
+          }
+          this.editDialog = false
+        });
       },
 
       async deleteRoute() {
-        Axios.delete('http://localhost:3000/routes/' + this.id)
-          .then(response => {
-            console.log(response);
+        this.DELETE('routes/' + this.id, (data, err) => {
+          if (!err) {
             this.$router.push('/');
-          })
-          .catch(error => {
-            const data = error.response.data;
-            if (data.flash) {
-              this.$emit('flash', data.flash);
-            }
-          })
-          .finally(() => this.deleteDialog = false);
+          }
+          this.deleteDialog = false
+        });
       },
 
       async exportRoute() {
-        Axios.get('http://localhost:3000/routes/' + this.id + '/export')
-          .then(response => {
-            console.log(response);
-          })
-          .catch(error => {
-            const data = error.response.data;
-            if (data.flash) {
-              this.$emit('flash', data.flash);
-            }
-          })
-          .finally(() => this.exportDialog = false)
+        this.GET('routes/' + this.id + '/export', (data, err) => {
+          // TODO
+          this.exportDialog = false
+        });
       },
 
       async addComment() {
@@ -252,45 +223,30 @@
             body: this.commentText,
           },
         };
-        Axios.post('http://localhost:3000/routes/' + this.id + '/comments', formData)
-          .then(response => {
-            const data = response.data;
-            console.log(data);
+        this.POST('routes/' + this.id + '/comments', formData, null, (data, err) => {
+          if (!err) {
             this.route.comments.push({
               body: data.comment.body,
               user: data.comment.user,
             });
             this.commentText = '';
-            if (data.flash) {
-              this.$emit('flash', data.flash);
-            }
-          })
-          .catch(error => {
-            console.error(error.response.data.error);
-          })
+          }
+        });
       },
       async deleteComment(id) {
-        Axios.delete('http://localhost:3000/routes/' + this.id + '/comments/' + id)
-          .then(response => {
-            const data = response.data;
+        this.DELETE('routes/' + this.id + '/comments/' + id, (data, err) => {
+          if (!err) {
             this.route.comments.forEach((comment, index) => {
               if (comment._id === id) {
                 this.route.comments.splice(index, 1);
               }
             });
-            if (data.flash) {
-              this.$emit('flash', data.flash);
-            }
-          })
-          .catch(error => {
-            const data = error.response.data;
-            if (data.flash) {
-              this.$emit('flash', data.flash);
-            }
-          })
-          .finally(() => this.deleteDialog = false);
+          }
+          this.deleteDialog = false
+        });
       },
     },
+    mixins: [apiMixin]
   }
 </script>
 

@@ -1,7 +1,7 @@
 <template>
-  <v-btn v-on:click="loginStrava" color="primary"
+  <v-btn large v-on:click="loginStrava" class="gradient gradient-orange" round dark
          style="display: block; width: 95%; text-align: center; margin-bottom: 20px">
-    {{ text }}
+    <v-icon>device_hub</v-icon>&nbsp;{{ text }}
   </v-btn>
 </template>
 
@@ -19,20 +19,6 @@
     methods: {
       async loginStrava() {
         window.location.href = 'http://localhost:3000/auth/strava';
-
-        /* axios.get('https://www.strava.com/oauth/authorize?response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fauth%2Fstrava%2Fcallback&client_id=21869', {
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-          }
-        })
-          .then(response => {
-            console.log('Data');
-            console.log(response);
-          })
-          .catch(error => {
-            console.log(error);
-            console.log(error.response.data.error);
-          })*/
       },
     }
   }

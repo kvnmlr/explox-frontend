@@ -5,16 +5,16 @@ import Hub from '../components/general/home/Hub'
 import Landing from '../components/general/Landing'
 import Routes from '../components/routes/list'
 import RouteDetails from '../components/routes/RouteDetails'
-import Explore from '../components/routes/Explore'
 import Admin from '../components/profile/admin/Admin'
 import Dashboard from '../components/profile/user/Dashboard'
 import GetStarted from '../components/general/GetStarted'
-import Settings from '../components/general/Settings'
 import Feedback from '../components/general/Feedback'
-import MobileApps from '../components/general/MobileApps'
 import SignUp from '../components/profile/SignUp'
 import LogIn from '../components/profile/LogIn'
 import ConnectToStrava from '../components/general/home/ConnectToStrava'
+import LeafletMap from '../components/map/LeafletMap'
+import FullscreenMap from '../components/general/FullscreenRoute'
+import Analytics from '../components/analytics/Analytics'
 
 Vue.use(Router);
 
@@ -42,19 +42,9 @@ export default new Router({
       component: GetStarted
     },
     {
-      path: '/settings',
-      name: 'Settings',
-      component: Settings
-    },
-    {
       path: '/feedback',
       name: 'Feedback',
       component: Feedback
-    },
-    {
-      path: '/apps',
-      name: 'MobileApps',
-      component: MobileApps
     },
     {
       path: '/routes',
@@ -65,11 +55,6 @@ export default new Router({
       path: '/route/:id',
       name: 'Route Details',
       component: RouteDetails
-    },
-    {
-      path: '/explore',
-      name: 'Explore',
-      component: Explore
     },
     {
       path: '/admin/dashboard',
@@ -95,6 +80,21 @@ export default new Router({
       path: '/strava',
       name: 'Strava',
       component: ConnectToStrava
+    },
+    {
+      path: '/map',
+      name: 'LeafletMap',
+      component: LeafletMap
+    },
+    {
+      path: '/fs',
+      name: 'FullscreenMap',
+      component: FullscreenMap
+    },
+    {
+      path: '/analytics',
+      name: 'Analytics',
+      component: Analytics
     }
   ]
 })

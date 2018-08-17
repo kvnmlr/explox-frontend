@@ -16,11 +16,12 @@
     <v-stepper-items>
       <v-stepper-content step="1" wid>
         <v-layout column>
-          <v-btn color="accent">Log In with Strava</v-btn>
+          <v-btn class="gradient gradient-green" dark round>Log In with Strava</v-btn>
+          <br>
           <v-text-field label="Name" v-model="name" single-line></v-text-field>
           <v-text-field label="Last Name" v-model="lastname" single-line></v-text-field>
-          <v-btn color="primary" @click="e1 = 2">Continue</v-btn>
-          <v-btn flat>Cancel</v-btn>
+          <v-btn class="gradient gradient-orange" dark round @click="e1 = 2">Continue</v-btn>
+          <v-btn flat round>Cancel</v-btn>
         </v-layout>
       </v-stepper-content>
 
@@ -31,8 +32,8 @@
                         label="Email"
                         value=""
                         v-model="email"></v-text-field>
-          <v-btn color="primary" @click="e1 = 3">Continue</v-btn>
-          <v-btn flat>Cancel</v-btn>
+          <v-btn class="gradient gradient-orange" dark round @click="e1 = 3">Continue</v-btn>
+          <v-btn flat round>Cancel</v-btn>
         </v-layout>
       </v-stepper-content>
 
@@ -61,8 +62,8 @@
               class="input-group--focused"
             ></v-text-field>
           </v-flex>
-          <v-btn color="primary" @click="e1 = 4">Continue</v-btn>
-          <v-btn flat>Cancel</v-btn>
+          <v-btn class="gradient gradient-orange" dark round @click="e1 = 4">Continue</v-btn>
+          <v-btn flat round>Cancel</v-btn>
         </v-layout>
       </v-stepper-content>
 
@@ -85,7 +86,7 @@
           <v-checkbox :rules="[rules.required]" :label="checkbox2_text" v-model="termsCheckbox"
                       v-bind:error="termsError"></v-checkbox>
 
-          <v-btn color="primary" v-on:click="signup">Finish & Go To Profile</v-btn>
+          <v-btn class="gradient gradient-green" dark round v-on:click="signup">Finish & Go To Profile</v-btn>
         </v-layout>
       </v-stepper-content>
     </v-stepper-items>
@@ -94,6 +95,7 @@
 
 <script>
   import axios from 'axios'
+  import apiMixin from "../../mixins/apiMixin";
 
   export default {
     name: "SignUp",
@@ -134,21 +136,17 @@
           email: (this.email).toLowerCase(),
           password: this.password
         };
-        const requestParams = {
-          method: 'POST',
-          responseType: 'text',
-        };
-        axios.post('http://localhost:3000/signup', formData, requestParams)
-          .then(response => {
-            console.log(response);
+
+
+        this.POST('signup', formData, null, (data, err) => {
+          if (!err) {
             this.$emit('authorizeUser');
             this.$router.push('/user');
-          })
-          .catch(error => {
-            console.error(error.response.data.error);
-          });
+          }
+        });
       }
     },
+    mixins: [apiMixin]
   }
 </script>
 

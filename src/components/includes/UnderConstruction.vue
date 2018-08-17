@@ -2,10 +2,10 @@
   <v-container grid-list-md>
     <v-layout>
       <v-flex xs12>
-        <v-alert class="elevation-10 gradient-no-switch gradient-green" :value=true type="info" color="primary" transition="slide-y-transition">
+        <v-alert class="elevation-10 gradient-no-switch gradient-orange" light :value=true type="info" color="accent" transition="slide-y-transition">
           <v-layout row wrap>
             <v-flex sm12 md4>
-              <p style="margin-top: 10px; color: black"><b>You are not connected to Strava.</b><br>Please connect to Strava to make this function available.
+              <p style="margin-top: 10px;"><b>We are currently working on this page.</b><br>This functionality is not available.
               </p>
             </v-flex>
 
@@ -13,7 +13,7 @@
               <strava-login v-bind:text="'Connect'"></strava-login>
             </v-flex>
             <v-flex sm12 md4>
-              <v-btn class="gradient gradient-secondary" large round dark v-on:click="() => this.$router.push('/strava')">
+              <v-btn class="gradient gradient-green" large round v-on:click="() => this.$router.push('/about')">
                 <v-icon>info</v-icon>&nbsp;Learn More</v-btn>
             </v-flex>
           </v-layout>
@@ -25,12 +25,9 @@
 </template>
 
 <script>
-  import StravaLogin from "./StravaLogin";
-
-  export default {
-    name: "StravaAlert",
-    components: {StravaLogin}
-  }
+    export default {
+        name: "UnderConstruction"
+    }
 </script>
 
 <style scoped>

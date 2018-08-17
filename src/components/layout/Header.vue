@@ -1,66 +1,66 @@
 <template>
   <Header>
-    <v-navigation-drawer :clipped="$vuetify.breakpoint.lgAndUp" v-model="drawer" fixed app>
+    <v-navigation-drawer class="elevation-8" style="z-index: 990;" :clipped="$vuetify.breakpoint.lgAndUp"
+                         v-model="drawer" fixed app>
       <v-list dense>
         <template v-for="item in items">
 
           <!-- List of existing items -->
-          <router-link :to="{path: '/' + item.link}">
-            <v-list-group class="spacer" v-if="item.children" v-model="item.model"
-                          :key="item.text"
-                          :prepend-icon="item.model ? item.icon : item['icon-alt']"
-                          append-icon="">
+          <v-list-group class="spacer" v-if="item.children && (!item.loginOnly || user)"
+                        v-model="item.model"
+                        :key="item.text"
+                        :prepend-icon="item.model ? item.icon : item['icon-alt']"
+                        append-icon=""
+                        style="margin-bottom: 20px;">
 
-              <v-list-tile slot="activator">
-                <v-list-tile-content>
-                  <v-list-tile-title>
-                    <b>{{ item.text }}</b>
-                  </v-list-tile-title>
-                </v-list-tile-content>
-              </v-list-tile>
-              <v-list-tile v-for="(child, i) in item.children" :key="i" @click="">
-                <v-list-tile-action v-if="child.icon">
-                  <v-icon>{{ child.icon }}</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                  <v-list-tile-title>
-                    {{ child.text }}
-                  </v-list-tile-title>
-                </v-list-tile-content>
-              </v-list-tile>
-            </v-list-group>
-
-            <!-- Normal items -->
-            <v-list-tile v-else :key="item.text" @click="">
-              <v-list-tile-action>
-                <v-icon>{{ item.icon }}</v-icon>
-              </v-list-tile-action>
+            <v-list-tile slot="activator">
               <v-list-tile-content>
                 <v-list-tile-title>
-
-                  {{ item.text }}
+                  <b>{{ item.text }}</b>
                 </v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
-          </router-link>
+            <div v-for="(child, i) in item.children" :key="i">
+              <router-link :to="{path: '/' + child.link}">
+                <v-list-tile @click="">
+                  <v-list-tile-action v-if="child.icon">
+                    <v-icon>{{ child.icon }}</v-icon>
+                  </v-list-tile-action>
+                  <v-list-tile-content>
+                    <v-list-tile-title>
+                      {{ child.text }}
+                    </v-list-tile-title>
+                  </v-list-tile-content>
+                </v-list-tile>
+              </router-link>
+            </div>
+          </v-list-group>
 
+          <!-- Normal items -->
+
+          <v-list-tile v-else-if="!item.loginOnly || user" :key="item.text" @click="" :to="{path: '/' + item.link}">
+            <v-list-tile-action>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>
+                {{ item.text }}
+              </v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
         </template>
       </v-list>
     </v-navigation-drawer>
 
-    <v-toolbar :clipped-left="$vuetify.breakpoint.lgAndUp" dark app color="#212121" fixed>
+    <v-toolbar class="gradient-no-switch gradient-secondary" style="z-index: 980;"
+               :clipped-left="$vuetify.breakpoint.lgAndUp" dark app color="#212121" fixed>
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
         <span class="hidden-sm-and-down">
           <router-link to="/" class="brand">ExploX</router-link>
         </span>
       </v-toolbar-title>
-      <v-text-field color="primary" hide-details prepend-inner-icon="search" label="Search" class="hidden-sm-and-down">
-      </v-text-field>
       <v-spacer></v-spacer>
-      <v-btn icon>
-        <v-icon>apps</v-icon>
-      </v-btn>
       <v-btn icon>
         <v-icon>notifications</v-icon>
       </v-btn>
@@ -88,42 +88,41 @@
 
 <script>
   import LogIn from "../profile/LogIn";
+
   export default {
     components: {LogIn},
     data: () => ({
       editDialog: false,
-      drawer: null,
+      drawer: true,
       loginMenu: false,
       items: [
-        {icon: 'contacts', text: 'Hub', link: 'hub'},
-        {icon: 'contacts', text: 'Dashboard', link: 'dashboard'},
-        {icon: 'contacts', text: 'Routes', link: 'routes'},
-        {icon: 'contacts', text: 'Route Finder', link: 'explore'},
-        {icon: 'history', text: 'Analytics', link: 'analytics'},
-        {icon: 'content_copy', text: 'Athletes', link: 'athletes'},
-        {icon: 'content_copy', text: 'Get Started', link: 'guide'},
-        {icon: 'content_copy', text: 'About', link: 'about'},
+        {icon: 'dashboard', text: 'Hub', link: 'hub', loginOnly: false},
+        {icon: 'show_chart', text: 'Dashboard', link: 'dashboard', loginOnly: true},
+        {icon: 'near_me', text: 'Route Finder', link: 'routes', loginOnly: false},
+        {icon: 'flag', text: 'Analytics', link: 'analytics', loginOnly: true},
+        {icon: 'flight_takeoff', text: 'Get Started', link: 'guide', loginOnly: false},
 
         {
+          loginOnly: true,
           icon: 'keyboard_arrow_up',
           'icon-alt': 'keyboard_arrow_down',
-          link: '',
           text: 'Creator',
           model: true,
           children: [
-            {icon: 'add', text: 'Create Route'},
-            {icon: 'add', text: 'Create Activity'},
-            {icon: 'add', text: 'Create Plan'}
+            {icon: 'add', text: 'Create Route', link: ''},
+            {icon: 'add', text: 'Create Activity', link: ''},
           ]
         },
-        {icon: 'settings', text: 'Settings', link: 'settings'},
-        {icon: 'chat_bubble', text: 'Send feedback', link: 'feedback'},
-        {icon: 'phonelink', text: 'App downloads', link: 'apps'},
+        {icon: 'chat_bubble', text: 'Send feedback', link: 'feedback', loginOnly: false},
+        {icon: 'help', text: 'About', link: 'about', loginOnly: false},
       ]
     }),
     props: {
       source: String,
       user: Object
+    },
+    created() {
+      this.drawer = true;
     }
 
   }

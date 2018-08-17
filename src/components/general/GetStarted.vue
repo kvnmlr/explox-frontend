@@ -1,11 +1,17 @@
 <template>
-  <h1>Get Started</h1>
+  <div>
+    <h1>Get Started</h1>
+    <under-construction></under-construction>
+  </div>
 </template>
 
 <script>
-    export default {
-        name: "Get Started"
-    }
+  import UnderConstruction from "../includes/UnderConstruction";
+
+  export default {
+    name: "Get Started",
+    components: {UnderConstruction}
+  }
 </script>
 
 <style scoped>
