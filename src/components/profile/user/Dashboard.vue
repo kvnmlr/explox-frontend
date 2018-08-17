@@ -15,7 +15,7 @@
         Routes
       </v-tab>
     </v-tabs>
-    <v-tabs-items v-model="currentTab">
+    <v-tabs-items v-model="currentTab" style="margin-top: -10px;">
       <v-tab-item :id="`tab-profile`">
 
         <v-layout row wrap>
@@ -23,6 +23,7 @@
             <v-container>
               <img class="elevation-5" style="width:100%"
                    src="https://www.wpfreeware.com/wp-content/uploads/2014/09/placeholder-images.jpg">
+              <br>
               <br>
               <v-layout row>
                 <v-flex xs10 sm10 md10>
@@ -41,7 +42,7 @@
                 </v-flex>
                 <v-flex xs2 sm2 md2>
                   <v-menu dark transition="slide-y-transition" bottom right>
-                    <v-btn color="secondary" dark fab relative right slot="activator">
+                    <v-btn class="gradient gradient-green" light fab relative right slot="activator">
                       <v-icon>edit</v-icon>
                     </v-btn>
                     <v-list>
@@ -51,6 +52,8 @@
                           Edit
                         </v-list-tile-title>
                       </v-list-tile>
+
+
                       <v-list-tile v-on:click="exportDialog = true">
                         <v-list-tile-title>
                           <v-icon>import_export</v-icon>
@@ -61,13 +64,13 @@
                             <v-card-title class="headline">Save/Export Route</v-card-title>
                             <v-card-text>
                               <v-form ref="form" lazy-validation>
-                                <v-btn flat color="primary" v-on:click="exportRoutes">
+                                <v-btn flat round color="primary" v-on:click="exportRoutes">
                                   Download All Routes
                                 </v-btn>
-                                <v-btn flat color="primary" v-on:click="exportActivities">
+                                <v-btn flat round color="primary" v-on:click="exportActivities">
                                   Download All Activities
                                 </v-btn>
-                                <v-btn flat @click="exportDialog = false">Cancel</v-btn>
+                                <v-btn flat round @click="exportDialog = false">Cancel</v-btn>
                               </v-form>
                             </v-card-text>
                             <v-card-actions>
@@ -94,10 +97,10 @@
                                 </v-layout>
                               </v-alert>
                               <v-form ref="form" lazy-validation>
-                                <v-btn flat v-on:click="deleteUser">
+                                <v-btn flat color="primary" round v-on:click="deleteUser">
                                   Yes, Delete It
                                 </v-btn>
-                                <v-btn flat @click="deleteDialog = false">Keep Using ExploX</v-btn>
+                                <v-btn flat round @click="deleteDialog = false">Keep Using ExploX</v-btn>
                               </v-form>
                             </v-card-text>
                             <v-card-actions>
@@ -122,7 +125,7 @@
                   <v-container>
                     <h3>Feed</h3>
                     <p>No Activity</p>
-                    <v-btn flat v-on:click="currentTab='tab-activities'">View All</v-btn>
+                    <v-btn flat round v-on:click="currentTab='tab-activities'">View All</v-btn>
                   </v-container>
 
                 </v-card>
@@ -133,7 +136,7 @@
                   <v-container>
                     <h3>Routes</h3>
                     <p>No Routes</p>
-                    <v-btn flat v-on:click="currentTab='tab-routes'">View All</v-btn>
+                    <v-btn flat round v-on:click="currentTab='tab-routes'">View All</v-btn>
                   </v-container>
 
                 </v-card>
@@ -142,8 +145,30 @@
 
           </v-flex>
         </v-layout>
-        <v-btn color="primary" :to="{path: '/users/'+this.user._id}">View Public Profile</v-btn>
-        <v-btn v-on:click="$emit('logout')">Logout</v-btn>
+        <v-btn class="gradient gradient-orange" large dark round :to="{path: '/users/'+this.user._id}">
+          <v-icon>contacts</v-icon>&nbsp;View Public Profile
+        </v-btn>
+        <v-dialog v-if="updatedUser" v-model="editDialog" persistent max-width="290">
+          <v-card dark>
+            <v-card-title class="headline">Update Route Details</v-card-title>
+            <v-card-text>
+              <v-form ref="form" lazy-validation>
+                <v-text-field v-model="updatedUser.name" label="Name" required></v-text-field>
+                <v-text-field v-model="updatedUser.username" label="Username" required></v-text-field>
+                <v-text-field v-model="updatedUser.email" label="E-Mail" required></v-text-field>
+                <v-btn flat round color="primary" v-on:click.prevent="update">
+                  Update
+                </v-btn>
+                <v-btn flat round @click="editDialog = false">Cancel</v-btn>
+              </v-form>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+        <v-btn class="gradient gradient-secondary" style="float:right;" dark round v-on:click="$emit('logout')">Logout
+        </v-btn>
 
       </v-tab-item>
       <v-tab-item :id="`tab-activity-map`">
@@ -166,10 +191,12 @@
   import Activities from "./Activities";
   import PersonalRoutes from "./PersonalRoutes";
   import StravaAlert from "../../includes/StravaAlert";
+  import SimpleMap from "../../map/LeafletMap"
+  import apiMixin from "../../../mixins/apiMixin";
 
   export default {
     name: "User",
-    components: {StravaAlert, PersonalRoutes, Activities, ActivityMap},
+    components: {SimpleMap, StravaAlert, PersonalRoutes, Activities, ActivityMap},
     data() {
       return {
         currentTab: 'tab-profile',
@@ -188,10 +215,13 @@
     },
     methods: {
       async requestData() {
-        axios.get('http://localhost:3000/dashboard')
-          .then(response => {
-            const data = response.data;
-            console.log(data);
+        this.GET('dashboard', (data, err) => {
+          if (err) {
+            if (!this.user) {
+              setTimeout(() => {this.$router.push('/login');}, 100);
+            }
+            this.$emit('flash', err.flash);
+          } else {
             if (data.user) {
               if (data.user.role === 'admin') {
                 this.$router.push('/admin/dashboard');
@@ -204,14 +234,8 @@
               username: this.user.username,
               email: this.user.email,
             };
-
-          })
-          .catch(error => {
-            const data = error.response.data;
-            if (data.flash) {
-              this.$emit('flash', data.flash);
-            }
-          });
+          }
+        });
       },
       async update() {
         const formData = {
@@ -220,36 +244,23 @@
           username: this.updatedUser.username,
           email: this.updatedUser.email,
         };
-        const requestParams = {
-          method: 'PUT',
-          responseType: 'text',
-        };
-        axios.put('http://localhost:3000/users/' + this.user._id, formData, requestParams)
-          .then(response => {
-            const data = response.data;
-            console.log(data);
+
+        this.PUT('users/' + this.user._id, formData, null, (data, err) => {
+          if (!err) {
             this.requestData();
-            if (data.flash) {
-              this.$emit('flash', data.flash);
-            }
-          })
-          .catch(error => {
-            console.error(error.response.data.error);
-          })
-          .finally(() => this.editDialog = false);
+          }
+          this.editDialog = false
+        });
       },
 
       async deleteUser() {
-        axios.delete('http://localhost:3000/users/' + this.user._id)
-          .then(response => {
-            console.log(response);
+        this.DELETE('users/' + this.user._id, (data, err) => {
+          if (!err) {
             this.$router.push('/');
-            this.$emit('logout')
-          })
-          .catch(error => {
-            console.error(error.response.data.error);
-          })
-          .finally(() => this.deleteDialog = false);
+            this.$emit('logout');
+          }
+          this.deleteDialog = false;
+        });
       },
 
       async exportRoutes() {
@@ -259,7 +270,8 @@
       async exportActivities() {
         console.log("Export Activities");
       },
-    }
+    },
+    mixins: [apiMixin]
   }
 </script>
 

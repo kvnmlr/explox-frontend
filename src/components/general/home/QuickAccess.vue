@@ -1,25 +1,31 @@
 <template>
   <v-container fluid grid-list-md>
     <v-layout row wrap>
-        <v-flex d-flex xs12 sm6 md6>
-          <v-card hover color="primary" dark to="/dashboard">
-            <v-card-title primary class="title">Dashboard</v-card-title>
-            <v-card-text>See your personal profile and statistics.</v-card-text>
-          </v-card>
-        </v-flex>
+      <v-flex d-flex xs12 sm6 md6>
+        <v-card class="gradient-no-switch gradient-green" hover color="primary" to="/dashboard">
+          <v-card-title primary class="title">
+            <v-icon>show_chart</v-icon>&nbsp;Dashboard
+          </v-card-title>
+          <v-card-text>Your personal profile and statistics including your personal activity map.</v-card-text>
+        </v-card>
+      </v-flex>
       <v-flex d-flex xs12 sm6 md6>
         <v-layout row wrap>
           <v-flex d-flex>
-            <v-card hover color="dark" dark to="/creator">
-              <v-card-title primary class="title">Creator</v-card-title>
-              <v-card-text>Creator is the place to discover new routes.</v-card-text>
+            <v-card class="gradient-no-switch gradient-secondary" hover color="dark" dark to="/creator">
+              <v-card-title primary class="title">
+                <v-icon>gesture</v-icon>&nbsp;Creator
+              </v-card-title>
+              <v-card-text>Creator let's you create new routes from scratch and upload activities to your profile.</v-card-text>
             </v-card>
           </v-flex>
           <v-flex d-flex>
             <v-layout row wrap>
               <v-flex v-for="n in 1" :key="n" d-flex xs12>
-                <v-card hover color="dark" dark to="/analytics">
-                  <v-card-title primary class="title">Analytics</v-card-title>
+                <v-card class="gradient-no-switch gradient-orange" hover color="dark" dark to="/analytics">
+                  <v-card-title primary class="title">
+                    <v-icon>flag</v-icon>&nbsp;Analytics
+                  </v-card-title>
                   <v-card-text>Run our analysis tools on your activity data to track your progress.</v-card-text>
                 </v-card>
               </v-flex>
@@ -28,14 +34,18 @@
         </v-layout>
       </v-flex>
       <v-flex d-flex xs12 sm4 md4 child-flex>
-        <v-card hover color="dark" dark to="/explore">
-          <v-card-title primary class="title">Route Finder</v-card-title>
-          <v-card-text>Search for existing routes that other athletes like.</v-card-text>
+        <v-card class="gradient-no-switch gradient-orange" hover color="dark" dark to="/routes">
+          <v-card-title primary class="title">
+            <v-icon>near_me</v-icon>&nbsp;Route Finder
+          </v-card-title>
+          <v-card-text>The place to discover new routes. Search for existing community routes.</v-card-text>
         </v-card>
       </v-flex>
       <v-flex d-flex xs12 sm8 md8>
-        <v-card hover color="primary" dark to="/guide">
-          <v-card-title primary class="title">Get Started</v-card-title>
+        <v-card class="gradient-no-switch gradient-secondary" hover color="primary" dark to="/guide">
+          <v-card-title primary class="title">
+            <v-icon>flight_takeoff</v-icon>&nbsp;Get Started
+          </v-card-title>
           <v-card-text>A quick start guide for new members.</v-card-text>
         </v-card>
       </v-flex>

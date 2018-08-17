@@ -1,5 +1,6 @@
 <template>
   <v-app id="app">
+
     <!-- <v-alert style="position: fixed; z-index: 999; left:0; top:-5px; width: 100%; height: 65px;" :value="alertVisible" v-bind:type="alert.type"
              transition="slide-y-transition">
       {{alert.text}}
@@ -13,8 +14,8 @@
       <v-container fill-height fill-width>
         <v-layout justify-center>
           <v-flex>
-            <router-view v-bind:user="user" v-on:logout="logout" v-on:authorizeUser="authorizeUser"
-                         v-on:flash="flash"></router-view>
+            <router-view v-bind:user="user" v-on:logout="logout" v-on:authorizeUser="authorizeUser" v-on:flash="flash">
+            </router-view>
           </v-flex>
         </v-layout>
       </v-container>
@@ -26,12 +27,14 @@
 <script>
   import Header from "./components/layout/Header"
   import Footer from "./components/layout/Footer"
-  import axios from "axios"
+  import Fullscreen from "./components/general/FullscreenRoute"
+  import apiMixin from "./mixins/apiMixin";
 
   export default {
     components: {
       'app-header': Header,
-      'app-footer': Footer
+      'app-footer': Footer,
+      Fullscreen
     },
     data: () => ({
       csrfToken: '',
@@ -44,32 +47,31 @@
     },
     methods: {
       async logout() {
-        axios.get('http://localhost:3000/logout')
-          .then(response => {
-            console.log(response);
+        this.GET('logout', (data, err) => {
+          if (!err) {
             this.user = undefined;
             this.$router.push('/login');
-          })
-          .catch(error => {
-            console.log(error.response.data.error);
-          });
+          }
+        });
       },
       async authorizeUser() {
-        axios.get('http://localhost:3000/authorize')
-          .then(response => {
-            console.log(response);
-            this.user = response.data.user;
-          })
-          .catch(error => {
-            console.log(error.response.data.error);
-          });
+        this.GET('authorize', (data, err) => {
+          if (!err) {
+            this.user = data.user;
+          }
+        });
       },
       flash(value) {
-        this.alert = value;
-        this.alertVisible = true;
+        if (value) {
+          this.alert = value;
+          this.alertVisible = true;
 
-        setTimeout(() => {this.alertVisible = false; console.log(this.alert)}, 2000);
+          setTimeout(() => {
+            this.alertVisible = false;
+          }, 2000);
+        }
       }
-    }
+    },
+    mixins: [apiMixin]
   }
 </script>

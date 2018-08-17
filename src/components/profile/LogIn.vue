@@ -3,7 +3,7 @@
     <v-layout row wrap>
       <v-flex xs12 sm5 md5>
         <strava-login v-bind:text="'Strava Login'"></strava-login>
-        <v-btn outline color="primary" v-on:click="() => this.$router.push('/strava')">Learn More</v-btn>
+        <v-btn outline color="primary" round v-on:click="() => this.$router.push('/strava')">Learn More</v-btn>
       </v-flex>
       <br><br><br>
       <v-flex xs0 sm1 md1>
@@ -15,7 +15,7 @@
           <v-text-field prepend-icon="lock" name="password" label="Password" type="password"
                         v-model="password"></v-text-field>
           <v-spacer></v-spacer>
-          <v-btn color="accent" v-on:click.prevent="login">Login</v-btn>
+          <v-btn class="gradient gradient-orange" round dark v-on:click.prevent="login">Login</v-btn>
         </v-form>
       </v-flex>
     </v-layout>
@@ -25,8 +25,8 @@
 </template>
 
 <script>
-  import axios from 'axios'
   import StravaLogin from "../includes/StravaLogin";
+  import apiMixin from "../../mixins/apiMixin";
 
   export default {
     name: "LogIn",
@@ -45,21 +45,6 @@
     methods: {
       async loginStrava() {
         window.location.href = 'http://localhost:3000/auth/strava';
-        return;
-
-        axios.get('https://www.strava.com/oauth/authorize?response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fauth%2Fstrava%2Fcallback&client_id=21869', {
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-          }
-        })
-          .then(response => {
-            console.log('Data');
-            console.log(response);
-          })
-          .catch(error => {
-            console.log(error);
-            console.log(error.response.data.error);
-          })
       },
 
       async login() {
@@ -68,26 +53,21 @@
           email: (this.email).toLowerCase(),
           password: this.password
         };
-        const requestParams = {
-          method: 'POST',
-          responseType: 'text',
-        };
-        axios.post('http://localhost:3000/login', formData, requestParams)
-          .then(response => {
-            console.log(response);
+
+        this.POST('login', formData, null, (data, err) => {
+          if (!err) {
             this.$emit('authorizeUser');
             this.$router.push('/dashboard');
-          })
-          .catch(error => {
-            console.log(error.response.data.error);
-          });
+          }
+        });
       }
     },
     created() {
       console.log('created');
       console.log(this.$cookies.keys());
       console.log(this.$cookies.get('_csrf'));
-    }
+    },
+    mixins: [apiMixin]
   }
 </script>
 

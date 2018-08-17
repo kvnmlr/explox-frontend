@@ -13,6 +13,8 @@ import Vuetify from 'vuetify'
 import VueResource from 'vue-resource'
 import VueCookies from 'vue-cookies'
 import Axios from 'axios'
+// import Mapbox from 'mapbox-gl-vue';
+
 Axios.defaults.withCredentials = true;
 
 Vue.config.productionTip = false;
@@ -36,9 +38,10 @@ Vue.http.options.credentials = true;
 Vue.http.options.xhr = {withCredentials: true};
 
 /* eslint-disable no-new */
-new Vue({
+let vm = new Vue({
   el: '#app',
   router: Router,
   components: { App },
   template: '<App/>',
 });
+global.vm = vm;

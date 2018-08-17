@@ -18,7 +18,7 @@
 
     <v-tabs-items v-model="currentTab">
       <v-tab-item :id="`tab-api`">
-        <api></api>
+        <api v-bind:feedbacks="feedbacks"></api>
       </v-tab-item>
       <v-tab-item :id="`tab-users`">
         <users v-bind:users="users"></users>
@@ -37,10 +37,11 @@
 </template>
 
 <script>
-  import Api from './Api'
+  import Api from './General'
   import Users from './Users'
   import Activities from './Activities'
   import axios from 'axios'
+  import apiMixin from "../../../mixins/apiMixin";
 
   export default {
     components: {
@@ -52,9 +53,10 @@
     data() {
       return {
         currentTab: 'tab-api',
-        users: {},
-        activities: {},
-        routes: {},
+        users: [],
+        activities: [],
+        routes: [],
+        feedbacks: [],
       };
     },
     created() {
@@ -62,19 +64,17 @@
     },
     methods: {
       async requestData() {
-        axios.get('http://localhost:3000/dashboard')
-          .then(response => {
-            const data = response.data;
+        this.GET('dashboard', (data, err) => {
+          if (!err) {
             this.users = data.users;
             this.activities = data.activities;
             this.routes = data.routes;
-            console.log(data);
-          })
-          .catch(error => {
-            console.log(error.response.data.error);
-          });
+            this.feedbacks = data.feedbacks;
+          }
+        });
       },
-    }
+    },
+    mixins: [apiMixin]
   }
 </script>
 

@@ -1,16 +1,16 @@
 <template>
   <v-flex xs12>
-      <v-card hover dark :to="{path: '/route/' + route._id}">
+      <v-card class="gradient-no-switch gradient-green" hover :to="{path: '/route/' + route._id}">
         <v-card-title primary-title>
           <v-layout column>
             <v-flex class="headline">
-              <h3>{{ route.title }}</h3>
+              <h5>{{ route.title }}</h5>
             </v-flex>
             <v-flex>{{ route.body }}</v-flex>
           </v-layout>
         </v-card-title>
         <v-card-actions>
-          <v-btn flat color="primary">Show Details</v-btn>
+          <v-btn flat round color="primary">Show Details</v-btn>
         </v-card-actions>
       </v-card>
   </v-flex>

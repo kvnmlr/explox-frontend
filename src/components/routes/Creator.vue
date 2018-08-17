@@ -1,9 +1,8 @@
 <template>
   <div>
-    <h1>About</h1>
+    <h1>Creator</h1>
     <under-construction></under-construction>
   </div>
-
 </template>
 
 <script>
@@ -11,17 +10,27 @@
   import apiMixin from "../../mixins/apiMixin";
 
   export default {
-    name: 'About',
+    name: "Creator",
     components: {UnderConstruction},
-    created() {
-      this.requestData();
+    props: {
+      user: Object
     },
     methods: {
       async requestData() {
-        this.GET('about', (data, err) => {
-          // TODO
+        this.GET('creator', (data, err) => {
+          if (err) {
+            if (!this.user) {
+              this.$router.push('/login');
+              this.$emit('flash', err.flash);
+            }
+          } else {
+            // TODO
+          }
         });
       }
+    },
+    beforeMount() {
+      this.requestData();
     },
     mixins: [apiMixin]
   }
