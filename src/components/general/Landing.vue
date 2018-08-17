@@ -65,16 +65,18 @@
         </v-flex>
       </v-layout>
     </v-container>
+    <explanation></explanation>
   </div>
 </template>
 
 <script>
   import Welcome from './Welcome'
   import apiMixin from "../../mixins/apiMixin";
+  import Explanation from "./Explanation";
 
   export default {
     name: 'Landing',
-    components: {Welcome,},
+    components: {Explanation, Welcome,},
     created() {
       this.requestData();
     },

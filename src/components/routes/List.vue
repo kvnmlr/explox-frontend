@@ -51,7 +51,7 @@
           </v-card-title>
           <v-card-text>
             <p>See your personal profile and statistics.</p>
-            <v-btn large dark class="gradient gradient-orange" style="width: 95%; height: 100px; vertical-align: bottom">
+            <v-btn large dark class="gradient gradient-orange" style="width: 95%; height: 100px; vertical-align: bottom" to="creator">
               Creator
             </v-btn>
           </v-card-text>

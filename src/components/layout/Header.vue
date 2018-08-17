@@ -101,7 +101,6 @@
         {icon: 'near_me', text: 'Route Finder', link: 'routes', loginOnly: false},
         {icon: 'flag', text: 'Analytics', link: 'analytics', loginOnly: true},
         {icon: 'flight_takeoff', text: 'Get Started', link: 'guide', loginOnly: false},
-
         {
           loginOnly: true,
           icon: 'keyboard_arrow_up',
@@ -109,8 +108,8 @@
           text: 'Creator',
           model: true,
           children: [
-            {icon: 'add', text: 'Create Route', link: ''},
-            {icon: 'add', text: 'Create Activity', link: ''},
+            {icon: 'add', text: 'Create Route', link: 'creator'},
+            {icon: 'add', text: 'Create Activity', link: 'creator'},
           ]
         },
         {icon: 'chat_bubble', text: 'Send feedback', link: 'feedback', loginOnly: false},

@@ -15,6 +15,7 @@ import ConnectToStrava from '../components/general/home/ConnectToStrava'
 import LeafletMap from '../components/map/LeafletMap'
 import FullscreenMap from '../components/general/FullscreenRoute'
 import Analytics from '../components/analytics/Analytics'
+import Creator from '../components/routes/Creator'
 
 Vue.use(Router);
 
@@ -95,6 +96,11 @@ export default new Router({
       path: '/analytics',
       name: 'Analytics',
       component: Analytics
+    },
+    {
+      path: '/creator',
+      name: 'Creator',
+      component: Creator
     }
   ]
 })

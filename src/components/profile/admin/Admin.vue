@@ -18,7 +18,7 @@
 
     <v-tabs-items v-model="currentTab">
       <v-tab-item :id="`tab-api`">
-        <api></api>
+        <api v-bind:feedbacks="feedbacks"></api>
       </v-tab-item>
       <v-tab-item :id="`tab-users`">
         <users v-bind:users="users"></users>
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-  import Api from './Api'
+  import Api from './General'
   import Users from './Users'
   import Activities from './Activities'
   import axios from 'axios'
@@ -53,9 +53,10 @@
     data() {
       return {
         currentTab: 'tab-api',
-        users: {},
-        activities: {},
-        routes: {},
+        users: [],
+        activities: [],
+        routes: [],
+        feedbacks: [],
       };
     },
     created() {
@@ -68,6 +69,7 @@
             this.users = data.users;
             this.activities = data.activities;
             this.routes = data.routes;
+            this.feedbacks = data.feedbacks;
           }
         });
       },

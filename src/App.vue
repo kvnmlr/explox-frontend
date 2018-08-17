@@ -68,7 +68,6 @@
 
           setTimeout(() => {
             this.alertVisible = false;
-            console.log(this.alert)
           }, 2000);
         }
       }

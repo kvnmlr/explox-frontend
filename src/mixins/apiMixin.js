@@ -9,19 +9,23 @@ export default {
         .then(response => {
           const data = response.data;
           console.log(data);
-          this.$emit('flash', data.flash);
+          if (data.flash) {
+            this.$emit('flash', data.flash);
+          }
           cb(data, null);
         })
         .catch(error => {
           const err = error.response.data;
           console.log(err);
-          this.$emit('flash', err.flash);
+          if (err.flash) {
+            this.$emit('flash', err.flash);
+          }
           cb(null, err);
         });
     },
 
     async POST(path, formData, requestParams, cb) {
-      requestParams = requestParams ||  {
+      requestParams = requestParams || {
         method: 'POST',
         responseType: 'text',
       };
@@ -30,13 +34,17 @@ export default {
         .then(response => {
           const data = response.data;
           console.log(data);
-          this.$emit('flash', data.flash);
+          if (data.flash) {
+            this.$emit('flash', data.flash);
+          }
           cb(data, null);
         })
         .catch(error => {
           const err = error.response.data;
           console.log(err);
-          this.$emit('flash', err.flash);
+          if (err.flash) {
+            this.$emit('flash', err.flash);
+          }
           cb(null, err);
         })
     },
@@ -46,13 +54,17 @@ export default {
         .then(response => {
           const data = response.data;
           console.log(data);
-          this.$emit('flash', data.flash);
+          if (data.flash) {
+            this.$emit('flash', data.flash);
+          }
           cb(data, null);
         })
         .catch(error => {
           const err = error.response.data;
           console.log(err);
-          this.$emit('flash', err.flash);
+          if (err.flash) {
+            this.$emit('flash', err.flash);
+          }
           cb(null, err);
         });
     },
@@ -67,13 +79,17 @@ export default {
         .then(response => {
           const data = response.data;
           console.log(data);
-          this.$emit('flash', data.flash);
+          if (data.flash) {
+            this.$emit('flash', data.flash);
+          }
           cb(data, null);
         })
         .catch(error => {
           const err = error.response.data;
           console.log(err);
-          this.$emit('flash', err.flash);
+          if (err.flash) {
+            this.$emit('flash', err.flash);
+          }
           cb(null, err);
         })
     },
