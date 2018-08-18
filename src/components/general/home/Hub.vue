@@ -28,10 +28,10 @@
       user: Object
     },
     created() {
-      this.requestData();
+      this.performSearch();
     },
     methods: {
-      async requestData() {
+      async performSearch() {
         axios.get('http://localhost:3000/hub')
           .then(response => {
             const data = response.data;

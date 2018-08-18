@@ -92,7 +92,7 @@
         </v-layout>
         <br>
         <p>{{ route.body }}</p>
-        <p>Distance: {{ route.distance }} km</p>
+        <p v-if="route.distance">Distance: {{ route.distance.toFixed(2) }} m</p>
         <p v-if="route.user">Athlete:
           <router-link :to="{path: '/users/' + route.user._id}">{{ route.user.name}}</router-link>
         </p>
@@ -143,6 +143,7 @@
 <script>
   import SimpleMap from '../map/LeafletMap'
   import apiMixin from "../../mixins/apiMixin";
+  import { EventBus } from '@/eventBus.js';
 
   export default {
     name: "RouteDetails",
@@ -165,17 +166,24 @@
       }
     },
     created() {
-      this.requestData();
+      this.performSearch();
     },
     methods: {
-      async requestData() {
+      async performSearch() {
         this.GET('routes/' + this.id, (data, err) => {
           if (!err) {
-            this.route = data.route;
-            this.updatedRoute = {
-              title: this.route.title,
-              body: this.route.body,
-              tags: this.route.tags
+            if (data.routes.length > 0) {
+              this.route = data.routes[0];
+              this.updatedRoute = {
+                title: this.route.title,
+                body: this.route.body,
+                tags: this.route.tags
+              };
+              EventBus.$emit('routeReady', this.route);
+              EventBus.$emit('activitiesReady', this.route);
+
+              setTimeout(() => {
+              }, 100);
             }
           }
         });
@@ -194,7 +202,7 @@
 
         this.PUT('routes/' + this.id, formData, requestParams, (data, err) => {
           if (!err) {
-            this.requestData();
+            this.performSearch();
           }
           this.editDialog = false
         });

@@ -1,6 +1,11 @@
 <template>
   <v-container fluid grid-list-md>
     <v-layout row wrap>
+      <v-flex xs12 sm9>
+
+      </v-flex>
+    </v-layout>
+    <v-layout row wrap>
       <v-flex d-flex xs12 sm6 md6>
         <v-card class="gradient-no-switch gradient-green" hover color="primary" to="/dashboard">
           <v-card-title primary class="title">

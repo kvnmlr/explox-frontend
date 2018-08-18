@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h2>Users</h2>
-    <v-data-table :headers="columns" :items="rows" class="elevation-1">
+    <h2>Activities</h2>
+    <v-data-table :headers="columns" :items="rows" :rows-per-page-items=[10,50,100,200]>
       <template slot="headerCell" slot-scope="props">
         <v-tooltip bottom>
               <span slot="activator">
@@ -13,15 +13,11 @@
         </v-tooltip>
       </template>
       <template slot="items" slot-scope="props">
-        <td>{{ props.item.username }}</td>
-        <td class="text-xs-left">{{ props.item.name }}</td>
-        <td class="text-xs-left">{{ props.item.email }}</td>
-        <td class="text-xs-left">{{ props.item.provider }}</td>
-        <td class="text-xs-left">{{ props.item.role }}</td>
-        <td class="text-xs-left">{{ props.item.activities }}</td>
-        <td class="text-xs-left">{{ props.item.routes }}</td>
-        <td class="text-xs-left">{{ props.item.createdAt }}</td>
-        <td class="text-xs-left">{{ props.item.lastLogin }}</td>
+        <td class="text-xs-left">{{ props.item.title }}</td>
+        <td class="text-xs-left">{{ props.item.user.name }}</td>
+        <td class="text-xs-left">{{ props.item.distance.toFixed(2) + ' m' }}</td>
+        <td class="text-xs-left">{{ props.item.geo }}</td>
+        <td class="text-xs-left">{{ formatDate(props.item.createdAt, true) }}</td>
       </template>
     </v-data-table>
     <div class="separator"></div>
@@ -29,70 +25,62 @@
 </template>
 
 <script>
+  import {EventBus} from '@/eventBus.js';
+  import formatDateMixin from "../../../mixins/formatDateMixin";
+
   export default {
-    name: "Users",
+    name: "Activities",
     data() {
       return {
         currentTab: 'tab-api',
+        activities: [],
         columns: [
           {
-            text: 'Username',
-            value: 'username',
+            text: 'Title',
+            value: 'title',
           },
           {
-            text: 'Name',
-            value: 'name',
+            text: 'User',
+            value: 'user',
           },
           {
-            text: 'E-Mail',
-            value: 'email',
+            text: 'Distance',
+            value: 'distance',
 
           },
           {
-            text: 'Provider',
-            value: 'provider',
+            text: 'Coords',
+            value: 'coordinates',
           },
           {
-            text: 'Role',
-            value: 'role',
+            text: 'Created',
+            value: 'cratedAt',
           },
-          {
-            text: 'Activities',
-            value: 'activities',
-          },
-          {
-            text: 'Routes',
-            value: 'routes',
-          },
-          {
-            text: 'Registered',
-            value: 'createdAt',
-          },
-          {
-            text: 'Last Login',
-            value: 'lastLogin',
-          }
         ],
       };
     },
-    props: {
-      activities: Array,
-    },
+    props: {},
     created() {
+      EventBus.$on('activitiesReady', (data) => {
+        this.activities = data;
+      });
+
     },
     computed: {
       rows() {
         let rows = [];
         if (this.activities.length > 0) {
           this.activities.forEach(function (a) {
-            a.activities = a.activities.length;
-            a.routes = a.routes.length;
+            if (a.geo) {
+              a.geo = a.geo.length;
+            }
             rows.push(a);
           });
           return rows;
         }
       }
-    }
+    },
+    mixins: [formatDateMixin]
   }
 </script>
 

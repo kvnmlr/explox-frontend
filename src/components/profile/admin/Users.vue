@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Users</h2>
-    <v-data-table :headers="columns" :items="rows" class="elevation-1">
+    <v-data-table :headers="columns" :items="rows" :rows-per-page-items=[10,50,100,200]>
       <template slot="headerCell" slot-scope="props">
         <v-tooltip bottom>
               <span slot="activator">
@@ -20,8 +20,8 @@
         <td class="text-xs-left">{{ props.item.role }}</td>
         <td class="text-xs-left">{{ props.item.activitiesCount }}</td>
         <td class="text-xs-left">{{ props.item.routesCount }}</td>
-        <td class="text-xs-left">{{ props.item.createdAt }}</td>
-        <td class="text-xs-left">{{ props.item.lastLogin }}</td>
+        <td class="text-xs-left">{{ formatDate(props.item.createdAt, true) }}</td>
+        <td class="text-xs-left">{{ formatDate(props.item.lastLogin, true) }}</td>
       </template>
     </v-data-table>
     <div class="separator"></div>
@@ -29,11 +29,15 @@
 </template>
 
 <script>
+  import { EventBus } from '@/eventBus.js';
+  import formatDateMixin from "../../../mixins/formatDateMixin";
+
   export default {
     name: "Users",
     data() {
       return {
         currentTab: 'tab-api',
+        users: [],
         columns: [
           {
             text: 'Username',
@@ -75,10 +79,10 @@
         ],
       };
     },
-    props: {
-      users: Array,
-    },
     created() {
+      EventBus.$on('usersReady', (data) => {
+        this.users = data;
+      });
     },
     computed: {
       rows() {
@@ -94,7 +98,8 @@
           }
         }
       }
-    }
+    },
+    mixins: [formatDateMixin]
   }
 </script>
 

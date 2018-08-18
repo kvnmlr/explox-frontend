@@ -55,7 +55,7 @@
         });
       },
       async authorizeUser() {
-        this.GET('authorize', (data, err) => {
+        this.GET('authenticate', (data, err) => {
           if (!err) {
             this.user = data.user;
           }

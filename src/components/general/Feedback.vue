@@ -6,7 +6,7 @@
     <br>
     <v-card class="elevation-5">
       <v-card-text>
-        <v-form ref="form" v-value="valid" lazy-validation>
+        <v-form ref="form" v-model="valid" lazy-validation>
           <v-text-field v-if="user" :rules="[rules.email]" label="We will reply to this e-mail address" type="text"
                         v-model="email"></v-text-field>
           <v-text-field v-else :rules="[rules.email]" label="If you want a reply, enter your e-mail here" type="text"

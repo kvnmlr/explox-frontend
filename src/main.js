@@ -38,10 +38,9 @@ Vue.http.options.credentials = true;
 Vue.http.options.xhr = {withCredentials: true};
 
 /* eslint-disable no-new */
-let vm = new Vue({
+new Vue({
   el: '#app',
   router: Router,
   components: { App },
   template: '<App/>',
 });
-global.vm = vm;

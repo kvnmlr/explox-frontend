@@ -14,10 +14,10 @@
     name: 'About',
     components: {UnderConstruction},
     created() {
-      this.requestData();
+      this.performSearch();
     },
     methods: {
-      async requestData() {
+      async performSearch() {
         this.GET('about', (data, err) => {
           // TODO
         });

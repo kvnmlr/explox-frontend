@@ -16,7 +16,7 @@
       user: Object
     },
     methods: {
-      async requestData() {
+      async performSearch() {
         this.GET('creator', (data, err) => {
           if (err) {
             if (!this.user) {
@@ -30,7 +30,7 @@
       }
     },
     beforeMount() {
-      this.requestData();
+      this.performSearch();
     },
     mixins: [apiMixin]
   }

@@ -15,6 +15,10 @@ export default {
           cb(data, null);
         })
         .catch(error => {
+          if (!error.response) {
+            console.log(error);
+            return cb(null, error);
+          }
           const err = error.response.data;
           console.log(err);
           if (err.flash) {
@@ -40,6 +44,10 @@ export default {
           cb(data, null);
         })
         .catch(error => {
+          if (!error.response) {
+            console.log(error);
+            return cb(null, error);
+          }
           const err = error.response.data;
           console.log(err);
           if (err.flash) {
@@ -60,6 +68,10 @@ export default {
           cb(data, null);
         })
         .catch(error => {
+          if (!error.response) {
+            console.log(error);
+            return cb(null, error);
+          }
           const err = error.response.data;
           console.log(err);
           if (err.flash) {
@@ -85,6 +97,10 @@ export default {
           cb(data, null);
         })
         .catch(error => {
+          if (!error.response) {
+            console.log(error);
+            return cb(null, error);
+          }
           const err = error.response.data;
           console.log(err);
           if (err.flash) {

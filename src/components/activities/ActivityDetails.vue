@@ -165,10 +165,10 @@
       }
     },
     created() {
-      this.requestData();
+      this.performSearch();
     },
     methods: {
-      async requestData() {
+      async performSearch() {
         this.GET('routes/' + this.id, (data, err) => {
           if (!err) {
             this.route = data.route;
@@ -194,7 +194,7 @@
 
         this.PUT('routes/' + this.id, formData, requestParams, (data, err) => {
           if (!err) {
-            this.requestData();
+            this.performSearch();
           }
           this.editDialog = false
         });

@@ -53,7 +53,7 @@
     </v-navigation-drawer>
 
     <v-toolbar class="gradient-no-switch gradient-secondary" style="z-index: 980;"
-               :clipped-left="$vuetify.breakpoint.lgAndUp" dark app color="#212121" fixed>
+               :clipped-left="$vuetify.breakpoint.lgAndUp" dense app dark color="#212121">
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
         <span class="hidden-sm-and-down">
@@ -67,7 +67,7 @@
       <v-menu offset-y v-model="loginMenu" :close-on-content-click="false">
         <v-btn icon large slot="activator" dark>
           <v-avatar size="32px" tile>
-            <img src="https://cdn.vuetifyjs.com/images/logos/logo.svg" alt="Vuetify">
+            <img src="@/assets/img/profile.png">
           </v-avatar>
         </v-btn>
         <div style="background-color: white; padding:10px;">

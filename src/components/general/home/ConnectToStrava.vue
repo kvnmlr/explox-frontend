@@ -17,7 +17,7 @@
         </v-flex>
         <v-flex xs12 sm6 md6>
           <v-container>
-            <img style="width:100%;" src="https://www.wpfreeware.com/wp-content/uploads/2014/09/placeholder-images.jpg">
+            <img style="width:100%;" src="@/assets/img/adventure-bikers-bikes.jpg" class="elevation-5">
 
           </v-container>
         </v-flex>
@@ -29,7 +29,7 @@
     <v-card class="gradient-no-switch gradient-secondary elevation-5" dark style="padding: 10px; margin-top: 20px;">
     <v-layout row wrap style="margin:30px;">
       <v-flex xs12 sm6 md6>
-        <img style="width:100%" src="https://www.wpfreeware.com/wp-content/uploads/2014/09/placeholder-images.jpg">
+        <img style="width:100%" src="@/assets/img/bicycle-bike-brakes.jpg">
       </v-flex>
       <v-flex xs12 sm6 md6>
         <v-container>

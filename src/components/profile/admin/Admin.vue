@@ -24,9 +24,7 @@
         <users v-bind:users="users"></users>
       </v-tab-item>
       <v-tab-item :id="`tab-routes`">
-        <v-card flat>
-          <p>Routes</p>
-        </v-card>
+        <routes v-bind:routes="users"></routes>
       </v-tab-item>
       <v-tab-item :id="`tab-activities`">
         <activities v-bind:activities="users"></activities>
@@ -40,7 +38,8 @@
   import Api from './General'
   import Users from './Users'
   import Activities from './Activities'
-  import axios from 'axios'
+  import Routes from './Routes'
+  import { EventBus } from '@/eventBus.js';
   import apiMixin from "../../../mixins/apiMixin";
 
   export default {
@@ -48,6 +47,7 @@
       Api,
       Users,
       Activities,
+      Routes
     },
     name: "Admin",
     data() {
@@ -60,16 +60,23 @@
       };
     },
     created() {
-      this.requestData();
+      this.performSearch();
     },
     methods: {
-      async requestData() {
+      async performSearch() {
         this.GET('dashboard', (data, err) => {
           if (!err) {
             this.users = data.users;
             this.activities = data.activities;
             this.routes = data.routes;
             this.feedbacks = data.feedbacks;
+
+            console.log(this.activities);
+
+            EventBus.$emit('routesReady', this.routes);
+            EventBus.$emit('activitiesReady', this.activities);
+            EventBus.$emit('usersReady', this.users);
+            EventBus.$emit('feedbacksReady', this.feedbacks);
           }
         });
       },

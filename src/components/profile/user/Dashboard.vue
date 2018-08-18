@@ -1,5 +1,5 @@
 <template>
-  <div v-if="user">
+  <div v-if="userData">
     <h1>Dashboard</h1>
     <v-tabs fixed-tabs slot="extension" v-model="currentTab" centered>
       <v-tab :href="`#tab-profile`">
@@ -27,23 +27,23 @@
               <br>
               <v-layout row>
                 <v-flex xs10 sm10 md10>
-                  <h2 color="primary">{{ user.name.toUpperCase() }}</h2>
-                  <h4>{{ user.username }}</h4>
+                  <h2 color="primary">{{ userData.name.toUpperCase() }}</h2>
+                  <h4>{{ userData.username }}</h4>
                   <p></p>
                   <h4>Email</h4>
-                  <p>{{ user.email }}</p>
+                  <p>{{ userData.email }}</p>
                   <h4>A member since</h4>
-                  <p>{{ user.createdAt }}</p>
+                  <p>{{ userData.createdAt }}</p>
 
                   <h4>Routes:</h4>
-                  <p>{{ user.routes.length }}</p>
+                  <p>{{ userData.routes.length }}</p>
                   <h4>Activities:</h4>
-                  <p>{{ user.activities.length }}</p>
+                  <p>{{ userData.activities.length }}</p>
                 </v-flex>
                 <v-flex xs2 sm2 md2>
                   <v-menu dark transition="slide-y-transition" bottom right>
                     <v-btn class="gradient gradient-green" light fab relative right slot="activator">
-                      <v-icon>edit</v-icon>
+                      <v-icon>more_horiz</v-icon>
                     </v-btn>
                     <v-list>
                       <v-list-tile v-on:click="editDialog = true">
@@ -52,8 +52,6 @@
                           Edit
                         </v-list-tile-title>
                       </v-list-tile>
-
-
                       <v-list-tile v-on:click="exportDialog = true">
                         <v-list-tile-title>
                           <v-icon>import_export</v-icon>
@@ -113,8 +111,25 @@
                   </v-menu>
                 </v-flex>
               </v-layout>
-              <br>
+              <v-layout row wrap>
+                <v-flex xs12 sm8 md8 v-if="user.provider === 'strava'">
+                  <!--<v-btn  v-on:click="synchronize" large dark round>
+                  </v-btn>-->
+                  <v-btn :disabled="loadingDialog" :loading="loadingDialog"
+                    class="gradient gradient-orange" @click.stop="synchronize"
+                    dark round>
+                    <v-icon>sync</v-icon>&nbsp;Synchronize with Strava
+                  </v-btn>
+                  <loading-dialog :show="loadingDialog" body="This can take up to 1 minute" header="Please wait while we synchronize your profile." dark></loading-dialog>
+                </v-flex>
+                <v-flex xs12 sm4 md4>
+                  <v-btn class="gradient gradient-green" round :to="{path: '/users/'+this.user._id}">
+                    <v-icon>contacts</v-icon>&nbsp;Public Profile
+                  </v-btn>
+                </v-flex>
 
+
+              </v-layout>
 
             </v-container>
           </v-flex>
@@ -123,8 +138,10 @@
               <v-flex row>
                 <v-card dark color="accent" class="elevation-5">
                   <v-container>
-                    <h3>Feed</h3>
-                    <p>No Activity</p>
+                    <h3 style="color: white">Latest Activity</h3>
+                    <br>
+                    <activity v-if="userData.activities.length > 0" v-for="(activity, i) in userData.activities.slice(0,3)" v-bind:activity="activity" dense :key="i"></activity>
+                    <p v-else>No Activity</p>
                     <v-btn flat round v-on:click="currentTab='tab-activities'">View All</v-btn>
                   </v-container>
 
@@ -134,20 +151,19 @@
               <v-flex row>
                 <v-card class="elevation-5">
                   <v-container>
-                    <h3>Routes</h3>
-                    <p>No Routes</p>
+                    <h3>Latest Routes</h3>
+                    <br>
+                    <route v-if="userData.routes.length > 0" v-for="(route, i) in userData.routes.slice(0,3)" v-bind:route="route" dense :key="i"></route>
+                    <p v-else>No Routes</p>
                     <v-btn flat round v-on:click="currentTab='tab-routes'">View All</v-btn>
                   </v-container>
-
                 </v-card>
               </v-flex>
             </v-container>
 
           </v-flex>
         </v-layout>
-        <v-btn class="gradient gradient-orange" large dark round :to="{path: '/users/'+this.user._id}">
-          <v-icon>contacts</v-icon>&nbsp;View Public Profile
-        </v-btn>
+
         <v-dialog v-if="updatedUser" v-model="editDialog" persistent max-width="290">
           <v-card dark>
             <v-card-title class="headline">Update Route Details</v-card-title>
@@ -172,13 +188,13 @@
 
       </v-tab-item>
       <v-tab-item :id="`tab-activity-map`">
-        <activity-map v-bind:user="user"></activity-map>
+        <activity-map v-bind:user="userData"></activity-map>
       </v-tab-item>
       <v-tab-item :id="`tab-activities`">
-        <Activities v-bind:user="user"></Activities>
+        <Activities v-bind:user="userData"></Activities>
       </v-tab-item>
       <v-tab-item :id="`tab-routes`">
-        <personal-routes v-bind:user="user"></personal-routes>
+        <personal-routes v-bind:user="userData"></personal-routes>
       </v-tab-item>
     </v-tabs-items>
 
@@ -186,17 +202,19 @@
 </template>
 
 <script>
-  import axios from 'axios'
   import ActivityMap from "./ActivityMap";
   import Activities from "./Activities";
   import PersonalRoutes from "./PersonalRoutes";
   import StravaAlert from "../../includes/StravaAlert";
+  import Activity from "../../activities/Activity";
   import SimpleMap from "../../map/LeafletMap"
   import apiMixin from "../../../mixins/apiMixin";
+  import Route from "../../routes/Route";
+  import LoadingDialog from "../../includes/LoadingDialog";
 
   export default {
     name: "User",
-    components: {SimpleMap, StravaAlert, PersonalRoutes, Activities, ActivityMap},
+    components: {LoadingDialog, Route, SimpleMap, StravaAlert, PersonalRoutes, Activities, ActivityMap, Activity},
     data() {
       return {
         currentTab: 'tab-profile',
@@ -204,6 +222,8 @@
         updatedUser: {},
         exportDialog: false,
         deleteDialog: false,
+        loadingDialog: false,
+        userData: undefined,
       };
     },
     props: {
@@ -211,10 +231,10 @@
     },
     created() {
       console.log("dashboard created");
-      this.requestData();
+      this.performSearch();
     },
     methods: {
-      async requestData() {
+      async performSearch() {
         this.GET('dashboard', (data, err) => {
           if (err) {
             if (!this.user) {
@@ -228,13 +248,14 @@
                 return;
               }
             }
-            this.user = data.user;
+            this.userData = data.user;
             this.updatedUser = {
-              name: this.user.name,
-              username: this.user.username,
-              email: this.user.email,
+              name: this.userData.name,
+              username: this.userData.username,
+              email: this.userData.email,
             };
           }
+          this.loadingDialog = false;
         });
       },
       async update() {
@@ -247,9 +268,16 @@
 
         this.PUT('users/' + this.user._id, formData, null, (data, err) => {
           if (!err) {
-            this.requestData();
+            this.performSearch();
           }
           this.editDialog = false
+        });
+      },
+
+      async synchronize() {
+        this.loadingDialog = true;
+        this.GET('users/' + this.user._id + '/update', (data, err) => {
+          this.performSearch();
         });
       },
 

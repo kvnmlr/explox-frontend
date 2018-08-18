@@ -34,7 +34,12 @@
                 </div>
               </v-flex>
               <v-flex xs12 sm6>
-                <v-btn large class="gradient gradient-orange" style="width: 95%;">Search</v-btn>
+                <v-btn :disabled="loadingDialog" :loading="loadingDialog"
+                       class="gradient gradient-green" @click.stop="performSearch"
+                       light round large style="width: 95%; height: 70px; vertical-align: bottom">
+                  <v-icon>search</v-icon>&nbsp;Search
+                </v-btn>
+                <loading-dialog :show="loadingDialog" header="Searching for matching routes"></loading-dialog>
               </v-flex>
             </v-layout>
 
@@ -51,16 +56,19 @@
           </v-card-title>
           <v-card-text>
             <p>See your personal profile and statistics.</p>
-            <v-btn large dark class="gradient gradient-orange" style="width: 95%; height: 100px; vertical-align: bottom" to="creator">
-              Creator
+            <v-btn large round dark class="gradient gradient-orange" style="width: 95%; height: 100px; vertical-align: bottom" to="creator">
+              <v-icon>gesture</v-icon>&nbsp; Creator
             </v-btn>
           </v-card-text>
         </v-card>
       </v-flex>
     </v-layout>
     <div class="separator"></div>
+    <h2>Results: </h2>
+    <br>
     <v-layout row wrap>
       <route v-for="route in filteredRoutes" v-bind:route="route" :key="route.details"></route>
+      <p v-if="filteredRoutes.length === 0">No routes to display</p>
     </v-layout>
     <div class="separator"></div>
   </div>
@@ -70,10 +78,12 @@
   import Route from './Route'
   import routeSearchMixin from "../../mixins/routeSearchMixin";
   import apiMixin from "../../mixins/apiMixin";
+  import LoadingDialog from "../includes/LoadingDialog";
 
   export default {
     name: "List",
     components: {
+      LoadingDialog,
       route: Route,
     },
     data() {
@@ -81,7 +91,7 @@
         title: "Route Finder",
         search: '',
         distance: '',
-
+        loadingDialog: false,
         routes: [],
         featureLayers: [
           {
@@ -97,13 +107,18 @@
       }
     },
     created() {
-      this.requestData();
     },
     methods: {
-      async requestData() {
-       this.GET('routes?segments=false&page=1', (data, err) => {
+      async performSearch() {
+        this.loadingDialog = true;
+
+        this.GET('routes?segments=false&page=1', (data, err) => {
           if (!err) {
-            this.routes = data.routes;
+            setTimeout(() => {
+              this.routes = data.routes;
+              this.loadingDialog = false;
+            }, 2000)
+
           }
         });
       }

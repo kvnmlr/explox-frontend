@@ -25,15 +25,17 @@
                   {{ feedback.body }}
                 </v-flex>
                 <v-flex xs2>
-                  <v-btn class="gradient gradient-orange" dark fab small style="float: right" v-on:click="remove(feedback._id)">
+                  <v-btn class="gradient gradient-orange" dark fab small style="float: right"
+                         v-on:click="remove(feedback._id)">
                     <v-icon>delete</v-icon>
                   </v-btn>
                 </v-flex>
               </v-layout>
             </v-card-text>
             <v-card-actions>
-              <p style="color: #ff6d00" v-if="!feedback.user">Sent on {{ feedback.createdAt }}, reply to {{ feedback.email}}</p>
-              <p style="color: #ff6d00" v-else>Sent on {{ feedback.createdAt }}
+              <p style="color: #ff6d00" v-if="!feedback.user">Sent on {{ feedback.createdAt }}, reply to {{
+                feedback.email}}</p>
+              <p style="color: #ff6d00" v-else>Sent on {{ formatDate(feedback.createdAt) }}
                 by user {{feedback.user.name }}
                 (reply to {{ feedback.email }})</p>
             </v-card-actions>
@@ -49,11 +51,20 @@
 
 <script>
   import apiMixin from "../../../mixins/apiMixin";
+  import formatDateMixin from "../../../mixins/formatDateMixin";
+  import { EventBus } from '@/eventBus.js';
 
   export default {
     name: "Api",
-    props: {
-      feedbacks: Array,
+    created() {
+      EventBus.$on('feedbacksReady', (data) => {
+        this.feedbacks = data;
+      });
+    },
+    data() {
+      return {
+        feedbacks: Array,
+      }
     },
     methods: {
       async remove(id) {
@@ -69,7 +80,7 @@
         });
       }
     },
-    mixins: [apiMixin]
+    mixins: [apiMixin, formatDateMixin]
   }
 </script>
 
