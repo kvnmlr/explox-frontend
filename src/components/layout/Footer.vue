@@ -1,7 +1,7 @@
 <template>
   <Footer color="stylish-color" class="font-small pt-4 mt-4">
     <template>
-      <v-footer class="pa-3">
+      <v-footer dark color="primary" class="pa-3">
         <v-spacer></v-spacer>
         <div>&copy; ExploX {{ new Date().getFullYear() }}</div>
       </v-footer>

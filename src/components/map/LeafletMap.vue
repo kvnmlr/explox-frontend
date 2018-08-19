@@ -44,7 +44,7 @@
 
 <script>
   import geoTransformMixin from "../../mixins/geoTransformMixin";
-  import { EventBus } from '@/eventBus.js';
+  import {EventBus} from '@/eventBus.js';
 
 
   export default {
@@ -57,19 +57,34 @@
         tileLayer: null,
         selectedMap: 0,
         selectedFeatures: [0, 1, 2, 3, 4],
-        route: {}
+        route: {},
+        activities: [],
       }
     },
 
-    props: {
-    },
+    mixins: [geoTransformMixin],
 
     mounted() {
-      EventBus.$on('routeReady', (data) => {this.route = data; this.reloadMap();});
-      EventBus.$on('activitiesReady', (data) => {this.activities = data; this.reloadMap();});
-
       this.initProviders();
       this.init();
+
+      EventBus.$on('routeReady', (data) => {
+        this.route = data;
+        this.reloadMap();
+      });
+      EventBus.$on('activitiesReady', (data) => {
+        this.activities = data;
+        this.reloadMap();
+      });
+      EventBus.$on('removeMap', (next) => {
+        try {
+          this.map.remove();
+        } catch (e) {
+        }
+        this.map = undefined;
+        next();
+      });
+
     },
 
     methods: {
@@ -175,13 +190,21 @@
         };
         this.featureLayers.push(layer);
       },
+
       reloadMap() {
-        this.map.remove();
+        try {
+          this.map.remove();
+          this.map = undefined;
+        } catch (e) {
+        }
         this.init();
       },
 
       init() {
-        this.initView();
+        if (!this.initView()) {
+          return;
+        }
+
         this.providerChanged(this.selectedMap);
 
         // add layers
@@ -201,7 +224,12 @@
       },
 
       initView() {
-        this.map = L.map('map').setView([38.63, -90.23], 12);
+        try {
+          this.map = L.map('map').setView([38.63, -90.23], 12);
+        } catch (e) {
+          return false;
+        }
+        return true;
         /*
         var map = new L.Map('map', {
             center: new L.LatLng(!{map.config.center[0]}, !{map.config.center[1]}),
@@ -318,7 +346,6 @@
         }
       },
     },
-    mixins: [geoTransformMixin]
   }
 </script>
 

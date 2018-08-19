@@ -88,12 +88,13 @@
 
 <script>
   import LogIn from "../profile/LogIn";
+  import { EventBus } from '@/eventBus.js';
 
   export default {
     components: {LogIn},
     data: () => ({
       editDialog: false,
-      drawer: true,
+      drawer: false,
       loginMenu: false,
       items: [
         {icon: 'dashboard', text: 'Hub', link: 'hub', loginOnly: false},
@@ -121,7 +122,9 @@
       user: Object
     },
     created() {
-      this.drawer = true;
+      this.drawer = false;
+      EventBus.$on('expandDrawer', () => {this.drawer = true;});
+
     }
 
   }

@@ -168,6 +168,9 @@
     created() {
       this.performSearch();
     },
+    beforeRouteLeave(to, from, next) {
+      EventBus.$emit('removeMap', next);
+    },
     methods: {
       async performSearch() {
         this.GET('routes/' + this.id, (data, err) => {

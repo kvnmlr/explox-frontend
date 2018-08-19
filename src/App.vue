@@ -1,13 +1,7 @@
 <template>
   <v-app id="app">
-
-    <!-- <v-alert style="position: fixed; z-index: 999; left:0; top:-5px; width: 100%; height: 65px;" :value="alertVisible" v-bind:type="alert.type"
-             transition="slide-y-transition">
-      {{alert.text}}
-    </v-alert> -->
     <v-snackbar v-model="alertVisible" :timeout=3500 :bottom=true :color="alert.type">
       {{ alert.text }}
-      <!--<v-btn color="white" flat @click="alertVisible = false">Close</v-btn>-->
     </v-snackbar>
     <app-header v-bind:user="user" v-on:logout="logout" v-on:authorizeUser="authorizeUser"></app-header>
     <v-content style="background-color: #FFFFFF">
