@@ -1,7 +1,7 @@
 <template>
   <v-container fluid grid-list-md>
     <v-layout row wrap>
-      <v-flex xs12 sm7 md7>
+      <v-flex xs12 sm12 md7>
         <div v-for="item in news.slice(0, 3)" :key="item.headline" >
           <v-card class="gradient-no-switch gradient-green">
             <v-card-title primary class="title">

@@ -114,12 +114,9 @@
 
         this.GET('routes?segments=false&page=1', (data, err) => {
           if (!err) {
-            setTimeout(() => {
               this.routes = data.routes;
-              this.loadingDialog = false;
-            }, 2000)
-
           }
+          this.loadingDialog = false;
         });
       }
     },

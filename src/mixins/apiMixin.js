@@ -1,11 +1,30 @@
 import axios from 'axios';
 
-const apiBase = 'http://localhost:3000/';
+const api = axios.create({
+  baseURL: 'http://localhost:3000/',
+  timeout: 5000,
+});
+
+api.interceptors.response.use(
+  config => config,
+  (error) => {
+    if (error.response) {
+      if (error.response.status === 408) {
+        console.log(`Server timed out for ${error.config.url}`)
+      }
+    }
+
+    if (error.code === 'ECONNABORTED') {
+      console.log(`Axios timeout happened for ${error.config.url}`)
+    }
+    return Promise.reject(error);
+  },
+);
 
 export default {
   methods: {
     async GET(path, cb) {
-      axios.get(apiBase + path)
+      api.get(path)
         .then(response => {
           const data = response.data;
           console.log(data);
@@ -34,7 +53,7 @@ export default {
         responseType: 'text',
       };
 
-      axios.post(apiBase + path, formData, requestParams)
+      api.post(path, formData, requestParams)
         .then(response => {
           const data = response.data;
           console.log(data);
@@ -58,7 +77,7 @@ export default {
     },
 
     async DELETE(path, cb) {
-      axios.delete(apiBase + path)
+      api.delete(path)
         .then(response => {
           const data = response.data;
           console.log(data);
@@ -87,7 +106,7 @@ export default {
         responseType: 'text',
       };
 
-      axios.put(apiBase + path, formData, requestParams)
+      api.put(path, formData, requestParams)
         .then(response => {
           const data = response.data;
           console.log(data);

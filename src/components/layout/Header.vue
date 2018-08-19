@@ -1,6 +1,6 @@
 <template>
   <Header>
-    <v-navigation-drawer class="elevation-8" style="z-index: 990;" :clipped="$vuetify.breakpoint.lgAndUp"
+    <v-navigation-drawer class="elevation-0" v-bind:style="getStyle" :clipped="$vuetify.breakpoint.lgAndUp"
                          v-model="drawer" fixed app>
       <v-list dense>
         <template v-for="item in items">
@@ -47,7 +47,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-toolbar class="gradient-no-switch gradient-secondary" style="z-index: 980;"
+    <v-toolbar class="gradient-no-switch gradient-secondary" style="z-index: 100;"
                :clipped-left="$vuetify.breakpoint.lgAndUp" dense app dark color="#212121">
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
@@ -122,8 +122,16 @@
       EventBus.$on('expandDrawer', () => {
         this.drawer = true;
       });
+    },
+    computed: {
+      getStyle() {
+        if (this.$vuetify.breakpoint.lgAndUp) {
+          return {'z-index': 99};
+        } else {
+          return {'z-index': 101};
+        }
+      }
     }
-
   }
 </script>
 
