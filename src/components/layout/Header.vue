@@ -4,15 +4,12 @@
                          v-model="drawer" fixed app>
       <v-list dense>
         <template v-for="item in items">
-
-          <!-- List of existing items -->
           <v-list-group class="spacer" v-if="item.children && (!item.loginOnly || user)"
                         v-model="item.model"
                         :key="item.text"
                         :prepend-icon="item.model ? item.icon : item['icon-alt']"
                         append-icon=""
                         style="margin-bottom: 20px;">
-
             <v-list-tile slot="activator">
               <v-list-tile-content>
                 <v-list-tile-title>
@@ -36,8 +33,6 @@
             </div>
           </v-list-group>
 
-          <!-- Normal items -->
-
           <v-list-tile v-else-if="!item.loginOnly || user" :key="item.text" @click="" :to="{path: '/' + item.link}">
             <v-list-tile-action>
               <v-icon>{{ item.icon }}</v-icon>
@@ -56,8 +51,9 @@
                :clipped-left="$vuetify.breakpoint.lgAndUp" dense app dark color="#212121">
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-        <span class="hidden-sm-and-down">
-          <router-link to="/" class="brand">ExploX</router-link>
+        <span>
+          <v-icon v-on:click="$router.push('/')">home</v-icon>
+          <router-link to="/" class="hidden-sm-and-down brand">ExploX</router-link>
         </span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
@@ -88,7 +84,7 @@
 
 <script>
   import LogIn from "../profile/LogIn";
-  import { EventBus } from '@/eventBus.js';
+  import {EventBus} from '@/eventBus.js';
 
   export default {
     components: {LogIn},
@@ -122,9 +118,10 @@
       user: Object
     },
     created() {
-      this.drawer = false;
-      EventBus.$on('expandDrawer', () => {this.drawer = true;});
-
+      this.drawer = this.$vuetify.breakpoint.lgAndUp;
+      EventBus.$on('expandDrawer', () => {
+        this.drawer = true;
+      });
     }
 
   }
