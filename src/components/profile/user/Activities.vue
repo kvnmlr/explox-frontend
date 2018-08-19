@@ -37,7 +37,7 @@
         type: Object,
         required: true,
       }
-    }
+    },
   }
 </script>
 

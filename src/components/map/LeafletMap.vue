@@ -64,11 +64,11 @@
 
     mixins: [geoTransformMixin],
 
-    mounted() {
-      this.initProviders();
-      this.init();
-
+    created() {
       EventBus.$on('routeReady', (data) => {
+        console.log("asd 2");
+        console.log(data);
+
         this.route = data;
         this.reloadMap();
       });
@@ -84,7 +84,11 @@
         this.map = undefined;
         next();
       });
+    },
 
+    mounted() {
+      this.initProviders();
+      this.init();
     },
 
     methods: {

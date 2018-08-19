@@ -5,7 +5,7 @@
       <v-tab :href="`#tab-profile`">
         Profile
       </v-tab>
-      <v-tab :href="`#tab-activity-map`">
+      <v-tab :href="`#tab-activity-map`" v-on:click="broadcastData">
         Activity Map
       </v-tab>
       <v-tab :href="`#tab-activities`">
@@ -116,11 +116,12 @@
                   <!--<v-btn  v-on:click="synchronize" large dark round>
                   </v-btn>-->
                   <v-btn :disabled="loadingDialog" :loading="loadingDialog"
-                    class="gradient gradient-orange" @click.stop="synchronize"
-                    dark round>
+                         class="gradient gradient-orange" @click.stop="synchronize"
+                         dark round>
                     <v-icon>sync</v-icon>&nbsp;Synchronize with Strava
                   </v-btn>
-                  <loading-dialog :show="loadingDialog" body="This can take up to 1 minute" header="Please wait while we synchronize your profile." dark></loading-dialog>
+                  <loading-dialog :show="loadingDialog" body="This can take up to 1 minute"
+                                  header="Please wait while we synchronize your profile." dark></loading-dialog>
                 </v-flex>
                 <v-flex xs12 sm4 md4>
                   <v-btn class="gradient gradient-green" round :to="{path: '/users/'+this.user._id}">
@@ -140,7 +141,9 @@
                   <v-container>
                     <h3 style="color: white">Latest Activity</h3>
                     <br>
-                    <activity v-if="userData.activities.length > 0" v-for="(activity, i) in userData.activities.slice(0,3)" v-bind:activity="activity" dense :key="i"></activity>
+                    <activity v-if="userData.activities.length > 0"
+                              v-for="(activity, i) in userData.activities.slice(0,3)" v-bind:activity="activity" dense
+                              :key="i"></activity>
                     <p v-else>No Activity</p>
                     <v-btn flat round v-on:click="currentTab='tab-activities'">View All</v-btn>
                   </v-container>
@@ -153,7 +156,8 @@
                   <v-container>
                     <h3>Latest Routes</h3>
                     <br>
-                    <route v-if="userData.routes.length > 0" v-for="(route, i) in userData.routes.slice(0,3)" v-bind:route="route" dense :key="i"></route>
+                    <route v-if="userData.routes.length > 0" v-for="(route, i) in userData.routes.slice(0,3)"
+                           v-bind:route="route" dense :key="i"></route>
                     <p v-else>No Routes</p>
                     <v-btn flat round v-on:click="currentTab='tab-routes'">View All</v-btn>
                   </v-container>
@@ -211,6 +215,7 @@
   import apiMixin from "../../../mixins/apiMixin";
   import Route from "../../routes/Route";
   import LoadingDialog from "../../includes/LoadingDialog";
+  import {EventBus} from '@/eventBus.js';
 
   export default {
     name: "User",
@@ -229,16 +234,26 @@
     props: {
       user: Object
     },
+
     created() {
-      console.log("dashboard created");
       this.performSearch();
     },
+
     methods: {
+      broadcastData() {
+        setTimeout(() => {
+          EventBus.$emit('routeReady', this.userData.routes[0]);
+          EventBus.$emit('routesReady', this.userData.routes);
+          EventBus.$emit('activitiesReady', this.userData.activities);
+        }, 100);
+      },
       async performSearch() {
         this.GET('dashboard', (data, err) => {
           if (err) {
             if (!this.user) {
-              setTimeout(() => {this.$router.push('/login');}, 100);
+              setTimeout(() => {
+                this.$router.push('/login');
+              }, 100);
             }
             this.$emit('flash', err.flash);
           } else {
@@ -254,8 +269,10 @@
               username: this.userData.username,
               email: this.userData.email,
             };
+            console.log("asd 1");
           }
           this.loadingDialog = false;
+          this.broadcastData();
         });
       },
       async update() {

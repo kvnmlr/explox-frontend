@@ -184,9 +184,6 @@
               };
               EventBus.$emit('routeReady', this.route);
               EventBus.$emit('activitiesReady', this.route);
-
-              setTimeout(() => {
-              }, 100);
             }
           }
         });

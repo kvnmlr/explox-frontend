@@ -1,5 +1,3 @@
-/* Material Design Bootstrap imports */
-import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import './assets/css/app.css'
 import 'vuetify/dist/vuetify.min.css'
 import colors from 'vuetify/es5/util/colors'
