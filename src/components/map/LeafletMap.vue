@@ -57,8 +57,8 @@
         tileLayer: null,
         selectedMap: 0,
         selectedFeatures: [0, 1, 2, 3, 4],
-        route: {},
-        activities: [],
+        route: undefined,
+        activities: undefined,
       }
     },
 
@@ -66,13 +66,12 @@
 
     created() {
       EventBus.$on('routeReady', (data) => {
-        console.log("asd 2");
-        console.log(data);
-
+        console.log('routes ready');
         this.route = data;
         this.reloadMap();
       });
       EventBus.$on('activitiesReady', (data) => {
+        console.log('activities ready');
         this.activities = data;
         this.reloadMap();
       });
@@ -119,6 +118,9 @@
         this.featureLayers.push(layer);
       },
       addCoverageLayer(id) {
+        if (!this.activities) {
+          return;
+        }
         const layer = {
           id: id,
           name: 'Coverage',
@@ -129,17 +131,14 @@
                 "weight": 5,
                 "opacity": 1
               },
-              primary: false,
+              primary: !this.route,
               properties: {
                 type: "route"
               },
               type: "Feature",
               geometry: {
                 type: "LineString",
-                coordinates: [
-                  [-90.168056, 38.770547],
-                  [-90.183334, 38.771350],
-                ],
+                coordinates: this.toGeoJSON(this.activities[0].geo),
               },
 
             }
@@ -169,6 +168,9 @@
         this.featureLayers.push(layer);
       },
       addRouteLayer(id) {
+        if (!this.route) {
+          return;
+        }
         const layer = {
           id: id,
           name: 'RouteLines',
@@ -229,22 +231,19 @@
 
       initView() {
         try {
-          this.map = L.map('map').setView([38.63, -90.23], 12);
+          this.map = L.map('map', {
+            minZoom: 0,
+            maxZoom: 100,
+            scrollWheelZoom: false,
+            zoomControl: true,
+            fullscreenControl: {
+              pseudoFullscreen: false // if true, fullscreen to page width and height
+            }
+          }).setView([38.63, -90.23], 12);
         } catch (e) {
           return false;
         }
         return true;
-        /*
-        var map = new L.Map('map', {
-            center: new L.LatLng(!{map.config.center[0]}, !{map.config.center[1]}),
-            zoom: !{map.config.zoom},
-            zoomControl: !{map.config.zoomControl},
-            layers: [baseLayer],
-            scrollWheelZoom: !{map.config.scrollWheelZoom},
-            minZoom: 0,
-            maxZoom: 100
-        });
-         */
       },
 
       initProviders() {

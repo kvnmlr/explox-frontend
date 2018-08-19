@@ -143,7 +143,8 @@
 <script>
   import SimpleMap from '../map/LeafletMap'
   import apiMixin from "../../mixins/apiMixin";
-  import { EventBus } from '@/eventBus.js';
+  import {EventBus} from '@/eventBus.js';
+  import geoTransformMixin from "../../mixins/geoTransformMixin";
 
   export default {
     name: "RouteDetails",
@@ -165,8 +166,16 @@
         overlay: false,
       }
     },
+    props: {
+      user: Object,
+    },
     created() {
       this.performSearch();
+      if (this.user) {
+        if (this.user._id) {
+          this.requestActivityMap(this.user._id)
+        }
+      }
     },
     beforeRouteLeave(to, from, next) {
       EventBus.$emit('removeMap', next);
@@ -175,19 +184,29 @@
       async performSearch() {
         this.GET('routes/' + this.id, (data, err) => {
           if (!err) {
-            if (data.routes.length > 0) {
-              this.route = data.routes[0];
+            if (data.route) {
+              this.route = data.route;
               this.updatedRoute = {
                 title: this.route.title,
                 body: this.route.body,
                 tags: this.route.tags
               };
               EventBus.$emit('routeReady', this.route);
-              EventBus.$emit('activitiesReady', this.route);
             }
           }
         });
       },
+
+      async requestActivityMap(userId) {
+        this.GET('users/' + userId, (data, err) => {
+          if (!err) {
+            if (data.activities) {
+              EventBus.$emit('activitiesReady', data.activities);
+            }
+          }
+        })
+      },
+
       async update() {
         const formData = {
           _csrf: this.csrfToken,
@@ -254,7 +273,7 @@
         });
       },
     },
-    mixins: [apiMixin]
+    mixins: [apiMixin, geoTransformMixin]
   }
 </script>
 

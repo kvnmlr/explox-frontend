@@ -229,6 +229,7 @@
         deleteDialog: false,
         loadingDialog: false,
         userData: undefined,
+        activities: undefined,
       };
     },
     props: {
@@ -241,11 +242,11 @@
 
     methods: {
       broadcastData() {
+        console.log("here");
         setTimeout(() => {
-          EventBus.$emit('routeReady', this.userData.routes[0]);
           EventBus.$emit('routesReady', this.userData.routes);
-          EventBus.$emit('activitiesReady', this.userData.activities);
-        }, 100);
+          EventBus.$emit('activitiesReady', this.activities);
+        }, 200);
       },
       async performSearch() {
         this.GET('dashboard', (data, err) => {
@@ -269,10 +270,17 @@
               username: this.userData.username,
               email: this.userData.email,
             };
-            console.log("asd 1");
           }
-          this.loadingDialog = false;
-          this.broadcastData();
+
+          this.GET('users/' + this.user._id, (data, err) => {
+            if (!err) {
+              if (data.activities) {
+                this.activities = data.activities;
+                this.loadingDialog = false;
+                this.broadcastData();
+              }
+            }
+          });
         });
       },
       async update() {

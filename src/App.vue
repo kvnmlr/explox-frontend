@@ -23,6 +23,7 @@
   import Footer from "./components/layout/Footer"
   import Fullscreen from "./components/general/FullscreenRoute"
   import apiMixin from "./mixins/apiMixin";
+  import {EventBus} from "./eventBus";
 
   export default {
     components: {
@@ -44,6 +45,10 @@
         this.GET('logout', (data, err) => {
           if (!err) {
             this.user = undefined;
+            this.flash({
+              type: 'info',
+              text: 'You are now logged out'
+            });
             this.$router.push('/login');
           }
         });
@@ -52,6 +57,7 @@
         this.GET('authenticate', (data, err) => {
           if (!err) {
             this.user = data.user;
+            EventBus.$emit('authenticated', this.user);
           }
         });
       },

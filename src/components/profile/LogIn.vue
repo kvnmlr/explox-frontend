@@ -1,13 +1,20 @@
 <template>
   <div>
+    <div v-if="$vuetify.breakpoint.lgAndUp && !dense">
+      <h1>Login</h1>
+      <br>
+    </div>
     <v-layout row wrap>
       <v-flex xs12 sm5 md5>
         <strava-login v-bind:text="'Strava Login'"></strava-login>
         <v-btn outline color="primary" round v-on:click="() => this.$router.push('/strava')">Learn More</v-btn>
       </v-flex>
       <br><br><br>
-      <v-flex xs0 sm1 md1>
+      <v-flex v-if="$vuetify.breakpoint.mdAndUp" xs0 sm1 md1>
         <v-divider vertical></v-divider>
+      </v-flex>
+      <v-flex v-else xs12>
+        <div class="separator"></div>
       </v-flex>
       <v-flex xs12 sm6 md6>
         <v-form>
@@ -40,7 +47,8 @@
     props: {
       source: String,
       csrfToken: String,
-      user: Object
+      user: Object,
+      dense: Boolean
     },
     methods: {
       async loginStrava() {
@@ -57,6 +65,10 @@
         this.POST('login', formData, null, (data, err) => {
           if (!err) {
             this.$emit('authorizeUser');
+            this.$emit('flash', {
+              type: 'info',
+              text: 'Welcome back, you are logged in'
+            });
             this.$router.push('/dashboard');
           }
         });

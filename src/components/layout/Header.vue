@@ -66,18 +66,23 @@
             <img src="@/assets/img/profile.png">
           </v-avatar>
         </v-btn>
+        <p slot="activator" style="padding-top: 15px; margin-left: 20px" v-if="user !== undefined">{{user.name}}</p>
+        <p slot="activator" style="padding-top: 15px; margin-left: 20px" v-else>Login</p>
+
         <div style="background-color: white; padding:10px;">
-          <log-in v-if="!user"
+          <log-in dense v-if="!user"
                   v-on:authorizeUser="() => {$emit('authorizeUser'); this.loginMenu=false}">
           </log-in>
           <v-list v-else>
+            <v-list-tile v-on:click="() => {this.loginMenu=false; this.$router.push('/dashboard')}">
+              <v-list-tile-title>Dashboard</v-list-tile-title>
+            </v-list-tile>
             <v-list-tile v-on:click="() => {$emit('logout'); this.loginMenu=false}">
-              <v-list-tile-title>LOGOUT</v-list-tile-title>
+              <v-list-tile-title>Logout</v-list-tile-title>
             </v-list-tile>
           </v-list>
         </div>
       </v-menu>
-      <p v-if="user !== undefined">{{user.name}}</p>
     </v-toolbar>
   </Header>
 </template>
