@@ -67,7 +67,7 @@
           </v-avatar>
         </v-btn>
         <p slot="activator" style="padding-top: 15px; margin-left: 20px" v-if="user">{{user.name}}</p>
-        <p slot="activator" style="padding-top: 15px; margin-left: 20px" v-else>Deploy Good!</p>
+        <p slot="activator" style="padding-top: 15px; margin-left: 20px" v-else>Login</p>
 
         <div style="background-color: white; padding:10px;">
           <log-in dense v-if="!user"
