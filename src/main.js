@@ -16,6 +16,8 @@ import Axios from 'axios'
 Axios.defaults.withCredentials = true;
 
 Vue.config.productionTip = false;
+Vue.config.silent = true;
+Vue.config.productionTip = false;
 
 Vue.use(VueCookies);
 Vue.use(Meta);
