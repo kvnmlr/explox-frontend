@@ -53,7 +53,7 @@
     },
     methods: {
       async loginStrava() {
-        window.location.href = 'http://localhost:3000/auth/strava';
+        window.location.href = '/explox/backend/auth/strava';
       },
 
       async login() {
