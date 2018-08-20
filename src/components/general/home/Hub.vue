@@ -19,6 +19,7 @@
   import axios from 'axios'
   import Welcome from "../Welcome";
   import News from "./News";
+  import apiMixin from "../../../mixins/apiMixin";
 
   export default {
     name: 'Hub',
@@ -32,16 +33,15 @@
     },
     methods: {
       async performSearch() {
-        axios.get('http://localhost:3000/hub')
-          .then(response => {
-            const data = response.data;
+        this.GET('hub', (data, err) => {
+          if (!err) {
             console.log(data.text);
-          })
-          .catch(error => {
-            console.log(error.body);
-          });
+
+          }
+        });
       }
-    }
+    },
+    mixins: [apiMixin]
   }
 </script>
 

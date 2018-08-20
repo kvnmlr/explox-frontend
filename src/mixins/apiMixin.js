@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: '/explox/backend/',
+  baseURL: process.env.API_ROOT,
   timeout: 10000,
 });
 
@@ -24,6 +24,7 @@ api.interceptors.response.use(
 export default {
   methods: {
     async GET(path, cb) {
+      console.log(process.env.API_ROOT);
       api.get(path)
         .then(response => {
           const data = response.data;

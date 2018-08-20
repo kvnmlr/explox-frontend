@@ -52,10 +52,6 @@
       dense: Boolean
     },
     methods: {
-      async loginStrava() {
-        window.location.href = '/explox/backend/auth/strava';
-      },
-
       async login() {
         const formData = {
           _csrf: this.csrfToken,

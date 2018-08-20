@@ -14,9 +14,6 @@ import Axios from 'axios'
 // import Mapbox from 'mapbox-gl-vue';
 
 Axios.defaults.withCredentials = true;
-
-Vue.config.productionTip = false;
-Vue.config.silent = true;
 Vue.config.productionTip = false;
 
 Vue.use(VueCookies);

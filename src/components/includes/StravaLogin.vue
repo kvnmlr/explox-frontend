@@ -6,8 +6,6 @@
 </template>
 
 <script>
-  import axios from 'axios'
-
   export default {
     name: "StravaLogin",
     props: {
@@ -18,7 +16,7 @@
     },
     methods: {
       async loginStrava() {
-        window.location.href = '/explox/backend/auth/strava';
+        window.location.href = process.env.API_ROOT + 'auth/strava';
       },
     }
   }
