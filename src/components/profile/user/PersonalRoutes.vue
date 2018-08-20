@@ -36,9 +36,6 @@
         required: true,
       }
     },
-    created() {
-      console.log(this.user);
-    }
   }
 </script>
 

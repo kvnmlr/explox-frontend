@@ -34,6 +34,7 @@
 <script>
   import StravaLogin from "../includes/StravaLogin";
   import apiMixin from "../../mixins/apiMixin";
+  import {EventBus} from "@/eventBus";
 
   export default {
     name: "LogIn",
@@ -66,18 +67,13 @@
           if (!err) {
             this.$emit('authorizeUser');
             this.$emit('flash', {
-              type: 'info',
+              type: 'success',
               text: 'Welcome back, you are logged in'
             });
             this.$router.push('/dashboard');
           }
         });
       }
-    },
-    created() {
-      console.log('created');
-      console.log(this.$cookies.keys());
-      console.log(this.$cookies.get('_csrf'));
     },
     mixins: [apiMixin]
   }

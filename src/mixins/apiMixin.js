@@ -27,6 +27,7 @@ export default {
       api.get(path)
         .then(response => {
           const data = response.data;
+          console.log("GET: " + path);
           console.log(data);
           if (data.flash) {
             this.$emit('flash', data.flash);
@@ -35,10 +36,12 @@ export default {
         })
         .catch(error => {
           if (!error.response) {
+            console.log("GET: " + path);
             console.log(error);
             return cb(null, error);
           }
           const err = error.response.data;
+          console.log("GET: " + path);
           console.log(err);
           if (err.flash) {
             this.$emit('flash', err.flash);
@@ -56,6 +59,7 @@ export default {
       api.post(path, formData, requestParams)
         .then(response => {
           const data = response.data;
+          console.log("POST: " + path);
           console.log(data);
           if (data.flash) {
             this.$emit('flash', data.flash);
@@ -64,10 +68,12 @@ export default {
         })
         .catch(error => {
           if (!error.response) {
+            console.log("POST: " + path);
             console.log(error);
             return cb(null, error);
           }
           const err = error.response.data;
+          console.log("POST: " + path);
           console.log(err);
           if (err.flash) {
             this.$emit('flash', err.flash);
@@ -80,6 +86,7 @@ export default {
       api.delete(path)
         .then(response => {
           const data = response.data;
+          console.log("DELETE: " + path);
           console.log(data);
           if (data.flash) {
             this.$emit('flash', data.flash);
@@ -88,10 +95,12 @@ export default {
         })
         .catch(error => {
           if (!error.response) {
+            console.log("DELETE: " + path);
             console.log(error);
             return cb(null, error);
           }
           const err = error.response.data;
+          console.log("DELETE: " + path);
           console.log(err);
           if (err.flash) {
             this.$emit('flash', err.flash);
@@ -109,6 +118,7 @@ export default {
       api.put(path, formData, requestParams)
         .then(response => {
           const data = response.data;
+          console.log("PUT: " + path);
           console.log(data);
           if (data.flash) {
             this.$emit('flash', data.flash);
@@ -117,10 +127,12 @@ export default {
         })
         .catch(error => {
           if (!error.response) {
+            console.log("PUT: " + path);
             console.log(error);
             return cb(null, error);
           }
           const err = error.response.data;
+          console.log("PUT: " + path);
           console.log(err);
           if (err.flash) {
             this.$emit('flash', err.flash);

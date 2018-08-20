@@ -24,10 +24,10 @@
         <users v-bind:users="users"></users>
       </v-tab-item>
       <v-tab-item :id="`tab-routes`">
-        <routes v-bind:routes="users"></routes>
+        <routes v-bind:routes="routes"></routes>
       </v-tab-item>
       <v-tab-item :id="`tab-activities`">
-        <activities v-bind:activities="users"></activities>
+        <activities v-bind:activities="activities"></activities>
       </v-tab-item>
     </v-tabs-items>
 

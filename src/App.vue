@@ -39,14 +39,24 @@
     }),
     created() {
       this.authorizeUser();
+      EventBus.$on('reloadData', () => {
+        this.authorizeUser();
+      })
     },
     methods: {
+      broadcastData() {
+        setTimeout(() => {
+          EventBus.$emit('routesReady', this.user.routes);
+          EventBus.$emit('activitiesReady', this.user.activities);
+        }, 200);
+      },
+
       async logout() {
         this.GET('logout', (data, err) => {
           if (!err) {
             this.user = undefined;
             this.flash({
-              type: 'info',
+              type: 'success',
               text: 'You are now logged out'
             });
             this.$router.push('/login');
@@ -56,8 +66,42 @@
       async authorizeUser() {
         this.GET('authenticate', (data, err) => {
           if (!err) {
+            if (this.user) {
+              if (this.user._id === data.user._id) {
+                EventBus.$emit('authenticated', this.user);
+              }
+            } else {
+              this.user = data.user;
+              EventBus.$emit('authenticated', this.user);
+            }
+            this.performSearch();
+
+          }
+        });
+      },
+
+      async performSearch() {
+        if (!this.user) {
+          return;
+        }
+        this.GET('dashboard', (data, err) => {
+          if (err) {
+            if (!this.user) {
+              setTimeout(() => {
+                this.$router.push('/login');
+              }, 100);
+            }
+            this.$emit('flash', err.flash);
+          } else {
             this.user = data.user;
-            EventBus.$emit('authenticated', this.user);
+            this.GET('users/' + this.user._id, (data, err) => {
+              if (!err) {
+                if (data.activities) {
+                  this.user.activities = data.activities;
+                  this.broadcastData();
+                }
+              }
+            });
           }
         });
       },

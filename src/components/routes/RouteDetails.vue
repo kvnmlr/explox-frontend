@@ -171,16 +171,22 @@
     },
     created() {
       this.performSearch();
-      if (this.user) {
-        if (this.user._id) {
-          this.requestActivityMap(this.user._id)
-        }
-      }
     },
     beforeRouteLeave(to, from, next) {
       EventBus.$emit('removeMap', next);
     },
     methods: {
+      broadcastData() {
+        setTimeout(() => {
+          if (this.user) {
+            if (this.user.activities) {
+              EventBus.$emit('activitiesReady', this.user.activities);
+              EventBus.$emit('routeReady', this.route);
+            }
+          }
+        }, 200);
+      },
+
       async performSearch() {
         this.GET('routes/' + this.id, (data, err) => {
           if (!err) {
@@ -191,7 +197,8 @@
                 body: this.route.body,
                 tags: this.route.tags
               };
-              EventBus.$emit('routeReady', this.route);
+              this.broadcastData();
+
             }
           }
         });
@@ -201,7 +208,6 @@
         this.GET('users/' + userId, (data, err) => {
           if (!err) {
             if (data.activities) {
-              EventBus.$emit('activitiesReady', data.activities);
             }
           }
         })

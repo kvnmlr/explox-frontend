@@ -66,12 +66,10 @@
 
     created() {
       EventBus.$on('routeReady', (data) => {
-        console.log('routes ready');
         this.route = data;
         this.reloadMap();
       });
       EventBus.$on('activitiesReady', (data) => {
-        console.log('activities ready');
         this.activities = data;
         this.reloadMap();
       });
@@ -119,6 +117,9 @@
       },
       addCoverageLayer(id) {
         if (!this.activities) {
+          return;
+        }
+        if (this.activities.length === 0) {
           return;
         }
         const layer = {
@@ -327,7 +328,6 @@
               try {
                 this.map.fitBounds(feature.leafletObject.getBounds());
               } catch (e) {
-                console.log("Bounds not ready yet");
               }
             }
           } else {
