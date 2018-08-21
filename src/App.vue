@@ -38,6 +38,7 @@
       alertVisible: false,
     }),
     created() {
+      console.log(process.env);
       this.authorizeUser();
       EventBus.$on('reloadData', () => {
         this.authorizeUser();
