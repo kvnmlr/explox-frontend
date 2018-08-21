@@ -240,6 +240,11 @@
       checkAndRedirect(user) {
         user = this.user || user;
         if (!user) {
+          this.$emit('flash', {
+            type: 'info',
+            text: 'Action requires logged in user, please log in.'
+          });
+          this.$router.push('login');
           return;
         }
         if (user.role === 'admin') {

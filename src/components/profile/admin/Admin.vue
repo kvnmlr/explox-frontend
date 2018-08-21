@@ -59,11 +59,22 @@
         feedbacks: [],
       };
     },
+    props: {
+      user: Object
+    },
     created() {
       this.performSearch();
     },
     methods: {
       async performSearch() {
+        if (!this.user) {
+          this.$emit('flash', {
+            type: 'info',
+            text: 'Action requires logged in user, please log in.'
+          });
+          this.$router.push('/login');
+          return;
+        }
         this.GET('dashboard', (data, err) => {
           if (!err) {
             this.users = data.users;

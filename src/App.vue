@@ -33,7 +33,7 @@
     },
     data: () => ({
       csrfToken: '',
-      user: undefined,
+      user: null,
       alert: {},
       alertVisible: false,
     }),
@@ -90,6 +90,7 @@
             if (!this.user) {
               setTimeout(() => {
                 this.$router.push('/login');
+                this.$emit('flash', err.flash);
               }, 100);
             }
             this.$emit('flash', err.flash);
