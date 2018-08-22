@@ -50,7 +50,7 @@
                     <p>{{ user.activities.length }}</p>
                   </v-flex>
                   <v-flex xs2 sm2 md2>
-                    <v-menu dark transition="slide-y-transition" bottom right>
+                    <v-menu dark transition="slide-y-transition" bottom left>
                       <v-btn class="gradient gradient-green" light fab small relative right slot="activator">
                         <v-icon>more_horiz</v-icon>
                       </v-btn>
@@ -73,7 +73,7 @@
                             <v-icon>import_export</v-icon>
                             Export/Save
                           </v-list-tile-title>
-                          <v-dialog v-model="exportDialog" persistent max-width="290">
+                          <v-dialog v-model="exportDialog" max-width="290">
                             <v-card dark>
                               <v-card-title class="headline">Save/Export Route</v-card-title>
                               <v-card-text>
@@ -84,7 +84,6 @@
                                   <v-btn flat round color="primary" v-on:click="exportActivities">
                                     Download All Activities
                                   </v-btn>
-                                  <v-btn flat round @click="exportDialog = false">Cancel</v-btn>
                                 </v-form>
                               </v-card-text>
                               <v-card-actions>
@@ -99,7 +98,7 @@
                             <v-icon>delete</v-icon>
                             Delete Account
                           </v-list-tile-title>
-                          <v-dialog v-model="deleteDialog" persistent max-width="290">
+                          <v-dialog v-model="deleteDialog" max-width="290">
                             <v-card dark>
                               <v-card-title class="headline">Are You Sure?</v-card-title>
                               <v-card-text>
@@ -111,7 +110,7 @@
                                   </v-layout>
                                 </v-alert>
                                 <v-form ref="form" lazy-validation>
-                                  <v-btn flat color="primary" round v-on:click="deleteUser">
+                                  <v-btn flat round color="primary" round v-on:click="deleteUser">
                                     Yes, Delete It
                                   </v-btn>
                                   <v-btn flat round @click="deleteDialog = false">Keep Using ExploX</v-btn>
@@ -127,14 +126,37 @@
                     </v-menu>
                   </v-flex>
                 </v-layout>
-                  <v-flex xs12 v-if="user.provider === 'strava'">
+                  <v-flex xs12>
                     <v-btn :disabled="loadingDialog" :loading="loadingDialog"
                            class="gradient gradient-orange" @click.stop="synchronize"
                            dark round>
                       <v-icon>sync</v-icon>&nbsp;Synchronize
                     </v-btn>
                     <loading-dialog :show="loadingDialog" body="This can take up to 1 minute"
-                                    header="Please wait while we synchronize your profile." dark></loading-dialog>
+                                    header="Please wait while we synchronize your profile." dark>
+                    </loading-dialog>
+                    <v-btn class="gradient gradient-orange" @click.stop="inviteDialog = true"
+                           dark round>
+                      <v-icon>people</v-icon>&nbsp;Invite Friends
+                    </v-btn>
+                    <v-dialog v-model="inviteDialog" max-width="500">
+                      <v-card dark>
+                        <v-card-title class="headline">Invite Friends</v-card-title>
+                        <v-card-text>
+                          <p>Who do you want to invite? We will send an invitation e-mail directly to your friend's e-mail address.</p>
+                          <v-form ref="form" lazy-validation>
+                            <v-text-field v-model="inviteName" label="Receiver Name (optional)"></v-text-field>
+                            <v-text-field v-model="inviteEmail" label="Receiver E-Mail" required></v-text-field>
+                            <v-btn round flat color="primary" v-on:click.prevent="invite">
+                              Send Invitation E-Mail
+                            </v-btn>
+                          </v-form>
+                        </v-card-text>
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+                        </v-card-actions>
+                      </v-card>
+                    </v-dialog>
                   </v-flex>
               </v-container>
             </v-flex>
@@ -232,7 +254,10 @@
         exportDialog: false,
         deleteDialog: false,
         loadingDialog: false,
+        inviteDialog: false,
         activities: undefined,
+        inviteName: '',
+        inviteEmail: '',
       };
     },
     props: {
@@ -253,9 +278,10 @@
 
     methods: {
       checkAndRedirect(user) {
-        user = this.user || user;
+        if (!this.user) {
+          this.user = user;
+        }
         if (!user) {
-          console.log("aaa");
           this.$emit('flash', {
             type: 'info',
             text: 'Action requires logged in user, please log in.'
@@ -292,6 +318,19 @@
         });
       },
 
+      async invite() {
+        const formData = {
+          _csrf: this.csrfToken,
+          email: this.inviteEmail,
+          name: this.inviteName,
+        };
+
+        this.POST('invite', formData, null, (data, err) => {
+          this.inviteDialog = false;
+          this.inviteEmail = '';
+          this.inviteName = '';
+        });
+      },
       async synchronize() {
         this.loadingDialog = true;
         this.GET('users/' + this.user._id + '/update', (data, err) => {

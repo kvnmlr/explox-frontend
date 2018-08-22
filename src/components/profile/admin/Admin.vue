@@ -18,16 +18,16 @@
 
     <v-tabs-items v-model="currentTab">
       <v-tab-item :id="`tab-api`">
-        <api></api>
+        <api :invitations="invitations" :feedbacks="feedbacks" :limits="limits"></api>
       </v-tab-item>
       <v-tab-item :id="`tab-users`">
-        <users v-bind:users="users"></users>
+        <users :users="users"></users>
       </v-tab-item>
       <v-tab-item :id="`tab-routes`">
-        <routes v-bind:routes="routes"></routes>
+        <routes :routes="routes"></routes>
       </v-tab-item>
       <v-tab-item :id="`tab-activities`">
-        <activities v-bind:activities="activities"></activities>
+        <activities :activities="activities"></activities>
       </v-tab-item>
     </v-tabs-items>
 
@@ -56,6 +56,7 @@
         users: [],
         activities: [],
         routes: [],
+        invitations: [],
         feedbacks: [],
         limits: {},
         user: Object
@@ -75,12 +76,10 @@
             this.routes = data.routes;
             this.feedbacks = data.feedbacks;
             this.limits = data.limits;
-
-            EventBus.$emit('adminLimitsReady', this.limits);
+            this.invitations = data.invitations;
             EventBus.$emit('adminRoutesReady', this.routes);
             EventBus.$emit('adminActivitiesReady', this.activities);
             EventBus.$emit('adminUsersReady', this.users);
-            EventBus.$emit('adminFeedbacksReady', this.feedbacks);
           }
         });
       },
