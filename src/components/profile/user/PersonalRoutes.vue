@@ -7,7 +7,11 @@
         <v-flex xs12 sm6 style="padding-right:20px;">
           <h2><v-icon>gesture</v-icon>&nbsp;Personal Routes</h2>
           <br>
-          <route v-for="(route, i) in user.routes" v-bind:route="route" :key="i"></route>
+          <div v-if="user.routes.length" >
+            <route v-for="(route, i) in user.routes" v-bind:route="route" :key="i"></route>
+          </div>
+          <p v-else>You do not have any routes</p>
+
         </v-flex>
         <v-flex xs12 sm6 style="padding-left:20px;">
           <h2><v-icon>star</v-icon>&nbsp;Starred Routes</h2>

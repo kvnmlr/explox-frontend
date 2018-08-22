@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Users</h2>
-    <v-data-table :headers="columns" :items="rows" :rows-per-page-items=[10,50,100,200]>
+    <v-data-table :headers="this.columns" :items="this.rows" :rows-per-page-items=[10,50,100,200]>
       <template slot="headerCell" slot-scope="props">
         <v-tooltip bottom>
               <span slot="activator">
@@ -13,8 +13,8 @@
         </v-tooltip>
       </template>
       <template slot="items" slot-scope="props">
-        <td>{{ props.item.username }}</td>
-        <td class="text-xs-left">{{ props.item.name }}</td>
+        <td class="text-xs-left"><router-link :to="{path: '/users/' + props.item._id}">{{ props.item.username }}</router-link></td>
+        <td class="text-xs-left"><router-link :to="{path: '/users/' + props.item._id}">{{ props.item.name }}</router-link></td>
         <td class="text-xs-left">{{ props.item.email }}</td>
         <td class="text-xs-left">{{ props.item.provider }}</td>
         <td class="text-xs-left">{{ props.item.role }}</td>
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-  import { EventBus } from '@/eventBus.js';
+  import {EventBus} from '@/eventBus.js';
   import formatDateMixin from "../../../mixins/formatDateMixin";
 
   export default {
@@ -80,22 +80,20 @@
       };
     },
     created() {
-      EventBus.$on('usersReady', (data) => {
+      EventBus.$on('adminUsersReady', (data) => {
         this.users = data;
       });
     },
     computed: {
       rows() {
         let rows = [];
-        if (this.users) {
-          if (this.users.length > 0) {
-            for (let u of this.users) {
-              u.activitiesCount = 5;
-              u.routesCount = 5;
-              rows.push(u);
-            }
-            return rows;
+        if (this.users.length > 0) {
+          for (let u of this.users) {
+            u.activitiesCount = 5;
+            u.routesCount = 5;
+            rows.push(u);
           }
+          return rows;
         }
       }
     },

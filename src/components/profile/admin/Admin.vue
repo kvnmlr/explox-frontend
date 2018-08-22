@@ -18,7 +18,7 @@
 
     <v-tabs-items v-model="currentTab">
       <v-tab-item :id="`tab-api`">
-        <api v-bind:feedbacks="feedbacks"></api>
+        <api></api>
       </v-tab-item>
       <v-tab-item :id="`tab-users`">
         <users v-bind:users="users"></users>
@@ -35,7 +35,7 @@
 </template>
 
 <script>
-  import Api from './General'
+  import General from './General'
   import Users from './Users'
   import Activities from './Activities'
   import Routes from './Routes'
@@ -44,7 +44,7 @@
 
   export default {
     components: {
-      Api,
+      Api: General,
       Users,
       Activities,
       Routes
@@ -57,37 +57,30 @@
         activities: [],
         routes: [],
         feedbacks: [],
+        limits: {},
+        user: Object
+
       };
-    },
-    props: {
-      user: Object
     },
     created() {
       this.performSearch();
+      EventBus.$emit('authenticate');
     },
     methods: {
       async performSearch() {
-        if (!this.user) {
-          this.$emit('flash', {
-            type: 'info',
-            text: 'Action requires logged in user, please log in.'
-          });
-          this.$router.push('/login');
-          return;
-        }
         this.GET('dashboard', (data, err) => {
           if (!err) {
             this.users = data.users;
             this.activities = data.activities;
             this.routes = data.routes;
             this.feedbacks = data.feedbacks;
+            this.limits = data.limits;
 
-            console.log(this.activities);
-
-            EventBus.$emit('routesReady', this.routes);
-            EventBus.$emit('activitiesReady', this.activities);
-            EventBus.$emit('usersReady', this.users);
-            EventBus.$emit('feedbacksReady', this.feedbacks);
+            EventBus.$emit('adminLimitsReady', this.limits);
+            EventBus.$emit('adminRoutesReady', this.routes);
+            EventBus.$emit('adminActivitiesReady', this.activities);
+            EventBus.$emit('adminUsersReady', this.users);
+            EventBus.$emit('adminFeedbacksReady', this.feedbacks);
           }
         });
       },

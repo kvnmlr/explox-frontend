@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Users</h2>
-    <v-data-table :headers="columns" :items="rows" :rows-per-page-items=[10,50,100,200]>
+    <v-data-table :headers="this.columns" :items="this.rows" :rows-per-page-items=[10,50,100,200]>
       <template slot="headerCell" slot-scope="props">
         <v-tooltip bottom>
               <span slot="activator">
@@ -14,7 +14,7 @@
       </template>
       <template slot="items" slot-scope="props">
         <td class="text-xs-left">{{ props.item.isGenerated }}</td>
-        <td class="text-xs-left">{{ props.item.title }}</td>
+        <td class="text-xs-left"><router-link :to="{path: '/route/' + props.item._id}">{{ props.item.title }}</router-link></td>
         <td class="text-xs-left">{{ props.item.user.substring(0, 6) }}</td>
         <td class="text-xs-left">{{ props.item.distance.toFixed(2) + ' m' }}</td>
         <td class="text-xs-left">{{ props.item.geo }}</td>
@@ -65,7 +65,9 @@
       };
     },
     created() {
-      EventBus.$on('routesReady', (data) => {
+      EventBus.$on('adminRoutesReady', (data) => {
+        console.log('routes ready');
+        console.log(data);
         this.routes = data;
       });
     },

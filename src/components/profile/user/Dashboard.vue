@@ -22,14 +22,22 @@
           <v-layout row wrap>
             <v-flex xs12 sm12 md6>
               <v-container>
-                <img class="elevation-5" style="width:100%"
-                     src="https://www.wpfreeware.com/wp-content/uploads/2014/09/placeholder-images.jpg">
+
                 <br>
                 <br>
                 <v-layout row>
                   <v-flex xs10 sm10 md10>
-                    <h2 color="primary">{{ user.name.toUpperCase() }}</h2>
-                    <h4>{{ user.username }}</h4>
+                    <v-layout row flex>
+                      <v-flex xs12 sm4>
+                        <v-avatar v-if="user.strava" size="64px" tile>
+                          <img style="border-radius: 50%;" v-bind:src="this.user.strava.profile">
+                        </v-avatar>
+                      </v-flex>
+                      <v-flex xs12 sm 8>
+                        <h2 color="primary">{{ user.name.toUpperCase() }}</h2>
+                        <h4>{{ user.username }}</h4>
+                      </v-flex>
+                    </v-layout>
                     <p></p>
                     <h4>Email</h4>
                     <p>{{ user.email }}</p>
@@ -43,7 +51,7 @@
                   </v-flex>
                   <v-flex xs2 sm2 md2>
                     <v-menu dark transition="slide-y-transition" bottom right>
-                      <v-btn class="gradient gradient-green" light fab relative right slot="activator">
+                      <v-btn class="gradient gradient-green" light fab small relative right slot="activator">
                         <v-icon>more_horiz</v-icon>
                       </v-btn>
                       <v-list>
@@ -233,13 +241,21 @@
 
     created() {
       EventBus.$on('authenticated', (data) => {this.checkAndRedirect(data);});
-      this.checkAndRedirect();
+      EventBus.$on('unauthenticated', () => {this.checkAndRedirect(null);});
+
+      if (this.user) {
+        if (this.user.role === 'admin') {
+          this.$router.push('/admin/dashboard');
+          return;
+        }
+      }
     },
 
     methods: {
       checkAndRedirect(user) {
         user = this.user || user;
         if (!user) {
+          console.log("aaa");
           this.$emit('flash', {
             type: 'info',
             text: 'Action requires logged in user, please log in.'

@@ -4,12 +4,12 @@
     <div class="separator"></div>
     <h3>API Limits</h3>
     <b>Short Term</b>
-    <p>20 out of 100</p>
-    <v-progress-linear class="gradient" color="accent" height="20" value="20"></v-progress-linear>
+    <p>{{limits.shortTermUsage}} out of {{limits.shortTermLimit}} ({{limits.shortTerm}}%)</p>
+    <v-progress-linear class="gradient" :color="this.limits.shortTerm < 67 ? this.limits.shortTerm < 34 ? 'success' : 'warning' : 'error'" height="20" :value="this.limits.shortTerm"></v-progress-linear>
     <div class="separator"></div>
     <b>Long Term</b>
-    <p>27000 out of 30000</p>
-    <v-progress-linear class="gradient" color="primary" height="20" value="90"></v-progress-linear>
+    <p>{{limits.longTermUsage}} out of {{limits.longTermLimit}} ({{limits.longTerm}}%)</p>
+    <v-progress-linear class="gradient":color="this.limits.longTerm < 67 ? this.limits.longTerm < 34 ? 'success' : 'warning' : 'error'" height="20" :value="this.limits.longTerm"></v-progress-linear>
     <div class="separator"></div>
     <v-divider></v-divider>
     <div class="separator"></div>
@@ -57,13 +57,19 @@
   export default {
     name: "Api",
     created() {
-      EventBus.$on('feedbacksReady', (data) => {
+      EventBus.$on('adminFeedbacksReady', (data) => {
         this.feedbacks = data;
+      });
+      EventBus.$on('adminLimitsReady', (data) => {
+        this.limits = Object.assign({}, data);
+        this.limits.longTerm =  Math.floor(this.limits.longTermUsage * 100  / this.limits.longTermLimit);
+        this.limits.shortTerm = Math.floor(this.limits.shortTermUsage * 100 / this.limits.shortTermLimit);
       });
     },
     data() {
       return {
         feedbacks: Array,
+        limits: Object,
       }
     },
     methods: {

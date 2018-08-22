@@ -55,7 +55,7 @@
       async login() {
         const formData = {
           _csrf: this.csrfToken,
-          email: (this.email).toLowerCase(),
+          email: this.email,
           password: this.password
         };
 

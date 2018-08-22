@@ -38,7 +38,7 @@
       alertVisible: false,
     }),
     created() {
-      console.log(process.env)
+      console.log(process.env);
       this.authorizeUser();
       EventBus.$on('reloadData', () => {
         this.authorizeUser();
@@ -76,7 +76,8 @@
               EventBus.$emit('authenticated', this.user);
             }
             this.performSearch();
-
+          } else {
+            EventBus.$emit('unauthenticated');
           }
         });
       },

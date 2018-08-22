@@ -9,7 +9,10 @@
       <v-layout row wrap>
         <v-flex xs12 sm7 md7 style="padding-right:20px;">
           <br>
-          <activity v-for="(activity, i) in user.activities" v-bind:activity="activity" :key="i"></activity>
+          <div v-if="user.activities.length">
+            <activity v-for="(activity, i) in user.activities" v-bind:activity="activity" :key="i"></activity>
+          </div>
+          <p v-else>You do not have any activities</p>
         </v-flex>
         <v-flex class="hidden-sm-and-down" md5 style="padding-left:20px;">
           <br>

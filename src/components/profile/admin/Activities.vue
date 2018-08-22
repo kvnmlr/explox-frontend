@@ -61,7 +61,7 @@
     },
     props: {},
     created() {
-      EventBus.$on('activitiesReady', (data) => {
+      EventBus.$on('adminActivitiesReady', (data) => {
         this.activities = data;
       });
 

@@ -13,39 +13,39 @@
             new account.
             After that, you can use all ExploX features.</p>
           <strava-login v-bind:text="'Connect'" style="margin-top: 20px;"></strava-login>
-
         </v-flex>
         <v-flex xs12 sm6 md6>
           <v-container>
             <img style="width:100%;" src="@/assets/img/adventure-bikers-bikes.jpg" class="elevation-5">
-
           </v-container>
         </v-flex>
-
-
       </v-layout>
     </v-card>
 
-    <v-card class="gradient-no-switch gradient-secondary elevation-5" dark style="padding: 10px; margin-top: 20px;">
-    <v-layout row wrap style="margin:30px;">
-      <v-flex xs12 sm6 md6>
-        <img style="width:100%" src="@/assets/img/bicycle-bike-brakes.jpg">
-      </v-flex>
-      <v-flex xs12 sm6 md6>
-        <v-container>
-          <h2 style="color: white">Collected Data</h2>
-          <p>ExploX loads all your activities from your Strava profile and use them to display your activity map,
-            generate
-            personalized routes for you or do analyses on your data.</p>
-          <h2 style="color: white">Connect to Strava</h2>
-          <p>Whether you already have a Strava profile or not, just click on 'Connect to Strava' and log in or create a
-            new account.
-            After that, you can use all ExploX features.</p>
-        </v-container>
+    <v-card class="gradient-no-switch gradient-secondary elevation-5" dark style="padding-top: 5px;">
+      <v-layout row wrap style="margin:30px;">
+        <v-flex xs12 sm6 md6>
+          <v-container>
+            <img style="width:100%;" src="@/assets/img/bicycle-bike-brakes.jpg">
+          </v-container>
+        </v-flex>
+        <v-flex xs12 sm6 md6>
+          <v-container>
+            <h2 style="color: white">Collected Data</h2>
+            <p>ExploX loads all your activities from your Strava profile and use them to display your activity map,
+              generate
+              personalized routes for you or do analyses on your data.</p>
+            <h2 style="color: white">Connect to Strava</h2>
+            <p>Whether you already have a Strava profile or not, just click on 'Connect to Strava' and log in or create
+              a
+              new account.
+              After that, you can use all ExploX features.</p>
+            <strava-login v-bind:text="'Connect to Strava'" style="margin-top: 20px;"></strava-login>
 
-      </v-flex>
-      <strava-login v-bind:text="'Connect to Strava'" style="margin-top: 20px;"></strava-login>
-    </v-layout>
+          </v-container>
+
+        </v-flex>
+      </v-layout>
     </v-card>
 
   </div>
