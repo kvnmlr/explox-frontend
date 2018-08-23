@@ -55,7 +55,7 @@
                         <v-icon>more_horiz</v-icon>
                       </v-btn>
                       <v-list>
-                        <v-list-tile v-on:click="editDialog = true">
+                        <v-list-tile v-on:click="() => {this.setUpdateUserFields(); this.editDialog = true;}">
                           <v-list-tile-title>
                             <v-icon>edit</v-icon>
                             Edit
@@ -196,7 +196,7 @@
 
           <v-dialog v-if="updatedUser" v-model="editDialog" persistent max-width="290">
             <v-card dark>
-              <v-card-title class="headline">Update Route Details</v-card-title>
+              <v-card-title class="headline">Edit Profile</v-card-title>
               <v-card-text>
                 <v-form ref="form" lazy-validation>
                   <v-text-field v-model="updatedUser.name" label="Name" required></v-text-field>
@@ -269,6 +269,7 @@
       EventBus.$on('unauthenticated', () => {this.checkAndRedirect(null);});
 
       if (this.user) {
+        this.updatedUser = this.user;
         if (this.user.role === 'admin') {
           this.$router.push('/admin/dashboard');
           return;
@@ -277,9 +278,14 @@
     },
 
     methods: {
+      setUpdateUserFields() {
+        this.updatedUser = this.user;
+      },
+
       checkAndRedirect(user) {
         if (!this.user) {
           this.user = user;
+          this.updatedUser = this.user;
         }
         if (!user) {
           this.$emit('flash', {
@@ -297,7 +303,6 @@
 
       broadcastData() {
         setTimeout(() => {
-          EventBus.$emit('routesReady', this.user.routes);
           EventBus.$emit('activitiesReady', this.user.activities);
         }, 200);
       },

@@ -20,7 +20,7 @@
               </v-flex>
               <v-flex xs12 md4 md4>
                 <div v-for="layer in featureLayers" :key="layer.id">
-                  <v-switch v-on:change="layerChanged(layer.id)" v-model="selectedFeatures" v-bind:label="layer.name"
+                  <v-switch v-on:change="layerChanged(layer.id, false)" v-model="selectedFeatures" v-bind:label="layer.name"
                             v-bind:value="layer.id" color="primary" hide-details>{{layer.name}}
                   </v-switch>
                 </div>
@@ -46,6 +46,8 @@
   import geoTransformMixin from "../../mixins/geoTransformMixin";
   import {EventBus} from '@/eventBus.js';
 
+  require('../../assets/js/L.GridLayer.MaskCanvas.js');
+
 
   export default {
     name: "simple",
@@ -58,7 +60,9 @@
         selectedMap: 0,
         selectedFeatures: [0, 1, 2, 3, 4],
         route: undefined,
-        activities: undefined,
+        routeGeoJSON: undefined,
+        activities: [],
+        activitiesGeoJSON: [],
       }
     },
 
@@ -67,10 +71,15 @@
     created() {
       EventBus.$on('routeReady', (data) => {
         this.route = data;
+        this.routeGeoJSON = this.toGeoJSON(this.route.geo, false);
         this.reloadMap();
       });
       EventBus.$on('activitiesReady', (data) => {
         this.activities = data;
+
+        this.activities.forEach(activity => {
+          this.activitiesGeoJSON = this.activitiesGeoJSON.concat(this.toGeoJSON(activity.geo, true));
+        });
         this.reloadMap();
       });
       EventBus.$on('removeMap', (next) => {
@@ -90,30 +99,27 @@
 
     methods: {
       addMouseSelectionLayer(id) {
-        const layer = {
-          id: 4,
-          name: 'MouseSelection',
-          features: [
-            {
-              style: {
-                "color": "#00FF00",
-                "weight": 5,
-                "opacity": 1
-              },
-              properties: {
-                type: "selection"
-              },
-              type: "Feature",
-              geometry: {
-                type: "Point",
-                coordinates:
-                  [-90.168056, 38.770547],
-              },
-
-            }
-          ],
-        };
-        this.featureLayers.push(layer);
+        const mouseLayer =
+          {
+            id: id,
+            label: 'mouse',
+            name: 'Mouse',
+            style: {
+              "color": "#00FF00",
+              "weight": 5,
+              "opacity": 1
+            },
+            properties: {
+              type: "selection"
+            },
+            type: "Feature",
+            geometry: {
+              type: "Point",
+              coordinates:
+                [-90.168056, 38.770547],
+            },
+          };
+        this.featureLayers.push(mouseLayer);
       },
       addCoverageLayer(id) {
         if (!this.activities) {
@@ -122,80 +128,70 @@
         if (this.activities.length === 0) {
           return;
         }
-        const layer = {
-          id: id,
-          name: 'Coverage',
-          features: [
-            {
-              style: {
-                "color": "#00FF00",
-                "weight": 5,
-                "opacity": 1
-              },
-              primary: !this.route,
-              properties: {
-                type: "route"
-              },
-              type: "Feature",
-              geometry: {
-                type: "LineString",
-                coordinates: this.toGeoJSON(this.activities[0].geo),
-              },
-
-            }
-          ],
-        };
-        this.featureLayers.push(layer);
+        const coverageLayer =
+          {
+            id: id,
+            label: 'coverage',
+            name: 'Activity Map',
+            style: {
+              "color": "#00FF00",
+              "weight": 5,
+              "opacity": 1
+            },
+            primary: true,
+            properties: {
+              type: "route"
+            },
+            type: "Feature",
+            geometry: {
+              type: "LineString",
+              coordinates: this.activitiesGeoJSON,
+            },
+          };
+        this.featureLayers.push(coverageLayer);
       },
       addMarkerLayer(id) {
-        const layer = {
-          id: id,
-          name: 'Endpoints',
-          features: [
-            {
-              id: 0,
-              name: 'Startpoint',
-              type: 'marker',
-              coords: [38.6109607, -90.2050322],
-            },
-            {
-              id: 1,
-              name: 'Endpoint',
-              type: 'marker',
-              coords: [38.6109607, -90.2050322],
-            },
-          ],
+        const startPoint =
+          {
+            id: id,
+            label: 'start',
+            name: 'Startpoint',
+            type: 'marker',
+            coords: [this.routeGeoJSON[0][1], this.routeGeoJSON[0][0]],
+          };
+        const endPoint = {
+          id: id + 1,
+          name: 'Endpoint',
+          label: 'end',
+          type: 'marker',
+          color: 'green',
+          coords: [this.routeGeoJSON[this.routeGeoJSON.length - 1][1], this.routeGeoJSON[this.routeGeoJSON.length - 1][0]],
         };
-        this.featureLayers.push(layer);
+        this.featureLayers.push(startPoint);
+        this.featureLayers.push(endPoint);
       },
       addRouteLayer(id) {
-        if (!this.route) {
-          return;
-        }
-        const layer = {
-          id: id,
-          name: 'RouteLines',
-          features: [
-            {
-              style: {
-                "color": "#FF0000",
-                "weight": 5,
-                "opacity": 1
-              },
-              primary: true,
-              properties: {
-                type: "route"
-              },
-              type: "Feature",
-              geometry: {
-                type: "LineString",
-                coordinates: this.toGeoJSON(this.route.geo),
-              },
-
-            }
-          ],
-        };
-        this.featureLayers.push(layer);
+        const routeLayer =
+          {
+            id: id,
+            label: 'route',
+            name: 'Route',
+            style: {
+              "color": "#FF0000",
+              "weight": 5,
+              "opacity": 1
+            },
+            primary: true,
+            properties: {
+              type: "route"
+            },
+            type: "Feature",
+            geometry: {
+              type: "LineString",
+              coordinates: this.routeGeoJSON,
+            },
+          };
+        this.featureLayers.push(routeLayer);
       },
 
       reloadMap() {
@@ -216,10 +212,15 @@
 
         // add layers
         this.featureLayers = [];
-        this.addRouteLayer(1);
-        this.addMarkerLayer(2);
-        this.addCoverageLayer(3);
-        this.addMouseSelectionLayer(4);
+
+        if (this.route) {
+          this.addRouteLayer(1);
+          this.addMarkerLayer(2);
+        }
+        if (this.activitiesGeoJSON) {
+          this.addCoverageLayer(4);
+        }
+        this.addMouseSelectionLayer(5);
 
         // init layers (create leaflet obejcts)
         this.initLayers();
@@ -292,12 +293,58 @@
 
       initLayers() {
         this.featureLayers.forEach((layer) => {
-          const markerFeatures = layer.features.filter(feature => feature.type === 'marker');
-          const polygonFeatures = layer.features.filter(feature => feature.type === 'polygon');
-          const geoJSONFeatures = layer.features.filter(feature => feature.type === 'Feature');
+          if (layer.label === 'start') {
+            const startIcon = L.icon({
+              iconUrl: 'https://cdn4.iconfinder.com/data/icons/maps-and-navigation-solid-icons-vol-3/72/115-512.png',
+              iconSize: [50, 50], // size of the icon
+              iconAnchor: [15, 40], // point of the icon which will correspond to marker's location
+              popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
+            });
+            layer.leafletObject = L.marker(layer.coords, {icon: startIcon}).bindPopup(layer.name);
+            return;
+          }
 
+          if (layer.label === 'end') {
+            const startIcon = L.icon({
+              iconUrl: 'https://cdn4.iconfinder.com/data/icons/maps-and-navigation-solid-icons-vol-3/72/115-512.png',
+              iconSize: [50, 50], // size of the icon
+              iconAnchor: [15, 40], // point of the icon which will correspond to marker's location
+              popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
+            });
+            layer.leafletObject = L.marker(layer.coords, {icon: startIcon}).bindPopup(layer.name);
+            return;
+          }
+
+          if (layer.label === 'route') {
+            layer.leafletObject = L.geoJSON(layer, layer.style);
+            return;
+          }
+
+          if (layer.label === 'coverage') {
+
+            let coverageLayer = new L.GridLayer.MaskCanvas(
+              {
+                radius: 50,                 // radius in pixels or in meters (see useAbsoluteRadius)
+                useAbsoluteRadius: true,    // true: r in meters, false: r in pixels
+                color: '#000',              // the color of the layer
+                opacity: 0.5,               // opacity of the not covered area
+                noMask: false,              // true results in normal (filled) circled, instead masked circles
+                lineColor: '#A00'           // color of the circle outline if noMask is true
+              }
+            );
+            coverageLayer.setData(this.activitiesGeoJSON);
+            layer.leafletObject = coverageLayer;
+
+
+            // layer.leafletObject = L.geoJSON(layer, layer.style);
+            return;
+          }
+
+
+          /*
           markerFeatures.forEach((feature) => {
-            feature.leafletObject = L.marker(feature.coords).bindPopup(feature.name);
+            console.log(feature);
+            feature.leafletObject = L.marker(feature.coords, {icon: greenIcon}).bindPopup(feature.name);
           });
 
           polygonFeatures.forEach((feature) => {
@@ -307,33 +354,36 @@
           geoJSONFeatures.forEach((feature) => {
             feature.leafletObject = L.geoJSON(feature, feature.style);
           });
-
-          /*
-          var coverageLayer = new L.GridLayer.MaskCanvas(!{JSON.stringify(map.maskConfig)});
-        coverageLayer.setData(!{JSON.stringify(map.heatmapData.data)});
-           */
+          */
         });
       },
 
-      layerChanged(layerId) {
+      layerChanged(layerId, fit) {
         const active = this.selectedFeatures.includes(layerId);
         const layer = this.featureLayers.find(layer => layer.id === layerId);
         if (!layer) {
           return;
         }
-        layer.features.forEach((feature) => {
+
+        if (layer.leafletObject) {
           if (active) {
-            feature.leafletObject.addTo(this.map);
-            if (feature.primary) {
+            layer.leafletObject.addTo(this.map);
+            if (layer.primary && fit) {
               try {
-                this.map.fitBounds(feature.leafletObject.getBounds());
+                let bounds;
+                if (layer.leafletObject.bounds) {
+                  bounds = layer.leafletObject.bounds;
+                } else {
+                  bounds = layer.leafletObject.getBounds();
+                }
+                this.map.fitBounds(bounds);
               } catch (e) {
               }
             }
           } else {
-            feature.leafletObject.removeFrom(this.map);
+            layer.leafletObject.removeFrom(this.map);
           }
-        });
+        }
       },
 
       providerChanged(mapId) {

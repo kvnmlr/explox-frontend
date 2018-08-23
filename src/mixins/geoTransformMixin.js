@@ -1,13 +1,19 @@
 export default {
   methods: {
-    toGeoJSON(geos) {
+    toGeoJSON(geos, inverted) {
       const routeData = [];
       if (!geos) {
         return routeData;
       }
       for (let i = 0; i < geos.length; ++i) {
         if (geos[i].location) {
-          const coords = [(geos[i].location.coordinates[0]),(geos[i].location.coordinates[1])];
+          let coords;
+          if (inverted) {
+            coords = [(geos[i].location.coordinates[1]),(geos[i].location.coordinates[0])];
+          } else {
+            coords = [(geos[i].location.coordinates[0]),(geos[i].location.coordinates[1])];
+          }
+
           routeData.push(coords);
         }
       }

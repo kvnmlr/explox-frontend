@@ -178,10 +178,12 @@
     methods: {
       broadcastData() {
         setTimeout(() => {
+          if (this.route) {
+            EventBus.$emit('routeReady', this.route);
+          }
           if (this.user) {
             if (this.user.activities) {
               EventBus.$emit('activitiesReady', this.user.activities);
-              EventBus.$emit('routeReady', this.route);
             }
           }
         }, 200);
@@ -198,7 +200,6 @@
                 tags: this.route.tags
               };
               this.broadcastData();
-
             }
           }
         });
