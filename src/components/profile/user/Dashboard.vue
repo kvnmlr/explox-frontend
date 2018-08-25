@@ -62,7 +62,7 @@
                           </v-list-tile-title>
                         </v-list-tile>
                         <v-list-tile :to="{path: '/users/'+this.user._id}">
-                          <v-list-tile-title >
+                          <v-list-tile-title>
                             <v-icon>public</v-icon>
                             Public Profile
                           </v-list-tile-title>
@@ -126,44 +126,73 @@
                     </v-menu>
                   </v-flex>
                 </v-layout>
-                  <v-flex xs12>
-                    <v-btn :disabled="loadingDialog" :loading="loadingDialog"
-                           class="gradient gradient-orange" @click.stop="synchronize"
-                           dark round>
-                      <v-icon>sync</v-icon>&nbsp;Synchronize
-                    </v-btn>
-                    <loading-dialog :show="loadingDialog" body="This can take up to 1 minute"
-                                    header="Please wait while we synchronize your profile." dark>
-                    </loading-dialog>
-                    <v-btn class="gradient gradient-orange" @click.stop="inviteDialog = true"
-                           dark round>
-                      <v-icon>people</v-icon>&nbsp;Invite Friends
-                    </v-btn>
-                    <v-dialog v-model="inviteDialog" max-width="500">
-                      <v-card dark>
-                        <v-card-title class="headline">Invite Friends</v-card-title>
-                        <v-card-text>
-                          <p>Who do you want to invite? We will send an invitation e-mail directly to your friend's e-mail address.</p>
-                          <v-form ref="form" lazy-validation>
-                            <v-text-field v-model="inviteName" label="Receiver Name (optional)"></v-text-field>
-                            <v-text-field v-model="inviteEmail" label="Receiver E-Mail" required></v-text-field>
-                            <v-btn round flat color="primary" v-on:click.prevent="invite">
-                              Send Invitation E-Mail
-                            </v-btn>
-                          </v-form>
-                        </v-card-text>
-                        <v-card-actions>
-                          <v-spacer></v-spacer>
-                        </v-card-actions>
-                      </v-card>
-                    </v-dialog>
-                  </v-flex>
+                <v-flex xs12>
+                  <h3>Synchronize Profile</h3>
+                  <br>
+                  <div v-if="$vuetify.breakpoint.lgAndUp">
+                    <p>
+                      This will take your up-to-date <a href="/strava">Strava</a>
+                      profile and update your ExploX profile
+                      accordingly:</p>
+                    <ul>
+                      <li>New save routes will be added to ExploX</li>
+                      <li>Your latest activities will show up in your activity map</li>
+                      <li>Your profile data and statistics will be updated</li>
+                    </ul>
+                  </div>
+                  <br>
+                  <v-btn :disabled="loadingDialog" :loading="loadingDialog"
+                         class="gradient gradient-orange" style="width: 100%;" @click.stop="synchronize"
+                         dark round>
+                    <v-icon>sync</v-icon>&nbsp;Synchronize Now
+                  </v-btn>
+                  <p style="color: #CCCCCC;"><i>We will also update your profile automatically once every day.</i></p>
+                  <loading-dialog :show="loadingDialog" body="This can take up to 1 minute"
+                                  header="Please wait while we synchronize your profile." dark>
+                  </loading-dialog>
+                  <br>
+                  <v-card dark class="gradient-no-switch gradient-secondary elevation-5">
+                    <v-card-text>
+                      <h3 style="color: white">Invite Friends</h3>
+                      <br>
+                      <p>
+                        Invite your cycling partners and discover new routes together
+                        and share your progress with each other!
+                      </p>
+                      <v-btn style="width: 95%;" class="gradient gradient-orange" @click.stop="inviteDialog = true"
+                             dark round>
+                        <v-icon>people</v-icon>&nbsp;Invite a Friend
+                      </v-btn>
+                      <v-dialog v-model="inviteDialog" max-width="500">
+                        <v-card dark>
+                          <v-card-title class="headline">Invite Friends</v-card-title>
+                          <v-card-text>
+                            <p>Who do you want to invite? We will send an invitation e-mail directly to your friend's
+                              e-mail address.</p>
+                            <v-form ref="form" lazy-validation>
+                              <v-text-field v-model="inviteName" label="Receiver Name (optional)"></v-text-field>
+                              <v-text-field v-model="inviteEmail" label="Receiver E-Mail" required></v-text-field>
+                              <v-btn round flat color="primary" v-on:click.prevent="invite">
+                                Send Invitation E-Mail
+                              </v-btn>
+                            </v-form>
+                          </v-card-text>
+                          <v-card-actions>
+                            <v-spacer></v-spacer>
+                          </v-card-actions>
+                        </v-card>
+                      </v-dialog>
+                    </v-card-text>
+                  </v-card>
+
+
+                </v-flex>
               </v-container>
             </v-flex>
             <v-flex xs12 sm12 md6>
               <v-container>
                 <v-flex row>
-                  <v-card dark color="accent" class="elevation-5">
+                  <v-card dark color="accent" class="gradient gradient-secondary elevation-5">
                     <v-container>
                       <h3 style="color: white">Latest Activity</h3>
                       <br>
@@ -194,7 +223,7 @@
             </v-flex>
           </v-layout>
 
-          <v-dialog v-if="updatedUser" v-model="editDialog" persistent max-width="290">
+          <v-dialog v-if="updatedUser" v-model="editDialog" persistent max-width="400">
             <v-card dark>
               <v-card-title class="headline">Edit Profile</v-card-title>
               <v-card-text>
@@ -202,6 +231,7 @@
                   <v-text-field v-model="updatedUser.name" label="Name" required></v-text-field>
                   <v-text-field v-model="updatedUser.username" label="Username" required></v-text-field>
                   <v-text-field v-model="updatedUser.email" label="E-Mail" required></v-text-field>
+                  <p style="color: #CCCCCC;"><i>Note: Your profile picture is taken from your Strava profile.</i></p>
                   <v-btn flat round color="primary" v-on:click.prevent="update">
                     Update
                   </v-btn>
@@ -265,8 +295,12 @@
     },
 
     created() {
-      EventBus.$on('authenticated', (data) => {this.checkAndRedirect(data);});
-      EventBus.$on('unauthenticated', () => {this.checkAndRedirect(null);});
+      EventBus.$on('authenticated', (data) => {
+        this.checkAndRedirect(data);
+      });
+      EventBus.$on('unauthenticated', () => {
+        this.checkAndRedirect(null);
+      });
 
       if (this.user) {
         this.updatedUser = this.user;

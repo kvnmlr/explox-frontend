@@ -50,17 +50,7 @@
         <h3>OR</h3>
       </v-flex>
       <v-flex d-flex xs12 sm4 md4>
-        <v-card class="gradient-no-switch gradient-green">
-          <v-card-title primary class="title">
-            <v-icon>show_chart</v-icon>&nbsp;Create New Route
-          </v-card-title>
-          <v-card-text>
-            <p>See your personal profile and statistics.</p>
-            <v-btn large round dark class="gradient gradient-orange" style="width: 95%; height: 100px; vertical-align: bottom" to="creator">
-              <v-icon>gesture</v-icon>&nbsp; Creator
-            </v-btn>
-          </v-card-text>
-        </v-card>
+        <create-new-route-prompt></create-new-route-prompt>
       </v-flex>
     </v-layout>
     <div class="separator"></div>
@@ -79,10 +69,12 @@
   import routeSearchMixin from "../../mixins/routeSearchMixin";
   import apiMixin from "../../mixins/apiMixin";
   import LoadingDialog from "../includes/LoadingDialog";
+  import CreateNewRoutePrompt from "./CreateNewRoutePrompt";
 
   export default {
     name: "List",
     components: {
+      CreateNewRoutePrompt,
       LoadingDialog,
       route: Route,
     },

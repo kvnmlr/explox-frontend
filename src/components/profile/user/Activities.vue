@@ -1,10 +1,10 @@
 <template>
   <v-container fluid style="min-height:500px;">
     <strava-alert v-if="user.provider !== 'strava'" style="height:400px;"></strava-alert>
-
     <div v-else>
       <h2>
-        <v-icon>check</v-icon>&nbsp;Your Activities
+        <v-icon>check</v-icon>
+        &nbsp;Your Activities
       </h2>
       <v-layout row wrap>
         <v-flex xs12 sm7 md7 style="padding-right:20px;">
@@ -13,8 +13,11 @@
             <activity v-for="(activity, i) in user.activities" v-bind:activity="activity" :key="i"></activity>
           </div>
           <p v-else>You do not have any activities</p>
+
         </v-flex>
         <v-flex class="hidden-sm-and-down" md5 style="padding-left:20px;">
+          <br>
+          <upload-file></upload-file>
           <br>
           <img v-if="user.activities.length > 2" style="width:100%" src="@/assets/img/bicycle-cloud-clouds.jpg" class="elevation-5">
           <img v-else style="width:100%" src="@/assets/img/bicycle-cloud-clouds-2.jpg" class="elevation-5">
@@ -28,10 +31,12 @@
 <script>
   import StravaAlert from "../../includes/StravaAlert";
   import Activity from "../../activities/Activity";
+  import UploadFile from "../../routes/UploadFile";
 
   export default {
     name: "Activities",
     components: {
+      UploadFile,
       StravaAlert,
       Activity
     },

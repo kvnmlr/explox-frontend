@@ -62,9 +62,11 @@
       </v-btn>
       <v-menu offset-y v-model="loginMenu" :close-on-content-click="false">
         <v-btn icon large slot="activator" dark>
-          <v-avatar size="32px" tile>
-            <img src="@/assets/img/profile.png">
+          <v-avatar size="32px" tile round>
+            <img v-if="user && user.strava" :src="user.strava.profile" style="border-radius: 50%;">
+            <img v-else src="@/assets/img/profile.png" style="border-radius: 50%;">
           </v-avatar>
+
         </v-btn>
         <p slot="activator" style="padding-top: 15px; margin-left: 20px" v-if="user">{{user.name}}</p>
         <p slot="activator" style="padding-top: 15px; margin-left: 20px" v-else>Login</p>

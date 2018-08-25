@@ -1,7 +1,22 @@
 <template>
   <div>
     <h1>Creator</h1>
-    <under-construction></under-construction>
+    <v-container fluid style="min-height:500px;">
+      <strava-alert v-if="user.provider !== 'strava'" style="height:400px;"></strava-alert>
+
+      <div v-else>
+        <v-layout row wrap>
+          <v-flex xs12 sm6 style="padding-right:20px;">
+            <h2><v-icon>gesture</v-icon>&nbsp;Generate New Route</h2>
+            <br>
+          </v-flex>
+          <v-flex xs12 sm6 style="padding-left:20px;">
+            <h2><v-icon>star</v-icon>&nbsp;Upload GPX File</h2>
+
+          </v-flex>
+        </v-layout>
+      </div>
+    </v-container>
   </div>
 </template>
 
