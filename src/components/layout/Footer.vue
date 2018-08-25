@@ -1,5 +1,5 @@
 <template>
-  <Footer color="stylish-color" class="font-small pt-4 mt-4">
+  <Footer class="font-small">
     <template>
       <v-footer dark color="primary" class="pa-3">
         <v-spacer></v-spacer>

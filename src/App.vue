@@ -4,7 +4,7 @@
       {{ alert.text }}
     </v-snackbar>
     <app-header v-bind:user="user" v-on:logout="logout" v-on:authorizeUser="authorizeUser"></app-header>
-    <v-content style="background-color: #FFFFFF">
+    <v-content style="background-color: white">
       <v-container fill-height fill-width>
         <v-layout justify-center>
           <v-flex>
