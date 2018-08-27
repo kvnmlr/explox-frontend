@@ -102,9 +102,6 @@
       items: [
         {icon: 'dashboard', text: 'Hub', link: 'hub', loginOnly: false},
         {icon: 'show_chart', text: 'Dashboard', link: 'dashboard', loginOnly: true},
-        {icon: 'near_me', text: 'Route Finder', link: 'routes', loginOnly: false},
-        {icon: 'flag', text: 'Analytics', link: 'analytics', loginOnly: true},
-        {icon: 'flight_takeoff', text: 'Get Started', link: 'guide', loginOnly: false},
         {
           loginOnly: true,
           icon: 'keyboard_arrow_up',
@@ -116,6 +113,9 @@
             {icon: 'add', text: 'Create Activity', link: 'creator'},
           ]
         },
+        {icon: 'near_me', text: 'Route Finder', link: 'routes', loginOnly: false},
+        {icon: 'flag', text: 'Analytics', link: 'analytics', loginOnly: true},
+        {icon: 'flight_takeoff', text: 'Get Started', link: 'guide', loginOnly: false},
         {icon: 'chat_bubble', text: 'Send feedback', link: 'feedback', loginOnly: false},
         {icon: 'help', text: 'About', link: 'about', loginOnly: false},
       ]

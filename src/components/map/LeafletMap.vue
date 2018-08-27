@@ -1,9 +1,9 @@
 <template>
   <div>
     <div id="map" class="elevation-5"></div>
-    <v-expansion-panel dark class="elevation-10">
+    <v-expansion-panel dark class="elevation-10" :value="openPanel ? 0 : 1">
       <v-expansion-panel-content class="gradient-no-switch gradient-secondary">
-        <div dark slot="header">Map Settings</div>
+        <div dark slot="header">Map Visuals</div>
         <v-card class="gradient-no-switch gradient-secondary" dark>
           <v-card-text>
             <v-layout row wrap>
@@ -16,11 +16,11 @@
                     </v-list-tile>
                   </v-list>
                 </v-menu>
-                <v-btn light class="gradient gradient-green" round>Fullscreen</v-btn>
               </v-flex>
               <v-flex xs12 md4 md4>
                 <div v-for="layer in featureLayers" :key="layer.id">
-                  <v-switch v-on:change="layerChanged(layer.id, false)" v-model="selectedFeatures" v-bind:label="layer.name"
+                  <v-switch v-on:change="layerChanged(layer.id, false)" v-model="selectedFeatures"
+                            v-bind:label="layer.name"
                             v-bind:value="layer.id" color="primary" hide-details>{{layer.name}}
                   </v-switch>
                 </div>
@@ -58,17 +58,54 @@
         featureLayers: [],
         tileLayer: null,
         selectedMap: 0,
-        selectedFeatures: [0, 1, 2, 3, 4],
+        selectedFeatures: [],
         route: undefined,
         routeGeoJSON: undefined,
         activities: [],
         activitiesGeoJSON: [],
+
+
+        // IDs
+        id_route: 1,
+        id_start_point: 2,
+        id_end_point: 3,
+        id_activity: 4,
+        id_mouse_start_selection: 5,
+        id_mouse_end_selection: 6,
       }
+    },
+    props: {
+      showActivityMap: Boolean,
+      showRoute: Boolean,
+      showMouseSelection: Boolean,
+      dark: Boolean,
+      currentSelectStart: Boolean,     // indicates whether current mouse selection is the start point
+      selectEnabled: Boolean,
+      openPanel: Boolean,
     },
 
     mixins: [geoTransformMixin],
 
     created() {
+      let features = [];
+      if (this.showRoute) {
+        features.push(this.id_route);
+        features.push(this.id_start_point);
+        features.push(this.id_end_point);
+      }
+      if (this.showActivityMap) {
+        features.push(this.id_activity);
+      }
+      if (this.showMouseSelection) {
+        features.push(this.id_mouse_start_selection);
+        features.push(this.id_mouse_end_selection);
+      }
+      this.selectedFeatures = features;
+
+      if (this.dark) {
+        this.selectedMap = 1;
+      }
+
       EventBus.$on('routeReady', (data) => {
         this.route = data;
         this.routeGeoJSON = this.toGeoJSON(this.route.geo, false);
@@ -98,29 +135,142 @@
     },
 
     methods: {
-      addMouseSelectionLayer(id) {
-        const mouseLayer =
-          {
-            id: id,
-            label: 'mouse',
-            name: 'Mouse',
-            style: {
-              "color": "#00FF00",
-              "weight": 5,
-              "opacity": 1
-            },
-            properties: {
-              type: "selection"
-            },
-            type: "Feature",
-            geometry: {
-              type: "Point",
-              coordinates:
-                [-90.168056, 38.770547],
-            },
-          };
-        this.featureLayers.push(mouseLayer);
+      addMouseStartSelectionLayer(id) {
+        let self = this;
+        this.map.on('click', function (click) {
+          if (click.latlng && self.currentSelectStart && self.selectEnabled) {
+
+            self.$emit('startSelected', click.latlng);
+
+            const geojsonMarkerOptions = {
+              radius: 8,
+              fillColor: "#ff780000",
+              color: "#000",
+              weight: 5,
+              opacity: 1,
+              fillOpacity: 0.8
+            };
+            let states = {
+              id: id,
+              label: 'mouse',
+              name: 'Mouse Selection',
+              type: "Feature",
+              properties: {
+                type: "start",
+                popupContent: "This is the start point!"
+              },
+              geometry: {
+                type: "Point",
+                coordinates: [click.latlng.lng.toFixed(4).toString(), click.latlng.lat.toFixed(4).toString()]
+              }
+            };
+
+            // check if this layer already exists
+            let index;
+            const layerExists = self.featureLayers.find((layer, i) => {
+              if (layer.id === self.id_mouse_start_selection) {
+                index = i;
+                return true;
+              }
+              return false;
+            });
+
+            if (!layerExists) {
+              // push the layer for the first time and set index to the last position in the array
+              self.featureLayers.push(states);
+              index = self.featureLayers.length-1;
+            } else {
+              // remove the layer from the map in order to remove previous selections
+              self.map.removeLayer(self.featureLayers[index].leafletObject);
+            }
+
+            // create and assign the geoJSON object
+            self.featureLayers[index] = states;
+            self.featureLayers[index].leafletObject = L.geoJSON(states, {
+              //onEachFeature: onEachFeature,
+              style: function (feature) {
+                geojsonMarkerOptions.color = "#ff7100"
+                return geojsonMarkerOptions;
+              },
+              pointToLayer: function (feature, latlng) {
+                return L.circleMarker(latlng, geojsonMarkerOptions);
+              }
+            });
+
+            // update the layer
+            self.layerChanged(self.id_mouse_start_selection);
+          }
+        });
       },
+      addMouseEndSelectionLayer(id) {
+        let self = this;
+        this.map.on('click', function (click) {
+          if (click.latlng && !self.currentSelectStart && self.selectEnabled) {
+
+            self.$emit('endSelected', click.latlng);
+
+
+            const geojsonMarkerOptions = {
+              radius: 10,
+              fillColor: "#ff780000",
+              color: "#000",
+              weight: 5,
+              opacity: 1,
+              fillOpacity: 0.8
+            };
+            let states = {
+              id: id,
+              label: 'mouse',
+              name: 'End Selection',
+              type: "Feature",
+              properties: {
+                type: "end",
+                popupContent: "This is the end point!"
+              },
+              geometry: {
+                type: "Point",
+                coordinates: [click.latlng.lng.toFixed(4).toString(), click.latlng.lat.toFixed(4).toString()]
+              }
+            };
+
+            // check if this layer already exists
+            let index;
+            const layerExists = self.featureLayers.find((layer, i) => {
+              if (layer.id === self.id_mouse_end_selection) {
+                index = i;
+                return true;
+              }
+              return false;
+            });
+
+            if (!layerExists) {
+              // push the layer for the first time and set index to the last position in the array
+              self.featureLayers.push(states);
+              index = self.featureLayers.length-1;
+            } else {
+              // remove the layer from the map in order to remove previous selections
+              self.map.removeLayer(self.featureLayers[index].leafletObject);
+            }
+
+            // create and assign the geoJSON object
+            self.featureLayers[index] = states;
+            self.featureLayers[index].leafletObject = L.geoJSON(states, {
+              //onEachFeature: onEachFeature,
+              style: function (feature) {
+                geojsonMarkerOptions.color = "#0cff00"
+                return geojsonMarkerOptions;
+              },
+              pointToLayer: function (feature, latlng) {
+                return L.circleMarker(latlng, geojsonMarkerOptions);
+              }
+            });
+
+            // update the layer
+            self.layerChanged(self.id_mouse_end_selection);
+          }
+        });
+      },
+
       addCoverageLayer(id) {
         if (!this.activities) {
           return;
@@ -213,14 +363,22 @@
         // add layers
         this.featureLayers = [];
 
-        if (this.route) {
-          this.addRouteLayer(1);
-          this.addMarkerLayer(2);
+        if (this.route && this.showRoute) {
+          this.addRouteLayer(this.id_route);
+          this.addMarkerLayer(this.id_start_point);
         }
-        if (this.activitiesGeoJSON) {
-          this.addCoverageLayer(4);
+        if (this.activitiesGeoJSON && this.showActivityMap) {
+          this.addCoverageLayer(this.id_activity);
         }
-        this.addMouseSelectionLayer(5);
+        if (this.showMouseSelection) {
+          this.addMouseStartSelectionLayer(this.id_mouse_start_selection);
+          this.addMouseEndSelectionLayer(this.id_mouse_end_selection);
+
+          /* let self = this;
+          this.map.on('click', function () {
+            self.currentSelectStart = !self.currentSelectStart;
+          }); */
+        }
 
         // init layers (create leaflet obejcts)
         this.initLayers();
@@ -339,22 +497,6 @@
             // layer.leafletObject = L.geoJSON(layer, layer.style);
             return;
           }
-
-
-          /*
-          markerFeatures.forEach((feature) => {
-            console.log(feature);
-            feature.leafletObject = L.marker(feature.coords, {icon: greenIcon}).bindPopup(feature.name);
-          });
-
-          polygonFeatures.forEach((feature) => {
-            feature.leafletObject = L.polygon(feature.coords, {color: layer.color}).bindPopup(feature.name);
-          });
-
-          geoJSONFeatures.forEach((feature) => {
-            feature.leafletObject = L.geoJSON(feature, feature.style);
-          });
-          */
         });
       },
 

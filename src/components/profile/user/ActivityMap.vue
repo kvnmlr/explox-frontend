@@ -1,7 +1,7 @@
 <template>
   <v-container v-else style="min-height:500px;">
     <strava-alert v-if="user.provider !== 'strava'" style="height:400px;"></strava-alert>
-    <simple-map v-else style="width: 100%;"></simple-map>
+    <simple-map show-activity-map v-else style="width: 100%;"></simple-map>
   </v-container>
 </template>
 

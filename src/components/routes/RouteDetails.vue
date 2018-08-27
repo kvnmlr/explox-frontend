@@ -98,7 +98,7 @@
         </p>
       </v-flex>
       <v-flex xs12 sm12 md8>
-        <simple-map></simple-map>
+        <simple-map show-activity-map show-route></simple-map>
       </v-flex>
     </v-layout>
 
@@ -177,7 +177,6 @@
     },
     methods: {
       broadcastData() {
-        setTimeout(() => {
           if (this.route) {
             EventBus.$emit('routeReady', this.route);
           }
@@ -186,7 +185,6 @@
               EventBus.$emit('activitiesReady', this.user.activities);
             }
           }
-        }, 200);
       },
 
       async performSearch() {
