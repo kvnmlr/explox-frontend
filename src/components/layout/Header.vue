@@ -101,7 +101,7 @@
       loginMenu: false,
       items: [
         {icon: 'dashboard', text: 'Hub', link: 'hub', loginOnly: false},
-        {icon: 'show_chart', text: 'Dashboard', link: 'dashboard', loginOnly: true},
+        {icon: 'person', text: 'Dashboard', link: 'dashboard', loginOnly: true},
         {
           loginOnly: true,
           icon: 'keyboard_arrow_up',

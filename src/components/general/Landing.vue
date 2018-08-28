@@ -1,9 +1,7 @@
 <template>
   <div>
     <welcome></welcome>
-    <v-container align baseline grid-list-md text-xs-cente>
-    </v-container>
-    <explanation></explanation>
+    <under-construction></under-construction>
   </div>
 </template>
 
@@ -12,10 +10,11 @@
   import apiMixin from "../../mixins/apiMixin";
   import Explanation from "./Explanation";
   import { EventBus } from '@/eventBus.js';
+  import UnderConstruction from "../includes/UnderConstruction";
 
   export default {
     name: 'Landing',
-    components: {Explanation, Welcome,},
+    components: {UnderConstruction, Explanation, Welcome,},
     created() {
       EventBus.$emit('expandDrawer');
       this.performSearch();

@@ -12,10 +12,11 @@
 
       ></simple-map>
     </div>
-    <v-navigation-drawer v-if="$vuetify.breakpoint.smAndUp && !results"
-                         :value="drawer"
+    <v-navigation-drawer v-if="$vuetify.breakpoint.smAndUp && !results && drawer"
                          :mini-variant="mini"
-                         absolute right fixed>
+                         absolute right fixed
+                         :width="400"
+                         permanent>
 
       <v-list>
         <v-list-tile v-if="mini" @click.stop="mini = !mini">
@@ -98,11 +99,12 @@
       </div>
     </v-navigation-drawer>
 
-    <v-navigation-drawer v-if="$vuetify.breakpoint.smAndUp && results"
-                         v-model="drawer"
+    <v-navigation-drawer v-if="$vuetify.breakpoint.smAndUp && results && drawer"
                          :mini-variant="mini"
                          permanent
-                         absolute right fixed>
+                         absolute right fixed
+                         :width="400"
+                         permanent>
 
       <v-list class="pa-1">
         <v-list-tile v-if="mini" @click.stop="mini = !mini">
@@ -145,7 +147,7 @@
               </v-expansion-panel-content>
             </v-expansion-panel>
             <br><br>
-            <v-btn class="gradient gradient-orange" style="width: 100%;" @click.stop="results = false" dark round>
+            <v-btn class="gradient gradient-orange" style="width: 100%;" @click.stop="() => {results = false; step = '1';}" dark round>
               <v-icon>sync</v-icon>&nbsp;
               New Search
             </v-btn>
@@ -176,7 +178,7 @@
 
     <loading-dialog :show="loadingDialog" body="This will take less than one minute."
                     header="Creating new routes for you."
-                    width="500" dark>
+                    :width="500" dark>
     </loading-dialog>
 
   </div>
@@ -240,10 +242,10 @@
       this.currentSelectStart = true;
       setTimeout(() => {
         EventBus.$emit('collapseDrawer');
-      }, 500);
+      }, 200);
       setTimeout(() => {
         this.drawer = true;
-      }, 500);
+      }, 700);
       if (this.user) {
         if (this.user.activities) {
           EventBus.$emit('activitiesReady', this.user.activities);

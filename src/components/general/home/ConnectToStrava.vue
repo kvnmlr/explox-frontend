@@ -1,6 +1,11 @@
 <template>
   <div>
     <h1>Connect to Strava</h1>
+    <h4 v-if="user && user.provider === 'strava'">
+      <v-icon>check</v-icon>
+      &nbsp;You are already connected to Strava, great!
+      <br>
+    </h4>
     <v-card class="elevation-0" style="padding: 10px;">
       <v-layout row wrap style="margin:30px;">
         <v-flex xs12 sm6 md6>
@@ -12,7 +17,8 @@
           <p>Whether you already have a Strava profile or not, just click on 'Connect to Strava' and log in or create a
             new account.
             After that, you can use all ExploX features.</p>
-          <strava-login v-bind:text="'Connect'" style="margin-top: 20px;"></strava-login>
+          <strava-login v-if="!user || user.provider !== 'strava'" v-bind:text="'Connect'"
+                        style="margin-top: 20px;"></strava-login>
         </v-flex>
         <v-flex xs12 sm6 md6>
           <v-container>
@@ -40,8 +46,8 @@
               a
               new account.
               After that, you can use all ExploX features.</p>
-            <strava-login v-bind:text="'Connect to Strava'" style="margin-top: 20px;"></strava-login>
-
+            <strava-login v-if="!user || user.provider !== 'strava'" v-bind:text="'Connect to Strava'"
+                          style="margin-top: 20px;"></strava-login>
           </v-container>
 
         </v-flex>
@@ -56,7 +62,10 @@
 
   export default {
     name: "ConnectToStrava",
-    components: {StravaLogin}
+    components: {StravaLogin},
+    props: {
+      user: Object,
+    }
   }
 </script>
 

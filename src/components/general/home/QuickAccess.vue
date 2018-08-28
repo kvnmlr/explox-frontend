@@ -9,7 +9,7 @@
       <v-flex d-flex xs12 sm6 md6>
         <v-card class="gradient-no-switch gradient-green" hover color="primary" to="/dashboard">
           <v-card-title primary class="title">
-            <v-icon>show_chart</v-icon>&nbsp;Dashboard
+            <v-icon>person</v-icon>&nbsp;Dashboard
           </v-card-title>
           <v-card-text>Your personal profile and statistics including your personal activity map.</v-card-text>
         </v-card>

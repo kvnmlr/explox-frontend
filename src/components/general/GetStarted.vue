@@ -2,7 +2,7 @@
   <div>
     <h1>Get Started</h1>
     <div class="separator"></div>
-    <explanation></explanation>
+    <explanation :user="user"></explanation>
   </div>
 </template>
 
@@ -12,7 +12,10 @@
 
   export default {
     name: "GetStarted",
-    components: {Explanation, UnderConstruction}
+    components: {Explanation, UnderConstruction},
+    props: {
+      user: Object,
+    }
   }
 </script>
 
