@@ -102,6 +102,6 @@ export default new Router({
       path: '/creator',
       name: 'Creator',
       component: Creator
-    }
+    },
   ]
 })

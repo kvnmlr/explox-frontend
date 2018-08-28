@@ -9,7 +9,7 @@
             </v-chip>
           </v-flex>
           <v-flex xs2 sm2 md2>
-            <v-menu dark transition="slide-y-transition" bottom right>
+            <v-menu transition="slide-y-transition" bottom right>
               <v-btn light class="gradient gradient-green" relative fab right slot="activator">
                 <v-icon>more_horiz</v-icon>
               </v-btn>

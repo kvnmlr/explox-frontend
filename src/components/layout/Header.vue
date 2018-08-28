@@ -47,7 +47,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-toolbar class="gradient-no-switch gradient-secondary" style="z-index: 100;"
+    <v-toolbar style="z-index: 100; background-color: #ff6d00"
                :clipped-left="$vuetify.breakpoint.lgAndUp" dense app dark color="#212121">
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
@@ -128,6 +128,9 @@
       this.drawer = this.$vuetify.breakpoint.lgAndUp;
       EventBus.$on('expandDrawer', () => {
         this.drawer = true;
+      });
+      EventBus.$on('collapseDrawer', () => {
+        this.drawer = false;
       });
     },
     computed: {

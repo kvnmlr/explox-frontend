@@ -12,11 +12,11 @@ a {
 }
 
 h2 {
-  color: #FB8C00;
+  color: #ff6d00;
 }
 
 h3 {
-  color: #EF6C00;
+  color: #ff6d00;
 }
 
 h4 {
@@ -55,16 +55,12 @@ h4 {
   flex: 1 1 auto;
   transition: 0.5s;
   background-size: 200% auto;
-  color: white;
-  box-shadow: 0 0 20px #eee;
 }
 
 .gradient {
   flex: 1 1 auto;
   transition: 0.5s;
   background-size: 200% auto;
-  box-shadow: 0 0 20px #eee;
-  border-radius: 10px;
 }
 
 .gradient:hover {
@@ -72,19 +68,19 @@ h4 {
 }
 
 .gradient-orange {
-  background-image: linear-gradient(to right, #ff6d00  0%, #ffab40  51%, #ff6d00  100%);
+  background-image: linear-gradient(to right, #ee5b19 0%, #ff8015 51%, #ee5b19 100%);
 }
 
 .gradient-green {
-  background-image: linear-gradient(to right, #f5f5f5 0%, #dedede 51%, #f5f5f5 100%);
+  background-image: linear-gradient(to right, #f5f5f5 0%, #e6e6e6 51%, #f5f5f5 100%);
 }
 
 .gradient-blue {
-  background-image: linear-gradient(to right, #0091ea   0%, #40c4ff   51%, #0091ea   100%);
+  background-image: linear-gradient(to right, #0091ea 0%, #40c4ff 51%, #0091ea 100%);
 }
 
 .gradient-secondary {
-  background-image: linear-gradient(to right, #2b2b2b 0%, #424242 51%, #2b2b2b  100%);
+  background-image: linear-gradient(to right, #2b2b2b 0%, #424242 51%, #2b2b2b 100%);
 }
 
 Footer

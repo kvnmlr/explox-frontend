@@ -20,7 +20,7 @@
         <v-tab-item :id="`tab-profile`">
 
           <v-layout row wrap>
-            <v-flex xs12 sm12 md6>
+            <v-flex xs12 sm12 md7>
               <v-container>
 
                 <br>
@@ -50,8 +50,8 @@
                     <p>{{ user.activities.length }}</p>
                   </v-flex>
                   <v-flex xs2 sm2 md2>
-                    <v-menu dark transition="slide-y-transition" bottom left>
-                      <v-btn class="gradient gradient-green" light fab small relative right slot="activator">
+                    <v-menu transition="slide-y-transition" bottom left>
+                      <v-btn class="gradient gradient-green" light fab relative right slot="activator">
                         <v-icon>more_horiz</v-icon>
                       </v-btn>
                       <v-list>
@@ -74,7 +74,7 @@
                             Export/Save
                           </v-list-tile-title>
                           <v-dialog v-model="exportDialog" max-width="290">
-                            <v-card dark>
+                            <v-card>
                               <v-card-title class="headline">Save/Export Route</v-card-title>
                               <v-card-text>
                                 <v-form ref="form" lazy-validation>
@@ -99,7 +99,7 @@
                             Delete Account
                           </v-list-tile-title>
                           <v-dialog v-model="deleteDialog" max-width="290">
-                            <v-card dark>
+                            <v-card>
                               <v-card-title class="headline">Are You Sure?</v-card-title>
                               <v-card-text>
                                 <v-alert :value=true outline type="error" transition="slide-y-transition">
@@ -148,10 +148,13 @@
                   </v-btn>
                   <p style="color: #CCCCCC;"><i>We will also update your profile automatically once every day.</i></p>
                   <loading-dialog :show="loadingDialog" body="This can take up to 1 minute"
-                                  header="Please wait while we synchronize your profile." dark>
+                                  header="Please wait while we synchronize your profile."
+                                  :width="500" dark>
                   </loading-dialog>
                   <br>
-                  <v-card dark class="gradient-no-switch gradient-secondary elevation-5">
+                  <v-divider></v-divider>
+                  <br>
+                  <v-card dark class="gradient-no-switch gradient-orange elevation-5">
                     <v-card-text>
                       <h3 style="color: white">Invite Friends</h3>
                       <br>
@@ -159,12 +162,12 @@
                         Invite your cycling partners and discover new routes together
                         and share your progress with each other!
                       </p>
-                      <v-btn style="width: 95%;" class="gradient gradient-orange" @click.stop="inviteDialog = true"
-                             dark round>
+                      <v-btn style="width: 95%;" class="gradient gradient-green"
+                             @click.stop="inviteDialog = true" round light>
                         <v-icon>people</v-icon>&nbsp;Invite a Friend
                       </v-btn>
                       <v-dialog v-model="inviteDialog" max-width="500">
-                        <v-card dark>
+                        <v-card>
                           <v-card-title class="headline">Invite Friends</v-card-title>
                           <v-card-text>
                             <p>Who do you want to invite? We will send an invitation e-mail directly to your friend's
@@ -189,12 +192,12 @@
                 </v-flex>
               </v-container>
             </v-flex>
-            <v-flex xs12 sm12 md6>
+            <v-flex xs12 sm12 md5>
               <v-container>
                 <v-flex row>
-                  <v-card dark color="accent" class="gradient gradient-secondary elevation-5">
+                  <v-card  class="elevation-5">
                     <v-container>
-                      <h3 style="color: white">Latest Activity</h3>
+                      <h3>Latest Activity</h3>
                       <br>
                       <activity v-if="user.activities.length > 0"
                                 v-for="(activity, i) in user.activities.slice(0,3)" v-bind:activity="activity" dense
@@ -207,7 +210,7 @@
                 </v-flex>
                 <v-spacer style="margin: 20px;"></v-spacer>
                 <v-flex row>
-                  <v-card class="elevation-5">
+                  <v-card  class="elevation-5">
                     <v-container>
                       <h3>Latest Routes</h3>
                       <br>
@@ -224,7 +227,7 @@
           </v-layout>
 
           <v-dialog v-if="updatedUser" v-model="editDialog" persistent max-width="400">
-            <v-card dark>
+            <v-card>
               <v-card-title class="headline">Edit Profile</v-card-title>
               <v-card-text>
                 <v-form ref="form" lazy-validation>

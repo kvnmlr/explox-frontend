@@ -9,7 +9,7 @@
             </v-chip>
           </v-flex>
           <v-flex xs2 sm2 md2>
-            <v-menu dark transition="slide-y-transition" bottom right>
+            <v-menu transition="slide-y-transition" bottom right>
               <v-btn light class="gradient gradient-green" relative fab right slot="activator">
                 <v-icon>more_horiz</v-icon>
               </v-btn>
@@ -19,8 +19,8 @@
                     <v-icon>edit</v-icon>
                     Edit
                   </v-list-tile-title>
-                  <v-dialog v-model="editDialog" persistent max-width="290">
-                    <v-card dark>
+                  <v-dialog v-model="editDialog" persistent max-width="400">
+                    <v-card>
                       <v-card-title class="headline">Update Route Details</v-card-title>
                       <v-card-text>
                         <v-form ref="form" lazy-validation>
@@ -44,7 +44,7 @@
                     Export/Save
                   </v-list-tile-title>
                   <v-dialog v-model="exportDialog" persistent max-width="290">
-                    <v-card dark>
+                    <v-card>
                       <v-card-title class="headline">Save/Export Route</v-card-title>
                       <v-card-text>
                         <v-form ref="form" lazy-validation>
@@ -70,7 +70,7 @@
                     Delete
                   </v-list-tile-title>
                   <v-dialog v-model="deleteDialog" persistent max-width="290">
-                    <v-card dark>
+                    <v-card>
                       <v-card-title class="headline">Delete this Route?</v-card-title>
                       <v-card-text>
                         <v-form ref="form" lazy-validation>

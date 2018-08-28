@@ -1,16 +1,16 @@
 <template>
-  <div>
-    <div id="map" class="elevation-5"></div>
-    <v-expansion-panel dark class="elevation-10" :value="openPanel ? 0 : 1">
-      <v-expansion-panel-content class="gradient-no-switch gradient-secondary">
-        <div dark slot="header">Map Visuals</div>
-        <v-card class="gradient-no-switch gradient-secondary" dark>
+  <div class="elevation-5">
+    <div id="map"></div>
+    <v-expansion-panel class="elevation-0" :value="openPanel ? 0 : 1">
+      <v-expansion-panel-content>
+        <div slot="header">Map Visuals</div>
+        <v-card>
           <v-card-text>
             <v-layout row wrap>
               <v-flex xs12 md5 md5>
                 <v-menu offset-y>
-                  <v-btn slot="activator" class="gradient gradient-orange" round>Change Map Style</v-btn>
-                  <v-list v-for="map in mapLayers" dark :key="map.index">
+                  <v-btn slot="activator" class="gradient gradient-orange" dark round>Change Map Style</v-btn>
+                  <v-list style="z-index: 900" v-for="map in mapLayers" :key="map.index">
                     <v-list-tile @click="providerChanged(map.id)">
                       <v-list-tile-title>{{map.name}}</v-list-tile-title>
                     </v-list-tile>
@@ -108,6 +108,7 @@
 
       EventBus.$on('routeReady', (data) => {
         this.route = data;
+        console.log(data);
         this.routeGeoJSON = this.toGeoJSON(this.route.geo, false);
         this.reloadMap();
       });

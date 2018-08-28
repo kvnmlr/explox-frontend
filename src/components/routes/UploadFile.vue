@@ -1,5 +1,5 @@
 <template>
-  <v-card class="gradient-no-switch gradient-secondary elevation-5" dark>
+  <v-card class="elevation-5">
     <v-card-title v-if="route" primary class="title">
       <v-icon>cloud_upload</v-icon>&nbsp;Upload Route File
     </v-card-title>
@@ -16,7 +16,7 @@
         </v-layout>
         <v-layout row>
           <v-flex xs12>
-            <v-btn large round style="width: 95%; height: 100px; vertical-align: bottom" class="gradient gradient-orange" type="submit">
+            <v-btn dark large round style="width: 95%; height: 100px; vertical-align: bottom" class="gradient gradient-orange" type="submit">
               Save {{file.name}}
             </v-btn>
           </v-flex>
