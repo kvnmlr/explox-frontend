@@ -1,6 +1,8 @@
 <template>
   <Header>
-    <v-navigation-drawer class="elevation-0" v-bind:style="getStyle" :clipped="$vuetify.breakpoint.lgAndUp"
+    <v-navigation-drawer
+      v-if="user || $route.name !== 'Landing'"
+      class="elevation-0" v-bind:style="getStyle" :clipped="$vuetify.breakpoint.lgAndUp"
                          v-model="drawer" fixed app>
       <v-list dense>
         <template v-for="item in items">
@@ -18,8 +20,7 @@
               </v-list-tile-content>
             </v-list-tile>
             <div v-for="(child, i) in item.children" :key="i">
-              <router-link :to="{path: '/' + child.link}">
-                <v-list-tile @click="">
+                <v-list-tile @click="" :to="{path: '/' + child.link}">
                   <v-list-tile-action v-if="child.icon">
                     <v-icon>{{ child.icon }}</v-icon>
                   </v-list-tile-action>
@@ -29,7 +30,6 @@
                     </v-list-tile-title>
                   </v-list-tile-content>
                 </v-list-tile>
-              </router-link>
             </div>
           </v-list-group>
 
@@ -47,11 +47,15 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-toolbar style="z-index: 100; background-color: #ff6d00"
+    <v-toolbar style="z-index: 100; background-color: #343434"
                :clipped-left="$vuetify.breakpoint.lgAndUp" dense app dark color="#212121">
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
-        <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-        <span>
+        <v-toolbar-side-icon v-if="user || $route.name !== 'Landing'" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+        <span v-if="user">
+          <v-icon v-on:click="$router.push('/hub')">home</v-icon>
+          <router-link to="/hub" class="hidden-sm-and-down brand">ExploX</router-link>
+        </span>
+        <span v-else>
           <v-icon v-on:click="$router.push('/')">home</v-icon>
           <router-link to="/" class="hidden-sm-and-down brand">ExploX</router-link>
         </span>
@@ -110,7 +114,6 @@
           model: true,
           children: [
             {icon: 'add', text: 'Create Route', link: 'creator'},
-            {icon: 'add', text: 'Create Activity', link: 'creator'},
           ]
         },
         {icon: 'near_me', text: 'Route Finder', link: 'routes', loginOnly: false},

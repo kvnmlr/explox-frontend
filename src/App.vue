@@ -5,7 +5,8 @@
     </v-snackbar>
     <app-header v-bind:user="user" v-on:logout="logout" v-on:authorizeUser="authorizeUser"></app-header>
     <v-content style="background-color: white">
-      <v-container fill-height fill-width>
+      <landing v-if="$route.name === 'Landing'"></landing>
+      <v-container v-else fill-height fill-width>
         <v-layout justify-center>
           <v-flex>
             <router-view v-bind:user="user" v-on:logout="logout" v-on:authorizeUser="authorizeUser" v-on:flash="flash">
@@ -24,9 +25,11 @@
   import Fullscreen from "./components/general/FullscreenRoute"
   import apiMixin from "./mixins/apiMixin";
   import {EventBus} from "./eventBus";
+  import Landing from "./components/general/Landing";
 
   export default {
     components: {
+      Landing,
       'app-header': Header,
       'app-footer': Footer,
       Fullscreen
@@ -38,6 +41,7 @@
       alertVisible: false,
     }),
     created() {
+      console.log(this.$route);
       console.log(process.env);
       this.authorizeUser();
       EventBus.$on('reloadData', () => {

@@ -92,7 +92,7 @@
             ExploX is currently only available for a small set of users including you and everybody you want to invite.
             We also encourage you to share this website with your cycling groups!<br></p>
           <p style="color: darkgrey"><i>Of course, you do not have to do this.</i></p>
-          <invite-friend :user="user"></invite-friend>
+          <invite-friend v-if="user" :user="user"></invite-friend>
         </v-flex>
         <v-flex class="hidden-sm-and-down" xs12 sm6 md6>
           <v-container>
