@@ -3,7 +3,7 @@
     <v-navigation-drawer
       v-if="user || $route.name !== 'Landing'"
       class="elevation-0" v-bind:style="getStyle" :clipped="$vuetify.breakpoint.lgAndUp"
-                         v-model="drawer" fixed app>
+      v-model="drawer" fixed app>
       <v-list dense>
         <template v-for="item in items">
           <v-list-group class="spacer" v-if="item.children && (!item.loginOnly || user)"
@@ -20,16 +20,16 @@
               </v-list-tile-content>
             </v-list-tile>
             <div v-for="(child, i) in item.children" :key="i">
-                <v-list-tile @click="" :to="{path: '/' + child.link}">
-                  <v-list-tile-action v-if="child.icon">
-                    <v-icon>{{ child.icon }}</v-icon>
-                  </v-list-tile-action>
-                  <v-list-tile-content>
-                    <v-list-tile-title>
-                      {{ child.text }}
-                    </v-list-tile-title>
-                  </v-list-tile-content>
-                </v-list-tile>
+              <v-list-tile @click="" :to="{path: '/' + child.link}">
+                <v-list-tile-action v-if="child.icon">
+                  <v-icon>{{ child.icon }}</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                  <v-list-tile-title>
+                    {{ child.text }}
+                  </v-list-tile-title>
+                </v-list-tile-content>
+              </v-list-tile>
             </div>
           </v-list-group>
 
@@ -50,14 +50,16 @@
     <v-toolbar style="z-index: 100; background-color: #343434"
                :clipped-left="$vuetify.breakpoint.lgAndUp" dense app dark color="#212121">
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
-        <v-toolbar-side-icon v-if="user || $route.name !== 'Landing'" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+        <v-toolbar-side-icon v-if="user || $route.name !== 'Landing'"
+                             @click.stop="drawer = !drawer"></v-toolbar-side-icon>
         <span v-if="user">
-          <v-icon v-on:click="$router.push('/hub')">home</v-icon>
-          <router-link to="/hub" class="hidden-sm-and-down brand">ExploX</router-link>
+          <router-link to="/hub" class="hidden-sm-and-down brand">&nbsp;ExploX</router-link>
+          <img src="@/assets/img/logo_white.png" style="margin-bottom: -5px;" height="25px;" v-on:click="$router.push('/hub')">
         </span>
         <span v-else>
-          <v-icon v-on:click="$router.push('/')">home</v-icon>
-          <router-link to="/" class="hidden-sm-and-down brand">ExploX</router-link>
+          <router-link to="/" class="hidden-sm-and-down brand">&nbsp;ExploX</router-link>
+          <img src="@/assets/img/logo_white.png"  style="margin-bottom: -5px;" height="25px;" v-on:click="$router.push('/')">
+
         </span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
@@ -68,7 +70,7 @@
         <v-btn icon large slot="activator" dark>
           <v-avatar size="32px" tile round>
             <img v-if="user && user.strava" :src="user.strava.profile" style="border-radius: 50%;">
-            <img v-else src="@/assets/img/profile.png" style="border-radius: 50%;">
+            <img v-else src="@/assets/img/logo_padded.png" style="border-radius: 50%;">
           </v-avatar>
 
         </v-btn>
