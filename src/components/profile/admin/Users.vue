@@ -14,7 +14,7 @@
       </template>
       <template slot="items" slot-scope="props">
         <td class="text-xs-left"><router-link :to="{path: '/users/' + props.item._id}">{{ props.item.username }}</router-link></td>
-        <td class="text-xs-left"><router-link :to="{path: '/users/' + props.item._id}">{{ props.item.name }}</router-link></td>
+        <td class="text-xs-left"><router-link :to="{path: '/users/' + props.item._id}">{{ props.item.firstName + ' ' + props.item.lastName }}</router-link></td>
         <td class="text-xs-left">{{ props.item.email }}</td>
         <td class="text-xs-left">{{ props.item.provider }}</td>
         <td class="text-xs-left">{{ props.item.role }}</td>

@@ -79,8 +79,8 @@
                   </v-card-title>
                   <v-card-text>
                     <p>Please use the
-                      <router-link to="feedback">Feedback</router-link>
-                      form to contact us. Make sure to leave your e-mail address so we can reply to your request.
+                      <router-link to="feedback">contact form</router-link>
+                      to contact us. Make sure to leave your e-mail address so we can reply to your request.
                       We are always happy to receive your feedback!
                     </p>
                   </v-card-text>

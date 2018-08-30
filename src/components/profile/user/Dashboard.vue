@@ -34,7 +34,7 @@
                         </v-avatar>
                       </v-flex>
                       <v-flex xs12 sm 8>
-                        <h2 color="primary">{{ user.name.toUpperCase() }}</h2>
+                        <h2 color="primary">{{ user.firstName.toUpperCase() + ' ' + user.lastName.toUpperCase() }}</h2>
                         <h4>{{ user.username }}</h4>
                       </v-flex>
                     </v-layout>

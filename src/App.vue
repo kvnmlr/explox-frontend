@@ -101,6 +101,11 @@
             this.$emit('flash', err.flash);
           } else {
             this.user = data.user;
+
+            if (!this.user.fullyRegistered) {
+              this.$router.push('/signup')
+            }
+
             this.GET('users/' + this.user._id, (data, err) => {
               if (!err) {
                 if (data.activities) {

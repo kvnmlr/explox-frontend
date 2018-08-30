@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Feedback</h1>
+    <h1>Contact & Feedback</h1>
     <div class="separator"></div>
     <p>We are constantly working on this website. Thanks for helping us make it even better!</p>
     <br>
@@ -9,10 +9,10 @@
         <v-form ref="form" v-model="valid" lazy-validation>
           <v-text-field v-if="user" :rules="[rules.email]" label="We will reply to this e-mail address" type="text"
                         v-model="email"></v-text-field>
-          <v-text-field v-else :rules="[rules.email]" label="If you want a reply, enter your e-mail here" type="text"
+          <v-text-field v-else :rules="[rules.email]" label="E-mail address (optional)" type="text"
                         v-model="email"></v-text-field>
           <br>
-          <v-textarea required minlength="10" :rules="[rules.notEmpty]" name="input-7-1" label="What's on your mind?"
+          <v-textarea required minlength="10" :rules="[rules.notEmpty]" name="input-7-1" label="Message"
                       v-model="text"></v-textarea>
           <br>
           <v-btn class="gradient gradient-orange" round large dark v-on:click.prevent="submit">Submit</v-btn>

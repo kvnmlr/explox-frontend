@@ -28,8 +28,8 @@
                     <div class="headline text-xs-center">Creator</div>
                   </v-card-title>
                   <v-card-text>
-                    Easily find new cycling routes. Creator will search through popular cycling routes and create a
-                    totally new route just for you.
+                    Easily find new cycling routes. Creator will search through popular cycling routes and <span style="color: #ff6d00">create a
+                    totally new route just for you</span>.
                     Personalization will ensure that the routes fit your level of fitness and many other individual
                     factors.
                   </v-card-text>
@@ -46,7 +46,7 @@
                   <v-card-text>
                     Are you an Explorer? Your personal Activity Map will show you where you have already cycled in the
                     past and which areas are still undiscovered.
-                    This will help you identify new and exciting cycling routes and get to know your environment better.
+                    This will help you <span style="color: #ff6d00">identify new and exciting cycling spots</span> and get to know your environment better.
                   </v-card-text>
                 </v-card>
               </v-flex>
@@ -60,7 +60,7 @@
                   </v-card-title>
                   <v-card-text>
                     Which type of cyclists are you and what are your personal strengths? Our analytics section will help
-                    you identify your strengths and weaknesses.
+                    you <span style="color: #ff6d00">identify your strengths and weaknesses</span>.
                     Combined with Creator and Activity Map, this will allow you to achieve your goals, whether you want
                     to beat your best time or discover new areas by bike.
                   </v-card-text>
