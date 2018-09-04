@@ -66,8 +66,6 @@
     },
     created() {
       EventBus.$on('adminRoutesReady', (data) => {
-        console.log('routes ready');
-        console.log(data);
         this.routes = data;
       });
     },

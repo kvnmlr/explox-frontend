@@ -108,7 +108,6 @@
 
       EventBus.$on('routeReady', (data) => {
         this.route = data;
-        console.log(data);
         this.routeGeoJSON = this.toGeoJSON(this.route.geo, false);
         this.reloadMap();
       });

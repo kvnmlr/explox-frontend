@@ -320,7 +320,6 @@
       },
       routeSelected(index) {
         this.selectedRoute = index;
-        console.log(this.selectedRoute);
         EventBus.$emit('routeReady', this.generatedRoutes[this.selectedRoute]);
       },
 

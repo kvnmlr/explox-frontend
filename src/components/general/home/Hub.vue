@@ -35,8 +35,6 @@
       async performSearch() {
         this.GET('hub', (data, err) => {
           if (!err) {
-            console.log(data.text);
-
           }
         });
       }

@@ -5,17 +5,18 @@ const api = axios.create({
   timeout: 10000,
 });
 
+let csrfToken = '';
+
 api.interceptors.response.use(
   config => config,
   (error) => {
     if (error.response) {
       if (error.response.status === 408) {
-        console.log(`Server timed out for ${error.config.url}`)
+        console.error(`Server timed out for ${error.config.url}`)
       }
     }
-
     if (error.code === 'ECONNABORTED') {
-      console.log(`Axios timeout happened for ${error.config.url}`)
+      console.error(`Axios timeout happened for ${error.config.url}`)
     }
     return Promise.reject(error);
   },
@@ -24,9 +25,9 @@ api.interceptors.response.use(
 export default {
   methods: {
     async GET(path, cb) {
-      console.log(process.env.API_ROOT);
       api.get(path)
         .then(response => {
+          console.log(response);
           const data = response.data;
           console.log("GET: " + path);
           console.log(data);
@@ -52,35 +53,48 @@ export default {
     },
 
     async POST(path, formData, requestParams, cb) {
-      requestParams = requestParams || {
-        method: 'POST',
-        responseType: 'text',
-      };
-
-      api.post(path, formData, requestParams)
+      api.get('csrf')
         .then(response => {
           const data = response.data;
-          console.log("POST: " + path);
-          console.log(data);
-          if (data.flash) {
-            this.$emit('flash', data.flash);
+          if (data.csrf_token) {
+            csrfToken = data.csrf_token;
+            console.log("CSRF Token sent" + csrfToken);
+
+            requestParams = requestParams || {
+              method: 'POST',
+              responseType: 'text',
+            };
+            formData._csrf = csrfToken;
+
+            api.post(path, formData, requestParams)
+              .then(response => {
+                const data = response.data;
+                console.log("POST: " + path);
+                console.log(data);
+                if (data.flash) {
+                  this.$emit('flash', data.flash);
+                }
+                cb(data, null);
+              })
+              .catch(error => {
+                if (!error.response) {
+                  console.log("POST: " + path);
+                  console.log(error);
+                  return cb(null, error);
+                }
+                const err = error.response.data;
+                console.log("POST: " + path);
+                console.log(err);
+                if (err.flash) {
+                  this.$emit('flash', err.flash);
+                }
+                cb(null, err);
+              })
           }
-          cb(data, null);
         })
-        .catch(error => {
-          if (!error.response) {
-            console.log("POST: " + path);
-            console.log(error);
-            return cb(null, error);
-          }
-          const err = error.response.data;
-          console.log("POST: " + path);
-          console.log(err);
-          if (err.flash) {
-            this.$emit('flash', err.flash);
-          }
-          cb(null, err);
-        })
+        .catch(() => {
+          console.error('Could not get csrf token');
+        });
     },
 
     async DELETE(path, cb) {
@@ -111,35 +125,49 @@ export default {
     },
 
     async PUT(path, formData, requestParams, cb) {
-      requestParams = requestParams || {
-        method: 'PUT',
-        responseType: 'text',
-      };
-
-      api.put(path, formData, requestParams)
+      api.get('csrf')
         .then(response => {
           const data = response.data;
-          console.log("PUT: " + path);
-          console.log(data);
-          if (data.flash) {
-            this.$emit('flash', data.flash);
+          if (data.csrf_token) {
+            csrfToken = data.csrf_token;
+
+            console.log("CSRF Token sent" + csrfToken);
+
+            requestParams = requestParams || {
+              method: 'PUT',
+              responseType: 'text',
+            };
+            formData._csrf = csrfToken;
+
+            api.put(path, formData, requestParams)
+              .then(response => {
+                const data = response.data;
+                console.log("PUT: " + path);
+                console.log(data);
+                if (data.flash) {
+                  this.$emit('flash', data.flash);
+                }
+                cb(data, null);
+              })
+              .catch(error => {
+                if (!error.response) {
+                  console.log("PUT: " + path);
+                  console.log(error);
+                  return cb(null, error);
+                }
+                const err = error.response.data;
+                console.log("PUT: " + path);
+                console.log(err);
+                if (err.flash) {
+                  this.$emit('flash', err.flash);
+                }
+                cb(null, err);
+              })
           }
-          cb(data, null);
         })
-        .catch(error => {
-          if (!error.response) {
-            console.log("PUT: " + path);
-            console.log(error);
-            return cb(null, error);
-          }
-          const err = error.response.data;
-          console.log("PUT: " + path);
-          console.log(err);
-          if (err.flash) {
-            this.$emit('flash', err.flash);
-          }
-          cb(null, err);
-        })
+        .catch(() => {
+          console.error('Could not get csrf token');
+        });
     },
   },
 }

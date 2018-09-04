@@ -359,11 +359,9 @@
       },
 
       async exportRoutes() {
-        console.log("Export Routes");
       },
 
       async exportActivities() {
-        console.log("Export Activities");
       },
     },
     mixins: [apiMixin]

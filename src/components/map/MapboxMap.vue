@@ -36,7 +36,6 @@
 
     methods: {
       mapInitialized(map) {
-        console.log("init");
         this.map = map;
       },
       mapLoaded(map) {
