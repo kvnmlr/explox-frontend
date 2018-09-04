@@ -298,10 +298,10 @@
       },
 
       checkAndRedirect(user) {
-        if (!this.user) {
-          this.user = user;
+        //if (!this.user) {
+        //  this.user = user;
           this.updatedUser = this.user;
-        }
+        //}
         if (!user) {
           this.$emit('flash', {
             type: 'info',
