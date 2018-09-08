@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h2>Activities</h2>
+  <section>
+    <h3>Activities</h3>
     <v-data-table :headers="columns" :items="rows" :rows-per-page-items=[10,50,100,200]>
       <template slot="headerCell" slot-scope="props">
         <v-tooltip bottom>
@@ -21,7 +21,7 @@
       </template>
     </v-data-table>
     <div class="separator"></div>
-  </div>
+  </section>
 </template>
 
 <script>

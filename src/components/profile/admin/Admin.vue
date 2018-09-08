@@ -3,7 +3,7 @@
     <h1>Admin Dashboard</h1>
     <v-tabs fixed-tabs slot="extension" v-model="currentTab" centered>
       <v-tab :href="`#tab-api`">
-        API
+        General
       </v-tab>
       <v-tab :href="`#tab-users`">
         Users
