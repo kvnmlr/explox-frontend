@@ -1,7 +1,7 @@
 <template>
   <Header>
     <v-navigation-drawer
-      v-if="user || $route.name !== 'Landing'"
+      v-if="!((user && !user.fullyRegistered) || $route.name === 'Landing')"
       class="elevation-0" v-bind:style="getStyle" :clipped="$vuetify.breakpoint.lgAndUp"
       v-model="drawer" fixed app>
       <v-list dense>
@@ -48,7 +48,8 @@
     </v-navigation-drawer>
 
     <v-toolbar style="z-index: 100; background-color: #343434"
-               :clipped-left="$vuetify.breakpoint.lgAndUp" dense app dark color="#212121">
+               :clipped-left="$vuetify.breakpoint.lgAndUp" dense app dark color="#212121"
+               v-if="!(user && !user.fullyRegistered)">
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
         <v-toolbar-side-icon v-if="user || $route.name !== 'Landing'"
                              @click.stop="drawer = !drawer"></v-toolbar-side-icon>

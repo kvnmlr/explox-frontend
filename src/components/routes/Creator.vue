@@ -163,6 +163,22 @@
           <v-form ref="form" lazy-validation>
             <v-text-field v-model="savedRouteTitle" label="Name" required></v-text-field>
             <v-text-field v-model="savedRouteDescription" label="Description" required></v-text-field>
+            <h4>How likely will you ride this route soon?</h4>
+            <v-btn-toggle v-model="rating">
+              <v-btn flat value="1">
+                Very unlikely
+              </v-btn>
+              <v-btn flat value="2">
+                Unlikely
+              </v-btn>
+              <v-btn flat value="3">
+                Likely
+              </v-btn>
+              <v-btn flat value="4">
+                Very likely
+              </v-btn>
+            </v-btn-toggle>
+            <br><br>
             <p style="color: #CCCCCC;"><i>Note: You can later see the route in your Dashboard.</i></p>
             <v-btn flat round color="primary" v-on:click.prevent="saveRoute">
               Save New Route
@@ -201,6 +217,7 @@
         step: "1",
         mini: false,
         loadingDialog: false,
+        rating: 0,
 
         // DISTANCE
         distance: '8,5',
@@ -335,7 +352,8 @@
           _csrf: this.csrfToken,
           title: this.savedRouteTitle,
           body: this.savedRouteDescription,
-          tags: JSON.stringify(this.savedRouteTags)
+          tags: JSON.stringify(this.savedRouteTags),
+          rating: this.rating,
         };
         const requestParams = {
           method: 'PUT',
