@@ -1,7 +1,13 @@
 <template>
   <div>
     <h1>Admin Dashboard</h1>
-    <v-tabs fixed-tabs slot="extension" v-model="currentTab" centered>
+    <v-tabs fixed-tabs
+            slot="extension"
+            v-model="currentTab"
+            centered
+            grow
+            hide-slider
+    >
       <v-tab :href="`#tab-api`">
         General
       </v-tab>
@@ -11,23 +17,35 @@
       <v-tab :href="`#tab-routes`">
         Routes
       </v-tab>
+      <v-tab :href="`#tab-segments`">
+        Segments
+      </v-tab>
       <v-tab :href="`#tab-activities`">
         Activities
       </v-tab>
+      <v-tab :href="`#tab-creator-results`">
+        Results
+      </v-tab>
     </v-tabs>
 
-    <v-tabs-items v-model="currentTab">
-      <v-tab-item :id="`tab-api`">
+    <v-tabs-items v-model="currentTab" touchless>
+      <v-tab-item lazy :id="`tab-api`">
         <api :invitations="invitations" :feedbacks="feedbacks" :limits="limits"></api>
       </v-tab-item>
-      <v-tab-item :id="`tab-users`">
+      <v-tab-item lazy :id="`tab-users`">
         <users :users="users"></users>
       </v-tab-item>
-      <v-tab-item :id="`tab-routes`">
+      <v-tab-item lazy :id="`tab-routes`">
         <routes :routes="routes"></routes>
       </v-tab-item>
-      <v-tab-item :id="`tab-activities`">
+      <v-tab-item lazy :id="`tab-segments`">
+        <segments :segments="segments"></segments>
+      </v-tab-item>
+      <v-tab-item lazy :id="`tab-activities`">
         <activities :activities="activities"></activities>
+      </v-tab-item>
+      <v-tab-item lazy :id="`tab-creator-results`">
+        <creator-results :results="creatorResults"></creator-results>
       </v-tab-item>
     </v-tabs-items>
 
@@ -39,11 +57,15 @@
   import Users from './Users'
   import Activities from './Activities'
   import Routes from './Routes'
-  import { EventBus } from '@/eventBus.js';
+  import {EventBus} from '@/eventBus.js';
   import apiMixin from "../../../mixins/apiMixin";
+  import Segments from "./Segments";
+  import CreatorResults from "./CreatorResults";
 
   export default {
     components: {
+      CreatorResults,
+      Segments,
       Api: General,
       Users,
       Activities,
@@ -56,6 +78,8 @@
         users: [],
         activities: [],
         routes: [],
+        segments: [],
+        creatorResults: [],
         invitations: [],
         feedbacks: [],
         limits: {},
@@ -74,12 +98,11 @@
             this.users = data.users;
             this.activities = data.activities;
             this.routes = data.routes;
+            this.segments = data.segments;
+            this.creatorResults = data.creatorResults;
             this.feedbacks = data.feedbacks;
             this.limits = data.limits;
             this.invitations = data.invitations;
-            EventBus.$emit('adminRoutesReady', this.routes);
-            EventBus.$emit('adminActivitiesReady', this.activities);
-            EventBus.$emit('adminUsersReady', this.users);
           }
         });
       },

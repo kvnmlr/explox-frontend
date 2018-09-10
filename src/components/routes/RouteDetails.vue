@@ -5,7 +5,7 @@
         <v-layout row wrap>
           <v-flex xs10 sm10 md10>
             <h2>{{ route.title }}</h2>
-            <v-chip v-for="tag in route.tags" v-bind:key="tag" tag="a" href="#">{{ tag }}
+            <v-chip v-for="tag in route.tags" v-if="tag !== ''" v-bind:key="tag" tag="a" href="#">{{ tag }}
             </v-chip>
           </v-flex>
           <v-flex xs2 sm2 md2>

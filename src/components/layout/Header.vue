@@ -1,7 +1,7 @@
 <template>
   <Header>
     <v-navigation-drawer
-      v-if="!((user && !user.fullyRegistered) || $route.name === 'Landing')"
+      v-if="!($route.name === 'Landing')"
       class="elevation-0" v-bind:style="getStyle" :clipped="$vuetify.breakpoint.lgAndUp"
       v-model="drawer" fixed app>
       <v-list dense>
@@ -142,9 +142,9 @@
     computed: {
       getStyle() {
         if (this.$vuetify.breakpoint.lgAndUp) {
-          return {'z-index': 99};
+          return {'z-index': 99, 'background-color': '#F5F5F5'};
         } else {
-          return {'z-index': 101};
+          return {'z-index': 101, 'background-color': '#F5F5F5'};
         }
       }
     }

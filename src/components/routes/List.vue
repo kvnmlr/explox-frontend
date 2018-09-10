@@ -39,7 +39,7 @@
                        light round large style="width: 95%; height: 70px; vertical-align: bottom">
                   <v-icon>search</v-icon>&nbsp;Search
                 </v-btn>
-                <loading-dialog :show="loadingDialog" header="Searching for matching routes"></loading-dialog>
+                <loading-dialog :show="loadingDialog" header="Searching for matching routes" :width="500"></loading-dialog>
               </v-flex>
             </v-layout>
 
@@ -106,9 +106,11 @@
 
         this.GET('routes?segments=false&page=1', (data, err) => {
           if (!err) {
-              this.routes = data.routes;
+            this.routes = data.routes;
           }
-          this.loadingDialog = false;
+          setTimeout(() => {
+            this.loadingDialog = false;
+          }, 1000);
         });
       }
     },

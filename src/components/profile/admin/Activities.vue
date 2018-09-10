@@ -14,7 +14,7 @@
       </template>
       <template slot="items" slot-scope="props">
         <td class="text-xs-left">{{ props.item.title }}</td>
-        <td class="text-xs-left">{{ props.item.user.name }}</td>
+        <td class="text-xs-left">{{ (props.item.user ? props.item.user.name : '') }}</td>
         <td class="text-xs-left">{{ props.item.distance.toFixed(2) + ' m' }}</td>
         <td class="text-xs-left">{{ props.item.geo }}</td>
         <td class="text-xs-left">{{ formatDate(props.item.createdAt, true) }}</td>
@@ -30,10 +30,12 @@
 
   export default {
     name: "Activities",
+    props: {
+      activities: Array,
+    },
     data() {
       return {
         currentTab: 'tab-api',
-        activities: [],
         columns: [
           {
             text: 'Title',
@@ -58,13 +60,6 @@
           },
         ],
       };
-    },
-    props: {},
-    created() {
-      EventBus.$on('adminActivitiesReady', (data) => {
-        this.activities = data;
-      });
-
     },
     computed: {
       rows() {

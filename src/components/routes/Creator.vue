@@ -16,7 +16,7 @@
                          :mini-variant="mini"
                          absolute right fixed
                          :width="400"
-                         permanent>
+                         permanent style="background-color: #F5F5F5">
 
       <v-list>
         <v-list-tile v-if="mini" @click.stop="mini = !mini">
@@ -39,7 +39,7 @@
       </v-list>
 
       <div v-if="!mini">
-        <v-stepper v-model="step" class="elevation-0" vertical non-linear>
+        <v-stepper v-model="step" class="elevation-0" vertical non-linear style="background-color: #F5F5F5">
           <v-stepper-step :complete="step > 1" step="1" editable>
             Select Start Point
           </v-stepper-step>
@@ -104,7 +104,7 @@
                          permanent
                          absolute right fixed
                          :width="400"
-                         permanent>
+                         permanent style="background-color: #F5F5F5">
 
       <v-list class="pa-1">
         <v-list-tile v-if="mini" @click.stop="mini = !mini">
@@ -131,7 +131,7 @@
 
           <div v-if="!mini">
             <v-expansion-panel popout light :value="selectedRoute">
-              <v-expansion-panel-content v-for="(route, i) in generatedRoutes" :key="i">
+              <v-expansion-panel-content v-for="(route, i) in generatedRoutes" :key="i" class="elevation-2">
                 <div slot="header">{{ (route.distance / 1000).toFixed(1) }} km Route
                 </div>
                 <v-card light>
@@ -277,8 +277,9 @@
               this.$router.push('/login');
               this.$emit('flash', err.flash);
             }
+            // Creator is not available
+            this.$router.push('/hub');
           } else {
-            // TODO
           }
         });
       },

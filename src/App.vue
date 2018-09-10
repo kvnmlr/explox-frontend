@@ -44,6 +44,9 @@
       this.authorizeUser();
       EventBus.$on('reloadData', () => {
         this.authorizeUser();
+      });
+      EventBus.$on('authorizeUser', () => {
+        this.authorizeUser();
       })
     },
     methods: {
@@ -122,7 +125,7 @@
 
           setTimeout(() => {
             this.alertVisible = false;
-          }, 2000);
+          }, 2500);
         }
       }
     },

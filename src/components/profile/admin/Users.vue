@@ -34,10 +34,12 @@
 
   export default {
     name: "Users",
+    props: {
+      users: Array,
+    },
     data() {
       return {
         currentTab: 'tab-api',
-        users: [],
         columns: [
           {
             text: 'Username',
@@ -78,11 +80,6 @@
           }
         ],
       };
-    },
-    created() {
-      EventBus.$on('adminUsersReady', (data) => {
-        this.users = data;
-      });
     },
     computed: {
       rows() {

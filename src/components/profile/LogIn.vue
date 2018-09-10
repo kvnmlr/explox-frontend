@@ -26,8 +26,6 @@
         </v-form>
       </v-flex>
     </v-layout>
-
-
   </div>
 </template>
 
@@ -61,12 +59,13 @@
 
         this.POST('login', formData, null, (data, err) => {
           if (!err) {
-            this.$emit('authorizeUser');
-            this.$emit('flash', {
+            EventBus.$emit('authorizeUser');
+            EventBus.$emit('flash', {
               type: 'success',
               text: 'Welcome back, you are logged in'
             });
             this.$router.push('/dashboard');
+            // EventBus.$emit('expandDrawer');
           }
         });
       }
