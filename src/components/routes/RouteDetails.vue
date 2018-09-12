@@ -127,7 +127,7 @@
           <br>
           <v-list-tile-content>
             <v-list-tile-title v-html="comment.body"></v-list-tile-title>
-            <v-list-tile-sub-title v-html="comment.user.name"></v-list-tile-sub-title>
+            <v-list-tile-sub-title v-html="comment.user.username"></v-list-tile-sub-title>
           </v-list-tile-content>
           <v-list-tile-avatar>
             <img :src="comment.avatar">

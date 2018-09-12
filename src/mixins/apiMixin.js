@@ -1,8 +1,9 @@
 import axios from 'axios';
+import {EventBus} from "../eventBus";
 
 const api = axios.create({
   baseURL: process.env.API_ROOT,
-  timeout: 10000,
+  timeout: 60000,
 });
 
 let csrfToken = '';
@@ -19,7 +20,7 @@ api.interceptors.response.use(
     }
 
     if (data.flash) {
-      self.$emit('flash', data.flash);
+      EventBus.$emit('flash', data.flash);
     }
     return data;
   },

@@ -47,6 +47,9 @@
       });
       EventBus.$on('authorizeUser', () => {
         this.authorizeUser();
+      });
+      EventBus.$on('flash', (data) => {
+        this.flash(data);
       })
     },
     methods: {

@@ -14,31 +14,35 @@
         <v-progress-linear class="gradient"
                            :color="this.longTerm < 67 ? this.longTerm < 34 ? 'success' : 'warning' : 'error'"
                            height="20" :value="this.longTerm"></v-progress-linear>
+        <v-btn round :loading="task4loading" :disabled="task4loading" class="gradient gradient-green"
+               @click="triggerUpdateLimits">
+          Update API Limits
+          <span slot="loader" class="custom-loader">
+          <v-icon light>cached</v-icon>
+        </span>
+        </v-btn>
       </div>
     </section>
     <v-divider class="separator"></v-divider>
     <section>
       <h3>Task Triggers</h3>
-      <v-btn :loading="task1loading" :disabled="task1loading" class="gradient gradient-orange" dark @click.native="triggerCoarseSegmentCrawler">
+      <v-btn round :loading="task1loading" :disabled="task1loading" class="gradient gradient-orange" dark
+             @click.native="triggerCoarseSegmentCrawler">
         Coarse Segment Crawler
         <span slot="loader" class="custom-loader">
           <v-icon light>cached</v-icon>
         </span>
       </v-btn>
-      <v-btn :loading="task2loading" :disabled="task2loading" class="gradient gradient-orange" dark @click="triggerFineSegmentCrawler">
+      <v-btn round :loading="task2loading" :disabled="task2loading" class="gradient gradient-orange" dark
+             @click="triggerFineSegmentCrawler">
         Fine Segment Crawler
         <span slot="loader" class="custom-loader">
           <v-icon light>cached</v-icon>
         </span>
       </v-btn>
-      <v-btn :loading="task3loading" :disabled="task3loading" class="gradient gradient-orange" dark @click="triggerUpdateUsers">
+      <v-btn round :loading="task3loading" :disabled="task3loading" class="gradient gradient-orange" dark
+             @click="triggerUpdateUsers">
         Update Users
-        <span slot="loader" class="custom-loader">
-          <v-icon light>cached</v-icon>
-        </span>
-      </v-btn>
-      <v-btn :loading="task4loading" :disabled="task4loading" class="gradient gradient-orange" dark @click="triggerUpdateLimits">
-        Update API Limits
         <span slot="loader" class="custom-loader">
           <v-icon light>cached</v-icon>
         </span>
@@ -194,7 +198,7 @@
       }
     },
     watch: {
-      loader () {
+      loader() {
         const l = this.loader;
         this[l] = !this[l];
       }
@@ -208,6 +212,7 @@
     animation: loader 1s infinite;
     display: flex;
   }
+
   @-moz-keyframes loader {
     from {
       transform: rotate(0);
@@ -216,6 +221,7 @@
       transform: rotate(360deg);
     }
   }
+
   @-webkit-keyframes loader {
     from {
       transform: rotate(0);
@@ -224,6 +230,7 @@
       transform: rotate(360deg);
     }
   }
+
   @-o-keyframes loader {
     from {
       transform: rotate(0);
@@ -232,6 +239,7 @@
       transform: rotate(360deg);
     }
   }
+
   @keyframes loader {
     from {
       transform: rotate(0);

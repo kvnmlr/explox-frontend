@@ -67,7 +67,7 @@
               text: 'Thanks for your feedback!'
             });
             setTimeout(() => {
-              this.$router.push('/');
+              this.$router.push('/hub');
             }, 100);
           }
         });
