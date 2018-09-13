@@ -161,7 +161,6 @@
     methods: {
       async performSearch() {
         this.GET('about', (data, err) => {
-          // TODO
         });
       }
     },

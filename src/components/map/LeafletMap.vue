@@ -122,7 +122,8 @@
       EventBus.$on('removeMap', (next) => {
         try {
           this.map.remove();
-        } catch (e) {
+        } catch (ignored) {
+          return;
         }
         this.map = undefined;
         next();
@@ -178,7 +179,7 @@
             if (!layerExists) {
               // push the layer for the first time and set index to the last position in the array
               self.featureLayers.push(states);
-              index = self.featureLayers.length-1;
+              index = self.featureLayers.length - 1;
             } else {
               // remove the layer from the map in order to remove previous selections
               self.map.removeLayer(self.featureLayers[index].leafletObject);
@@ -189,7 +190,7 @@
             self.featureLayers[index].leafletObject = L.geoJSON(states, {
               //onEachFeature: onEachFeature,
               style: function (feature) {
-                geojsonMarkerOptions.color = "#ff7100"
+                geojsonMarkerOptions.color = "#ff7100";
                 return geojsonMarkerOptions;
               },
               pointToLayer: function (feature, latlng) {
@@ -246,7 +247,7 @@
             if (!layerExists) {
               // push the layer for the first time and set index to the last position in the array
               self.featureLayers.push(states);
-              index = self.featureLayers.length-1;
+              index = self.featureLayers.length - 1;
             } else {
               // remove the layer from the map in order to remove previous selections
               self.map.removeLayer(self.featureLayers[index].leafletObject);
@@ -257,7 +258,7 @@
             self.featureLayers[index].leafletObject = L.geoJSON(states, {
               //onEachFeature: onEachFeature,
               style: function (feature) {
-                geojsonMarkerOptions.color = "#0cff00"
+                geojsonMarkerOptions.color = "#0cff00";
                 return geojsonMarkerOptions;
               },
               pointToLayer: function (feature, latlng) {
@@ -349,6 +350,7 @@
           this.map.remove();
           this.map = undefined;
         } catch (e) {
+          return;
         }
         this.init();
       },
@@ -520,6 +522,7 @@
                 }
                 this.map.fitBounds(bounds);
               } catch (e) {
+                return;
               }
             }
           } else {

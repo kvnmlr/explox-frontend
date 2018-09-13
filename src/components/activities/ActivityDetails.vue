@@ -117,11 +117,9 @@
       <template v-for="(comment, index) in route.comments">
         <v-list-tile :key="comment._id" avatar @click="">
           <v-list-tile-action>
-            <!-- TODO if this is the users comment -->
             <v-icon>thumb_up</v-icon>
           </v-list-tile-action>
           <v-list-tile-action v-if="comment._id">
-            <!-- TODO otherwise -->
             <v-icon color="red" v-on:click="deleteComment(comment._id)">delete</v-icon>
           </v-list-tile-action>
           <br>
@@ -211,7 +209,6 @@
 
       async exportRoute() {
         this.GET('routes/' + this.id + '/export', (data, err) => {
-          // TODO
           this.exportDialog = false
         });
       },

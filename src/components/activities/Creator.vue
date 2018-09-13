@@ -23,8 +23,6 @@
               this.$router.push('/login');
               this.$emit('flash', err.flash);
             }
-          } else {
-            // TODO
           }
         });
       }

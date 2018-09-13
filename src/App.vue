@@ -1,5 +1,6 @@
 <template>
   <v-app id="app">
+    <div class="test" v-show="false">test</div>
     <v-snackbar v-model="alertVisible" :timeout=3500 :bottom=true :color="alert.type">
       {{ alert.text }}
     </v-snackbar>

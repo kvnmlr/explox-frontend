@@ -127,7 +127,6 @@
     methods: {
       async performSearch() {
         this.GET('', (data, err) => {
-          // TODO
         });
       }
     },
