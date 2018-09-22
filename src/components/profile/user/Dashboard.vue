@@ -173,7 +173,7 @@
             <v-flex xs12 sm12 md5>
               <v-container>
                 <v-flex row>
-                  <v-card  class="elevation-5">
+                  <v-card class="elevation-5">
                     <v-container>
                       <h3>Latest Activity</h3>
                       <br>
@@ -188,7 +188,7 @@
                 </v-flex>
                 <v-spacer style="margin: 20px;"></v-spacer>
                 <v-flex row>
-                  <v-card  class="elevation-5">
+                  <v-card class="elevation-5">
                     <v-container>
                       <h3>Latest Routes</h3>
                       <br>
@@ -209,7 +209,8 @@
               <v-card-title class="headline">Edit Profile</v-card-title>
               <v-card-text>
                 <v-form ref="form" lazy-validation>
-                  <v-text-field v-model="updatedUser.name" label="Name" required></v-text-field>
+                  <v-text-field v-model="updatedUser.firstName" label="First Name" required></v-text-field>
+                  <v-text-field v-model="updatedUser.lastName" label="Last Name" required></v-text-field>
                   <v-text-field v-model="updatedUser.username" label="Username" required></v-text-field>
                   <v-text-field v-model="updatedUser.email" label="E-Mail" required></v-text-field>
                   <p style="color: #CCCCCC;"><i>Note: Your profile picture is taken from your Strava profile.</i></p>
@@ -226,6 +227,33 @@
           </v-dialog>
           <v-btn class="gradient gradient-secondary" style="float:right;" dark round v-on:click="$emit('logout')">Logout
           </v-btn>
+
+          <v-dialog v-if="generatedActivities" v-model="generatedActivitiesFoundDialog" hide-overlay persistent
+                    :width="800">
+            <v-card style="padding: 20px;" dark>
+              <v-card-text>
+                <h2 style="text-align: center">Spurious Activities Found</h2>
+                <h4 style="color: white">Please delete the following {{ generatedActivities.length > 1 ?
+                  (generatedActivities.length + ' activities') : 'activity' }} from your Strava
+                  profile</h4>
+                <p style="color: lightgray"><i>Note:</i> Those spurious activities are artifacts from the route creation process
+                  and
+                  have to be deleted manually from your Strava profile.</p>
+                <div class="separator"></div>
+                <ul v-for="activity in generatedActivities">
+                  <li><a target="_blank" v-bind:href="'https://strava.com/activities/'+activity.id">Activity from {{
+                    formatDate(activity.start_date, true) }}</a>
+                  </li>
+                </ul>
+                <div class="separator"></div>
+                <img src="@/assets/img/deleteactivity.png" alt="" width="100%">
+
+                <div class="separator"></div>
+                <v-btn flat dark round v-on:click="generatedActivitiesFoundDialog = false">Dismiss
+                </v-btn>
+              </v-card-text>
+            </v-card>
+          </v-dialog>
 
         </v-tab-item>
         <v-tab-item :id="`tab-activity-map`">
@@ -254,12 +282,14 @@
   import LoadingDialog from "../../includes/LoadingDialog";
   import {EventBus} from '@/eventBus.js';
   import InviteFriend from "../../general/InviteFriend";
+  import formatDateMixin from "../../../mixins/formatDateMixin";
 
   export default {
     name: "User",
     components: {
       InviteFriend,
-      LoadingDialog, Route, SimpleMap, StravaAlert, PersonalRoutes, Activities, ActivityMap, Activity},
+      LoadingDialog, Route, SimpleMap, StravaAlert, PersonalRoutes, Activities, ActivityMap, Activity
+    },
     data() {
       return {
         currentTab: 'tab-profile',
@@ -268,7 +298,9 @@
         exportDialog: false,
         deleteDialog: false,
         loadingDialog: false,
+        generatedActivitiesFoundDialog: false,
         activities: undefined,
+        generatedActivities: undefined,
       };
     },
     props: {
@@ -284,7 +316,7 @@
       });
 
       if (this.user) {
-        this.updatedUser = this.user;
+        this.updatedUser = Object.assign({}, this.user);
         if (this.user.role === 'admin') {
           this.$router.push('/admin/dashboard');
           return;
@@ -294,13 +326,13 @@
 
     methods: {
       setUpdateUserFields() {
-        this.updatedUser = this.user;
+        this.updatedUser = Object.assign({}, this.user);
       },
 
       checkAndRedirect(user) {
         //if (!this.user) {
         //  this.user = user;
-          this.updatedUser = this.user;
+        this.updatedUser = Object.assign({}, this.user);
         //}
         if (!user) {
           this.$emit('flash', {
@@ -345,6 +377,10 @@
             EventBus.$emit('reloadData');
           }
           this.loadingDialog = false;
+          if (data.generatedActivities.length) {
+            this.generatedActivities = data.generatedActivities;
+            this.generatedActivitiesFoundDialog = true;
+          }
         });
       },
 
@@ -364,7 +400,7 @@
       async exportActivities() {
       },
     },
-    mixins: [apiMixin]
+    mixins: [apiMixin, formatDateMixin]
   }
 </script>
 

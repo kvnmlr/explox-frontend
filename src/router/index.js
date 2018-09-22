@@ -5,6 +5,7 @@ import Hub from '../components/general/home/Hub'
 import Landing from '../components/general/Landing'
 import Routes from '../components/routes/List'
 import RouteDetails from '../components/routes/RouteDetails'
+import ActivityDetails from '../components/activities/ActivityDetails'
 import Admin from '../components/profile/admin/Admin'
 import Dashboard from '../components/profile/user/Dashboard'
 import GetStarted from '../components/general/GetStarted'
@@ -60,6 +61,11 @@ export default new Router({
       path: '/route/:id',
       name: 'Route Details',
       component: RouteDetails
+    },
+    {
+      path: '/activity/:id',
+      name: 'Activity Details',
+      component: ActivityDetails,
     },
     {
       path: '/admin/dashboard',

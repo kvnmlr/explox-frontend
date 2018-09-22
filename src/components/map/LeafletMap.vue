@@ -30,9 +30,6 @@
                 <v-btn light fab class="gradient gradient-green" style="float: right;" v-on:click="reloadMap">
                   <v-icon>refresh</v-icon>
                 </v-btn>
-                <v-btn light fab class="gradient gradient-green" style="float: right;" v-on:click="reloadMap">
-                  <v-icon>center_focus_strong</v-icon>
-                </v-btn>
               </v-flex>
             </v-layout>
           </v-card-text>
@@ -64,6 +61,7 @@
         activities: [],
         activitiesGeoJSON: [],
 
+        bestPrimary: 0,
 
         // IDs
         id_route: 1,
@@ -289,7 +287,7 @@
               "weight": 5,
               "opacity": 1
             },
-            primary: true,
+            primary: 1,
             properties: {
               type: "route"
             },
@@ -332,7 +330,7 @@
               "weight": 5,
               "opacity": 1
             },
-            primary: true,
+            primary: 2,
             properties: {
               type: "route"
             },
@@ -364,14 +362,14 @@
 
         // add layers
         this.featureLayers = [];
-
+        if (this.activitiesGeoJSON && this.showActivityMap) {
+          this.addCoverageLayer(this.id_activity);
+        }
         if (this.route && this.showRoute) {
           this.addRouteLayer(this.id_route);
           this.addMarkerLayer(this.id_start_point);
         }
-        if (this.activitiesGeoJSON && this.showActivityMap) {
-          this.addCoverageLayer(this.id_activity);
-        }
+
         if (this.showMouseSelection) {
           this.addMouseStartSelectionLayer(this.id_mouse_start_selection);
           this.addMouseEndSelectionLayer(this.id_mouse_end_selection);
@@ -386,6 +384,7 @@
         this.initLayers();
 
         // activate layers
+        this.bestPrimary = 0;
         this.selectedFeatures.forEach(feature => {
           this.layerChanged(feature, true);
         });
@@ -401,7 +400,7 @@
             fullscreenControl: {
               pseudoFullscreen: false // if true, fullscreen to page width and height
             }
-          }).setView([38.63, -90.23], 12);
+          }).setView([49.234, 6.997], 9);
         } catch (e) {
           return false;
         }
@@ -512,7 +511,8 @@
         if (layer.leafletObject) {
           if (active) {
             layer.leafletObject.addTo(this.map);
-            if (layer.primary && fit) {
+            if ((layer.primary > this.bestPrimary) && fit) {
+              this.bestPrimary = layer.primary;
               try {
                 let bounds;
                 if (layer.leafletObject.bounds) {

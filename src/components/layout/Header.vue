@@ -1,7 +1,7 @@
 <template>
   <Header>
     <v-navigation-drawer
-      v-if="!($route.name === 'Landing')"
+      v-if="!($route.name === 'Landing') || user"
       class="elevation-0" v-bind:style="getStyle" :clipped="$vuetify.breakpoint.lgAndUp"
       v-model="drawer" fixed app>
       <v-list dense>

@@ -137,7 +137,7 @@
                 <v-card light>
                   <v-card-text>
                     <p><b>Distance: </b> {{ (route.distance / 1000).toFixed(3) }} km</p>
-                    <p><b>Undiscovered: </b> {{ (route.distance / 1000).toFixed(3) }} km</p>
+                    <p><b>Already Discovered: </b> {{ familiarityScores[i].toFixed(1)*100 }} %</p>
                     <v-btn light round class="gradient gradient-green" v-on:click="routeSelected(i)">Show on Map</v-btn>
                     <v-btn dark round class="gradient gradient-orange" v-on:click="openSaveRouteDialog(i)">Save This
                       Route
@@ -196,6 +196,10 @@
                     header="Creating new routes for you."
                     :width="500" dark>
     </loading-dialog>
+    <loading-dialog :show="stravaImportDialog" body="Please save the route on Strava."
+                    header="You will be redirected in some seconds."
+                    :width="500">
+    </loading-dialog>
 
   </div>
 </template>
@@ -243,8 +247,11 @@
         selectedEndPosition: null,
 
         generatedRoutes: [],
+        familiarityScores: [],
         selectedRoute: -1,
         saveRouteDialog: false,
+        stravaImportDialog: false,
+
 
         savedRouteId: '',
         savedRouteTitle: '',
@@ -321,6 +328,7 @@
           if (!err) {
             if (data.generatedRoutes.length > 0) {
               this.generatedRoutes = data.generatedRoutes;
+              this.familiarityScores = data.familiarityScores;
               this.results = true;
             } else {
               this.$emit('flash', {
@@ -362,13 +370,27 @@
         };
 
         this.PUT('routes/' + this.savedRouteId, formData, requestParams, (data, err) => {
+          console.log(data);
           if (!err) {
-            this.$emit('flash', {
-              type: 'success',
-              text: 'Route has been saved to your profile!'
+            this.saveRouteDialog = false;
+            this.stravaImportDialog = true;
+
+            this.GET('stravaimport?id=' + this.savedRouteId + '&title=' + this.savedRouteTitle + '&description=' + this.savedRouteDescription, (data, err) => {
+              if (!err) {
+                let redirect = '';
+                if (data.isActivity) {
+                  redirect = 'https://www.strava.com/activities/' + data.activityId + '/route';
+                } else {
+                  redirect = 'https://www.strava.com/routes/' + data.activityId;
+                }
+                console.log('Redirecting to ' + redirect);
+                setTimeout(() => {
+                  this.stravaImportDialog = false;
+                    window.location.href = redirect;
+                }, 5000);
+              }
             });
           }
-          this.saveRouteDialog = false
         });
       }
     },
