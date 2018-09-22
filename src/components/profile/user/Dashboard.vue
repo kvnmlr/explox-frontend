@@ -127,26 +127,17 @@
                   </v-flex>
                 </v-layout>
                 <v-flex xs12>
-                  <h3>Synchronize Profile</h3>
-                  <br>
-                  <div v-if="$vuetify.breakpoint.lgAndUp">
-                    <p>
-                      This will take your up-to-date <a href="/strava">Strava</a>
-                      profile and update your ExploX profile
-                      accordingly:</p>
-                    <ul>
-                      <li>New save routes will be added to ExploX</li>
-                      <li>Your latest activities will show up in your activity map</li>
-                      <li>Your profile data and statistics will be updated</li>
-                    </ul>
-                  </div>
-                  <br>
-                  <v-btn :disabled="loadingDialog" :loading="loadingDialog"
-                         class="gradient gradient-orange" style="width: 100%;" @click.stop="synchronize"
-                         dark round>
-                    <v-icon>sync</v-icon>&nbsp;Synchronize Now
-                  </v-btn>
-                  <p style="color: #CCCCCC;"><i>We will also update your profile automatically once every day.</i></p>
+                  <v-tooltip bottom close-delay="1500">
+                    <v-btn slot="activator" :disabled="loadingDialog" :loading="loadingDialog"
+                           class="gradient gradient-orange" style="width: 50%;" @click.stop="synchronize"
+                           dark round>
+                      <v-icon>sync</v-icon>&nbsp;Synchronize Profile
+                    </v-btn>
+                    <span>This will take your up-to-date <a href="/strava">Strava</a>profile<br>
+                      and update your ExploX profileaccordingly.</span>
+                  </v-tooltip>
+
+                  <p style="color: #CCCCCC;"><i>We will also update your profile automatically whenever you log in.</i></p>
                   <loading-dialog :show="loadingDialog" body="This can take up to 1 minute"
                                   header="Please wait while we synchronize your profile."
                                   :width="500" dark>

@@ -10,16 +10,16 @@
           </v-card-title>
           <v-card-text>
             <v-layout row wrap>
-              <v-flex xs12 sm7>
+              <v-flex xs12 sm6>
                 <v-text-field color="primary" v-model="search" prepend-inner-icon="search" label="Search">
                 </v-text-field>
               </v-flex>
               <v-flex xs12 sm1>
                 <br>
               </v-flex>
-              <v-flex xs12 sm4>
+              <v-flex xs12 sm5>
                 <v-text-field color="primary" hide-details v-model="distance" prepend-inner-icon="search"
-                              label="Distance"
+                              label="Approx. Distance"
                               suffix="m">
                 </v-text-field>
                 <br>
@@ -28,7 +28,7 @@
             <v-layout row>
               <v-flex xs12 sm6>
                 <div v-for="(layer, i) in featureLayers" :key="i">
-                  <v-switch v-on:change="layerChanged(layer.id)" v-model="selectedFeatures" v-bind:label="layer.name"
+                  <v-switch v-model="selectedFeatures" v-bind:label="layer.name"
                             v-bind:value="layer.id" color="primary" hide-details>{{layer.name}}
                   </v-switch>
                 </div>
@@ -57,9 +57,13 @@
     <h2>Results: </h2>
     <br>
     <v-layout row wrap>
-      <route v-for="route in filteredRoutes" v-bind:route="route" :key="route.details"></route>
+      <route v-for="route in filteredRoutes.slice((page-1)*10, (page-1)*10+9)" v-bind:route="route" :key="route.details"></route>
       <p v-if="filteredRoutes.length === 0">No routes to display</p>
     </v-layout>
+    <v-pagination
+      v-model="page"
+      :length="Math.ceil(filteredRoutes.length / 10)"
+    ></v-pagination>
     <div class="separator"></div>
   </div>
 </template>
@@ -85,17 +89,18 @@
         distance: '',
         loadingDialog: false,
         routes: [],
+        page: 1,
         featureLayers: [
-          {
+          /*{
             id: 0,
             name: 'Round-Trips Only',
-          },
+          },*/
           {
             id: 1,
-            name: 'Segments',
+            name: 'Only Segments',
           },
         ],
-        selectedFeatures: [0, 1],
+        selectedFeatures: [],
       }
     },
     created() {
@@ -104,7 +109,9 @@
       async performSearch() {
         this.loadingDialog = true;
 
-        this.GET('routes?segments=false&page=1', (data, err) => {
+        let segments = this.selectedFeatures.includes(1);
+
+        this.GET('routes?segments=' + segments + '&page=1&distance=' + this.distance, (data, err) => {
           if (!err) {
             this.routes = data.routes;
           }
