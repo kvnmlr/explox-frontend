@@ -1,9 +1,9 @@
 <template>
   <Footer class="font-small">
     <template>
-      <v-footer style="z-index: 100; background-color: white" class="pa-3">
+      <v-footer style="z-index: 100; background-color: #000000" class="pa-3">
         <v-spacer></v-spacer>
-        <div>&copy; ExploX {{ new Date().getFullYear() }}</div>
+        <div style="color: lightgray">&copy; ExploX {{ new Date().getFullYear() }}</div>
       </v-footer>
     </template>
   </Footer>

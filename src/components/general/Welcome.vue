@@ -6,7 +6,6 @@
       atheltes' activity history and creates new and unique routes for you. All you need is an account on Strava.</p>
 
     <v-btn class="gradient gradient-orange" dark round large to="/login">Log In</v-btn>
-    <v-btn class="gradient gradient-secondary" dark round large to="/signup">Sign Up</v-btn>
     <div class="separator"></div>
   </div>
 </template>

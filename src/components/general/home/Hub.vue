@@ -7,7 +7,7 @@
     </div>
     <br>
     <h2>Overview</h2>
-    <QuickAccess></QuickAccess>
+    <QuickAccess v-bind:user="user"></QuickAccess>
     <br>
     <h2>News</h2>
     <news></news>
