@@ -29,7 +29,7 @@
                   <v-flex xs10 sm10 md10>
                     <v-layout row flex>
                       <v-flex xs12 sm4>
-                        <v-avatar v-if="user.strava" size="64px" tile>
+                        <v-avatar v-if="user.strava" size="96px" tile>
                           <img style="border-radius: 50%;" v-bind:src="this.user.strava.profile">
                         </v-avatar>
                       </v-flex>

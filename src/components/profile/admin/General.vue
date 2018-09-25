@@ -72,7 +72,7 @@
                 <p style="color: #ff6d00" v-if="!feedback.user">Sent on {{ feedback.createdAt }}, reply to {{
                   feedback.email}}</p>
                 <p style="color: #ff6d00" v-else>Sent on {{ formatDate(feedback.createdAt) }}
-                  by user {{feedback.user.name }}
+                  by user {{feedback.user.username }}
                   (reply to {{ feedback.email }})</p>
               </v-card-actions>
             </v-card>
@@ -88,15 +88,13 @@
         <v-layout column wrap>
           <v-flex v-for="invitation in invitations" :key="invitation._id" d-flex xs12>
             <v-card class="gradient-no-switch gradient-green">
-              <v-card-text>
-                <p><b>Invitation on </b>{{formatDate(invitation.createdAt)}}
+              <v-card-text style="margin-bottom: -20px;">
+                <p>
                   <v-chip v-if="invitation.accepted" color="green" text-color="white">Accepted</v-chip>
                   <v-chip small v-else color="red" text-color="white">Not Accepted</v-chip>
-                </p>
-                <p>
+                  <b>Invitation on </b>{{formatDate(invitation.createdAt)}}
                   <b>From: </b>
-                  <router-link :to="{path: '/users/' + invitation.user._id}">{{invitation.user.name}}</router-link>
-                  <br>
+                  <router-link :to="{path: '/users/' + invitation.user._id}">{{invitation.user.username}}</router-link>
                   <b>To:</b>
                   <router-link :to="{path: '/users/' + ((invitation.receiverUser) ? invitation.receiverUser._id : '')}">
                     {{invitation.email}} ({{invitation.receiver}})

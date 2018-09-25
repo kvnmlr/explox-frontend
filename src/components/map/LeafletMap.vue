@@ -1,5 +1,6 @@
 <template>
   <div class="elevation-5">
+    <div id='images'></div>
     <div id="map"></div>
     <v-expansion-panel class="elevation-0" :value="openPanel ? 0 : 1">
       <v-expansion-panel-content>
@@ -44,7 +45,12 @@
   import {EventBus} from '@/eventBus.js';
 
   require('../../assets/js/L.GridLayer.MaskCanvas.js');
+  require('../../assets/js/leaflet-tilelayer-mask.js');
+  require('../../assets/js/leaflet-heat.js');
+  require('../../assets/js/heatcanvas/heatcanvas.js');
+  require('../../assets/js/heatcanvas/heatcanvas-leaflet.js');
 
+  // let x = require('../../../node_modules/leaflet-image/leaflet-image.js');
 
   export default {
     name: "simple",
@@ -391,6 +397,7 @@
       },
 
       initView() {
+        let self = this;
         try {
           this.map = L.map('map', {
             minZoom: 0,
@@ -401,9 +408,58 @@
               pseudoFullscreen: false // if true, fullscreen to page width and height
             }
           }).setView([49.234, 6.997], 9);
+
+
+          /* let heatmap = new L.tileLayer.HeatCanvas({}, {'step': 0.5, 'degree': HeatCanvas.LINEAR, 'opacity': 0.5});
+          let data = [[40.71455, -74.007124, 103], [37.777125, -122.419644, 86], [47.60356, -122.329439, 41], [51.506325, -0.127144, 40], [41.88415, -87.632409, 40], [43.64856, -79.385324, 36], [32.715695, -117.161719, 29], [30.267605, -97.742984, 26], [49.26044, -123.114034, 25], [44.572195, -116.676054, 24], [34.05349, -118.245319, 22], [42.358635, -71.056699, 20], [35.868436, -92.120663, 19], [39.90601, 116.387909, 17], [45.511795, -122.675629, 17], [48.85693, 2.3412, 16], [39.76486, -99.031824, 16], [31.247709, 121.472618, 15], [45.512293, -73.554407, 15], [52.37312, 4.893195, 15], [33.748315, -84.391109, 15], [29.76045, -95.369784, 14], [37.371612, -122.038258, 14], [-33.869629, 151.206955, 13], [44.979035, -93.264929, 12], [59.33228, 18.06284, 12], [40.438335, -79.997459, 11], [39.95227, -75.162369, 11], [48.136415, 11.577531, 11], [32.0485, 118.778969, 11], [12.97092, 77.60482, 10], [40.01574, -105.279239, 10], [37.44466, -122.160794, 10], [34.011565, -118.492289, 10], [48.202548, 16.368805, 9], [38.725735, -9.15021, 9], [51.490299, -0.1193, 9], [52.516074, 13.376987, 9], [60.17116, 24.93258, 9], [38.89037, -77.031959, 9], [-34.608521, -58.373539, 9], [30.252501, 120.165024, 9], [55.75695, 37.614975, 9], [-37.817532, 144.967148, 9], [37.338475, -121.885794, 8], [37.869885, -122.270539, 8], [41.385589, 2.168745, 8], [50.112065, 8.683415, 8], [1.29378, 103.853256, 8], [36.45106, -93.189394, 8], [48.112955, -105.196669, 7], [32.056915, -87.588184, 7], [35.2225, -80.837539, 7], [39.106614, -84.504552, 7], [32.045101, 34.769711, 7], [39.96196, -83.002984, 7], [41.674498, -72.94619, 7], [38.959374, -77.354571, 7], [13.06397, 80.24311, 7], [53.34807, -6.248274, 7], [44.27257, -121.175874, 7], [39.74001, -104.992259, 7], [29.42449, -98.494624, 6], [40.4203, -3.705774, 6], [36.979335, -85.610864, 6], [32.778155, -96.795404, 6], [-23.56288, -46.654659, 6], [38.62774, -90.199514, 6]];
+          for (let i = 0, l = data.length; i < l; i++) {
+            heatmap.pushData(data[i][0], data[i][1], data[i][2]);
+            //if(data[i][2]> 10) {
+            //    var marker = new L.Marker(new L.LatLng(data[i][0], data[i][1]));
+            //    marker.bindPopup(data[i].toString());
+            //    map.addLayer(marker);
+            //}
+          }
+          let heattile = new L.HeatTile({step: 0.5, degree: HeatCanvas.LINEAR, opacity: 0.7, data: data});
+          map.addLayer(heatmap);
+          this.map.addLayer(heattile); */
+
+          /* let fg = L.tileLayer.mask('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}{r}.png', {
+              maskSize: 100,
+            }//optional
+          ).addTo(this.map);
+
+          // Add event handler to update mask position
+          this.map.on("mousemove", function (e) {
+            fg.setCenter(e.containerPoint);
+          }); */
+
+
+          /* var map = this.map;
+          setTimeout(() => {
+            if (map !== undefined) {
+              console.debug(map);
+
+              let y = new x(map, function(err, canvas) {
+                // now you have canvas
+                // example thing to do with that canvas:
+                let img = document.createElement('img');
+                let dimensions = map.getSize();
+                img.width = dimensions.x;
+                img.height = dimensions.y;
+                img.src = canvas.toDataURL();
+                document.getElementById('images').innerHTML = '';
+                document.getElementById('images').appendChild(img);
+              });
+            }
+
+          },2000) */
+
         } catch (e) {
+          console.error(e);
           return false;
         }
+
         return true;
       },
 
@@ -480,13 +536,18 @@
           }
 
           if (layer.label === 'coverage') {
+            var addressPoints = this.activitiesGeoJSON;
+
+            addressPoints = addressPoints.map(function (p) {
+              return [p[0], p[1]];
+            });
 
             let coverageLayer = new L.GridLayer.MaskCanvas(
               {
-                radius: 50,                 // radius in pixels or in meters (see useAbsoluteRadius)
+                radius: 40,                 // radius in pixels or in meters (see useAbsoluteRadius)
                 useAbsoluteRadius: true,    // true: r in meters, false: r in pixels
                 color: '#000',              // the color of the layer
-                opacity: 0.5,               // opacity of the not covered area
+                opacity: 0.1,               // opacity of the not covered area
                 noMask: false,              // true results in normal (filled) circled, instead masked circles
                 lineColor: '#A00'           // color of the circle outline if noMask is true
               }
@@ -494,6 +555,21 @@
             coverageLayer.setData(this.activitiesGeoJSON);
             layer.leafletObject = coverageLayer;
 
+            try {
+              const layerOptions = {
+                minOpacity: 0.2,
+                max: 0.7,
+                radius: 40,
+                blur: 30,
+                gradient: {0.4: 'blue', 0.6: 'lime', 1: 'orange'},
+              };
+              let heat = L.heatLayer(addressPoints, layerOptions).addTo(this.map);
+              layer.leafletObject = L.featureGroup([heat, coverageLayer]);
+              layer.leafletObject.bounds = coverageLayer.bounds;
+
+            } catch (e) {
+              console.log("Map data is not yet ready for heatmap");
+            }
 
             // layer.leafletObject = L.geoJSON(layer, layer.style);
             return;
@@ -515,11 +591,13 @@
               this.bestPrimary = layer.primary;
               try {
                 let bounds;
+
                 if (layer.leafletObject.bounds) {
                   bounds = layer.leafletObject.bounds;
                 } else {
                   bounds = layer.leafletObject.getBounds();
                 }
+
                 this.map.fitBounds(bounds);
               } catch (e) {
                 return;
