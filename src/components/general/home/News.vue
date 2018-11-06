@@ -7,13 +7,13 @@
             <v-card-title primary class="title">
               <v-icon>message</v-icon>&nbsp;{{ item.headline }}
             </v-card-title>
-            <v-card-text>{{ item.body }}</v-card-text>
+            <v-card-text>{{ item.body }} <br><br><p style="color: darkgray;">{{ item.date }}</p></v-card-text>
           </v-card>
           <br>
         </div>
       </v-flex>
       <v-flex class="hidden-sm-and-down" md5 style="padding-left:20px;">
-        <img v-if="news.length > 1" style="width:100%" src="@/assets/img/bicycle-bike-black-and-white.jpg"
+        <img v-if="news.length > 2" style="width:100%" src="@/assets/img/bicycle-bike-black-and-white.jpg"
              class="elevation-5">
         <img v-else style="width:100%" src="@/assets/img/action-adventure-bicycle.jpg" class="elevation-5">
 
@@ -30,12 +30,14 @@
     data: () => ({
       news: [
         {
-          headline: "Headline",
-          body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at pulvinar sapien, nec interdum velit. Duis nisi nibh, tristique eu augue quis, pellentesque pharetra ex. Morbi volutpat imperdiet maximus. Fusce velit libero, faucibus id gravida fermentum, aliquet vitae lacus. Nam vehicula ac erat et iaculis. Praesent arcu orci, maximus ac blandit eu, scelerisque vehicula felis. Donec a eros nibh. Curabitur ullamcorper nisl vitae ligula ultricies, a ultrices leo euismod. Cras non condimentum odio. Curabitur dignissim ornare luctus. Proin condimentum at ante ut congue. Vivamus luctus turpis vel scelerisque vehicula. Sed enim felis, pulvinar sit amet arcu sed, dignissim auctor leo. Ut non turpis dictum, ornare eros vel, cursus lectus. Aenean commodo, justo ut iaculis tincidunt, tellus lectus congue quam, at convallis velit massa ac eros. Maecenas eget sapien tincidunt, pretium augue ac, gravida ipsum."
+          headline: "Welcome to ExploX",
+          body: "Hey there! You are one of the first users on this website. Please expect some minor bugs on the website within the first couple of weeks. If you run into problems or have questions, feel free to use the feedback/contact form.",
+          date: "05.11.2018"
         },
         {
-          headline: "Hello",
-          body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at pulvinar sapien, nec interdum velit. Duis nisi nibh, tristique eu augue quis, pellentesque pharetra ex. Morbi volutpat imperdiet maximus. Fusce velit libero, faucibus id gravida fermentum, aliquet vitae lacus. Nam vehicula ac erat et iaculis. Praesent arcu orci, maximus ac blandit eu, scelerisque vehicula felis. Donec a eros nibh."
+          headline: "ExploX Website is Live",
+          body: "The development of the first release version is finished and the website is officially live.",
+          date: "01.11.2018"
         },
       ],
     })

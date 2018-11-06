@@ -10,19 +10,19 @@
           </v-card-title>
           <v-card-text>
             <v-layout row wrap>
-              <v-flex xs12 sm6>
-                <v-text-field color="primary" v-model="search" prepend-inner-icon="search" label="Search">
-                </v-text-field>
-              </v-flex>
-              <v-flex xs12 sm1>
-                <br>
-              </v-flex>
               <v-flex xs12 sm5>
                 <v-text-field color="primary" hide-details v-model="distance" prepend-inner-icon="search"
                               label="Approx. Distance"
                               suffix="m">
                 </v-text-field>
                 <br>
+              </v-flex>
+              <v-flex xs12 sm1>
+                <br>
+              </v-flex>
+              <v-flex xs12 sm6>
+                <v-text-field color="primary" v-model="search" prepend-inner-icon="search" label="Search by title">
+                </v-text-field>
               </v-flex>
             </v-layout>
             <v-layout row>

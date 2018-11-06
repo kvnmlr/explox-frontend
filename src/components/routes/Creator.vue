@@ -281,8 +281,10 @@
         this.GET('creator', (data, err) => {
           if (err) {
             if (!this.user) {
+              // Creator only accessible by logged in user
               this.$router.push('/login');
               this.$emit('flash', err.flash);
+              return;
             }
             // Creator is not available
             this.$router.push('/hub');
