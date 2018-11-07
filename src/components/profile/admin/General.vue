@@ -47,6 +47,13 @@
           <v-icon light>cached</v-icon>
         </span>
       </v-btn>
+      <v-btn round :loading="task5loading" :disabled="task5loading" class="gradient gradient-orange" dark
+             @click="triggerBackup">
+        Make Database Backup
+        <span slot="loader" class="custom-loader">
+          <v-icon light>cached</v-icon>
+        </span>
+      </v-btn>
     </section>
     <v-divider class="separator"></v-divider>
     <section>
@@ -126,6 +133,7 @@
         task2loading: false,
         task3loading: false,
         task4loading: false,
+        task5loading: false,
       }
     },
     props: {
@@ -176,6 +184,15 @@
         this.task4loading = true;
         this.GET('triggers/limits', (data, err) => {
           this.task4loading = null;
+          if (!err) {
+
+          }
+        });
+      },
+      async triggerBackup() {
+        this.task5loading = true;
+        this.GET('triggers/backup', (data, err) => {
+          this.task5loading = null;
           if (!err) {
 
           }
