@@ -89,12 +89,11 @@
               <p>{{user.email}}</p>
 
               <v-checkbox :label="checkbox1_text" v-model="emailsCheckbox" style="margin-bottom: -20px;"></v-checkbox>
-              <v-checkbox :rules="[rules.required]" :label="checkbox2_text" v-model="termsCheckbox" v-bind:error="termsError" v-on:click="dialog =! dialog"></v-checkbox>
+              <v-checkbox :rules="[rules.required]" :label="checkbox2_text" v-model="termsCheckbox" v-bind:error="termsError" v-on:click="dialog = termsCheckbox"></v-checkbox>
 
               <v-btn class="gradient gradient-orange" dark round v-on:click="signup"><v-icon>check</v-icon>Finish & Go To Profile</v-btn>
 
-
-              <v-dialog v-model="dialog" width="600px">
+              <v-dialog v-model="dialog" persistent  width="600px">
                 <v-card>
                   <v-card-title>
                     <span class="headline">Terms and Conditions for ExploX</span>
@@ -179,7 +178,7 @@
         emailsCheckbox: false,
         termsCheckbox: false,
         termsError: false,
-        checkbox1_text: 'Allow ExploX to send News Emails',
+        checkbox1_text: 'Allow news via email',
         checkbox2_text: 'Accept Terms and Conditions',
       }
     },

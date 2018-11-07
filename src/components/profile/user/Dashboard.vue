@@ -61,13 +61,12 @@
                             Edit
                           </v-list-tile-title>
                         </v-list-tile>
-                        <v-list-tile :to="{path: '/users/'+this.user._id}">
+                        <!--<v-list-tile :to="{path: '/users/'+this.user._id}">
                           <v-list-tile-title>
                             <v-icon>public</v-icon>
                             Public Profile
                           </v-list-tile-title>
                         </v-list-tile>
-
                         <v-list-tile v-on:click="exportDialog = true">
                           <v-list-tile-title>
                             <v-icon>import_export</v-icon>
@@ -92,7 +91,7 @@
                             </v-card>
                           </v-dialog>
 
-                        </v-list-tile>
+                        </v-list-tile>-->
                         <v-list-tile v-on:click="deleteDialog = true">
                           <v-list-tile-title>
                             <v-icon>delete</v-icon>

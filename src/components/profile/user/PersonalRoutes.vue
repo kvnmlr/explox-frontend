@@ -13,8 +13,13 @@
           <div v-if="user.routes.length" >
             <route v-for="(route, i) in user.routes" v-bind:route="route" :key="i"></route>
           </div>
-          <p v-else>You do not have any routes</p>
-          <br>
+          <div v-else style="height:300px">
+            <p>
+              You do not have any routes</p>
+            <br>
+          </div>
+
+
           <create-new-route-prompt></create-new-route-prompt>
         </v-flex>
         <v-flex xs12 sm5 style="padding-left:20px;">

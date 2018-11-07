@@ -11,12 +11,14 @@
       <form @submit.prevent="onSubmit">
         <v-layout row>
           <v-flex xs12>
-            <file-input remove-label="Choose new file" select-label="Select a GPX file" accept=".gpx" ref="fileInput" @input="getUploadedFile"></file-input>
+            <file-input remove-label="Choose new file" select-label="Select a GPX file" accept=".gpx" ref="fileInput"
+                        @input="getUploadedFile"></file-input>
           </v-flex>
         </v-layout>
         <v-layout row>
           <v-flex xs12>
-            <v-btn dark large round style="width: 95%; height: 100px; vertical-align: bottom" class="gradient gradient-orange" type="submit">
+            <v-btn dark large round style="width: 95%; height: 100px; vertical-align: bottom"
+                   class="gradient gradient-orange" type="submit">
               Save {{file.name}}
             </v-btn>
           </v-flex>
@@ -27,41 +29,52 @@
 </template>
 
 <script>
-  import FileInput from "../general/FileInput";
-  import apiMixin from "../../mixins/apiMixin";
+  import FileInput from '../general/FileInput'
+  import {EventBus} from "../../eventBus";
+  import apiMixin from '../../mixins/apiMixin'
 
   export default {
-    name: "UploadFile",
+    name: 'UploadFile',
     components: {FileInput},
 
-    data() {
+    data () {
       return {
         file: '',
       }
     },
 
-    props:{
+    props: {
       route: Boolean
     },
 
     methods: {
-      getUploadedFile(file) {
-        console.log(file);
+      getUploadedFile (file) {
+        console.log(file)
         this.file = file
       },
-      onSubmit() {
+      onSubmit () {
         let formData = new FormData();
-        formData.set('data', this.file);
+        formData.set('file', this.file);
+        formData.set('_csrf', this.csrfToken);
         formData.set('format', 'gpx');
         formData.set('type', 'route');
 
-        this.POST('routes/import', formData)
-          .then(response => {
+        console.log(formData);
 
-          })
-          .catch(error => {
+        const request = {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }
 
-          })
+        this.POST('routes/import', formData, request, (data, err) => {
+          if (!err) {
+            EventBus.$emit('flash', {
+              type: 'success',
+              text: 'Successfully Uploaded!'
+            })
+          }
+        })
       }
     },
     mixins: [apiMixin]

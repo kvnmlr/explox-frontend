@@ -62,22 +62,24 @@ export default {
     async POST(path, formData, requestParams, cb) {
       self = this;
       api.get('csrf')
-        .then(() => {
-
-
+        .then((data) => {
+          console.log(data);
           requestParams = requestParams || {
             method: 'POST',
             responseType: 'text',
           };
           formData._csrf = csrfToken;
 
-          api.post(path, formData, requestParams)
-            .then((data) => {
-              cb(data, null);
-            })
-            .catch((error) => {
-              cb(null, error);
-            })
+          setTimeout(() => {
+            api.post(path, formData, requestParams)
+              .then((data) => {
+                cb(data, null);
+              })
+              .catch((error) => {
+                cb(null, error);
+              })
+          }, 500)
+
         })
         .catch(() => {
           console.error('Could not get csrf token');

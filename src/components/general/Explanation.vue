@@ -5,9 +5,8 @@
         <v-flex xs12 sm6 md6>
           <h2>Step 1: Register Using Strava</h2>
           <br>
-          <p>Strava is a popular app for tracking your running and cycling activities.
-            You can also create routes by drawing on a map.
-            By registering to ExploX, you allow us to use this data in our service.<br>
+          <p>Strava is a popular app for tracking your running and cycling activities and create new routes.
+            By registering to ExploX, you allow us to use your route and activity data in our service.<br>
             <router-link to="strava">Learn more about Strava</router-link>
           </p>
           <strava-login v-if="!user || user.provider !== 'strava'" v-bind:text="'Register with Strava'"
@@ -39,7 +38,7 @@
             <li>Your own and starred routes</li>
           </ul>
           <br>
-          <p>You can edit your profile data or synchronize your data with your Strava profile.</p>
+          <p>Your profile is always synchronized with your Strava profile.</p>
         </v-flex>
         <v-flex xs12 sm6 md6>
           <v-container>
@@ -102,16 +101,16 @@
       </v-layout>
       <v-divider></v-divider>
       <v-layout row wrap style="margin:30px;">
-        <v-flex xs12 sm6 md6>
+        <v-flex xs12 sm12 md6>
           <br>
           <h2>Where do you want to go next?</h2>
-          <quick-access></quick-access>
+          <quick-access v-bind:user="user"></quick-access>
 
         </v-flex>
         <v-flex  class="hidden-sm-and-down" xs12 sm6 md6>
           <v-container>
             <br><br><br>
-            <img style="width:75%;" src="@/assets/img/bicycle-cloud-clouds.jpg" class="elevation-5">
+            <img style="width:100%;" src="@/assets/img/bicycle-cloud-clouds-2.jpg" class="elevation-5">
           </v-container>
         </v-flex>
       </v-layout>

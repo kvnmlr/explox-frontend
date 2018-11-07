@@ -8,13 +8,12 @@
       <v-card>
         <v-card-title class="headline">Invite Friends</v-card-title>
         <v-card-text>
-          <p>Who do you want to invite? We will send an invitation e-mail directly to your friend's
-            e-mail address.</p>
+          <p>We will send an invitation email directly to your friend's email address.</p>
           <v-form ref="form" lazy-validation>
             <v-text-field v-model="inviteName" label="Receiver Name (optional)"></v-text-field>
             <v-text-field v-model="inviteEmail" label="Receiver E-Mail" required></v-text-field>
             <v-btn round flat color="primary" v-on:click.prevent="invite">
-              Send Invitation E-Mail
+              <v-icon>send</v-icon>&nbsp;Send Invitation E-Mail
             </v-btn>
           </v-form>
         </v-card-text>

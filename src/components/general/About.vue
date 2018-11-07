@@ -11,7 +11,7 @@
                   <div class="headline">About ExploX</div>
                 </v-card-title>
                 <v-card-text>
-                  ExploX is part of a research project that aims to discover patterns in cyclists' routes and
+                  ExploX is part of a research effort that aims to discover patterns in cyclists' routes and
                   activities.
                   The analyzed data can be used in meaningful ways such as the creation of new routes or personalized
                   training optimization.
@@ -41,11 +41,13 @@
                   </v-card-title>
                   <v-card-text>
                     <p>As smartwatches and fitness trackers become more user friendly, athletes enjoy incorporating them
-                      into their training. One key benefit that comes when using trackers is that the data can be
-                      analyzed and personalized training methods developed. One area that is little researched is the
+                      into their training. One key benefit that comes with using trackers is that the data can be
+                      analyzed and personalized training methods can be developed. One area that is little researched is
+                      the
                       generation of new routes based on historic athlete activities and current goals. Planning a new
                       route manually often involves some time and is always connected with some uncertainty whether the
-                      route will be suitable for cycling. What they miss out is a number of possible alternative routes
+                      route will be suitable for cycling. What cyclists that manually plan their routes often miss out
+                      is a number of possible alternative routes
                       in areas where they are not so familiar as well as new elevation profiles that will challenge
                       them.</p>
                   </v-card-text>
@@ -63,7 +65,8 @@
                     <p>In order to gain new insights about cyclists behaviour and cycling patterns, especially with
                       respect to the type of routes they cycle, we will run a field study.
                       Anybdy who goes for regular bike rides and uses Strava to track those is welcome to participate in
-                      the study. However, we want to emphasize that we will focus on users in Saarland and ExploX
+                      the study. However, we want to emphasize that in the first phase we will focus on users in
+                      Saarland and ExploX
                       will only work there. With this open system, we want to gain a large number of users in order to
                       collect very diverse data.
                       Also, with a smaller number of people who are particularly active, we want to perform a more
@@ -149,19 +152,19 @@
 </template>
 
 <script>
-  import UnderConstruction from "../includes/UnderConstruction";
-  import apiMixin from "../../mixins/apiMixin";
+  import UnderConstruction from '../includes/UnderConstruction'
+  import apiMixin from '../../mixins/apiMixin'
 
   export default {
     name: 'About',
     components: {UnderConstruction},
-    created() {
-      this.performSearch();
+    created () {
+      this.performSearch()
     },
     methods: {
-      async performSearch() {
+      async performSearch () {
         this.GET('about', (data, err) => {
-        });
+        })
       }
     },
     mixins: [apiMixin]

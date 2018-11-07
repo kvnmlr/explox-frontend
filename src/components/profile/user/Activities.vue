@@ -19,7 +19,8 @@
           <br>
           <upload-file></upload-file>
           <br>
-          <img v-if="user.activities.length > 2" style="width:100%" src="@/assets/img/bicycle-cloud-clouds.jpg" class="elevation-5">
+          <div v-if="user.activities.length <= 3" style="height:300px"></div>
+          <img v-else-if="user.activities.length > 3" style="width:100%" src="@/assets/img/bicycle-cloud-clouds.jpg" class="elevation-5">
           <img v-else style="width:100%" src="@/assets/img/bicycle-cloud-clouds-2.jpg" class="elevation-5">
 
         </v-flex>

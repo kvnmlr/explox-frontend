@@ -21,7 +21,7 @@
               <v-card-title primary class="title">
                 <v-icon>gesture</v-icon>&nbsp;Creator
               </v-card-title>
-              <v-card-text>Creator let's you create new routes from scratch and upload activities to your profile.</v-card-text>
+              <v-card-text>Creator let's you create new routes from scratch that perfectly match your cycling style and goals.</v-card-text>
             </v-card>
           </v-flex>
           <v-flex d-flex>
@@ -43,7 +43,7 @@
           <v-card-title primary class="title">
             <v-icon>near_me</v-icon>&nbsp;Route Finder
           </v-card-title>
-          <v-card-text>The place to discover new routes. Search for existing community routes.</v-card-text>
+          <v-card-text>The place to discover new routes and search for existing community routes.</v-card-text>
         </v-card>
       </v-flex>
       <v-flex d-flex xs12 sm8 md8>
