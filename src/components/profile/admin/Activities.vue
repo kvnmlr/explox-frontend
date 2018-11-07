@@ -14,7 +14,7 @@
       </template>
       <template slot="items" slot-scope="props">
         <td class="text-xs-left">{{ props.item.title }}</td>
-        <td class="text-xs-left">{{ (props.item.user ? props.item.user.name : '') }}</td>
+        <td class="text-xs-left">{{ (props.item.user ? props.item.user.username : '') }}</td>
         <td class="text-xs-left">{{ props.item.distance.toFixed(2) + ' m' }}</td>
         <td class="text-xs-left">{{ props.item.geo }}</td>
         <td class="text-xs-left">{{ formatDate(props.item.createdAt, true) }}</td>

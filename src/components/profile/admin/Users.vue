@@ -86,8 +86,8 @@
         let rows = [];
         if (this.users.length > 0) {
           for (let u of this.users) {
-            u.activitiesCount = 5;
-            u.routesCount = 5;
+            u.activitiesCount = u.activities.length;
+            u.routesCount = u.routes.length;
             rows.push(u);
           }
           return rows;

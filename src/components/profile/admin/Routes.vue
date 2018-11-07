@@ -15,7 +15,7 @@
       <template slot="items" slot-scope="props">
         <td class="text-xs-left">{{ props.item.isGenerated }}</td>
         <td class="text-xs-left"><router-link :to="{path: '/route/' + props.item._id}">{{ props.item.title }}</router-link></td>
-        <td class="text-xs-left">{{ props.item.user.substring(0, 6) }}</td>
+        <td class="text-xs-left"><router-link :to="{path: '/users/' + props.item.user._id}">{{ props.item.user.username.toString() }}</router-link></td>
         <td class="text-xs-left">{{ props.item.distance.toFixed(2) + ' m' }}</td>
         <td class="text-xs-left">{{ props.item.geo }}</td>
         <td class="text-xs-left">{{ formatDate(props.item.createdAt, true) }}</td>
