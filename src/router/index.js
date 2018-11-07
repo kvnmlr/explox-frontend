@@ -30,87 +30,106 @@ export default new Router({
     {
       path: '/',
       name: 'Landing',
-      component: Landing
+      component: Landing,
+      meta: {title: 'ExploX'}
     },
     {
       path: '/hub',
       name: 'Hub',
-      component: Hub
+      component: Hub,
+      meta: {title: 'ExploX Hub'}
+
     },
     {
       path: '/about',
       name: 'About',
-      component: About
+      component: About,
+      meta: {title: 'About ExploX'}
+
     },
     {
       path: '/guide',
       name: 'GetStarted',
-      component: GetStarted
+      component: GetStarted,
+      meta: {title: 'Get Started'}
     },
     {
       path: '/feedback',
       name: 'Feedback',
-      component: Feedback
+      component: Feedback,
+      meta: {title: 'ExploX Feedback'}
     },
     {
       path: '/routes',
       name: 'Routes',
-      component: Routes
+      component: Routes,
+      meta: {title: 'ExploX Routes'}
     },
     {
       path: '/route/:id',
       name: 'Route Details',
-      component: RouteDetails
+      component: RouteDetails,
+      meta: {title: 'ExploX Route'}
     },
     {
       path: '/activity/:id',
       name: 'Activity Details',
       component: ActivityDetails,
+      meta: {title: 'ExploX Activity'}
     },
     {
       path: '/admin/dashboard',
       name: 'AdminDashboard',
-      component: Admin
+      component: Admin,
+      meta: {title: 'ExploX Dashboard'}
     },
     {
       path: '/dashboard',
       name: 'Dashboard',
-      component: Dashboard
+      component: Dashboard,
+      meta: {title: 'ExploX Dashboard'}
     },
     {
       path: '/signup',
       name: 'SignUp',
-      component: SignUp
+      component: SignUp,
+      meta: {title: 'Sign Up to ExploX'}
     },
     {
       path: '/login',
       name: 'LogIn',
-      component: LogIn
+      component: LogIn,
+      meta: {title: 'Log In to ExploX'}
     },
     {
       path: '/strava',
       name: 'Strava',
-      component: ConnectToStrava
+      component: ConnectToStrava,
+      meta: {title: 'ExploX Strava'}
     },
     {
       path: '/map',
       name: 'LeafletMap',
-      component: LeafletMap
+      component: LeafletMap,
+      meta: {title: 'ExploX Map'}
     },
     {
       path: '/fs',
       name: 'FullscreenMap',
-      component: FullscreenMap
+      component: FullscreenMap,
+      meta: {title: 'ExploX Map'}
     },
     {
       path: '/analytics',
       name: 'Analytics',
-      component: Analytics
+      component: Analytics,
+      meta: {title: 'ExploX Analytics'}
     },
     {
       path: '/creator',
       name: 'Creator',
-      component: Creator
+      component: Creator,
+      meta: {title: 'ExploX Creator'}
     },
   ]
 })
