@@ -3,7 +3,7 @@ import {EventBus} from "../eventBus";
 
 const api = axios.create({
   baseURL: process.env.API_ROOT,
-  timeout: 60000,
+  timeout: 120000,
 });
 
 let csrfToken = '';
