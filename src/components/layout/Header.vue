@@ -60,7 +60,6 @@
         <span v-else>
           <router-link to="/" class="hidden-sm-and-down brand">&nbsp;ExploX</router-link>
           <img src="@/assets/img/logo_white.png"  style="margin-bottom: -5px;" height="25px;" v-on:click="$router.push('/')">
-
         </span>
       </v-toolbar-title>
       <v-spacer></v-spacer>

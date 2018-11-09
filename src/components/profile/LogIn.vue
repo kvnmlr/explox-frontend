@@ -5,8 +5,8 @@
       <br>
     </div>
     <v-layout row wrap>
-      <v-flex xs12 sm5 md5>
-        <strava-login v-bind:text="'Strava Login'"></strava-login>
+      <v-flex xs12 sm6 md6>
+        <strava-login dense v-bind:text="'Strava Login'"></strava-login>
         <v-btn outline color="primary" round v-on:click="() => this.$router.push('/strava')">Learn More</v-btn>
       </v-flex>
       <br><br><br>
@@ -16,7 +16,7 @@
       <v-flex v-else xs12>
         <div class="separator"></div>
       </v-flex>
-      <v-flex xs12 sm6 md6>
+      <v-flex xs12 sm5 md5>
         <v-form>
           <v-text-field prepend-icon="person" name="login" label="Login" type="text" v-model="email"></v-text-field>
           <v-text-field prepend-icon="lock" name="password" label="Password" type="password"
