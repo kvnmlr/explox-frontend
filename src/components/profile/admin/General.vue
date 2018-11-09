@@ -57,6 +57,32 @@
     </section>
     <v-divider class="separator"></v-divider>
     <section>
+      <h3>Logs</h3>
+      <v-dialog v-model="applicationLogDialog" width="80%">
+        <v-btn slot="activator" class="gradient gradient-green" round v-on:click="getLogs">Show Application Logs</v-btn>
+        <v-card>
+          <v-card-title>
+            <span class="headline">Application Logs</span>
+          </v-card-title>
+          <v-card-text>
+            <div v-for="log in applicationLogs">{{ log }}</div>
+          </v-card-text>
+        </v-card>
+      </v-dialog>
+      <v-dialog v-model="errorLogDialog" width="600px">
+        <v-btn slot="activator" class="gradient gradient-green" round v-on:click="getLogs">Show Error Logs</v-btn>
+        <v-card>
+          <v-card-title>
+            <span class="headline">Error Logs</span>
+          </v-card-title>
+          <v-card-text>
+            <div v-for="log in errorLogs">{{ log }}</div>
+          </v-card-text>
+        </v-card>
+      </v-dialog>
+    </section>
+    <v-divider class="separator"></v-divider>
+    <section>
       <h3>Feedback</h3>
       <v-container v-if="feedbacks.length > 0" fluid grid-list-md>
         <v-layout column wrap>
@@ -118,15 +144,16 @@
 </template>
 
 <script>
-  import apiMixin from "../../../mixins/apiMixin";
-  import formatDateMixin from "../../../mixins/formatDateMixin";
-  import {EventBus} from '@/eventBus.js';
+  import apiMixin from '../../../mixins/apiMixin'
+  import formatDateMixin from '../../../mixins/formatDateMixin'
+  import {EventBus} from '@/eventBus.js'
 
   export default {
-    name: "Api",
-    created() {
+    name: 'Api',
+    created () {
+      this.getLogs();
     },
-    data() {
+    data () {
       return {
         loader: null,
         task1loading: false,
@@ -134,6 +161,10 @@
         task3loading: false,
         task4loading: false,
         task5loading: false,
+        applicationLogDialog: false,
+        errorLogDialog: false,
+        applicationLogs: 'No application logs available',
+        errorLogs: 'No error logs available',
       }
     },
     props: {
@@ -142,80 +173,87 @@
       limits: Object,
     },
     methods: {
-      async remove(id) {
+      async getLogs () {
+        this.GET('logs', (data, err) => {
+          console.log(data)
+          this.applicationLogs = data.application;
+          this.errorLogs = data.errors;
+        })
+      },
+      async remove (id) {
         this.DELETE('feedback/' + id, (data, err) => {
           if (!err) {
             this.feedbacks.forEach((feedback, index) => {
               if (feedback._id === id) {
-                this.feedbacks.splice(index, 1);
-                this.$emit('flash', data.flash);
+                this.feedbacks.splice(index, 1)
+                this.$emit('flash', data.flash)
               }
-            });
+            })
           }
-        });
+        })
       },
-      async triggerCoarseSegmentCrawler() {
-        this.task1loading = true;
+      async triggerCoarseSegmentCrawler () {
+        this.task1loading = true
         this.GET('triggers/crawler?detailed=false', (data, err) => {
-          this.task1loading = null;
+          this.task1loading = null
           if (!err) {
           }
-        });
+        })
       },
-      async triggerFineSegmentCrawler() {
-        this.task2loading = true;
+      async triggerFineSegmentCrawler () {
+        this.task2loading = true
         this.GET('triggers/crawler?detailed=true', (data, err) => {
-          this.task2loading = null;
+          this.task2loading = null
           if (!err) {
 
           }
-        });
+        })
       },
-      async triggerUpdateUsers() {
-        this.task3loading = true;
+      async triggerUpdateUsers () {
+        this.task3loading = true
         this.GET('triggers/users', (data, err) => {
-          this.task3loading = null;
+          this.task3loading = null
           if (!err) {
 
           }
-        });
+        })
       },
-      async triggerUpdateLimits() {
-        this.task4loading = true;
+      async triggerUpdateLimits () {
+        this.task4loading = true
         this.GET('triggers/limits', (data, err) => {
-          this.task4loading = null;
+          this.task4loading = null
           if (!err) {
 
           }
-        });
+        })
       },
-      async triggerBackup() {
-        this.task5loading = true;
+      async triggerBackup () {
+        this.task5loading = true
         this.GET('triggers/backup', (data, err) => {
-          this.task5loading = null;
+          this.task5loading = null
           if (!err) {
 
           }
-        });
+        })
       },
     },
     computed: {
-      shortTerm() {
+      shortTerm () {
         if (this.limits) {
-          return Math.floor(this.limits.shortTermUsage * 100 / this.limits.shortTermLimit);
+          return Math.floor(this.limits.shortTermUsage * 100 / this.limits.shortTermLimit)
         }
       },
-      longTerm() {
+      longTerm () {
         if (this.limits) {
-          return Math.floor(this.limits.longTermUsage * 100 / this.limits.longTermLimit);
+          return Math.floor(this.limits.longTermUsage * 100 / this.limits.longTermLimit)
 
         }
       }
     },
     watch: {
-      loader() {
-        const l = this.loader;
-        this[l] = !this[l];
+      loader () {
+        const l = this.loader
+        this[l] = !this[l]
       }
     },
     mixins: [apiMixin, formatDateMixin]
