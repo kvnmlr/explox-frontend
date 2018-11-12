@@ -7,6 +7,10 @@
             <h2>{{ route.title }}</h2>
             <v-chip v-for="tag in route.tags" v-bind:key="tag" tag="a" href="#">{{ tag }}
             </v-chip>
+            <br><br>
+            <p v-if="route.strava">
+              <a style="color: #FC4C02;" :href="'https://www.strava.com/activities/' + route.strava.id">View on Strava</a>
+            </p>
           </v-flex>
           <v-flex xs2 sm2 md2>
             <v-menu transition="slide-y-transition" bottom right>

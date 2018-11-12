@@ -22,7 +22,6 @@
           <v-layout row wrap>
             <v-flex xs12 sm12 md7>
               <v-container>
-
                 <br>
                 <br>
                 <v-layout row>
@@ -36,6 +35,9 @@
                       <v-flex xs12 sm 8>
                         <h2 color="primary">{{ user.firstName.toUpperCase() + ' ' + user.lastName.toUpperCase() }}</h2>
                         <h4>{{ user.username }}</h4>
+                        <p v-if="user.strava">
+                          <a style="color: #FC4C02;" :href="'https://www.strava.com/athletes/' + user.strava.id">View profile on Strava</a>
+                        </p>
                       </v-flex>
                     </v-layout>
                     <p></p>
