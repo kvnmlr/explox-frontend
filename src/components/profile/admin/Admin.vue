@@ -93,16 +93,27 @@
     },
     methods: {
       async performSearch() {
-        this.GET('dashboard', (data, err) => {
+        this.GET('dashboard/admin?general=true&users=true', (data, err) => {
+          console.log(data);
           if (!err) {
             this.users = data.users;
-            this.activities = data.activities;
-            this.routes = data.routes;
-            this.segments = data.segments;
-            this.creatorResults = data.creatorResults;
             this.feedbacks = data.feedbacks;
             this.limits = data.limits;
             this.invitations = data.invitations;
+          }
+        });
+        this.GET('dashboard/admin?activities=true', (data, err) => {
+          console.log(data);
+          if (!err) {
+            this.activities = data.activities;
+          }
+        });
+        this.GET('dashboard/admin?routes=true&segments=true', (data, err) => {
+          console.log(data);
+          if (!err) {
+            this.routes = data.routes;
+            this.segments = data.segments;
+            this.creatorResults = data.creatorResults;
           }
         });
       },
