@@ -9,7 +9,8 @@
             </v-chip>
             <br><br>
             <p v-if="route.strava">
-              <a style="color: #FC4C02;" :href="'https://www.strava.com/activities/' + route.strava.id">View on Strava</a>
+              <a style="color: #FC4C02;" :href="'https://www.strava.com/activities/' + route.strava.id">View on
+                Strava</a>
             </p>
           </v-flex>
           <v-flex xs2 sm2 md2>
@@ -29,7 +30,6 @@
                       <v-card-text>
                         <v-form ref="form" lazy-validation>
                           <v-text-field v-model="updatedRoute.title" label="Name" required></v-text-field>
-                          <v-textarea v-model="updatedRoute.body" label="Description" required></v-textarea>
                           <v-btn flat color="primary" v-on:click.prevent="update">
                             Update
                           </v-btn>
@@ -94,18 +94,16 @@
             </v-menu>
           </v-flex>
         </v-layout>
-        <br>
-        <p>{{ route.body }}</p>
         <p>Distance: {{ route.distance }} km</p>
         <p v-if="route.user">Athlete:
           <router-link :to="{path: '/users/' + route.user._id}">{{ route.user.name}}</router-link>
         </p>
       </v-flex>
       <v-flex xs12 sm12 md8>
-        <simple-map></simple-map>
+        <simple-map show-activity-map show-route></simple-map>
       </v-flex>
     </v-layout>
-
+    <!-- Comments not available in backend yet
     <div class="separator"></div>
     <h2>Comments</h2>
     <v-textarea
@@ -138,20 +136,25 @@
         <v-divider :key="index"></v-divider>
       </template>
     </v-list>
-
+    -->
   </div>
+
 </template>
 
 <script>
   import SimpleMap from '../map/LeafletMap'
-  import apiMixin from "../../mixins/apiMixin";
+  import apiMixin from '../../mixins/apiMixin'
+  import {EventBus} from '@/eventBus.js';
 
   export default {
-    name: "RouteDetails",
+    name: 'RouteDetails',
     components: {
       'simple-map': SimpleMap
     },
-    data() {
+    props: {
+      user: Object,
+    },
+    data () {
       return {
         id: this.$route.params.id,
         name: '',
@@ -161,90 +164,67 @@
         exportDialog: false,
         route: {},
         updatedRoute: {},
-        commentText: '',
         alert: false,
         overlay: false,
       }
     },
-    created() {
-      this.performSearch();
+    created () {
+      this.performSearch()
     },
+
     methods: {
-      async performSearch() {
+      broadcastData() {
+        if (this.route) {
+          EventBus.$emit('routeReady', this.route);
+        }
+        if (this.user) {
+          if (this.user.activities) {
+            EventBus.$emit('activitiesReady', this.user.activities);
+          }
+        }
+      },
+      async performSearch () {
         this.GET('routes/' + this.id, (data, err) => {
           if (!err) {
-            this.route = data.route;
+            this.route = data.route
             this.updatedRoute = {
               title: this.route.title,
-              body: this.route.body,
-              tags: this.route.tags
             }
+            this.broadcastData();
           }
-        });
+        })
       },
-      async update() {
+      async update () {
         const formData = {
           _csrf: this.csrfToken,
           title: this.updatedRoute.title,
-          body: this.updatedRoute.body,
-          tags: JSON.stringify(this.updatedRoute.tags)
-        };
+        }
         const requestParams = {
           method: 'PUT',
           responseType: 'text',
-        };
+        }
 
         this.PUT('routes/' + this.id, formData, requestParams, (data, err) => {
           if (!err) {
-            this.performSearch();
+            this.performSearch()
           }
           this.editDialog = false
-        });
+        })
       },
 
-      async deleteRoute() {
+      async deleteRoute () {
         this.DELETE('routes/' + this.id, (data, err) => {
           if (!err) {
-            this.$router.push('/');
+            this.$router.push('/')
           }
           this.deleteDialog = false
-        });
+        })
       },
 
-      async exportRoute() {
+      async exportRoute () {
         this.GET('routes/' + this.id + '/export', (data, err) => {
           this.exportDialog = false
-        });
-      },
-
-      async addComment() {
-        const formData = {
-          _csrf: this.csrfToken,
-          comment: {
-            body: this.commentText,
-          },
-        };
-        this.POST('routes/' + this.id + '/comments', formData, null, (data, err) => {
-          if (!err) {
-            this.route.comments.push({
-              body: data.comment.body,
-              user: data.comment.user,
-            });
-            this.commentText = '';
-          }
-        });
-      },
-      async deleteComment(id) {
-        this.DELETE('routes/' + this.id + '/comments/' + id, (data, err) => {
-          if (!err) {
-            this.route.comments.forEach((comment, index) => {
-              if (comment._id === id) {
-                this.route.comments.splice(index, 1);
-              }
-            });
-          }
-          this.deleteDialog = false
-        });
+        })
       },
     },
     mixins: [apiMixin]
