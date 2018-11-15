@@ -1,17 +1,12 @@
 <template>
-  <div>
+  <div v-if="route">
     <v-layout row wrap>
       <v-flex xs12 md4 md4>
         <v-layout row wrap>
           <v-flex xs10 sm10 md10>
             <h2>{{ route.title }}</h2>
-            <v-chip v-for="tag in route.tags" v-bind:key="tag" tag="a" href="#">{{ tag }}
-            </v-chip>
-            <br><br>
-            <p v-if="route.strava">
-              <a style="color: #FC4C02;" :href="'https://www.strava.com/activities/' + route.strava.id">View on
-                Strava</a>
-            </p>
+            <v-flex v-if="route.strava" style="color: grey">on {{ formatDate(route.strava.start_date_local) }}</v-flex>
+            <br>
           </v-flex>
           <v-flex xs2 sm2 md2>
             <v-menu transition="slide-y-transition" bottom right>
@@ -96,7 +91,11 @@
         </v-layout>
         <p>Distance: {{ route.distance }} km</p>
         <p v-if="route.user">Athlete:
-          <router-link :to="{path: '/users/' + route.user._id}">{{ route.user.name}}</router-link>
+          <router-link :to="{path: '/users/' + route.user._id}">{{ route.user.username}}</router-link>
+        </p>
+        <p v-if="route.strava">
+          <a style="color: #FC4C02;" :href="'https://www.strava.com/activities/' + route.strava.id">View on
+            Strava</a>
         </p>
       </v-flex>
       <v-flex xs12 sm12 md8>
@@ -144,7 +143,8 @@
 <script>
   import SimpleMap from '../map/LeafletMap'
   import apiMixin from '../../mixins/apiMixin'
-  import {EventBus} from '@/eventBus.js';
+  import {EventBus} from '@/eventBus.js'
+  import formatDateMixin from '../../mixins/formatDateMixin'
 
   export default {
     name: 'RouteDetails',
@@ -173,13 +173,13 @@
     },
 
     methods: {
-      broadcastData() {
+      broadcastData () {
         if (this.route) {
-          EventBus.$emit('routeReady', this.route);
+          EventBus.$emit('routeReady', this.route)
         }
         if (this.user) {
           if (this.user.activities) {
-            EventBus.$emit('activitiesReady', this.user.activities);
+            EventBus.$emit('activitiesReady', this.user.activities)
           }
         }
       },
@@ -190,7 +190,7 @@
             this.updatedRoute = {
               title: this.route.title,
             }
-            this.broadcastData();
+            this.broadcastData()
           }
         })
       },
@@ -227,7 +227,7 @@
         })
       },
     },
-    mixins: [apiMixin]
+    mixins: [apiMixin, formatDateMixin]
   }
 </script>
 

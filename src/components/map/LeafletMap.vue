@@ -326,13 +326,18 @@
         this.featureLayers.push(endPoint);
       },
       addRouteLayer(id) {
+
+        let color = '#ff6d00';
+        /* if (this.selectedFeatures.includes(this.id_activity)) {
+          color = '#ffffff';
+        } */
         const routeLayer =
           {
             id: id,
             label: 'route',
             name: 'Route',
             style: {
-              "color": "#FF0000",
+              "color": color,
               "weight": 5,
               "opacity": 1
             },

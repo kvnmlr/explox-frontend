@@ -8,6 +8,7 @@ import RouteDetails from '../components/routes/RouteDetails'
 import ActivityDetails from '../components/activities/ActivityDetails'
 import Admin from '../components/profile/admin/Admin'
 import Dashboard from '../components/profile/user/Dashboard'
+import Public from '../components/profile/Public'
 import GetStarted from '../components/general/GetStarted'
 import Feedback from '../components/general/Feedback'
 import SignUp from '../components/profile/SignUp'
@@ -88,6 +89,12 @@ export default new Router({
       name: 'Dashboard',
       component: Dashboard,
       meta: {title: 'ExploX Dashboard'}
+    },
+    {
+      path: '/users/:id',
+      name: 'User Profile',
+      component: Public,
+      meta: {title: 'Strava Profile'}
     },
     {
       path: '/signup',

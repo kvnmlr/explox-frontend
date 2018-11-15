@@ -44,12 +44,14 @@
                     <h4>Email</h4>
                     <p>{{ user.email }}</p>
                     <h4>A member since</h4>
-                    <p>{{ user.createdAt }}</p>
+                    <p>{{ formatDate(user.createdAt, true) }}</p>
 
                     <h4>Routes:</h4>
                     <p>{{ user.routes.length }}</p>
                     <h4>Activities:</h4>
                     <p>{{ user.activities.length }}</p>
+                    <router-link :to="'/users/'+this.user._id">View public profile</router-link>
+                    <br><br>
                   </v-flex>
                   <v-flex xs2 sm2 md2>
                     <v-menu transition="slide-y-transition" bottom left>
@@ -217,7 +219,7 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
-          <v-btn class="gradient gradient-secondary" style="float:right;" dark round v-on:click="$emit('logout')">Logout
+          <v-btn flat style="float:right;" round v-on:click="$emit('logout')">Logout
           </v-btn>
 
           <v-dialog v-if="generatedActivities" v-model="generatedActivitiesFoundDialog" hide-overlay persistent

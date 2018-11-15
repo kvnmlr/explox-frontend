@@ -6,11 +6,12 @@
           <v-flex class="headline">
             <h5>{{ route.title }}</h5>
           </v-flex>
+          <v-flex v-if="!dense" style="color: grey">Created on {{ formatDate(route.strava.created_at, true) }}</v-flex><br>
           <v-flex>{{ route.body }}</v-flex>
         </v-layout>
       </v-card-title>
       <v-card-actions v-if="!dense">
-        <v-btn flat round color="primary">Show Details</v-btn>
+        <v-btn style="margin-top: -15px;" flat round color="primary">Show Details</v-btn>
       </v-card-actions>
     </v-card>
     <br>
@@ -18,6 +19,8 @@
 </template>
 
 <script>
+  import formatDateMixin from '../../mixins/formatDateMixin'
+
   export default {
     props: {
       dense: Boolean,
@@ -26,7 +29,8 @@
         required: true,
       }
     },
-    name: 'Route'
+    name: 'Route',
+    mixins: [formatDateMixin],
   }
 </script>
 

@@ -13,7 +13,7 @@
         </v-tooltip>
       </template>
       <template slot="items" slot-scope="props">
-        <td class="text-xs-left">{{ props.item.title }}</td>
+        <td class="text-xs-left"><router-link :to="{path: '/activity/' + props.item._id}">{{ props.item.title }}</router-link></td>
         <td class="text-xs-left">{{ (props.item.user ? props.item.user.username : '') }}</td>
         <td class="text-xs-left">{{ props.item.distance.toFixed(2) + ' m' }}</td>
         <td class="text-xs-left">{{ props.item.geo }}</td>

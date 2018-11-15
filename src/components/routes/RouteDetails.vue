@@ -1,16 +1,13 @@
 <template>
-  <div>
+  <div v-if="route">
     <v-layout row wrap>
       <v-flex xs12 md4 md4>
         <v-layout row wrap>
           <v-flex xs10 sm10 md10>
             <h2>{{ route.title }}</h2>
+            <div v-if="route.strava" style="color: grey">Created on {{ formatDate(route.strava.created_at, true) }}</div><br>
             <v-chip v-for="tag in route.tags" v-if="tag !== ''" v-bind:key="tag" tag="a" href="#">{{ tag }}
             </v-chip>
-            <br><br>
-            <p v-if="route.strava">
-            <a style="color: #FC4C02;" :href="'https://www.strava.com/routes/' + route.strava.id">View on Strava</a>
-            </p>
           </v-flex>
           <v-flex xs2 sm2 md2>
             <v-menu transition="slide-y-transition" bottom right>
@@ -94,10 +91,14 @@
             </v-menu>
           </v-flex>
         </v-layout>
+        <br>
         <p>{{ route.body }}</p>
         <p v-if="route.distance">Distance: {{ route.distance.toFixed(2) }} m</p>
         <p v-if="route.user">Athlete:
-          <router-link :to="{path: '/users/' + route.user._id}">{{ route.user.name}}</router-link>
+          <router-link :to="{path: '/users/' + route.user._id}">{{ route.user.username}}</router-link>
+        </p>
+        <p v-if="route.strava">
+          <a style="color: #FC4C02;" :href="'https://www.strava.com/routes/' + route.strava.id">View on Strava</a>
         </p>
       </v-flex>
       <v-flex xs12 sm12 md8>
@@ -146,6 +147,7 @@
   import apiMixin from "../../mixins/apiMixin";
   import {EventBus} from '@/eventBus.js';
   import geoTransformMixin from "../../mixins/geoTransformMixin";
+  import formatDateMixin from '../../mixins/formatDateMixin'
 
   export default {
     name: "RouteDetails",
@@ -278,7 +280,7 @@
         });
       },
     },
-    mixins: [apiMixin, geoTransformMixin]
+    mixins: [apiMixin, geoTransformMixin, formatDateMixin]
   }
 </script>
 

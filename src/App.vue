@@ -113,8 +113,8 @@
 
             this.GET('users/' + this.user._id, (data, err) => {
               if (!err) {
-                if (data.activities) {
-                  this.user.activities = data.activities;
+                if (data.user.activities) {
+                  this.user.activities = data.user.activities;
                   this.broadcastData();
                 }
               }
