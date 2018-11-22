@@ -108,12 +108,17 @@
             this.activities = data.activities;
           }
         });
-        this.GET('dashboard/admin?routes=true&segments=true', (data, err) => {
+        this.GET('dashboard/admin?routes=true', (data, err) => {
           console.log(data);
           if (!err) {
             this.routes = data.routes;
-            this.segments = data.segments;
             this.creatorResults = data.creatorResults;
+          }
+        });
+        this.GET('dashboard/admin?segments=true', (data, err) => {
+          console.log(data);
+          if (!err) {
+            this.segments = data.segments;
           }
         });
       },
