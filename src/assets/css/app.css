@@ -79,6 +79,10 @@ h4 {
   background-image: linear-gradient(to right, #0091ea 0%, #40c4ff 51%, #0091ea 100%);
 }
 
+.gradient-success {
+  background-image: linear-gradient(to right, #0ab45a 0%, #0cc94e 51%, #0ab45a 100%);
+}
+
 .gradient-secondary {
   background-image: linear-gradient(to right, #343434 0%, #4b4b4b 51%, #343434 100%);
 }

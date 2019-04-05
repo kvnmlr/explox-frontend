@@ -148,6 +148,64 @@
                   <br>
                   <v-divider></v-divider>
                   <br>
+
+                  <v-list subheader two-line>
+                    <h3>Study Progress</h3>
+                    <p>In order to complete the study and <b>receive the 15€ Amazon voucher</b>, you have to complete the following tasks:</p>
+                    <v-list-tile>
+                      <v-list-tile-action>
+                        <v-checkbox v-model="this.user.questionnaireInfo.eligible" disabled></v-checkbox>
+                      </v-list-tile-action>
+
+                      <v-list-tile-content>
+                        <v-list-tile-title>Eligibility</v-list-tile-title>
+                        <v-list-tile-sub-title>You are allowed to participate in the study based on your cycling behaviour.</v-list-tile-sub-title>
+                      </v-list-tile-content>
+                    </v-list-tile>
+
+                    <v-list-tile>
+                      <v-list-tile-action>
+                        <v-checkbox v-model="this.user.questionnaireInfo.eligible" disabled></v-checkbox>
+                      </v-list-tile-action>
+
+                      <v-list-tile-content>
+                        <v-list-tile-title>Pre-Study Questionnaire</v-list-tile-title>
+                        <v-list-tile-sub-title>You completed the questionnaire before the study.</v-list-tile-sub-title>
+                      </v-list-tile-content>
+                    </v-list-tile>
+
+                    <v-list-tile>
+                      <v-list-tile-action>
+                        <v-checkbox v-model="!this.user.questionnaireInfo.eligible" disabled></v-checkbox>
+                      </v-list-tile-action>
+
+                      <v-list-tile-content>
+                        <v-list-tile-title>Route Generations (0 / 15)</v-list-tile-title>
+                        <v-list-tile-sub-title>You have done at least 15 successful route generations and rated each of the resulting routes.
+                        </v-list-tile-sub-title>
+                      </v-list-tile-content>
+                      <v-btn href="creator" flat round>Generate Route</v-btn>
+                    </v-list-tile>
+
+                    <v-list-tile>
+                      <v-list-tile-action>
+                        <v-checkbox v-model="!this.user.questionnaireInfo.eligible" disabled></v-checkbox>
+                      </v-list-tile-action>
+
+                      <v-list-tile-content>
+                        <v-list-tile-title>Post-Study Questionnaires</v-list-tile-title>
+                        <v-list-tile-sub-title>You have done the questionnaire after using the system for 2 weeks.<br>You will be notified vie e-mail when you can do this.</v-list-tile-sub-title>
+                      </v-list-tile-content>
+                    </v-list-tile>
+                  </v-list>
+                  <br>
+                  <p>Note: The voucher will be automatically sent to your e-mail: <b>{{user.email}}</b></p>
+                  <v-btn flat round @click="editDialog = true">Change E-Mail</v-btn>
+
+                  <br>
+                  <v-divider></v-divider>
+                  <br><br>
+
                   <v-card dark class="gradient-no-switch gradient-secondary elevation-5">
                     <v-card-text>
                       <h3 style="color: white">Invite Friends</h3>
