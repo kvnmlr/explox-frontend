@@ -108,16 +108,7 @@
       items: [
         {icon: 'dashboard', text: 'Hub', link: 'hub', loginOnly: false},
         {icon: 'person', text: 'Dashboard', link: 'dashboard', loginOnly: true},
-        {
-          loginOnly: true,
-          icon: 'keyboard_arrow_up',
-          'icon-alt': 'keyboard_arrow_down',
-          text: 'Creator',
-          model: true,
-          children: [
-            {icon: 'add', text: 'Create Route', link: 'creator'},
-          ]
-        },
+        {icon: 'add', text: 'Generate new Route', link: 'creator', loginOnly: true},
         {icon: 'near_me', text: 'Route Finder', link: 'routes', loginOnly: false},
         {icon: 'flag', text: 'Analytics', link: 'analytics', loginOnly: true},
         {icon: 'flight_takeoff', text: 'Get Started', link: 'guide', loginOnly: false},

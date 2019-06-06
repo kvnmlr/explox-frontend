@@ -8,8 +8,8 @@
           <div class="black--text subheading mb-3 text-xs-center">For Cyclists that want to go further</div>
           <img src="@/assets/img/strava/powered_white.png" alt="Powered by Strava" height="50px">
 
-          <v-btn class="gradient gradient-secondary" dark large round to="/guide">
-            Get Started
+          <v-btn style="height: 70px;" class="gradient gradient-secondary" dark large round to="/guide">
+            Join the Study
           </v-btn>
         </v-layout>
       </v-parallax>
@@ -73,8 +73,8 @@
         <v-flex xs12 sm4 class="my-3">
           <h1 class="orange--text mb-3 display-1 text-xs-center">Are You Ready?</h1>
           <div class="subheading mb-3 text-xs-center">Sign up now for free</div>
-          <v-btn class="gradient gradient-orange" style="width: 100%; margin-bottom: -20px" dark large round to="/guide">
-            Get Started
+          <v-btn class="gradient gradient-orange" style="width: 100%; height: 70px; margin-bottom: -20px" dark large round to="/guide">
+            Join the Study Now
           </v-btn>
         </v-flex>
       </v-layout>

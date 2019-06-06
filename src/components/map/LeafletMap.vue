@@ -569,11 +569,11 @@
 
             try {
               const layerOptions = {
-                minOpacity: 0.2,
-                max: 0.7,
-                radius: 40,
-                blur: 30,
-                gradient: {0.4: 'blue', 0.6: 'lime', 1: 'orange'},
+                minOpacity: 0.1,
+                max: 1,
+                radius: 30,
+                blur: 20,
+                gradient: {0.2: 'blue', 0.4: 'lime', 1: 'orange'},
               };
               let heat = L.heatLayer(addressPoints, layerOptions).addTo(this.map);
               layer.leafletObject = L.featureGroup([heat, coverageLayer]);

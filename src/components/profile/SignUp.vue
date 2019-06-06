@@ -44,6 +44,11 @@
               <p>You are invited to use ExploX for the next weeks and thereby contribute to our research on cycling
                 behaviour. By answering the following questionnaires and using this website for the next weeks,
                 you will participate in the study.</p>
+              <h2>Time and dates for the study</h2>
+              <p><b>Registration phase:</b> <span style="color: #ee5b19">17. June - 01. July 2019</span> (2 Weeks)</p>
+              <p><b>Usage phase:</b> <span style="color: #ee5b19">17. June - 15. July 2019</span> (4 Weeks)</p>
+              <p><b>User Experience Questionnaire und interviews after the study:</b> <span style="color: #ee5b19">01. July - 22. July 2019</span>
+                (3 Weeks), earliest time is after extensive use of the website and fulfillment of all study duties (see below "Reward").</p>
               <h2>Preconditions and Eligibility</h2>
               <p>In the following, you will find some questionnaires that you have to answer thoroughly
                 carefully if you want to join the study. At the end of the questionnaires, you will see if you are
@@ -70,11 +75,11 @@
                 Vouchers</b>. If you win, you will receive at the end of the study. You have to fulfill the following
                 criteria in order to receive the voucher:</p>
               <ul>
-                <li>You have completed the following questionnaires and you are eligible to participate</li>
+                <li>You have completed the following questionnaires and you are eligible to participate (~15 minutes)</li>
                 <li>You have done at least 15 (successful) route generations and rated each of the resulting routes</li>
-                <li>You have filled out the User Experience Questionnaire at the end of the study</li>
+                <li>You have filled out the User Experience Questionnaire at the end of the study (~10 minutes)</li>
                 <li>You have filled out a short qualitative questionnaire and provided feedback at the end of the
-                  study
+                  study (~5-10 minutes)
                 </li>
               </ul>
               <br>
@@ -269,7 +274,7 @@
               </v-layout>
 
               <v-radio-group v-model="user.cyclingBehaviour.q9">
-                <p class="title">On average, how long do you usually ride per trip on <b style="color:#ee5b19;">working
+                <p class="title">On average, how long do you usually ride <b>per trip</b> on <b style="color:#ee5b19;">working
                   days</b>?</p>
                 <v-radio label="0 - 30 minutes" value=1></v-radio>
                 <v-radio label="30 - 60 minutes" value=2></v-radio>
@@ -304,7 +309,7 @@
               </v-layout>
 
               <v-radio-group v-model="user.cyclingBehaviour.q11">
-                <p class="title">On average, how long do you usually ride per trip on the <b style="color:#ee5b19;">weekend</b>?
+                <p class="title">On average, how long do you usually ride <b>per trip</b> on the <b style="color:#ee5b19;">weekend</b>?
                 </p>
                 <v-radio label="0 - 30 minutes" value=1></v-radio>
                 <v-radio label="30 - 60 minutes" value=2></v-radio>
@@ -736,19 +741,19 @@
 
                 <p>This is the end of the sign-up questionnaire. You can still change your answers. <b>Once you finish
                   the questionnaire, you cannot change your answers.</b> Please read and accept the terms and
-                conditions for using this website.</p>
+                  conditions for using this website.</p>
                 <br>
                 <h1>Field Study</h1>
-                <p>In the field study, you will have to use the ExploX website for the next 2-3 weeks and can win the
+                <p>In the field study, you will have to use the ExploX website for the next 2-4 weeks (until 15. July) and can win the
                   rewards.</p>
-                <p>We will reward your participation in the study with the chance to win a <b>100€ Amazon Voucher</b>
+                <p>We will reward your participation in the study with the chance to win one of <b>6 x 25€ Amazon Voucher</b>
                   that
                   you will receive
-                  at the end of the study. <b style="color: #ee5b19">Additionally:</b> The first 10 participants to
-                  actually cycle at least 5 of
+                  at the end of the study. <b style="color: #ee5b19">Additionally:</b> The first 5 participants to
+                  actually cycle at least 2 of
                   the generated routes,
                   track and save them as Strava activities and give us detailed information about the routes will
-                  receive a <b>20€ Voucher</b>.
+                  receive a <b>30€ cycling gear voucher</b>.
                 </p>
                 <br>
                 <v-alert :value="true" type="success" v-if="this.isEligible">
@@ -945,6 +950,13 @@
                 Bereich des Verhaltens im Radsport beizutragen. Durch das Beantworten des folgenden Fragebogens und der
                 abschließenden Befragung, sowie der Nutzung der Website in den kommenden Wochen können Sie an der Studie
                 teilnehmen.</p>
+              <h2>Zeitraum der Studie und Termine</h2>
+              <p><b>Registrierungsphase:</b> <span style="color: #ee5b19">17. Juni - 01. Juli 2019</span> (2 Wochen)</p>
+              <p><b>Nutzungsphase:</b> <span style="color: #ee5b19">17. Juni - 15. Juli 2019</span> (4 Wochen)</p>
+              <p><b>User Experience Questionnaire und Interviews nach der Studie:</b> <span style="color: #ee5b19">01. Juli - 22. Juli 2019</span>
+                (3 Wochen), frühestens nach ausführlicher Nutzung der Website und Erldigung der Aufgaben der Studie
+                (siehe unten "Belohnung").</p>
+
               <h2>Vorraussetzungen und Teilnahmebedingungen</h2>
               <p>Im Folgenden werden Sie durch einen Fragebogen geleitet, den Sie vollständig und sorgfältig ausfüllen
                 müssen. Am Ende des Fragebogens erfahren Sie, ob Sie (auf Grundlage Ihrer Antworten) an der Studie
@@ -962,7 +974,7 @@
                 <li>Sie ein Hobbyfahrer sind und kein Profifahrer und darüber hinaus das Fahrrad nicht nur als reines
                   Transportmittel nutzen,
                 </li>
-                <li>Sie mindestens ein paar ihrer Fahrten auf Strava tracken und speichern,</li>
+                <li>Sie mindestens 10 Fahrten im Bereich des Saarlandes auf Strava getrackt und gespeichert haben,</li>
                 <li>und Sie ihr Fahrrad regelmäßig in der Region in und um das Saarland nutzen (max. 50km bis zum
                   Saarland, z.B. Metz).
                 </li>
@@ -1179,7 +1191,7 @@
               </v-layout>
 
               <v-radio-group v-model="user.cyclingBehaviour.q9">
-                <p class="title">Im Durchschnitt, wie lange dauert eine Tour an <b style="color:#ee5b19;">Werktagen</b>?
+                <p class="title">Im Durchschnitt, wie lange dauert <b>eine</b> Tour an <b style="color:#ee5b19;">Werktagen</b>?
                 </p>
                 <v-radio label="0 - 30 Minuten" value=1></v-radio>
                 <v-radio label="30 - 60 Minuten" value=2></v-radio>
@@ -1218,7 +1230,7 @@
               </v-layout>
 
               <v-radio-group v-model="user.cyclingBehaviour.q11">
-                <p class="title">Im Durchschnitt, wie lange dauert eine Tour an <b
+                <p class="title">Im Durchschnitt, wie lange dauert <b>eine</b> Tour an <b
                   style="color:#ee5b19;">Wochenenden</b>?
                 </p>
                 <v-radio label="0 - 30 Minuten" value=1></v-radio>
@@ -1669,13 +1681,13 @@
                   Bitte lesen und aktzeptieren Sie die Geschäftsbedingungen.</p>
                 <br>
                 <h1>Feldstudie</h1>
-                <p>In der Feldstudie können Sie die Website in den kommenden 2-3 Wochen benutzen und sich dadurch die
+                <p>In der Feldstudie können Sie die Website in den kommenden 2-4 Wochen (bis 14. Juli) benutzen und sich dadurch die
                   Chance auf den Gewinn sichern.</p>
                 <p>Ihre Teilnahme an der Studie belohnen wir mit der Chance <b>einen von 6 x 25€ Amazon Gutscheinen</b>
                   zu gewinnen. Gewinner erhalten diesen automatisch am Ende der Studie.<br><b style="color: #ee5b19">Hauptpreise:</b>
                   Die ersten 5 Teilnehmer, die neben obigen Kriterien mindestens 2 der generierten Routenvorschläge
                   tatsächlich fahren, tracken, in Strava als Aktivitäten speichern und detailliertes Feedback zu den
-                  Routen geben, erhalten einen <b>50€ Gutschein für Fahrradzubehör</b>.
+                  Routen geben, erhalten einen <b>30€ Gutschein für Fahrradzubehör</b>.
                 </p>
                 <br>
                 <v-alert :value="true" type="success" v-if="this.isEligible">
@@ -1695,7 +1707,8 @@
                 <section v-if="this.isEligible">
                   <h1>Möchten Sie an der Studie teilnehmen?</h1>
                   <!--<v-checkbox :label="checkbox1_text" v-model="emailsCheckbox" style="margin-bottom: -20px;"></v-checkbox>-->
-                  <v-btn depressed v-on:click="dialog = true" style="width: 300px;">Geschäftsbedingungen anzeigen</v-btn>
+                  <v-btn depressed v-on:click="dialog = true" style="width: 300px;">Geschäftsbedingungen anzeigen
+                  </v-btn>
                   <v-checkbox :rules="[rules.required]" label="Geschäftsbedingungen akzeptieren" v-model="termsCheckbox"
                               v-bind:error="termsError"></v-checkbox>
                   <br>
@@ -1830,6 +1843,7 @@
 
 <script>
   import apiMixin from '../../mixins/apiMixin'
+  import geoTransformMixin from '../../mixins/geoTransformMixin'
   import {EventBus} from '@/eventBus'
   import axios from 'axios'
 
@@ -1858,19 +1872,20 @@
         isEligible: true,
         canUseWebsite: true,
         lang: 'de',
-        cacheTime: 'not yet'
+        cacheTime: 'not yet',
+        eligibleByActivities: false,
       }
     },
     created () {
-      this.computeEligible();
-      this.cache();
+      this.computeEligible()
+      this.cache()
       EventBus.$emit('flash', {
         type: 'success',
         text: 'Successfully connected to Strava.'
-      });
+      })
       setTimeout(() => {
         EventBus.$emit('collapseDrawer')
-      }, 100);
+      }, 100)
     },
     props: {
       user: Object,
@@ -1878,35 +1893,18 @@
 
     methods: {
       computeEligible () {
-        this.checkEligible()
+        //this.checkEligible()
         setTimeout(() => {
           this.computeEligible()
-        }, 100)
+        }, 2000)
       },
       cache () {
         if (this.user) {
-          console.log("cache")
-          this.signup(true)
+          //this.signup(true)
         }
         setTimeout(() => {
           this.cache()
         }, Math.floor(Math.random() * (20000 - 5000 + 1)) + 5000)
-      },
-      deg2rad (deg) {
-        return deg * (Math.PI / 180)
-      },
-      getDistanceFromLatLonInKm (lat1, lon1, lat2, lon2) {
-        const R = 6371 // Radius of the earth in km
-        let dLat = this.deg2rad(lat2 - lat1)  // deg2rad below
-        let dLon = this.deg2rad(lon2 - lon1)
-
-        let a =
-          Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-          Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) *
-          Math.sin(dLon / 2) * Math.sin(dLon / 2)
-        let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
-        let d = R * c // Distance in km
-        return d
       },
 
       validateLocation (event, isHome) {
@@ -1977,6 +1975,7 @@
             eligible: this.isEligible,
             canUseWebsite: this.canUseWebsite,
             participates: this.participates,
+            language: this.lang,
           },
           subscriptions: ['news'],
           cache: cache,
@@ -1992,8 +1991,8 @@
             }
           } else {
             if (!err) {
-              const today = new Date();
-              this.cacheTime = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+              const today = new Date()
+              this.cacheTime = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds()
             }
           }
         })
@@ -2016,14 +2015,36 @@
         console.log(this.user)
       },
       checkEligible: function () {
-        this.isEligible = true;
-        return true;
-
+        this.isEligible = true
 
         if (!this.user || !this.user.cyclingBehaviour) {
           return false
         }
+
+        if (!this.eligibleByActivities) {
+          this.GET('dashboard', (data, err) => {
+            if (!err) {
+              if (data.user.activities.length >= 9) {
+                let activitiesInRange = 0
+                data.user.activities.forEach((activity) => {
+                  const saarlandCenterLatLng = [49.404340, 6.948669]
+                  const startDistance = this.getDistanceFromLatLonInKm(activity.strava.start_latlng[0], activity.strava.start_latlng[1], saarlandCenterLatLng[0], saarlandCenterLatLng[1])
+                  const endDistance = this.getDistanceFromLatLonInKm(activity.strava.end_latlng[0], activity.strava.end_latlng[1], saarlandCenterLatLng[0], saarlandCenterLatLng[1])
+                  if (startDistance < 70 && endDistance < 70) {
+                    activitiesInRange++
+                  }
+                })
+                if (activitiesInRange >= 9) {
+                  console.log('User has ' + activitiesInRange + ' activities in range.')
+                  this.eligibleByActivities = true
+                }
+              }
+            }
+          })
+        }
+
         let eligible = true
+        eligible &= this.eligibleByActivities
         eligible &= this.user.cyclingBehaviour.q1 !== '3'         // Does not have access to a bike in working condition
         eligible &= parseInt(this.user.cyclingBehaviour.q4) < 5   // Cycles less than once a year
         eligible &= this.user.cyclingBehaviour.q13 === '2'        // Does not identify as a recreational cyclist
@@ -2033,8 +2054,7 @@
         return this.isEligible
       },
       checkCanUseWebsite: function () {
-        this.canUseWebsite = true;
-        return true;
+        this.canUseWebsite = true
 
         if (!this.user || !this.user.demographics || !this.user.demographics.cyclingLocation) {
           return false
@@ -2055,7 +2075,7 @@
         return this.canUseWebsite
       }
     },
-    mixins: [apiMixin]
+    mixins: [apiMixin, geoTransformMixin]
   }
 </script>
 

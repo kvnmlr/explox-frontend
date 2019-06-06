@@ -63,20 +63,14 @@ export default {
       self = this;
       api.get('csrf')
         .then((data) => {
-          console.log(data);
           requestParams = requestParams || {
             method: 'POST',
             responseType: 'text',
           };
           formData._csrf = csrfToken;
-
-          console.log('CSRF returned ' + formData._csrf)
-
           setTimeout(() => {
-            console.log('calling api')
             api.post(path, formData, requestParams)
               .then((data) => {
-                console.log('api returned')
                 cb(data, null);
               })
               .catch((error) => {

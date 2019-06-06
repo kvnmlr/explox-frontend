@@ -45,10 +45,10 @@
                   <h3>Latest Activity</h3>
                   <br>
                   <activity v-if="user.activities.length > 0"
-                            v-for="(activity, i) in user.activities.slice(0,3)" v-bind:activity="activity" dense
+                            v-for="(activity, i) in user.activities.filter((activity) => { return activity.strava.visibility !== 'only_me';}).slice(0,5)" v-bind:activity="activity" dense
                             :key="i"></activity>
                   <p v-else>No Activity</p>
-                  <v-btn flat round v-on:click="currentTab='tab-activities'">View All</v-btn>
+                  <!--<v-btn flat round v-on:click="currentTab='tab-activities'">View All</v-btn>-->
                 </v-container>
 
               </v-card>
@@ -63,10 +63,10 @@
                 <v-container>
                   <h3>Latest Routes</h3>
                   <br>
-                  <route v-if="user.routes.length > 0" v-for="(route, i) in user.routes.slice(0,3)"
+                  <route v-if="user.routes.length > 0" v-for="(route, i) in user.routes.slice(0,5)"
                          v-bind:route="route" dense :key="i"></route>
                   <p v-else>No Routes</p>
-                  <v-btn flat round v-on:click="currentTab='tab-routes'">View All</v-btn>
+                  <!--<v-btn flat round v-on:click="currentTab='tab-routes'">View All</v-btn>-->
                 </v-container>
               </v-card>
             </v-flex>

@@ -19,7 +19,7 @@
           <v-flex d-flex>
             <v-card class="gradient-no-switch gradient-secondary" hover color="dark" dark to="/creator">
               <v-card-title primary class="title">
-                <v-icon>gesture</v-icon>&nbsp;Creator
+                <v-icon>gesture</v-icon>&nbsp;Generate new Routes
               </v-card-title>
               <v-card-text>Creator let's you create new routes from scratch that perfectly match your cycling style and goals.</v-card-text>
             </v-card>
