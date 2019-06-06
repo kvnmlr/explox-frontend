@@ -41,7 +41,7 @@
     methods: {
       async invite() {
         const formData = {
-          _csrf: this.csrfToken,
+          _csrf: '',
           email: this.inviteEmail,
           name: this.inviteName,
         };

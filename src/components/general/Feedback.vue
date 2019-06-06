@@ -53,14 +53,16 @@
         if (!this.$refs.form.validate()) {
           return;
         }
+        this.user.routes = [];
+        this.user.activities = [];
         const formData = {
-          _csrf: this.csrfToken,
+          _csrf: '',
           user: this.user,
           email: (this.email).toLowerCase(),
           body: this.text,
         };
 
-        this.POST('feedback', formData, null, (data, err) => {
+        this.POST('submitFeedback', formData, null, (data, err) => {
           if (!err) {
             this.$emit('flash', {
               type: 'success',

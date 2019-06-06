@@ -11,9 +11,16 @@ export default {
 
       const minutes = date.getMinutes()
       const hours = date.getHours()
-      const day = date.getDate()
-      const monthIndex = date.getMonth()
+      let day = date.getDate()
+      let monthIndex = date.getMonth() + 1;
       const year = date.getFullYear()
+
+      if (monthIndex < 10) {
+        monthIndex = '0' + monthIndex;
+      }
+      if (day < 10) {
+        day = '0' + day;
+      }
 
       if (short) {
         if (time) {

@@ -8,7 +8,7 @@
         <v-card>
           <v-card-text>
             <v-layout row wrap>
-              <v-flex xs12 md5 md5>
+              <v-flex xs12 md3>
                 <v-menu offset-y>
                   <v-btn slot="activator" class="gradient gradient-orange" dark round>Change Map Style</v-btn>
                   <v-list style="z-index: 900" v-for="map in mapLayers" :key="map.index">
@@ -18,16 +18,23 @@
                   </v-list>
                 </v-menu>
               </v-flex>
-              <v-flex xs12 md4 md4>
-                <div v-for="layer in featureLayers" :key="layer.id">
+              <v-flex xs12 md3>
+                <div v-for="layer in featureLayers.slice(0, Math.floor(featureLayers.length / 2))" :key="layer.id">
                   <v-switch v-on:change="layerChanged(layer.id, false)" v-model="selectedFeatures"
                             v-bind:label="layer.name"
                             v-bind:value="layer.id" color="primary" hide-details>{{layer.name}}
                   </v-switch>
                 </div>
-
               </v-flex>
-              <v-flex xs12 md3 md3>
+              <v-flex xs12 md3>
+                <div v-for="layer in featureLayers.slice(Math.floor(featureLayers.length / 2), featureLayers.length)" :key="layer.id">
+                  <v-switch v-on:change="layerChanged(layer.id, false)" v-model="selectedFeatures"
+                            v-bind:label="layer.name"
+                            v-bind:value="layer.id" color="primary" hide-details>{{layer.name}}
+                  </v-switch>
+                </div>
+              </v-flex>
+              <v-flex xs12 md3>
                 <v-btn light fab class="gradient gradient-green" style="float: right;" v-on:click="reloadMap">
                   <v-icon>refresh</v-icon>
                 </v-btn>

@@ -101,7 +101,7 @@
                   </v-flex>
                 </v-layout>
               </v-card-text>
-              <v-card-actions>
+              <v-card-actions style="margin-top: -30px;">
                 <p style="color: #ff6d00" v-if="!feedback.user">Sent on {{ feedback.createdAt }}, reply to {{
                   feedback.email}}</p>
                 <p style="color: #ff6d00" v-else>Sent on {{ formatDate(feedback.createdAt) }}

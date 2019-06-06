@@ -70,15 +70,19 @@ export default {
           };
           formData._csrf = csrfToken;
 
+          console.log('CSRF returned ' + formData._csrf)
+
           setTimeout(() => {
+            console.log('calling api')
             api.post(path, formData, requestParams)
               .then((data) => {
+                console.log('api returned')
                 cb(data, null);
               })
               .catch((error) => {
                 cb(null, error);
               })
-          }, 500)
+          }, 1000)
 
         })
         .catch(() => {
@@ -109,9 +113,11 @@ export default {
 
           api.put(path, formData, requestParams)
             .then((data) => {
+              console.log('puuuut');
               cb(data, null);
             })
             .catch((error) => {
+              console.log('puuuut errr');
               cb(null, error);
             })
         })

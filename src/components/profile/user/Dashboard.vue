@@ -151,21 +151,21 @@
 
                   <v-list subheader two-line>
                     <h3>Study Progress</h3>
-                    <p>In order to complete the study and <b>receive the 15€ Amazon voucher</b>, you have to complete the following tasks:</p>
+                    <p>In order to complete the study and <b>have the change to win one 6 x 15€ Amazon vouchers</b>, you have to complete the following tasks:</p>
                     <v-list-tile>
                       <v-list-tile-action>
-                        <v-checkbox v-model="this.user.questionnaireInfo.eligible" disabled></v-checkbox>
+                        <v-checkbox v-model="this.user.questionnaireInfo.eligible && this.user.questionnaireInfo.participates" disabled></v-checkbox>
                       </v-list-tile-action>
 
                       <v-list-tile-content>
                         <v-list-tile-title>Eligibility</v-list-tile-title>
-                        <v-list-tile-sub-title>You are allowed to participate in the study based on your cycling behaviour.</v-list-tile-sub-title>
+                        <v-list-tile-sub-title>You are allowed to participate in the study based on your cycling behaviour and want to participate.</v-list-tile-sub-title>
                       </v-list-tile-content>
                     </v-list-tile>
 
                     <v-list-tile>
                       <v-list-tile-action>
-                        <v-checkbox v-model="this.user.questionnaireInfo.eligible" disabled></v-checkbox>
+                        <v-checkbox v-model="this.user.questionnaireInfo.canUseWebsite" disabled></v-checkbox>
                       </v-list-tile-action>
 
                       <v-list-tile-content>
@@ -176,11 +176,11 @@
 
                     <v-list-tile>
                       <v-list-tile-action>
-                        <v-checkbox v-model="!this.user.questionnaireInfo.eligible" disabled></v-checkbox>
+                        <v-checkbox :v-model="this.user.creatorResults.length >= 15" disabled></v-checkbox>
                       </v-list-tile-action>
 
                       <v-list-tile-content>
-                        <v-list-tile-title>Route Generations (0 / 15)</v-list-tile-title>
+                        <v-list-tile-title>Route Generations ({{ this.user.creatorResults.length }} / 15)</v-list-tile-title>
                         <v-list-tile-sub-title>You have done at least 15 successful route generations and rated each of the resulting routes.
                         </v-list-tile-sub-title>
                       </v-list-tile-content>
@@ -200,7 +200,7 @@
                   </v-list>
                   <br>
                   <p>Note: The voucher will be automatically sent to your e-mail: <b>{{user.email}}</b></p>
-                  <v-btn flat round @click="editDialog = true">Change E-Mail</v-btn>
+                  <v-btn flat round v-on:click="() => {this.setUpdateUserFields(); this.editDialog = true;}">Change E-Mail</v-btn>
 
                   <br>
                   <v-divider></v-divider>
@@ -214,6 +214,7 @@
                         Invite your cycling partners and discover new routes together
                         and share your progress with each other!
                       </p>
+
                       <invite-friend :user="user"></invite-friend>
                     </v-card-text>
                   </v-card>
