@@ -30,7 +30,7 @@
 
     <v-tabs-items v-model="currentTab" touchless>
       <v-tab-item lazy :id="`tab-api`">
-        <api :invitations="invitations" :feedbacks="feedbacks" :limits="limits"></api>
+        <api :invitations="invitations" :feedbacks="feedbacks" :limits="limits" :questionnaire-info="questionnaireInfo"></api>
       </v-tab-item>
       <v-tab-item lazy :id="`tab-users`">
         <users :users="users"></users>
@@ -83,8 +83,13 @@
         invitations: [],
         feedbacks: [],
         limits: {},
-        user: Object
-
+        user: Object,
+        questionnaireInfo: {
+          totalRegistrations: 0,
+          canUseWebsite: 0,
+          eligible: 0,
+          participants: 0,
+        }
       };
     },
     created() {
@@ -100,6 +105,25 @@
             this.feedbacks = data.feedbacks;
             this.limits = data.limits;
             this.invitations = data.invitations;
+
+            this.users.forEach((user) => {
+              if (user.role === 'admin' || user.provider !== 'strava') {
+                return;
+              }
+              const qi = user.questionnaireInfo
+              this.questionnaireInfo.totalRegistrations++;
+              if (qi) {
+                if (qi.canUseWebsite) {
+                  this.questionnaireInfo.canUseWebsite++;
+                }
+                if (qi.eligible) {
+                  this.questionnaireInfo.eligible++;
+                }
+                if (qi.participates) {
+                  this.questionnaireInfo.participants++;
+                }
+              }
+            })
           }
         });
         this.GET('dashboard/admin?activities=true', (data, err) => {

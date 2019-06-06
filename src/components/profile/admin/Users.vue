@@ -16,8 +16,7 @@
         <td class="text-xs-left"><router-link :to="{path: '/users/' + props.item._id}">{{ props.item.username }}</router-link></td>
         <td class="text-xs-left"><router-link :to="{path: '/users/' + props.item._id}">{{ props.item.firstName + ' ' + props.item.lastName }}</router-link></td>
         <td class="text-xs-left">{{ props.item.email }}</td>
-        <td class="text-xs-left">{{ props.item.provider }}</td>
-        <td class="text-xs-left">{{ props.item.role }}</td>
+        <td class="text-xs-left">{{ props.item.participates }}</td>
         <td class="text-xs-left">{{ props.item.activitiesCount }}</td>
         <td class="text-xs-left">{{ props.item.routesCount }}</td>
         <td class="text-xs-left">{{ formatDate(props.item.createdAt, true) }}</td>
@@ -55,12 +54,8 @@
 
           },
           {
-            text: 'Provider',
-            value: 'provider',
-          },
-          {
-            text: 'Role',
-            value: 'role',
+            text: 'Participates',
+            value: 'participates',
           },
           {
             text: 'Activities',
@@ -83,11 +78,19 @@
     },
     computed: {
       rows() {
+
         let rows = [];
         if (this.users.length > 0) {
           for (let u of this.users) {
+            console.log("USER")
+            console.log(u)
             u.activitiesCount = u.activities.length;
             u.routesCount = u.routes.length;
+            if (u.questionnaireInfo) {
+              u.participates = u.questionnaireInfo.participates;
+            } else {
+              u.participates = false;
+            }
             rows.push(u);
           }
           return rows;

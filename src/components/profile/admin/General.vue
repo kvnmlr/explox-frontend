@@ -25,6 +25,19 @@
     </section>
     <v-divider class="separator"></v-divider>
     <section>
+      <h3>Study Progress</h3>
+      <p><b>Total Registrations: </b>{{ questionnaireInfo.totalRegistrations }}</p>
+      <p><b>Can Use Website: </b>{{ questionnaireInfo.canUseWebsite }}</p>
+      <p><b>Eligible: </b>{{ questionnaireInfo.eligible }}</p>
+      <p><b>Participants: </b>{{ questionnaireInfo.participants }}</p>
+
+      <v-btn round class="gradient gradient-orange" dark
+             to="/admin/dashboard/questionnaire">
+        Open Questionnaire Results
+      </v-btn>
+    </section>
+    <v-divider class="separator"></v-divider>
+    <section>
       <h3>Task Triggers</h3>
       <v-btn round :loading="task1loading" :disabled="task1loading" class="gradient gradient-orange" dark
              @click.native="triggerCoarseSegmentCrawler">
@@ -127,9 +140,9 @@
                   <v-chip small v-else color="red" text-color="white">Not Accepted</v-chip>
                   <b>Invitation on </b>{{formatDate(invitation.createdAt)}}
                   <b>From: </b>
-                  <router-link :to="{path: '/users/' + invitation.user._id}">{{invitation.user.username}}</router-link>
+                  <router-link v-if="invitation.user" :to="{path: '/users/' + invitation.user._id}">{{invitation.user.username}}</router-link>
                   <b>To:</b>
-                  <router-link :to="{path: '/users/' + ((invitation.receiverUser) ? invitation.receiverUser._id : '')}">
+                  <router-link v-if="invitation.receiverUser" :to="{path: '/users/' + ((invitation.receiverUser) ? invitation.receiverUser._id : '')}">
                     {{invitation.email}} ({{invitation.receiver}})
                   </router-link>
                 </p>
@@ -171,6 +184,7 @@
       invitations: Array,
       feedbacks: Array,
       limits: Object,
+      questionnaireInfo: Object,
     },
     methods: {
       async getLogs () {
