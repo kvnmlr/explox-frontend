@@ -317,13 +317,13 @@
           {
             id: id,
             label: 'start',
-            name: 'Startpoint',
+            name: 'Start',
             type: 'marker',
             coords: [this.routeGeoJSON[0][1], this.routeGeoJSON[0][0]],
           };
         const endPoint = {
           id: id + 1,
-          name: 'Endpoint',
+          name: 'Finish',
           label: 'end',
           type: 'marker',
           color: 'green',
@@ -522,7 +522,7 @@
         this.featureLayers.forEach((layer) => {
           if (layer.label === 'start') {
             const startIcon = L.icon({
-              iconUrl: 'https://cdn4.iconfinder.com/data/icons/maps-and-navigation-solid-icons-vol-3/72/115-512.png',
+              iconUrl: 'https://raw.githubusercontent.com/kvnmlr/explox-frontend/master/src/assets/img/start.png',
               iconSize: [50, 50], // size of the icon
               iconAnchor: [15, 40], // point of the icon which will correspond to marker's location
               popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
@@ -533,7 +533,7 @@
 
           if (layer.label === 'end') {
             const startIcon = L.icon({
-              iconUrl: 'https://cdn4.iconfinder.com/data/icons/maps-and-navigation-solid-icons-vol-3/72/115-512.png',
+              iconUrl: 'https://raw.githubusercontent.com/kvnmlr/explox-frontend/master/src/assets/img/finish.png',
               iconSize: [50, 50], // size of the icon
               iconAnchor: [15, 40], // point of the icon which will correspond to marker's location
               popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
