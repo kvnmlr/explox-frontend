@@ -48,7 +48,8 @@
               <p><b>Registration phase:</b> <span style="color: #ee5b19">17. June - 01. July 2019</span> (2 Weeks)</p>
               <p><b>Usage phase:</b> <span style="color: #ee5b19">17. June - 15. July 2019</span> (4 Weeks)</p>
               <p><b>User Experience Questionnaire und interviews after the study:</b> <span style="color: #ee5b19">01. July - 22. July 2019</span>
-                (3 Weeks), earliest time is after extensive use of the website and fulfillment of all study duties (see below "Reward").</p>
+                (3 Weeks), earliest time is after extensive use of the website and fulfillment of all study duties (see
+                below "Reward").</p>
               <h2>Preconditions and Eligibility</h2>
               <p>In the following, you will find some questionnaires that you have to answer thoroughly
                 carefully if you want to join the study. At the end of the questionnaires, you will see if you are
@@ -75,7 +76,8 @@
                 Vouchers</b>. If you win, you will receive at the end of the study. You have to fulfill the following
                 criteria in order to receive the voucher:</p>
               <ul>
-                <li>You have completed the following questionnaires and you are eligible to participate (~15 minutes)</li>
+                <li>You have completed the following questionnaires and you are eligible to participate (~15 minutes)
+                </li>
                 <li>You have done at least 15 (successful) route generations and rated each of the resulting routes</li>
                 <li>You have filled out the User Experience Questionnaire at the end of the study (~10 minutes)</li>
                 <li>You have filled out a short qualitative questionnaire and provided feedback at the end of the
@@ -309,7 +311,8 @@
               </v-layout>
 
               <v-radio-group v-model="user.cyclingBehaviour.q11">
-                <p class="title">On average, how long do you usually ride <b>per trip</b> on the <b style="color:#ee5b19;">weekend</b>?
+                <p class="title">On average, how long do you usually ride <b>per trip</b> on the <b
+                  style="color:#ee5b19;">weekend</b>?
                 </p>
                 <v-radio label="0 - 30 minutes" value=1></v-radio>
                 <v-radio label="30 - 60 minutes" value=2></v-radio>
@@ -744,9 +747,11 @@
                   conditions for using this website.</p>
                 <br>
                 <h1>Field Study</h1>
-                <p>In the field study, you will have to use the ExploX website for the next 2-4 weeks (until 15. July) and can win the
+                <p>In the field study, you will have to use the ExploX website for the next 2-4 weeks (until 15. July)
+                  and can win the
                   rewards.</p>
-                <p>We will reward your participation in the study with the chance to win one of <b>6 x 25€ Amazon Voucher</b>
+                <p>We will reward your participation in the study with the chance to win one of <b>6 x 25€ Amazon
+                  Voucher</b>
                   that
                   you will receive
                   at the end of the study. <b style="color: #ee5b19">Additionally:</b> The first 5 participants to
@@ -770,23 +775,25 @@
                 </v-alert>
                 <br>
 
-                <section v-if="this.isEligible">
+                <section v-if="this.isEligible || this.canUseWebsite">
                   <h1>Do you want to participate in the study?</h1>
                   <!--<v-checkbox :label="checkbox1_text" v-model="emailsCheckbox" style="margin-bottom: -20px;"></v-checkbox>-->
                   <v-btn depressed v-on:click="dialog = true" style="width: 300px;">Show Terms and Conditions</v-btn>
                   <v-checkbox :rules="[rules.required]" :label="checkbox2_text" v-model="termsCheckbox"
                               v-bind:error="termsError"></v-checkbox>
                   <br>
+                </section>
+                <section v-if="this.isEligible">
                   <v-layout row>
-                    <v-flex coluxs12 sm3>
+                    <v-flex column xs12 md6>
                       <v-btn large class="gradient gradient-success" dark round v-on:click="signupParticipate">
                         <v-icon>check</v-icon>
                         Participate in the study
                       </v-btn>
                     </v-flex>
-                    <v-flex xs12 sm4>
-                      <v-btn large class="gradient gradient-green" round v-on:click="signup(false)">
-                        Finish without participating in the study
+                    <v-flex xs12 md6>
+                      <v-btn style="height: 60px;" large class="gradient gradient-green" round v-on:click="signup(false)">
+                        Finish without participating<br>in the study
                       </v-btn>
                     </v-flex>
                   </v-layout>
@@ -1658,180 +1665,181 @@
             </v-layout>
           </v-stepper-content>
           <v-stepper-content step="5">
-            <v-layout column style="margin-left: 20px;">
+            <v-layout column wrap style="padding-left: 20px;">
               <h1>Fast geschafft...!</h1>
               <br>
-              <v-layout column wrap>
-                <!--NOT RELEVANT FOR STUDY LOGIN
-                <h4>First Name</h4>
-                <p>{{user.firstName}}</p>
+              <!--NOT RELEVANT FOR STUDY LOGIN
+              <h4>First Name</h4>
+              <p>{{user.firstName}}</p>
 
-                <h4>Last Name</h4>
-                <p>{{user.lastName}}</p>
+              <h4>Last Name</h4>
+              <p>{{user.lastName}}</p>
 
-                <h4>Username</h4>
-                <p>{{user.username}}</p>
+              <h4>Username</h4>
+              <p>{{user.username}}</p>
 
-                <h4>E-Mail</h4>
-                <p>{{user.email}}</p>-->
+              <h4>E-Mail</h4>
+              <p>{{user.email}}</p>-->
 
-                <p>Dies ist die letzte Seite des Anmeldungsfragebogens. Sie können Ihre Antworten noch anpassen.
-                  <b>Sobald Sie den Fragebogen über die untenstehenden Buttons abschließen können Sie ihre Antworten
-                    nicht mehr ändern.</b><br>
-                  Bitte lesen und aktzeptieren Sie die Geschäftsbedingungen.</p>
+              <p>Dies ist die letzte Seite des Anmeldungsfragebogens. Sie können Ihre Antworten noch anpassen.
+                <b>Sobald Sie den Fragebogen über die untenstehenden Buttons abschließen können Sie ihre Antworten
+                  nicht mehr ändern.</b><br>
+                Bitte lesen und aktzeptieren Sie die Geschäftsbedingungen.</p>
+              <br>
+              <h1>Feldstudie</h1>
+              <p>In der Feldstudie können Sie die Website in den kommenden 2-4 Wochen (bis 14. Juli) benutzen und sich
+                dadurch die
+                Chance auf den Gewinn sichern.</p>
+              <p>Ihre Teilnahme an der Studie belohnen wir mit der Chance <b>einen von 6 x 25€ Amazon Gutscheinen</b>
+                zu gewinnen. Gewinner erhalten diesen automatisch am Ende der Studie.<br><b style="color: #ee5b19">Hauptpreise:</b>
+                Die ersten 5 Teilnehmer, die neben obigen Kriterien mindestens 2 der generierten Routenvorschläge
+                tatsächlich fahren, tracken, in Strava als Aktivitäten speichern und detailliertes Feedback zu den
+                Routen geben, erhalten einen <b>30€ Gutschein für Fahrradzubehör</b>.
+              </p>
+              <br>
+              <v-alert :value="true" type="success" v-if="this.isEligible">
+                Sie dürfen an der Studie teilnehmen!
+              </v-alert>
+
+              <v-alert :value="true" type="info" v-if="!this.isEligible && this.canUseWebsite">
+                Sie dürfen leider <b>nicht</b> an der Studie teilnehmen, aber können die Website trotzdem benutzen.
+              </v-alert>
+
+
+              <v-alert :value="true" type="error" v-if="!this.canUseWebsite">
+                Sie können die Website leider <b>nicht</b> benutzen.
+              </v-alert>
+              <br>
+
+              <section v-if="this.isEligible || this.canUseWebsite">
+                <h1>Möchten Sie an der Studie teilnehmen?</h1>
+                <!--<v-checkbox :label="checkbox1_text" v-model="emailsCheckbox" style="margin-bottom: -20px;"></v-checkbox>-->
+                <v-btn depressed v-on:click="dialog = true" style="width: 300px;">Geschäftsbedingungen anzeigen
+                </v-btn>
+                <v-checkbox :rules="[rules.required]" label="Geschäftsbedingungen akzeptieren" v-model="termsCheckbox"
+                            v-bind:error="termsError"></v-checkbox>
                 <br>
-                <h1>Feldstudie</h1>
-                <p>In der Feldstudie können Sie die Website in den kommenden 2-4 Wochen (bis 14. Juli) benutzen und sich dadurch die
-                  Chance auf den Gewinn sichern.</p>
-                <p>Ihre Teilnahme an der Studie belohnen wir mit der Chance <b>einen von 6 x 25€ Amazon Gutscheinen</b>
-                  zu gewinnen. Gewinner erhalten diesen automatisch am Ende der Studie.<br><b style="color: #ee5b19">Hauptpreise:</b>
-                  Die ersten 5 Teilnehmer, die neben obigen Kriterien mindestens 2 der generierten Routenvorschläge
-                  tatsächlich fahren, tracken, in Strava als Aktivitäten speichern und detailliertes Feedback zu den
-                  Routen geben, erhalten einen <b>30€ Gutschein für Fahrradzubehör</b>.
-                </p>
-                <br>
-                <v-alert :value="true" type="success" v-if="this.isEligible">
-                  Sie dürfen an der Studie teilnehmen!
-                </v-alert>
+              </section>
+              <section v-if="this.isEligible">
+                <v-layout row>
+                  <v-flex column xs12 md7>
+                    <v-btn style="height: 60px;" large class="gradient gradient-success" dark round v-on:click="signupParticipate">
+                      <v-icon>check</v-icon>
+                      Teilnehmen und<br>Anmeldung abschließen
+                    </v-btn>
+                  </v-flex>
+                  <v-flex column xs12 md5>
+                    <v-btn large class="gradient gradient-green" round v-on:click="signup(false)">
+                      Nicht teilnehmen
+                    </v-btn>
+                  </v-flex>
+                </v-layout>
+              </section>
 
-                <v-alert :value="true" type="info" v-if="!this.isEligible && this.canUseWebsite">
-                  Sie dürfen leider <b>nicht</b> an der Studie teilnehmen, aber können die Website trotzdem benutzen.
-                </v-alert>
+              <section v-if="!this.isEligible && this.canUseWebsite">
+                <v-layout row>
+                  <v-flex coluxs12 md5>
+                    <v-btn large class="gradient gradient-blue" dark round v-on:click="signup(false)">
+                      <v-icon>check</v-icon>
+                      Anmeldung abschließen
+                    </v-btn>
+                  </v-flex>
+                </v-layout>
+              </section>
 
+              <v-dialog v-model="dialog" persistent width="600px">
+                <v-card>
+                  <v-card-title>
+                    <span class="headline">Terms and Conditions for ExploX</span>
+                  </v-card-title>
+                  <v-card-text>
+                    <h3>Introduction</h3>
+                    <p>These Website Standard Terms and Conditions written on this webpage shall manage your use of
+                      our
+                      website, ExploX accessible at umtl.dfki.de.</p>
+                    <p>These Terms will be applied fully and affect to your use of this Website. By using this
+                      Website,
+                      you agreed to accept all terms and conditions written in here. You must not use this Website if
+                      you disagree with any of these Website Standard Terms and Conditions.</p>
 
-                <v-alert :value="true" type="error" v-if="!this.canUseWebsite">
-                  Sie können die Website leider <b>nicht</b> benutzen.
-                </v-alert>
-                <br>
+                    <h3>Intellectual Property Rights</h3>
+                    <p>Other than the content you own, under these Terms, DFKI and/or its licensors own all the
+                      intellectual property rights and materials contained in this Website.</p>
+                    <p>You are granted limited license only for purposes of viewing the material contained on this
+                      Website.</p>
 
-                <section v-if="this.isEligible">
-                  <h1>Möchten Sie an der Studie teilnehmen?</h1>
-                  <!--<v-checkbox :label="checkbox1_text" v-model="emailsCheckbox" style="margin-bottom: -20px;"></v-checkbox>-->
-                  <v-btn depressed v-on:click="dialog = true" style="width: 300px;">Geschäftsbedingungen anzeigen
-                  </v-btn>
-                  <v-checkbox :rules="[rules.required]" label="Geschäftsbedingungen akzeptieren" v-model="termsCheckbox"
-                              v-bind:error="termsError"></v-checkbox>
-                  <br>
-                  <v-layout row>
-                    <v-flex coluxs12 sm4>
-                      <v-btn large class="gradient gradient-success" dark round v-on:click="signupParticipate">
-                        <v-icon>check</v-icon>
-                        Teilnehmen und Anmeldung abschließen
-                      </v-btn>
-                    </v-flex>
-                    <v-flex xs12 sm4>
-                      <v-btn large class="gradient gradient-green" round v-on:click="signup(false)">
-                        Nicht teilnehmen
-                      </v-btn>
-                    </v-flex>
-                  </v-layout>
-                </section>
+                    <h3>Restrictions</h3>
+                    <p>You are specifically restricted from all of the following:</p>
+                    <ul>
+                      <li>selling, sublicensing and/or otherwise commercializing any Website material;</li>
+                      <li>using this Website in any way that is or may be damaging to this Website;</li>
+                      <li>using this Website in any way that impacts user access to this Website;</li>
+                      <li>using this Website contrary to applicable laws and regulations, or in any way may cause harm
+                        to the Website, or to any person or business entity;
+                      </li>
+                      <li>engaging in any data mining, data harvesting, data extracting or any other similar activity
+                        in
+                        relation to this Website;
+                      </li>
+                    </ul>
+                    <p>Certain areas of this Website are restricted from being access by you and DFKI may further
+                      restrict access by you to any areas of this Website, at any time, in absolute discretion. Any
+                      user
+                      ID and password you may have for this Website are confidential and you must maintain
+                      confidentiality as well.</p>
 
-                <section v-if="!this.isEligible && this.canUseWebsite">
-                  <v-layout row>
-                    <v-flex coluxs12 sm3>
-                      <v-btn large class="gradient gradient-blue" dark round v-on:click="signup(false)">
-                        <v-icon>check</v-icon>
-                        Anmeldung abschließen
-                      </v-btn>
-                    </v-flex>
-                  </v-layout>
-                </section>
+                    <h3>No warranties</h3>
+                    <p>This Website is provided "as is," with all faults, and DFKI express no representations or
+                      warranties, of any kind related to this Website or the materials contained on this Website.
+                      Also,
+                      nothing contained on this Website shall be interpreted as advising you.</p>
 
-                <v-dialog v-model="dialog" persistent width="600px">
-                  <v-card>
-                    <v-card-title>
-                      <span class="headline">Terms and Conditions for ExploX</span>
-                    </v-card-title>
-                    <v-card-text>
-                      <h3>Introduction</h3>
-                      <p>These Website Standard Terms and Conditions written on this webpage shall manage your use of
-                        our
-                        website, ExploX accessible at umtl.dfki.de.</p>
-                      <p>These Terms will be applied fully and affect to your use of this Website. By using this
-                        Website,
-                        you agreed to accept all terms and conditions written in here. You must not use this Website if
-                        you disagree with any of these Website Standard Terms and Conditions.</p>
+                    <h3>Limitation of liability</h3>
+                    <p>In no event shall DFKI, nor any of its officers, directors and employees, shall be held liable
+                      for anything arising out of or in any way connected with your use of this Website whether such
+                      liability is under contract.  DFKI, including its officers, directors and employees shall not be
+                      held liable for any indirect, consequential or special liability arising out of or in any way
+                      related to your use of this Website.</p>
 
-                      <h3>Intellectual Property Rights</h3>
-                      <p>Other than the content you own, under these Terms, DFKI and/or its licensors own all the
-                        intellectual property rights and materials contained in this Website.</p>
-                      <p>You are granted limited license only for purposes of viewing the material contained on this
-                        Website.</p>
+                    <h3>Indemnification</h3>
+                    <p>You hereby indemnify to the fullest extent DFKI from and against any and/or all liabilities,
+                      costs, demands, causes of action, damages and expenses arising in any way related to your breach
+                      of any of the provisions of these Terms.</p>
 
-                      <h3>Restrictions</h3>
-                      <p>You are specifically restricted from all of the following:</p>
-                      <ul>
-                        <li>selling, sublicensing and/or otherwise commercializing any Website material;</li>
-                        <li>using this Website in any way that is or may be damaging to this Website;</li>
-                        <li>using this Website in any way that impacts user access to this Website;</li>
-                        <li>using this Website contrary to applicable laws and regulations, or in any way may cause harm
-                          to the Website, or to any person or business entity;
-                        </li>
-                        <li>engaging in any data mining, data harvesting, data extracting or any other similar activity
-                          in
-                          relation to this Website;
-                        </li>
-                      </ul>
-                      <p>Certain areas of this Website are restricted from being access by you and DFKI may further
-                        restrict access by you to any areas of this Website, at any time, in absolute discretion. Any
-                        user
-                        ID and password you may have for this Website are confidential and you must maintain
-                        confidentiality as well.</p>
+                    <h3>Severability</h3>
+                    <p>If any provision of these Terms is found to be invalid under any applicable law, such
+                      provisions
+                      shall be deleted without affecting the remaining provisions herein.</p>
 
-                      <h3>No warranties</h3>
-                      <p>This Website is provided "as is," with all faults, and DFKI express no representations or
-                        warranties, of any kind related to this Website or the materials contained on this Website.
-                        Also,
-                        nothing contained on this Website shall be interpreted as advising you.</p>
+                    <h3>Variation of Terms</h3>
+                    <p>DFKI is permitted to revise these Terms at any time as it sees fit, and by using this Website
+                      you
+                      are expected to review these Terms on a regular basis.</p>
 
-                      <h3>Limitation of liability</h3>
-                      <p>In no event shall DFKI, nor any of its officers, directors and employees, shall be held liable
-                        for anything arising out of or in any way connected with your use of this Website whether such
-                        liability is under contract.  DFKI, including its officers, directors and employees shall not be
-                        held liable for any indirect, consequential or special liability arising out of or in any way
-                        related to your use of this Website.</p>
+                    <h3>Assignment</h3>
+                    <p>The DFKI is allowed to assign, transfer, and subcontract its rights and/or obligations under
+                      these Terms without any notification. However, you are not allowed to assign, transfer, or
+                      subcontract any of your rights and/or obligations under these Terms.</p>
 
-                      <h3>Indemnification</h3>
-                      <p>You hereby indemnify to the fullest extent DFKI from and against any and/or all liabilities,
-                        costs, demands, causes of action, damages and expenses arising in any way related to your breach
-                        of any of the provisions of these Terms.</p>
+                    <h3>Entire Agreement</h3>
+                    <p>These Terms constitute the entire agreement between DFKI and you in relation to your use of
+                      this
+                      Website, and supersede all prior agreements and understandings.</p>
 
-                      <h3>Severability</h3>
-                      <p>If any provision of these Terms is found to be invalid under any applicable law, such
-                        provisions
-                        shall be deleted without affecting the remaining provisions herein.</p>
-
-                      <h3>Variation of Terms</h3>
-                      <p>DFKI is permitted to revise these Terms at any time as it sees fit, and by using this Website
-                        you
-                        are expected to review these Terms on a regular basis.</p>
-
-                      <h3>Assignment</h3>
-                      <p>The DFKI is allowed to assign, transfer, and subcontract its rights and/or obligations under
-                        these Terms without any notification. However, you are not allowed to assign, transfer, or
-                        subcontract any of your rights and/or obligations under these Terms.</p>
-
-                      <h3>Entire Agreement</h3>
-                      <p>These Terms constitute the entire agreement between DFKI and you in relation to your use of
-                        this
-                        Website, and supersede all prior agreements and understandings.</p>
-
-                      <h3>Governing Law & Jurisdiction</h3>
-                      <p>These Terms will be governed by and interpreted in accordance with the laws of the State of de,
-                        and you submit to the non-exclusive jurisdiction of the state and federal courts located in de
-                        for
-                        the resolution of any disputes.</p>
-                    </v-card-text>
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn color="green darken-1" flat="flat"
-                             @click="() => {this.dialog = false; this.termsCheckbox = true;}">Agree
-                      </v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
-              </v-layout>
+                    <h3>Governing Law & Jurisdiction</h3>
+                    <p>These Terms will be governed by and interpreted in accordance with the laws of the State of de,
+                      and you submit to the non-exclusive jurisdiction of the state and federal courts located in de
+                      for
+                      the resolution of any disputes.</p>
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="green darken-1" flat="flat"
+                           @click="() => {this.dialog = false; this.termsCheckbox = true;}">Agree
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
             </v-layout>
           </v-stepper-content>
         </v-stepper-items>
@@ -1893,14 +1901,14 @@
 
     methods: {
       computeEligible () {
-        //this.checkEligible()
+        this.checkEligible()
         setTimeout(() => {
           this.computeEligible()
         }, 2000)
       },
       cache () {
         if (this.user) {
-          //this.signup(true)
+          this.signup(true)
         }
         setTimeout(() => {
           this.cache()
@@ -1974,7 +1982,7 @@
           questionnaireInfo: {
             eligible: this.isEligible,
             canUseWebsite: this.canUseWebsite,
-            participates: this.participates,
+            participates: this.participates && this.isEligible,
             language: this.lang,
           },
           subscriptions: ['news'],

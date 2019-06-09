@@ -150,7 +150,7 @@
                   <br>
 
                   <v-list subheader two-line>
-                    <h3>Study Progress</h3>
+                    <h3>Study Duties</h3>
                     <p>In order to complete the study and <b>have the change to win one 6 x 15€ Amazon vouchers</b>, you have to complete the following tasks:</p>
                     <v-list-tile>
                       <v-list-tile-action>
@@ -167,10 +167,11 @@
                       <v-list-tile-action>
                         <v-checkbox v-model="this.user.questionnaireInfo.canUseWebsite" disabled></v-checkbox>
                       </v-list-tile-action>
-
+g
                       <v-list-tile-content>
                         <v-list-tile-title>Pre-Study Questionnaire</v-list-tile-title>
-                        <v-list-tile-sub-title>You completed the questionnaire before the study.</v-list-tile-sub-title>
+                        <v-list-tile-sub-title>You completed the questionnaire before the study.<br>
+                          <span style="color: #ee5b19;">Deadline: 01. July 2019</span></v-list-tile-sub-title>
                       </v-list-tile-content>
                     </v-list-tile>
 
@@ -181,10 +182,11 @@
 
                       <v-list-tile-content>
                         <v-list-tile-title>Route Generations ({{ this.user.creatorResults.length }} / 15)</v-list-tile-title>
-                        <v-list-tile-sub-title>You have done at least 15 successful route generations and rated each of the resulting routes.
+                        <v-list-tile-sub-title>You have done at least 15 successful route generations and rated each of the resulting routes.<br>
+                          <span style="color: #ee5b19">Deadline: 15. July 2019</span>
                         </v-list-tile-sub-title>
                       </v-list-tile-content>
-                      <v-btn href="creator" flat round>Generate Route</v-btn>
+                      <v-btn href="creator" outline round>Generate Route</v-btn>
                     </v-list-tile>
 
                     <v-list-tile>
@@ -194,7 +196,8 @@
 
                       <v-list-tile-content>
                         <v-list-tile-title>Post-Study Questionnaires</v-list-tile-title>
-                        <v-list-tile-sub-title>You have done the questionnaire after using the system for 2 weeks.<br>You will be notified vie e-mail when you can do this.</v-list-tile-sub-title>
+                        <v-list-tile-sub-title>You have done the questionnaire after using the for some time. You will be notified vie e-mail when you can do this.<br>
+                        <span style="color: #ee5b19">Deadline: 22. July 2019</span></v-list-tile-sub-title>
                       </v-list-tile-content>
                     </v-list-tile>
                   </v-list>
