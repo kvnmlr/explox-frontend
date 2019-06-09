@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div v-if="deadlinePassed || creatorUnavailable">
+    {{ canUseCreator }}
+    <div v-if="deadlinePassed || creatorUnavailable || !canUseCreator">
       <h1>Route Creation</h1>
       <br>
       <v-alert v-if="deadlinePassed" :value="true" color="accent" icon="info" outline>
@@ -14,6 +15,10 @@
       <v-alert v-else-if="creatorUnavailable" :value="true" color="accent" icon="info" outline>
         <h2>The Route Creation is currently not available :(</h2>
         <p>Please come back later.</p>
+      </v-alert>
+      <v-alert v-else-if="!canUseCreator" :value="true" color="accent" icon="info" outline>
+        <h2>Daily route creation limit reached</h2>
+        <p>You have reached to limit of 20 route creations per day. Please come back tomorrow to generate more routes.</p>
       </v-alert>
     </div>
     <section v-else>
@@ -296,6 +301,28 @@
     },
     props: {
       user: Object
+    },
+
+    computed: {
+      canUseCreator: function () {
+        let numCreatedToday = 0;
+        if (this.user) {
+          if (this.user.creatorResults) {
+            console.log(this.user.creatorResults.length)
+            const now = new Date();
+            let todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 1)  // 00:00:01
+            this.user.creatorResults.forEach((cr) => {
+              const d = new Date(cr.createdAt);
+              if (todayMidnight < d) {
+                // was created today
+                console.log("This was created today");
+                numCreatedToday++;
+              }
+            })
+          }
+        }
+        return numCreatedToday < 1;
+      },
     },
     mounted () {
       const deadline = new Date('15 July 2019 23:59:59')
