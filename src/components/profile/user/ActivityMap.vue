@@ -6,13 +6,13 @@
 </template>
 
 <script>
-  import StravaAlert from "../../includes/StravaAlert";
-  import SimpleMap from "../../map/LeafletMap";
-  import FullscreenRoute from "../../general/FullscreenRoute";
-  import {EventBus} from '@/eventBus.js';
+  import StravaAlert from '../../includes/StravaAlert'
+  import SimpleMap from '../../map/LeafletMap'
+  import FullscreenRoute from '../../general/FullscreenRoute'
+  import {EventBus} from '@/eventBus.js'
 
   export default {
-    name: "ActivityMap",
+    name: 'ActivityMap',
     components: {FullscreenRoute, StravaAlert, SimpleMap},
     props: {
       user: {
@@ -20,7 +20,7 @@
         required: true,
       }
     },
-    created() {
+    created () {
     },
   }
 </script>

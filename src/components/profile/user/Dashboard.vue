@@ -36,7 +36,8 @@
                         <h2 color="primary">{{ user.firstName.toUpperCase() + ' ' + user.lastName.toUpperCase() }}</h2>
                         <h4>{{ user.username }}</h4>
                         <p v-if="user.strava">
-                          <a style="color: #FC4C02;" :href="'https://www.strava.com/athletes/' + user.strava.id">View profile on Strava</a>
+                          <a style="color: #FC4C02;" :href="'https://www.strava.com/athletes/' + user.strava.id">View
+                            profile on Strava</a>
                         </p>
                       </v-flex>
                     </v-layout>
@@ -140,7 +141,8 @@
                       and update your ExploX profileaccordingly.</span>
                   </v-tooltip>
 
-                  <p style="color: #CCCCCC;"><i>We will also update your profile automatically whenever you log in.</i></p>
+                  <p style="color: #CCCCCC;"><i>We will also update your profile automatically whenever you log in.</i>
+                  </p>
                   <loading-dialog :show="loadingDialog" body="This can take up to 1 minute"
                                   header="Please wait while we synchronize your profile."
                                   :width="500" dark>
@@ -151,23 +153,29 @@
 
                   <v-list subheader two-line>
                     <h3>Study Duties</h3>
-                    <p>In order to complete the study and <b>have the change to win one 6 x 15€ Amazon vouchers</b>, you have to complete the following tasks:</p>
-                    <v-list-tile>
+                    <p>In order to complete the study and <b>have the change to win one 6 x 15€ Amazon vouchers</b>, you
+                      have to complete the following tasks:</p>
+                    <v-list-tile style="margin-bottom: 15px;">
                       <v-list-tile-action>
-                        <v-checkbox v-model="this.user.questionnaireInfo.eligible && this.user.questionnaireInfo.participates" disabled></v-checkbox>
+                        <v-checkbox color="success"
+                                    v-model="user.questionnaireInfo.eligible && user.questionnaireInfo.participates"
+                                    disabled></v-checkbox>
                       </v-list-tile-action>
 
                       <v-list-tile-content>
                         <v-list-tile-title>Eligibility</v-list-tile-title>
-                        <v-list-tile-sub-title>You are allowed to participate in the study based on your cycling behaviour and want to participate.</v-list-tile-sub-title>
+
+                        <v-list-tile-sub-title>You are allowed to participate in the study based on your cycling
+                          behaviour and want to participate.
+                        </v-list-tile-sub-title>
                       </v-list-tile-content>
                     </v-list-tile>
 
-                    <v-list-tile>
+                    <v-list-tile style="margin-bottom: 15px;">
                       <v-list-tile-action>
-                        <v-checkbox v-model="this.user.questionnaireInfo.canUseWebsite" disabled></v-checkbox>
+                        <v-checkbox v-model="user.questionnaireInfo.canUseWebsite" disabled></v-checkbox>
                       </v-list-tile-action>
-g
+
                       <v-list-tile-content>
                         <v-list-tile-title>Pre-Study Questionnaire</v-list-tile-title>
                         <v-list-tile-sub-title>You completed the questionnaire before the study.<br>
@@ -175,35 +183,62 @@ g
                       </v-list-tile-content>
                     </v-list-tile>
 
-                    <v-list-tile>
+                    <v-list-tile style="margin-bottom: 15px;">
+                      <v-list-tile-action>
+                        <v-checkbox v-model="user.visitedActivityMap" disabled></v-checkbox>
+                      </v-list-tile-action>
+
+                      <v-list-tile-content>
+                        <v-list-tile-title>Activity Heatmap</v-list-tile-title>
+
+                        <v-list-tile-sub-title>You have seen your personalized Activity Heatmao.<br>
+                          <span style="color: #ee5b19">Deadline: 15. July 2019</span>
+                        </v-list-tile-sub-title>
+                      </v-list-tile-content>
+                      <v-btn v-if="!user.visitedActivityMap"
+                             v-on:click="() => {broadcastData(); currentTab = 'tab-activity-map';}" outline round>Go to
+                        Heatmap
+                      </v-btn>
+                    </v-list-tile>
+
+                    <v-list-tile style="margin-bottom: 15px;">
                       <v-list-tile-action>
                         <v-checkbox :v-model="this.user.creatorResults.length >= 15" disabled></v-checkbox>
                       </v-list-tile-action>
 
                       <v-list-tile-content>
-                        <v-list-tile-title>Route Generations ({{ this.user.creatorResults.length }} / 15)</v-list-tile-title>
-                        <v-list-tile-sub-title>You have done at least 15 successful route generations and rated each of the resulting routes.<br>
+                        <v-list-tile-title>Route Generations ({{ this.user.creatorResults.length }} / 15)
+                        </v-list-tile-title>
+                        <v-list-tile-sub-title>You have done at least 15 successful route generations and rated each of
+                          the resulting routes.<br>
                           <span style="color: #ee5b19">Deadline: 15. July 2019</span>
                         </v-list-tile-sub-title>
                       </v-list-tile-content>
-                      <v-btn href="creator" outline round>Generate Route</v-btn>
+                      <v-btn v-if="this.user.creatorResults.length < 15" href="creator" outline round>Generate Route
+                      </v-btn>
                     </v-list-tile>
 
                     <v-list-tile>
                       <v-list-tile-action>
-                        <v-checkbox v-model="!this.user.questionnaireInfo.eligible" disabled></v-checkbox>
+                        <v-checkbox :v-model="false" disabled></v-checkbox>
                       </v-list-tile-action>
 
                       <v-list-tile-content>
                         <v-list-tile-title>Post-Study Questionnaires</v-list-tile-title>
-                        <v-list-tile-sub-title>You have done the questionnaire after using the for some time. You will be notified vie e-mail when you can do this.<br>
-                        <span style="color: #ee5b19">Deadline: 22. July 2019</span></v-list-tile-sub-title>
+                        <v-list-tile-sub-title>You have done the questionnaire after using the for some time. You will
+                          be notified vie e-mail when you can do this.<br>
+                          <span style="color: #ee5b19">Starting: 01. July, deadline: 22. July</span>
+                        </v-list-tile-sub-title>
                       </v-list-tile-content>
+                      <v-btn v-if="psq" href="psq" style="height: 60px;" color="success" round>Fill out<br>Questionnaire
+                      </v-btn>
                     </v-list-tile>
                   </v-list>
                   <br>
                   <p>Note: The voucher will be automatically sent to your e-mail: <b>{{user.email}}</b></p>
-                  <v-btn flat round v-on:click="() => {this.setUpdateUserFields(); this.editDialog = true;}">Change E-Mail</v-btn>
+                  <v-btn flat round v-on:click="() => {this.setUpdateUserFields(); this.editDialog = true;}">Change
+                    E-Mail
+                  </v-btn>
 
                   <br>
                   <v-divider></v-divider>
@@ -292,7 +327,8 @@ g
                 <h4 style="color: white">Please delete the following {{ generatedActivities.length > 1 ?
                   (generatedActivities.length + ' activities') : 'activity' }} from your Strava
                   profile</h4>
-                <p style="color: lightgray"><i>Note:</i> Those spurious activities are artifacts from the route creation process
+                <p style="color: lightgray"><i>Note:</i> Those spurious activities are artifacts from the route creation
+                  process
                   and
                   have to be deleted manually from your Strava profile.</p>
                 <div class="separator"></div>
@@ -327,26 +363,26 @@ g
 </template>
 
 <script>
-  import ActivityMap from "./ActivityMap";
-  import Activities from "./Activities";
-  import PersonalRoutes from "./PersonalRoutes";
-  import StravaAlert from "../../includes/StravaAlert";
-  import Activity from "../../activities/Activity";
-  import SimpleMap from "../../map/LeafletMap"
-  import apiMixin from "../../../mixins/apiMixin";
-  import Route from "../../routes/Route";
-  import LoadingDialog from "../../includes/LoadingDialog";
-  import {EventBus} from '@/eventBus.js';
-  import InviteFriend from "../../general/InviteFriend";
-  import formatDateMixin from "../../../mixins/formatDateMixin";
+  import ActivityMap from './ActivityMap'
+  import Activities from './Activities'
+  import PersonalRoutes from './PersonalRoutes'
+  import StravaAlert from '../../includes/StravaAlert'
+  import Activity from '../../activities/Activity'
+  import SimpleMap from '../../map/LeafletMap'
+  import apiMixin from '../../../mixins/apiMixin'
+  import Route from '../../routes/Route'
+  import LoadingDialog from '../../includes/LoadingDialog'
+  import {EventBus} from '@/eventBus.js'
+  import InviteFriend from '../../general/InviteFriend'
+  import formatDateMixin from '../../../mixins/formatDateMixin'
 
   export default {
-    name: "User",
+    name: 'User',
     components: {
       InviteFriend,
       LoadingDialog, Route, SimpleMap, StravaAlert, PersonalRoutes, Activities, ActivityMap, Activity
     },
-    data() {
+    data () {
       return {
         currentTab: 'tab-profile',
         editDialog: false,
@@ -357,103 +393,126 @@ g
         generatedActivitiesFoundDialog: false,
         activities: undefined,
         generatedActivities: undefined,
-      };
+        psq: false,
+      }
     },
     props: {
       user: Object
     },
 
-    created() {
+    created () {
       EventBus.$on('authenticated', (data) => {
-        this.checkAndRedirect(data);
-      });
+        this.checkAndRedirect(data)
+      })
       EventBus.$on('unauthenticated', () => {
-        this.checkAndRedirect(null);
-      });
+        this.checkAndRedirect(null)
+      })
 
       if (this.user) {
-        this.updatedUser = Object.assign({}, this.user);
+        const enabled = new Date('01 July 2019 00:00:01')
+        const currentDate = new Date()
+        if (enabled <= currentDate) {
+          let psqPossible = true
+          psqPossible &= this.user.questionnaireInfo.eligible && this.user.questionnaireInfo.participates
+          psqPossible &= this.user.questionnaireInfo.canUseWebsite
+          psqPossible &= this.user.creatorResults.length >= 0
+          psqPossible &= this.user.visitedActivityMap
+          this.psq = psqPossible
+        }
+
+        this.updatedUser = Object.assign({}, this.user)
         if (this.user.role === 'admin') {
-          this.$router.push('/admin/dashboard');
-          return;
+          this.$router.push('/admin/dashboard')
+          return
         }
       }
     },
 
     methods: {
-      setUpdateUserFields() {
-        this.updatedUser = Object.assign({}, this.user);
+      setUpdateUserFields () {
+        this.updatedUser = Object.assign({}, this.user)
       },
 
-      checkAndRedirect(user) {
+      checkAndRedirect (user) {
         //if (!this.user) {
         //  this.user = user;
-        this.updatedUser = Object.assign({}, this.user);
+        this.updatedUser = Object.assign({}, this.user)
         //}
         if (!user) {
           this.$emit('flash', {
             type: 'info',
             text: 'Action requires logged in user, please log in.'
-          });
-          this.$router.push('login');
-          return;
+          })
+          this.$router.push('login')
+          return
         }
         if (user.role === 'admin') {
-          this.$router.push('/admin/dashboard');
-          return;
+          this.$router.push('/admin/dashboard')
+          return
         }
       },
 
-      broadcastData() {
+      broadcastData () {
+        if (!this.user.visitedActivityMap) {
+          const formData = {
+            visitedActivityMap: true,
+          }
+          this.PUT('users/' + this.user._id, formData, null, (data, err) => {
+            if (!err) {
+              this.user.visitedActivityMap = true
+            }
+          })
+        }
+
         setTimeout(() => {
-          EventBus.$emit('activitiesReady', this.user.activities);
-        }, 200);
+          EventBus.$emit('activitiesReady', this.user.activities)
+        }, 200)
       },
 
-      async update() {
+      async update () {
         const formData = {
           _csrf: this.csrfToken,
           name: this.updatedUser.name,
           username: this.updatedUser.username,
           email: this.updatedUser.email,
-        };
+        }
 
         this.PUT('users/' + this.user._id, formData, null, (data, err) => {
           if (!err) {
-            EventBus.$emit('reloadData');
+            EventBus.$emit('reloadData')
           }
           this.editDialog = false
-        });
+        })
       },
 
-      async synchronize() {
-        this.loadingDialog = true;
+      async synchronize () {
+        this.loadingDialog = true
         this.GET('users/' + this.user._id + '/update', (data, err) => {
           if (!err) {
-            EventBus.$emit('reloadData');
+            EventBus.$emit('reloadData')
           }
-          this.loadingDialog = false;
+          this.loadingDialog = false
           if (data.generatedActivities.length) {
-            this.generatedActivities = data.generatedActivities;
-            this.generatedActivitiesFoundDialog = true;
+            this.generatedActivities = data.generatedActivities
+            this.generatedActivitiesFoundDialog = true
           }
-        });
+        })
       },
 
-      async deleteUser() {
+      async deleteUser () {
         this.DELETE('users/' + this.user._id, (data, err) => {
           if (!err) {
-            this.$router.push('/');
-            this.$emit('logout');
+            this.$router.push('/')
+            this.$emit('logout')
           }
-          this.deleteDialog = false;
-        });
+          this.deleteDialog = false
+        })
       },
 
-      async exportRoutes() {
+      async exportRoutes () {
       },
 
-      async exportActivities() {
+      async exportActivities () {
       },
     },
     mixins: [apiMixin, formatDateMixin]
@@ -461,5 +520,4 @@ g
 </script>
 
 <style scoped>
-
 </style>

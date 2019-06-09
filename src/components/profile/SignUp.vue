@@ -40,6 +40,15 @@
               <h1>About the study</h1>
               <br>
               <p><b>Thank you for signing up to ExploX. Please read the following notes carefully:</b></p>
+
+              <v-alert v-if="deadlinePassed" :value="true" color="accent" icon="info" outline>
+                <h2>Too late :(</h2>
+                Unfortunately, you have passed the time where you can enter the life field study. In order to focus on
+                the study participants, we can not let further users use the website.
+                <b>Your answes to this questionnaire will still be very useful for us. If you want, you can fill out the
+                  following questionnaire. We will then inform you when the website is available after the study.</b>
+              </v-alert>
+              <br>
               <h2>Purpose of this study</h2>
               <p>You are invited to use ExploX for the next weeks and thereby contribute to our research on cycling
                 behaviour. By answering the following questionnaires and using this website for the next weeks,
@@ -792,7 +801,8 @@
                       </v-btn>
                     </v-flex>
                     <v-flex xs12 md6>
-                      <v-btn style="height: 60px;" large class="gradient gradient-green" round v-on:click="signup(false)">
+                      <v-btn style="height: 60px;" large class="gradient gradient-green" round
+                             v-on:click="signup(false)">
                         Finish without participating<br>in the study
                       </v-btn>
                     </v-flex>
@@ -952,6 +962,16 @@
               <br>
               <p><b>Danke, dass Sie sich bei ExploX angemeldet haben. Bitte lesen Sie folgende Hinweise aufmerksam
                 durch:</b></p>
+              <v-alert v-if="deadlinePassed" :value="true" color="accent" icon="info" outline>
+                <h2>Zu spät :(</h2>
+                Leider ist die Anmeldefrist für die Studie bereits verstrichen. Um uns auf die Teilnehmer zu
+                konzentrieren, können wir keine weiteren Benutzer annehmen.
+                <b>Ihre Antwort auf diesen Fragebogen sind dennoch sehr hilfreich für uns. Wenn Sie möchten, können Sie
+                  die Fragen gerne beantworten. Wir werden Sie dann informieren, wenn ExploX nach der Studie wieder
+                  verfügbar ist.</b>
+              </v-alert>
+              <br>
+
               <h2>Ziel der Studie</h2>
               <p>Sie sind dazu eingeladen, diese Website in den nächsten Wochen zu nutzen und dadurch zur Forschung im
                 Bereich des Verhaltens im Radsport beizutragen. Durch das Beantworten des folgenden Fragebogens und der
@@ -1723,7 +1743,8 @@
               <section v-if="this.isEligible">
                 <v-layout row>
                   <v-flex column xs12 md7>
-                    <v-btn style="height: 60px;" large class="gradient gradient-success" dark round v-on:click="signupParticipate">
+                    <v-btn style="height: 60px;" large class="gradient gradient-success" dark round
+                           v-on:click="signupParticipate">
                       <v-icon>check</v-icon>
                       Teilnehmen und<br>Anmeldung abschließen
                     </v-btn>
@@ -1882,9 +1903,16 @@
         lang: 'de',
         cacheTime: 'not yet',
         eligibleByActivities: false,
+        deadlinePassed: false,
       }
     },
     created () {
+      const deadline = new Date('01 July 2019 23:59:59')
+      const currentDate = new Date()
+      if (currentDate > deadline) {
+        this.deadlinePassed = true
+      }
+
       this.computeEligible()
       this.cache()
       EventBus.$emit('flash', {

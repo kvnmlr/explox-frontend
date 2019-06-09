@@ -107,11 +107,9 @@ export default {
 
           api.put(path, formData, requestParams)
             .then((data) => {
-              console.log('puuuut');
               cb(data, null);
             })
             .catch((error) => {
-              console.log('puuuut errr');
               cb(null, error);
             })
         })

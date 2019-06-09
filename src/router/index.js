@@ -19,6 +19,7 @@ import FullscreenMap from '../components/general/FullscreenRoute'
 import Analytics from '../components/analytics/Analytics'
 import Creator from '../components/routes/Creator'
 import Questionnaire from '../components/profile/admin/Questionnaire'
+import PostStudyQuestionnaire from '../components/profile/PostStudyQuestionnaire'
 
 Vue.use(Router);
 
@@ -144,6 +145,12 @@ export default new Router({
       name: 'Questionnaire',
       component: Questionnaire,
       meta: {title: 'ExploX Questionnaire'}
+    },
+    {
+      path: '/psq',
+      name: 'PostStudyQuestionnaire',
+      component: PostStudyQuestionnaire,
+      meta: {title: 'ExploX Post Study Questionnaire'}
     },
   ]
 })
