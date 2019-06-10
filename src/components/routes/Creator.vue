@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ canUseCreator }}
     <div v-if="deadlinePassed || creatorUnavailable || !canUseCreator">
       <h1>Route Creation</h1>
       <br>
@@ -197,8 +196,13 @@
                 </v-expansion-panel-content>
               </v-expansion-panel>
               <br><br>
+              <!--<v-btn class="gradient gradient-orange" style="width: 100%;"
+                     @click.stop="() => {results = false; step = '1'; canUseCreator();}" dark round>
+                <v-icon>sync</v-icon>&nbsp;
+                New Search
+              </v-btn>-->
               <v-btn class="gradient gradient-orange" style="width: 100%;"
-                     @click.stop="() => {results = false; step = '1';}" dark round>
+                     href="creator" dark round>
                 <v-icon>sync</v-icon>&nbsp;
                 New Search
               </v-btn>
@@ -308,20 +312,18 @@
         let numCreatedToday = 0;
         if (this.user) {
           if (this.user.creatorResults) {
-            console.log(this.user.creatorResults.length)
             const now = new Date();
             let todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 1)  // 00:00:01
             this.user.creatorResults.forEach((cr) => {
               const d = new Date(cr.createdAt);
               if (todayMidnight < d) {
                 // was created today
-                console.log("This was created today");
                 numCreatedToday++;
               }
             })
           }
         }
-        return numCreatedToday < 1;
+        return numCreatedToday < 21;
       },
     },
     mounted () {

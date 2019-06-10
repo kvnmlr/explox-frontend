@@ -7,7 +7,6 @@
             :scale-control="{show: true,position: 'top-left'}"
             :fullscreen-control="{show: true,position: 'top-right'}"
 
-            @map-resize="show"
             @map-init="mapInitialized"
             @map-load="mapLoaded"
             @map-click="mapClicked"

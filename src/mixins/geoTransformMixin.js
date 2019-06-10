@@ -36,6 +36,26 @@ export default {
       return routeData
     },
 
+    toWaypoints (geos, inverted) {
+      const waypoints = []
+      if (!geos) {
+        return routeData
+      }
+      for (let i = 0; i < geos.length; ++i) {
+        if (geos[i].location) {
+          let coords
+          if (inverted) {
+            coords = L.latLng((geos[i].location.coordinates[1]), (geos[i].location.coordinates[0]))
+          } else {
+            coords = L.latLng((geos[i].location.coordinates[0]), (geos[i].location.coordinates[1]))
+          }
+
+          waypoints.push(coords)
+        }
+      }
+      return waypoints
+    },
+
     leafletMapConfig (coordinates) {
       return {
         // Probably not needed because we use fitBounds which does this automatically

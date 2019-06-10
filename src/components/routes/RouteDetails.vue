@@ -152,6 +152,7 @@
   export default {
     name: "RouteDetails",
     components: {
+      TestMap,
       'simple-map': SimpleMap
     },
     data() {
