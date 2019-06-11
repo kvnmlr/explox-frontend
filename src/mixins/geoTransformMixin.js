@@ -36,6 +36,45 @@ export default {
       return routeData
     },
 
+    normalizeGeos (geos) {
+      if (!geos) {
+        return []
+      }
+
+      const maxDistance = 0.02
+      const minDistance = 0.01
+
+      let totalDistance = 0
+
+      for (let i = 0; i < geos.length - 1; ++i) {
+        if (geos[i].location && geos[i + 1].location) {
+          let coords1 = geos[i].location.coordinates
+          let coords2 = geos[i + 1].location.coordinates
+          const distance = this.getDistanceFromLatLonInKm(coords1[1], coords1[0], coords2[1], coords2[0])
+          if (distance > maxDistance) {
+            const newGeo = {
+              altitude: geos[i].altitude,
+              location: {
+                coordinates: [
+                  (coords1[0] + coords2[0]) / 2,
+                  (coords1[1] + coords2[1]) / 2
+                ]
+              }
+            }
+            geos.splice(i + 1, 0, newGeo) // add a interpolated geo
+            --i
+          } else if (distance < minDistance) {
+            geos.splice(i+1, 1) // remove the geo that is too dense
+            --i
+          }
+          else {
+            totalDistance += distance
+          }
+        }
+      }
+      return geos
+    },
+
     toWaypoints (geos, inverted) {
       const waypoints = []
       if (!geos) {

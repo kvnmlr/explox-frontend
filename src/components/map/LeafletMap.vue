@@ -19,7 +19,9 @@
                 </v-menu>
               </v-flex>
               <v-flex xs12 md3>
-                <div v-for="layer in featureLayers.slice(0, Math.floor(featureLayers.length / 2))" :key="layer.id">
+                <div
+                  v-for="layer in featureLayers.filter((l) => {return l.toggleAble}).slice(0, Math.floor(featureLayers.filter((l) => {return l.toggleAble}).length / 2))"
+                  :key="layer.id + layer.name">
                   <v-switch v-on:change="layerChanged(layer.id, false)" v-model="selectedFeatures"
                             v-bind:label="layer.name"
                             v-bind:value="layer.id" color="primary" hide-details>{{layer.name}}
@@ -27,8 +29,9 @@
                 </div>
               </v-flex>
               <v-flex xs12 md3>
-                <div v-for="layer in featureLayers.slice(Math.floor(featureLayers.length / 2), featureLayers.length)"
-                     :key="layer.id">
+                <div
+                  v-for="layer in featureLayers.filter((l) => {return l.toggleAble}).slice(Math.floor(featureLayers.filter((l) => {return l.toggleAble}).length / 2), featureLayers.length)"
+                  :key="layer.id + layer.name">
                   <v-switch v-on:change="layerChanged(layer.id, false)" v-model="selectedFeatures"
                             v-bind:label="layer.name"
                             v-bind:value="layer.id" color="primary" hide-details>{{layer.name}}
@@ -84,6 +87,9 @@
         id_activity: 4,
         id_mouse_start_selection: 5,
         id_mouse_end_selection: 6,
+
+        routeInitialized: false,
+        activitiesInitialized: false,
       }
     },
     props: {
@@ -122,14 +128,20 @@
         this.route = data
         this.routeGeoJSON = this.toGeoJSON(this.route.geo, false)
         this.routeWaypoints = this.toWaypoints(this.route.geo, true)
-        this.reloadMap()
+        this.routeInitialized = true
+        if (this.activitiesInitialized || !this.showActivityMap) {
+          this.reloadMap()
+        }
       })
       EventBus.$on('activitiesReady', (data) => {
         this.activities = data
         this.activities.forEach(activity => {
-          this.activitiesGeoJSON = this.activitiesGeoJSON.concat(this.toGeoJSON(activity.geo, true))
+          this.activitiesGeoJSON = this.activitiesGeoJSON.concat(this.toGeoJSON(this.normalizeGeos(activity.geo), true))
         })
-        this.reloadMap()
+        this.activitiesInitialized = true
+        if (this.routeInitialized || !this.showRoute) {
+          this.reloadMap()
+        }
       })
       EventBus.$on('removeMap', (next) => {
         try {
@@ -143,12 +155,6 @@
     },
 
     mounted () {
-
-
-      let lrm = document.createElement('script')
-      lrm.setAttribute('src', 'https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js')
-      document.head.appendChild(lrm)
-
       this.initProviders()
       this.init()
     },
@@ -234,7 +240,7 @@
               color: '#000',
               weight: 5,
               opacity: 1,
-              fillOpacity: 0.8
+              fillOpacity: 0.8,
             }
             let states = {
               id: id,
@@ -248,7 +254,8 @@
               geometry: {
                 type: 'Point',
                 coordinates: [click.latlng.lng.toFixed(4).toString(), click.latlng.lat.toFixed(4).toString()]
-              }
+              },
+              toggleAble: false,
             }
 
             // check if this layer already exists
@@ -314,44 +321,72 @@
               type: 'LineString',
               coordinates: this.activitiesGeoJSON,
             },
+            toggleAble: true,
           }
         this.featureLayers.push(coverageLayer)
       },
       addMarkerLayer (id) {
+        const markerDistance = this.getDistanceFromLatLonInKm(this.routeGeoJSON[0][1], this.routeGeoJSON[0][0], this.routeGeoJSON[this.routeGeoJSON.length - 1][1], this.routeGeoJSON[this.routeGeoJSON.length - 1][0])
+        const tooClose = markerDistance < 30;
         const startPoint =
           {
             id: id,
             label: 'start',
             name: 'Start',
             type: 'marker',
-            coords: [this.routeGeoJSON[0][1], this.routeGeoJSON[0][0]],
+            coords: tooClose
+              ? [this.routeGeoJSON[0][1] + 0.0001, this.routeGeoJSON[0][0] + 0.0001]
+              : [this.routeGeoJSON[0][1], this.routeGeoJSON[0][0]],
+            toggleAble: true,
           }
+
         const endPoint = {
           id: id + 1,
           name: 'Finish',
           label: 'end',
           type: 'marker',
           color: 'green',
-          coords: [this.routeGeoJSON[this.routeGeoJSON.length - 1][1], this.routeGeoJSON[this.routeGeoJSON.length - 1][0]],
+          coords: tooClose
+            ? [this.routeGeoJSON[this.routeGeoJSON.length - 1][1] - 0.0001, this.routeGeoJSON[this.routeGeoJSON.length - 1][0] - 0.0001]
+            : [this.routeGeoJSON[this.routeGeoJSON.length - 1][1], this.routeGeoJSON[this.routeGeoJSON.length - 1][0]],
+          toggleAble: true,
         }
         this.featureLayers.push(startPoint)
         this.featureLayers.push(endPoint)
       },
       addRouteLayer (id) {
+        let color = '#ffa54d'
 
-        let color = '#ff6d00'
-        /* if (this.selectedFeatures.includes(this.id_activity)) {
-          color = '#ffffff';
-        } */
-
-        const routeLayer =
+        const routeLayerWhite =
           {
             id: id,
             label: 'route',
-            name: 'Route',
+            name: 'Route White Outline',
             style: {
-              'color': color,
-              'weight': 5,
+              'color': 'White',
+              'weight': 8,
+              'opacity': 0.5
+            },
+            primary: 2,
+            properties: {
+              type: 'route'
+            },
+            type: 'Feature',
+            geometry: {
+              type: 'LineString',
+              coordinates: this.routeGeoJSON,
+            },
+            toggleAble: false,
+          }
+
+        const routeLayerBlack =
+          {
+            id: id,
+            label: 'route',
+            name: 'Route Black Outline',
+            style: {
+              'color': 'black',
+              'weight': 6,
               'opacity': 1
             },
             primary: 2,
@@ -363,7 +398,33 @@
               type: 'LineString',
               coordinates: this.routeGeoJSON,
             },
+            toggleAble: false,
           }
+
+        const routeLayer =
+          {
+            id: id,
+            label: 'route',
+            name: 'Route',
+            style: {
+              'color': color,
+              'weight': 3,
+              'opacity': 1
+            },
+            primary: 5,
+            properties: {
+              type: 'route'
+            },
+            type: 'Feature',
+            geometry: {
+              type: 'LineString',
+              coordinates: this.routeGeoJSON,
+            },
+            toggleAble: true,
+          }
+
+        this.featureLayers.push(routeLayerWhite)
+        this.featureLayers.push(routeLayerBlack)
         this.featureLayers.push(routeLayer)
       },
 
@@ -397,11 +458,6 @@
         if (this.showMouseSelection) {
           this.addMouseStartSelectionLayer(this.id_mouse_start_selection)
           this.addMouseEndSelectionLayer(this.id_mouse_end_selection)
-
-          /* let self = this;
-          this.map.on('click', function () {
-            self.currentSelectStart = !self.currentSelectStart;
-          }); */
         }
 
         // init layers (create leaflet obejcts)
@@ -415,7 +471,6 @@
       },
 
       initView () {
-        let self = this
         try {
           this.map = L.map('map', {
             minZoom: 0,
@@ -427,55 +482,10 @@
             }
           }).setView([49.234, 6.997], 9)
 
-          /* let heatmap = new L.tileLayer.HeatCanvas({}, {'step': 0.5, 'degree': HeatCanvas.LINEAR, 'opacity': 0.5});
-          let data = [[40.71455, -74.007124, 103], [37.777125, -122.419644, 86], [47.60356, -122.329439, 41], [51.506325, -0.127144, 40], [41.88415, -87.632409, 40], [43.64856, -79.385324, 36], [32.715695, -117.161719, 29], [30.267605, -97.742984, 26], [49.26044, -123.114034, 25], [44.572195, -116.676054, 24], [34.05349, -118.245319, 22], [42.358635, -71.056699, 20], [35.868436, -92.120663, 19], [39.90601, 116.387909, 17], [45.511795, -122.675629, 17], [48.85693, 2.3412, 16], [39.76486, -99.031824, 16], [31.247709, 121.472618, 15], [45.512293, -73.554407, 15], [52.37312, 4.893195, 15], [33.748315, -84.391109, 15], [29.76045, -95.369784, 14], [37.371612, -122.038258, 14], [-33.869629, 151.206955, 13], [44.979035, -93.264929, 12], [59.33228, 18.06284, 12], [40.438335, -79.997459, 11], [39.95227, -75.162369, 11], [48.136415, 11.577531, 11], [32.0485, 118.778969, 11], [12.97092, 77.60482, 10], [40.01574, -105.279239, 10], [37.44466, -122.160794, 10], [34.011565, -118.492289, 10], [48.202548, 16.368805, 9], [38.725735, -9.15021, 9], [51.490299, -0.1193, 9], [52.516074, 13.376987, 9], [60.17116, 24.93258, 9], [38.89037, -77.031959, 9], [-34.608521, -58.373539, 9], [30.252501, 120.165024, 9], [55.75695, 37.614975, 9], [-37.817532, 144.967148, 9], [37.338475, -121.885794, 8], [37.869885, -122.270539, 8], [41.385589, 2.168745, 8], [50.112065, 8.683415, 8], [1.29378, 103.853256, 8], [36.45106, -93.189394, 8], [48.112955, -105.196669, 7], [32.056915, -87.588184, 7], [35.2225, -80.837539, 7], [39.106614, -84.504552, 7], [32.045101, 34.769711, 7], [39.96196, -83.002984, 7], [41.674498, -72.94619, 7], [38.959374, -77.354571, 7], [13.06397, 80.24311, 7], [53.34807, -6.248274, 7], [44.27257, -121.175874, 7], [39.74001, -104.992259, 7], [29.42449, -98.494624, 6], [40.4203, -3.705774, 6], [36.979335, -85.610864, 6], [32.778155, -96.795404, 6], [-23.56288, -46.654659, 6], [38.62774, -90.199514, 6]];
-          for (let i = 0, l = data.length; i < l; i++) {
-            heatmap.pushData(data[i][0], data[i][1], data[i][2]);
-            //if(data[i][2]> 10) {
-            //    var marker = new L.Marker(new L.LatLng(data[i][0], data[i][1]));
-            //    marker.bindPopup(data[i].toString());
-            //    map.addLayer(marker);
-            //}
-          }
-          let heattile = new L.HeatTile({step: 0.5, degree: HeatCanvas.LINEAR, opacity: 0.7, data: data});
-          map.addLayer(heatmap);
-          this.map.addLayer(heattile); */
-
-          /* let fg = L.tileLayer.mask('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}{r}.png', {
-              maskSize: 100,
-            }//optional
-          ).addTo(this.map);
-
-          // Add event handler to update mask position
-          this.map.on("mousemove", function (e) {
-            fg.setCenter(e.containerPoint);
-          }); */
-
-          /* var map = this.map;
-          setTimeout(() => {
-            if (map !== undefined) {
-              console.debug(map);
-
-              let y = new x(map, function(err, canvas) {
-                // now you have canvas
-                // example thing to do with that canvas:
-                let img = document.createElement('img');
-                let dimensions = map.getSize();
-                img.width = dimensions.x;
-                img.height = dimensions.y;
-                img.src = canvas.toDataURL();
-                document.getElementById('images').innerHTML = '';
-                document.getElementById('images').appendChild(img);
-              });
-            }
-
-          },2000) */
-
         } catch (e) {
           console.error(e)
           return false
         }
-
         return true
       },
 
@@ -539,7 +549,7 @@
             const startIcon = L.icon({
               iconUrl: 'https://raw.githubusercontent.com/kvnmlr/explox-frontend/master/src/assets/img/finish.png',
               iconSize: [50, 50], // size of the icon
-              iconAnchor: [15, 40], // point of the icon which will correspond to marker's location
+              iconAnchor: [25, 50], // point of the icon which will correspond to marker's location
               popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
             })
             layer.leafletObject = L.marker(layer.coords, {icon: startIcon}).bindPopup(layer.name)
@@ -578,10 +588,10 @@
 
             let coverageLayer = new L.GridLayer.MaskCanvas(
               {
-                radius: 40,                 // radius in pixels or in meters (see useAbsoluteRadius)
-                useAbsoluteRadius: true,    // true: r in meters, false: r in pixels
+                radius: 10,                 // radius in pixels or in meters (see useAbsoluteRadius)
+                useAbsoluteRadius: false,    // true: r in meters, false: r in pixels
                 color: '#000',              // the color of the layer
-                opacity: 0.1,               // opacity of the not covered area
+                opacity: 0.06,               // opacity of the not covered area
                 noMask: false,              // true results in normal (filled) circled, instead masked circles
                 lineColor: '#A00'           // color of the circle outline if noMask is true
               }
@@ -594,8 +604,8 @@
                 minOpacity: 0.1,
                 max: 1,
                 radius: 30,
-                blur: 20,
-                gradient: {0.2: 'blue', 0.4: 'lime', 1: 'orange'},
+                blur: 15,
+                gradient: {0.2: 'white', 0.3: 'lime', 0.5: 'orange'},
               }
               let heat = L.heatLayer(addressPoints, layerOptions).addTo(this.map)
               layer.leafletObject = L.featureGroup([heat, coverageLayer])
@@ -604,8 +614,6 @@
             } catch (e) {
               console.log('Map data is not yet ready for heatmap')
             }
-
-            // layer.leafletObject = L.geoJSON(layer, layer.style);
             return
           }
         })
@@ -613,34 +621,35 @@
 
       layerChanged (layerId, fit) {
         const active = this.selectedFeatures.includes(layerId)
-        const layer = this.featureLayers.find(layer => layer.id === layerId)
-        if (!layer) {
+        const layers = this.featureLayers.filter(layer => layer.id === layerId)
+        if (!layers || layers.length === 0) {
           return
         }
 
-        if (layer.leafletObject) {
-          if (active) {
-            layer.leafletObject.addTo(this.map)
-            if ((layer.primary > this.bestPrimary) && fit) {
-              this.bestPrimary = layer.primary
-              try {
-                let bounds
+        layers.forEach((layer) => {
+          if (layer.leafletObject) {
+            if (active) {
+              layer.leafletObject.addTo(this.map)
+              if ((layer.primary > this.bestPrimary) && fit) {
+                this.bestPrimary = layer.primary
+                try {
+                  let bounds
 
-                if (layer.leafletObject.bounds) {
-                  bounds = layer.leafletObject.bounds
-                } else {
-                  bounds = layer.leafletObject.getBounds()
+                  if (layer.leafletObject.bounds) {
+                    bounds = layer.leafletObject.bounds
+                  } else {
+                    bounds = layer.leafletObject.getBounds()
+                  }
+                  this.map.fitBounds(bounds)
+                } catch (e) {
+                  return
                 }
-
-                this.map.fitBounds(bounds)
-              } catch (e) {
-                return
               }
+            } else {
+              layer.leafletObject.removeFrom(this.map)
             }
-          } else {
-            layer.leafletObject.removeFrom(this.map)
           }
-        }
+        })
       },
 
       providerChanged (mapId) {
@@ -665,7 +674,4 @@
 </script>
 
 <style scoped>
-  .leaflet-routing-container {
-    display: none;
-  }
 </style>

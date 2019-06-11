@@ -99,7 +99,7 @@
         </p>
       </v-flex>
       <v-flex xs12 sm12 md8>
-        <simple-map show-activity-map show-route></simple-map>
+        <simple-map show-activity-map show-route open-panel></simple-map>
       </v-flex>
     </v-layout>
     <!-- Comments not available in backend yet
