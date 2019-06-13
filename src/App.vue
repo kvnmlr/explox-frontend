@@ -21,12 +21,12 @@
 </template>
 
 <script>
-  import Header from "./components/layout/Header"
-  import Footer from "./components/layout/Footer"
-  import Fullscreen from "./components/general/FullscreenRoute"
-  import apiMixin from "./mixins/apiMixin";
-  import {EventBus} from "./eventBus";
-  import Landing from "./components/general/Landing";
+  import Header from './components/layout/Header'
+  import Footer from './components/layout/Footer'
+  import Fullscreen from './components/general/FullscreenRoute'
+  import apiMixin from './mixins/apiMixin'
+  import {EventBus} from './eventBus'
+  import Landing from './components/general/Landing'
 
   export default {
     components: {
@@ -41,71 +41,73 @@
       alert: {},
       alertVisible: false,
     }),
-    created() {
-      this.authorizeUser();
+    created () {
+      this.authorizeUser()
       EventBus.$on('reloadData', () => {
-        this.authorizeUser();
-      });
+        this.authorizeUser()
+      })
       EventBus.$on('authorizeUser', () => {
-        this.authorizeUser();
-      });
+        this.authorizeUser()
+      })
       EventBus.$on('flash', (data) => {
-        this.flash(data);
+        this.flash(data)
       })
     },
     methods: {
-      broadcastData() {
+      broadcastData () {
         setTimeout(() => {
-          EventBus.$emit('routesReady', this.user.routes);
-          EventBus.$emit('activitiesReady', this.user.activities);
-        }, 200);
+          // EventBus.$emit('routesReady', this.user.routes);
+          if (this.$router.currentRoute.name !== 'Dashboard') {
+            EventBus.$emit('activitiesReady', this.user.activities)
+          }
+        }, 200)
       },
 
-      async logout() {
+      async logout () {
         this.GET('logout', (data, err) => {
           if (!err) {
-            this.user = undefined;
+            this.user = undefined
             this.flash({
               type: 'success',
               text: 'You are now logged out'
-            });
-            this.$router.push('/login');
+            })
+            this.$router.push('/login')
           }
-        });
+        })
       },
-      async authorizeUser() {
+      async authorizeUser () {
         this.GET('authenticate', (data, err) => {
           if (!err) {
             if (this.user) {
               if (this.user._id === data.user._id) {
-                EventBus.$emit('authenticated', this.user);
+                EventBus.$emit('authenticated', this.user)
               }
             } else {
-              this.user = data.user;
-              EventBus.$emit('authenticated', this.user);
+              this.user = data.user
+              EventBus.$emit('authenticated', this.user)
             }
-            this.performSearch();
+            this.performSearch()
           } else {
-            EventBus.$emit('unauthenticated');
+            EventBus.$emit('unauthenticated')
           }
-        });
+        })
       },
 
-      async performSearch() {
+      async performSearch () {
         if (!this.user) {
-          return;
+          return
         }
         this.GET('dashboard', (data, err) => {
           if (err) {
             if (!this.user) {
               setTimeout(() => {
-                this.$router.push('/login');
-                this.$emit('flash', err.flash);
-              }, 100);
+                this.$router.push('/login')
+                this.$emit('flash', err.flash)
+              }, 100)
             }
-            this.$emit('flash', err.flash);
+            this.$emit('flash', err.flash)
           } else {
-            this.user = data.user;
+            this.user = data.user
 
             if (!this.user.fullyRegistered) {
               this.$router.push('/signup')
@@ -114,22 +116,22 @@
             this.GET('users/' + this.user._id, (data, err) => {
               if (!err) {
                 if (data.user.activities) {
-                  this.user.activities = data.user.activities;
-                  this.broadcastData();
+                  this.user.activities = data.user.activities
+                  this.broadcastData()
                 }
               }
-            });
+            })
           }
-        });
+        })
       },
-      flash(value) {
+      flash (value) {
         if (value) {
-          this.alert = value;
-          this.alertVisible = true;
+          this.alert = value
+          this.alertVisible = true
 
           setTimeout(() => {
-            this.alertVisible = false;
-          }, 2500);
+            this.alertVisible = false
+          }, 2500)
         }
       }
     },

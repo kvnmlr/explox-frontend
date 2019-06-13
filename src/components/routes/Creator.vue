@@ -17,7 +17,8 @@
       </v-alert>
       <v-alert v-else-if="!canUseCreator" :value="true" color="accent" icon="info" outline>
         <h2>Daily route creation limit reached</h2>
-        <p>You have reached to limit of 20 route creations per day. Please come back tomorrow to generate more routes.</p>
+        <p>You have reached to limit of 20 route creations per day. Please come back tomorrow to generate more
+          routes.</p>
       </v-alert>
     </div>
     <section v-else>
@@ -100,19 +101,13 @@
             </v-stepper-step>
 
             <v-stepper-content step="3">
-              <v-text-field label="Preferred Distance" v-model="distance" :value="distance" suffix="km"
+              <v-text-field label="Preferred Distance (10 - 100)" min="10" max="100" v-model="distance"
+                            :value="distance" suffix="kilometers" type="number"
                             clearable></v-text-field>
               <p style="color: darkgray; font-size: 9pt">
-                Preference
+                Choose Road Type
               </p>
-              <v-radio-group v-model="selectedPreference">
-                <v-radio v-for="(radio, n) in preferencesLabels" :key="n" :label="radio" :value="n"
-                         color="primary"></v-radio>
-              </v-radio-group>
-              <p style="color: darkgray; font-size: 9pt">
-                You can select some additional properties
-              </p>
-              <v-select style="z-index:1001" v-model="selectedTags" :items="tagsLabels" multiple></v-select>
+              <v-select style="z-index:1001" v-model="selectedTag" :items="tagsLabels"></v-select>
               <v-btn dark round class="gradient gradient-orange" @click="submit">Create Routes</v-btn>
             </v-stepper-content>
           </v-stepper>
@@ -263,7 +258,7 @@
         rating: 0,
 
         // DISTANCE
-        distance: '8,5',
+        distance: '20',
 
         // PREFERENCE
         preferencesLabels: [
@@ -277,8 +272,8 @@
         selectedPreference: 0,
 
         // TAGS
-        tagsLabels: ['road', 'urban', 'popular'],
-        selectedTags: ['road'],
+        tagsLabels: ['Mixed', 'Road', 'Trail'],
+        selectedTag: 'Mixed',
 
         startSelectedDone: false,
         endSelectedDone: false,
@@ -301,6 +296,8 @@
 
         deadlinePassed: false,
         creatorUnavailable: false,
+        foo: 0
+
       }
     },
     props: {
@@ -309,21 +306,21 @@
 
     computed: {
       canUseCreator: function () {
-        let numCreatedToday = 0;
+        let numCreatedToday = 0
         if (this.user) {
           if (this.user.creatorResults) {
-            const now = new Date();
+            const now = new Date()
             let todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 1)  // 00:00:01
             this.user.creatorResults.forEach((cr) => {
-              const d = new Date(cr.createdAt);
+              const d = new Date(cr.createdAt)
               if (todayMidnight < d) {
                 // was created today
-                numCreatedToday++;
+                numCreatedToday++
               }
             })
           }
         }
-        return numCreatedToday < 21;
+        return numCreatedToday < 21
       },
     },
     mounted () {
@@ -347,6 +344,12 @@
       }
     },
     methods: {
+      increment () {
+        this.foo = parseInt(this.foo, 10) + 1
+      },
+      decrement () {
+        this.foo = parseInt(this.foo, 10) - 1
+      },
       async performSearch () {
         this.GET('creator', (data, err) => {
           if (err) {
@@ -386,7 +389,7 @@
         const end = this.selectedEndPosition
         const distance = this.distance.replace(',', '.')
         const preference = this.preferencesIDs[this.selectedPreference]
-        const tags = this.selectedTags
+        const tags = this.selectedTag
 
         const formData = {
           start: start,

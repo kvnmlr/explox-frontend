@@ -102,9 +102,6 @@
                 </p>
               </div>
             </v-card-title>
-            <v-card-actions>
-              <v-btn to="guide" flat color="orange">Join the Study</v-btn>
-            </v-card-actions>
           </v-card>
           <v-card class="elevation-10"
                   v-else-if="user && user.questionnaireInfo && !user.questionnaireInfo.participates">
@@ -150,7 +147,6 @@
     <v-layout column wrap class="my-5" align-center>
       <v-flex xs12 sm4 class="my-3">
         <h1 class="orange--text mb-3 display-1 text-xs-center">Are You Ready?</h1>
-        <div class="subheading mb-3 text-xs-center">Sign up now for free</div>
         <v-btn class="gradient gradient-orange" style="width: 100%; height: 70px; margin-bottom: -20px" dark large
                round to="/guide">
           Join the Study Now

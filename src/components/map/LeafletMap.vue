@@ -1,54 +1,68 @@
 <template>
-  <div class="elevation-5">
-    <div id='images'></div>
-    <div id="map"></div>
-    <v-expansion-panel class="elevation-0" :value="openPanel ? 0 : 1">
-      <v-expansion-panel-content>
-        <div slot="header">Map Visuals</div>
-        <v-card>
-          <v-card-text>
-            <v-layout row wrap>
-              <v-flex xs12 md3>
-                <v-menu offset-y>
-                  <v-btn slot="activator" class="gradient gradient-orange" dark round>Change Map Style</v-btn>
-                  <v-list style="z-index: 900" v-for="map in mapLayers" :key="map.index">
-                    <v-list-tile @click="providerChanged(map.id)">
-                      <v-list-tile-title>{{map.name}}</v-list-tile-title>
-                    </v-list-tile>
-                  </v-list>
-                </v-menu>
-              </v-flex>
-              <v-flex xs12 md3>
-                <div
-                  v-for="layer in featureLayers.filter((l) => {return l.toggleAble}).slice(0, Math.floor(featureLayers.filter((l) => {return l.toggleAble}).length / 2))"
-                  :key="layer.id + layer.name">
-                  <v-switch v-on:change="layerChanged(layer.id, false)" v-model="selectedFeatures"
-                            v-bind:label="layer.name"
-                            v-bind:value="layer.id" color="primary" hide-details>{{layer.name}}
-                  </v-switch>
-                </div>
-              </v-flex>
-              <v-flex xs12 md3>
-                <div
-                  v-for="layer in featureLayers.filter((l) => {return l.toggleAble}).slice(Math.floor(featureLayers.filter((l) => {return l.toggleAble}).length / 2), featureLayers.length)"
-                  :key="layer.id + layer.name">
-                  <v-switch v-on:change="layerChanged(layer.id, false)" v-model="selectedFeatures"
-                            v-bind:label="layer.name"
-                            v-bind:value="layer.id" color="primary" hide-details>{{layer.name}}
-                  </v-switch>
-                </div>
-              </v-flex>
-              <v-flex xs12 md3>
-                <v-btn light fab class="gradient gradient-green" style="float: right;" v-on:click="reloadMap">
-                  <v-icon>refresh</v-icon>
-                </v-btn>
-              </v-flex>
-            </v-layout>
-          </v-card-text>
-        </v-card>
-      </v-expansion-panel-content>
-    </v-expansion-panel>
+  <div>
+    <div class="elevation-5" style="padding: 8px;">
+      <div id='images'></div>
+      <section v-if="mapReady">
+        <div id="map"></div>
+      </section>
+      <v-layout v-else column align-center justify-center style="height: 300px;">
+        <v-progress-circular
+          :size="80"
+          :width="9"
+          color="primary"
+          indeterminate
+        ></v-progress-circular>
+      </v-layout>
+      <v-expansion-panel class="elevation-0" :value="openPanel && mapReady ? 0 : 1">
+        <v-expansion-panel-content>
+          <div slot="header">Map Visuals</div>
+          <v-card>
+            <v-card-text>
+              <v-layout row wrap>
+                <v-flex xs12 md3>
+                  <v-menu offset-y>
+                    <v-btn slot="activator" class="gradient gradient-orange" dark round>Change Map Style</v-btn>
+                    <v-list style="z-index: 900" v-for="map in mapLayers" :key="map.index">
+                      <v-list-tile @click="providerChanged(map.id)">
+                        <v-list-tile-title>{{map.name}}</v-list-tile-title>
+                      </v-list-tile>
+                    </v-list>
+                  </v-menu>
+                </v-flex>
+                <v-flex xs12 md3>
+                  <div
+                    v-for="layer in featureLayers.filter((l) => {return l.toggleAble}).slice(0, Math.floor(featureLayers.filter((l) => {return l.toggleAble}).length / 2))"
+                    :key="layer.id + layer.name">
+                    <v-switch v-on:change="layerChanged(layer.id, false)" v-model="selectedFeatures"
+                              v-bind:label="layer.name"
+                              v-bind:value="layer.id" color="primary" hide-details>{{layer.name}}
+                    </v-switch>
+                  </div>
+                </v-flex>
+                <v-flex xs12 md3>
+                  <div
+                    v-for="layer in featureLayers.filter((l) => {return l.toggleAble}).slice(Math.floor(featureLayers.filter((l) => {return l.toggleAble}).length / 2), featureLayers.length)"
+                    :key="layer.id + layer.name">
+                    <v-switch v-on:change="layerChanged(layer.id, false)" v-model="selectedFeatures"
+                              v-bind:label="layer.name"
+                              v-bind:value="layer.id" color="primary" hide-details>{{layer.name}}
+                    </v-switch>
+                  </div>
+                </v-flex>
+                <v-flex xs12 md3>
+                  <v-btn light fab class="gradient gradient-green" style="float: right;" v-on:click="reloadMap">
+                    <v-icon>refresh</v-icon>
+                  </v-btn>
+                </v-flex>
+              </v-layout>
+            </v-card-text>
+          </v-card>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </div>
+
   </div>
+
 </template>
 
 <script>
@@ -90,6 +104,7 @@
 
         routeInitialized: false,
         activitiesInitialized: false,
+        mapReady: true,
       }
     },
     props: {
@@ -103,8 +118,14 @@
     },
 
     mixins: [geoTransformMixin],
-
+    beforeRouteLeave (to, from, next) {
+      EventBus.$emit('removeMap', next)
+    },
     created () {
+      this.routeInitialized = false
+      this.activitiesInitialized = false
+      this.mapReady = true
+
       let features = []
       if (this.showRoute) {
         features.push(this.id_route)
@@ -124,23 +145,31 @@
         this.selectedMap = 1
       }
 
-      EventBus.$on('routeReady', (data) => {
+      EventBus.$on('routeReady', async (data) => {
+        if (this.mapReady) {
+          return
+        }
         this.route = data
         this.routeGeoJSON = this.toGeoJSON(this.route.geo, false)
         this.routeWaypoints = this.toWaypoints(this.route.geo, true)
         this.routeInitialized = true
         if (this.activitiesInitialized || !this.showActivityMap) {
-          this.reloadMap()
+          this.mapReady = true
+          setTimeout(this.reloadMap, 100)
         }
       })
-      EventBus.$on('activitiesReady', (data) => {
+      EventBus.$on('activitiesReady', async (data) => {
+        if (this.mapReady) {
+          return
+        }
         this.activities = data
-        this.activities.forEach(activity => {
+        await this.asyncForEach(this.activities, async (activity) => {
           this.activitiesGeoJSON = this.activitiesGeoJSON.concat(this.toGeoJSON(this.normalizeGeos(activity.geo), true))
         })
         this.activitiesInitialized = true
-        if (this.routeInitialized || !this.showRoute) {
-          this.reloadMap()
+        if (this.routeInitialized || !this.showRoute || this.$router.currentRoute.name.includes('Creator')) {
+          this.mapReady = true
+          setTimeout(this.reloadMap, 100)
         }
       })
       EventBus.$on('removeMap', (next) => {
@@ -155,11 +184,17 @@
     },
 
     mounted () {
+      this.mapReady = false
       this.initProviders()
       this.init()
     },
 
     methods: {
+      async asyncForEach (array, callback) {
+        for (let index = 0; index < array.length; index++) {
+          await callback(array[index], index, array)
+        }
+      },
       addMouseStartSelectionLayer (id) {
         let self = this
         this.map.on('click', function (click) {
@@ -282,7 +317,7 @@
             self.featureLayers[index].leafletObject = L.geoJSON(states, {
               //onEachFeature: onEachFeature,
               style: function (feature) {
-                geojsonMarkerOptions.color = '#0cff00'
+                geojsonMarkerOptions.color = '#0cAAFF'
                 return geojsonMarkerOptions
               },
               pointToLayer: function (feature, latlng) {
@@ -327,7 +362,7 @@
       },
       addMarkerLayer (id) {
         const markerDistance = this.getDistanceFromLatLonInKm(this.routeGeoJSON[0][1], this.routeGeoJSON[0][0], this.routeGeoJSON[this.routeGeoJSON.length - 1][1], this.routeGeoJSON[this.routeGeoJSON.length - 1][0])
-        const tooClose = markerDistance < 30;
+        const tooClose = markerDistance < 30
         const startPoint =
           {
             id: id,
@@ -408,7 +443,7 @@
             name: 'Route',
             style: {
               'color': color,
-              'weight': 3,
+              'weight': 5,
               'opacity': 1
             },
             primary: 5,
@@ -429,13 +464,18 @@
       },
 
       reloadMap () {
-        try {
-          this.map.remove()
-          this.map = undefined
-        } catch (e) {
-          return
+        if (!this.map) {
+          this.init()
+        } else {
+          try {
+            this.map.remove()
+            this.map = undefined
+          } catch (e) {
+            return
+          }
+          this.init()
         }
-        this.init()
+
       },
 
       init () {
@@ -472,16 +512,17 @@
 
       initView () {
         try {
-          this.map = L.map('map', {
-            minZoom: 0,
-            maxZoom: 100,
-            scrollWheelZoom: false,
-            zoomControl: true,
-            fullscreenControl: {
-              pseudoFullscreen: false // if true, fullscreen to page width and height
-            }
-          }).setView([49.234, 6.997], 9)
-
+          if (!this.map) {
+            this.map = L.map('map', {
+              minZoom: 0,
+              maxZoom: 100,
+              scrollWheelZoom: false,
+              zoomControl: true,
+              fullscreenControl: {
+                pseudoFullscreen: false // if true, fullscreen to page width and height
+              }
+            }).setView([49.234, 6.997], 9)
+          }
         } catch (e) {
           console.error(e)
           return false
@@ -612,7 +653,7 @@
               layer.leafletObject.bounds = coverageLayer.bounds
 
             } catch (e) {
-              console.log('Map data is not yet ready for heatmap')
+              console.log('Map data is not yet ready for heatmap ' + e.toString())
             }
             return
           }
@@ -664,8 +705,6 @@
           layer.leafletObject.addTo(this.map)
         }
         if (layer.routingLayer) {
-          console.log('adding routing layer')
-          console.log(layer.routingLayer)
           layer.routingLayer.addTo(this.map)
         }
       },

@@ -171,7 +171,9 @@
     created () {
       this.performSearch()
     },
-
+    beforeRouteLeave(to, from, next) {
+      EventBus.$emit('removeMap', next);
+    },
     methods: {
       broadcastData () {
         if (this.route) {

@@ -30,6 +30,10 @@
       <p><b>Can Use Website: </b>{{ questionnaireInfo.canUseWebsite }}</p>
       <p><b>Eligible: </b>{{ questionnaireInfo.eligible }}</p>
       <p><b>Participants: </b>{{ questionnaireInfo.participants }}</p>
+      <br>
+      <p><b>Seen Activity Map: </b>{{ seenActivityMap() }} / {{ questionnaireInfo.participants }}</p>
+      <p><b>Finished All Duties: </b>{{ finishedAllDuties() }} / {{ questionnaireInfo.participants }}</p>
+      <p><b>Total Results Rated: </b>{{ totalResultsRated() }}</p>
 
       <v-btn round class="gradient gradient-orange" dark
              to="/admin/dashboard/questionnaire">
@@ -140,9 +144,12 @@
                   <v-chip small v-else color="red" text-color="white">Not Accepted</v-chip>
                   <b>Invitation on </b>{{formatDate(invitation.createdAt)}}
                   <b>From: </b>
-                  <router-link v-if="invitation.user" :to="{path: '/users/' + invitation.user._id}">{{invitation.user.username}}</router-link>
+                  <router-link v-if="invitation.user" :to="{path: '/users/' + invitation.user._id}">
+                    {{invitation.user.username}}
+                  </router-link>
                   <b>To:</b>
-                  <router-link v-if="invitation.receiverUser" :to="{path: '/users/' + ((invitation.receiverUser) ? invitation.receiverUser._id : '')}">
+                  <router-link v-if="invitation.receiverUser"
+                               :to="{path: '/users/' + ((invitation.receiverUser) ? invitation.receiverUser._id : '')}">
                     {{invitation.email}} ({{invitation.receiver}})
                   </router-link>
                 </p>
@@ -164,7 +171,7 @@
   export default {
     name: 'Api',
     created () {
-      this.getLogs();
+      this.getLogs()
     },
     data () {
       return {
@@ -181,17 +188,77 @@
       }
     },
     props: {
+      results: Array,
+      users: Array,
       invitations: Array,
       feedbacks: Array,
       limits: Object,
       questionnaireInfo: Object,
     },
     methods: {
+      seenActivityMap () {
+        if (!this.users || this.users.length === 0) {
+          return 0
+        }
+        let n = 0
+        this.users.forEach((user) => {
+          if (user.questionnaireInfo) {
+            if (user.questionnaireInfo.participates && user.visitedActivityMap) {
+              n++
+            }
+          }
+        })
+        return n
+      },
+
+      finishedAllDuties () {
+        if (!this.users || this.users.length === 0) {
+          return 0
+        }
+        let n = 0
+        this.users.filter((user) => {
+          return user.questionnaireInfo && user.questionnaireInfo.participates
+        }).forEach((user) => {
+          if (user.visitedActivityMap) {
+            if (this.numCompletedRouteRatingsForUser(user) >= 15) {
+              n++
+            }
+          }
+        })
+        return n
+      },
+
+      totalResultsRated () {
+        if (!this.users || this.users.length === 0) {
+          return 0
+        }
+        let n = 0
+        this.users.filter((user) => {
+          return user.questionnaireInfo && user.questionnaireInfo.participates
+        }).forEach((user) => {
+          if (user.creatorResults) {
+            n += this. numCompletedRouteRatingsForUser(user);
+          }
+        })
+        return n
+      },
+
+      numCompletedRouteRatingsForUser(user) {
+        return user.creatorResults.filter((res) => {
+          if (!res.routeRatings) {
+            return false
+          }
+          return res.routeRatings.length === 2
+            && (res.routeRatings[0].rating !== 0 && res.routeRatings[1].rating !== 0)
+            && (res.routeRatings[0].comment !== '' && res.routeRatings[1].comment !== '')
+        }).length;
+      },
+
       async getLogs () {
         this.GET('logs', (data, err) => {
           console.log(data)
-          this.applicationLogs = data.application;
-          this.errorLogs = data.errors;
+          this.applicationLogs = data.application
+          this.errorLogs = data.errors
         })
       },
       async remove (id) {

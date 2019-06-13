@@ -15,7 +15,7 @@
     </a>
     <a v-else>
       <img
-        src="@/assets/img/strava/connect_light_large.png" alt="Connect with Strava"
+        src="@/assets/img/strava/connect_large.png" alt="Connect with Strava"
         v-on:click="loginStrava"
         :disabled="loadingDialog"
         :loading="loadingDialog">

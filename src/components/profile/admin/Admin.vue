@@ -30,7 +30,7 @@
 
     <v-tabs-items v-model="currentTab" touchless>
       <v-tab-item lazy :id="`tab-api`">
-        <api :invitations="invitations" :feedbacks="feedbacks" :limits="limits" :questionnaire-info="questionnaireInfo"></api>
+        <api :results="creatorResults" :users="users" :invitations="invitations" :feedbacks="feedbacks" :limits="limits" :questionnaire-info="questionnaireInfo"></api>
       </v-tab-item>
       <v-tab-item lazy :id="`tab-users`">
         <users :users="users"></users>

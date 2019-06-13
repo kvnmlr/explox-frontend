@@ -32,7 +32,7 @@
               </v-list-tile>
             </div>
           </v-list-group>
-
+          <v-divider v-else-if="item.separator && (!item.loginOnly || user)" style="margin: 20px;"></v-divider>
           <v-list-tile v-else-if="!item.loginOnly || user" :key="item.text" @click="" :to="{path: '/' + item.link}">
             <v-list-tile-action>
               <v-icon>{{ item.icon }}</v-icon>
@@ -109,7 +109,8 @@
         {icon: 'dashboard', text: 'Hub', link: 'hub', loginOnly: false},
         {icon: 'person', text: 'Dashboard', link: 'dashboard', loginOnly: true},
         {icon: 'add', text: 'Generate new Route', link: 'creator', loginOnly: true},
-        {icon: 'near_me', text: 'Route Finder', link: 'routes', loginOnly: false},
+        {separator: true,  loginOnly: true},
+        {icon: 'near_me', text: 'Search Routes', link: 'routes', loginOnly: false},
         {icon: 'flag', text: 'Analytics', link: 'analytics', loginOnly: true},
         {icon: 'flight_takeoff', text: 'Get Started', link: 'guide', loginOnly: false},
         {icon: 'chat_bubble', text: 'Send feedback', link: 'feedback', loginOnly: false},

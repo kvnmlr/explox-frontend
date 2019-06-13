@@ -203,14 +203,14 @@
 
                     <v-list-tile style="margin-bottom: 15px;">
                       <v-list-tile-action>
-                        <v-checkbox :v-model="this.user.creatorResults.length >= 15" disabled></v-checkbox>
+                        <v-checkbox v-model="this.successfullGenerationsDone() >= 15" disabled></v-checkbox>
                       </v-list-tile-action>
 
                       <v-list-tile-content>
-                        <v-list-tile-title>Route Generations ({{ this.user.creatorResults.length }} / 15)
+                        <v-list-tile-title>Route Generations ({{ successfullGenerationsDone() }} / 15)
                         </v-list-tile-title>
-                        <v-list-tile-sub-title>You have done at least 15 successful route generations and rated each of
-                          the resulting routes.<br>
+                        <v-list-tile-sub-title>You have done at least 15 successful route generations <b>and for each
+                          rated and commented both resulting routes</b>.<br>
                           <span style="color: #ee5b19">Deadline: 15. July 2019</span>
                         </v-list-tile-sub-title>
                       </v-list-tile-content>
@@ -274,7 +274,6 @@
                       <p v-else>No Activity</p>
                       <v-btn flat round v-on:click="currentTab='tab-activities'">View All</v-btn>
                     </v-container>
-
                   </v-card>
                 </v-flex>
                 <v-spacer style="margin: 20px;"></v-spacer>
@@ -429,6 +428,18 @@
     },
 
     methods: {
+      successfullGenerationsDone () {
+        if (!this.user || !this.user.creatorResults) {
+          return 0
+        }
+        let num = this.user.creatorResults.filter((gen) => {
+          return gen.routeRatings.length === 2
+            && (gen.routeRatings[0].rating !== 0 && gen.routeRatings[1].rating !== 0)
+            && (gen.routeRatings[0].comment !== '' && gen.routeRatings[1].comment !== '')
+        }).length
+        return num;
+      },
+
       setUpdateUserFields () {
         this.updatedUser = Object.assign({}, this.user)
       },

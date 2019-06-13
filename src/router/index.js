@@ -13,11 +13,12 @@ import GetStarted from '../components/general/GetStarted'
 import Feedback from '../components/general/Feedback'
 import SignUp from '../components/profile/SignUp'
 import LogIn from '../components/profile/LogIn'
+import AdminLogin from '../components/profile/AdminLogin'
 import ConnectToStrava from '../components/general/home/ConnectToStrava'
 import LeafletMap from '../components/map/LeafletMap'
 import FullscreenMap from '../components/general/FullscreenRoute'
 import Analytics from '../components/analytics/Analytics'
-import Creator from '../components/routes/Creator'
+import CreatorWrapper from '../components/routes/CreatorWrapper'
 import Questionnaire from '../components/profile/admin/Questionnaire'
 import PostStudyQuestionnaire from '../components/profile/PostStudyQuestionnaire'
 
@@ -111,6 +112,12 @@ export default new Router({
       meta: {title: 'Log In to ExploX'}
     },
     {
+      path: '/adminlogin',
+      name: 'AdminLogin',
+      component: AdminLogin,
+      meta: {title: 'Log In to ExploX'}
+    },
+    {
       path: '/strava',
       name: 'Strava',
       component: ConnectToStrava,
@@ -136,8 +143,8 @@ export default new Router({
     },
     {
       path: '/creator',
-      name: 'Creator',
-      component: Creator,
+      name: 'CreatorWrapper',
+      component: CreatorWrapper,
       meta: {title: 'ExploX Creator'}
     },
     {

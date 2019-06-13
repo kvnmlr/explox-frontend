@@ -7,14 +7,14 @@
             <v-card-title primary class="title">
               <v-icon>message</v-icon>&nbsp;{{ item.headline }}
             </v-card-title>
-            <v-card-text>{{ item.body }} </v-card-text>
-            <v-card-text v-if="item.link"><a :href="item.link">{{ item.linkText }}</a> </v-card-text>
+            <v-card-text>{{ item.body }}</v-card-text>
+            <v-card-text v-if="item.link"><a :href="item.link">{{ item.linkText }}</a></v-card-text>
             <v-card-text><p style="color: #424242">{{ item.date }}</p></v-card-text>
           </v-card>
           <br>
         </div>
       </v-flex>
-      <v-flex class="hidden-sm-and-down" md5 style="padding-left:20px;">
+      <v-flex class="hidden-sm-and-down" md5 style="padding-left:60px;">
         <img v-if="news.length > 2" style="width:100%" src="@/assets/img/bicycle-bike-black-and-white.jpg"
              class="elevation-5">
         <img v-else style="width:100%" src="@/assets/img/action-adventure-bicycle.jpg" class="elevation-5">
@@ -25,8 +25,8 @@
             <v-card-title primary class="title">
               <v-icon>message</v-icon>&nbsp;{{ item.headline }}
             </v-card-title>
-            <v-card-text>{{ item.body }} </v-card-text>
-            <v-card-text v-if="item.link"><a :href="item.link">{{ item.linkText }}</a> </v-card-text>
+            <v-card-text>{{ item.body }}</v-card-text>
+            <v-card-text v-if="item.link"><a :href="item.link">{{ item.linkText }}</a></v-card-text>
             <v-card-text><p style="color: #424242">{{ item.date }}</p></v-card-text>
           </v-card>
           <br>

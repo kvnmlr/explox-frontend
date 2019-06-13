@@ -20,6 +20,9 @@
         required: true,
       }
     },
+    beforeRouteLeave(to, from, next) {
+      EventBus.$emit('removeMap', next);
+    },
     created () {
     },
   }

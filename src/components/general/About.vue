@@ -12,9 +12,8 @@
                 </v-card-title>
                 <v-card-text>
                   ExploX is part of a research effort that aims to discover patterns in cyclists' routes and
-                  activities.
-                  The analyzed data can be used in meaningful ways such as the creation of new routes or personalized
-                  training optimization.
+                  activities. The analyzed data can be used in meaningful ways such as the creation of new routes or
+                  personalized training optimization.
                 </v-card-text>
               </v-card>
             </v-flex>
@@ -40,9 +39,9 @@
                     <div class="headline text-xs-center">Motivation & Goal</div>
                   </v-card-title>
                   <v-card-text>
-                    <p>As smartwatches and fitness trackers become more user friendly, athletes enjoy incorporating them
+                    <p>As smartwatches and fitness trackers become more ubiquitous, athletes enjoy incorporating them
                       into their training. One key benefit that comes with using trackers is that the data can be
-                      analyzed and personalized training methods can be developed. One area that is little researched is
+                      analyzed and personalized training plans can be developed. One area that is little researched is
                       the
                       generation of new routes based on historic athlete activities and current goals. Planning a new
                       route manually often involves some time and is always connected with some uncertainty whether the
@@ -67,10 +66,10 @@
                       Anybdy who goes for regular bike rides and uses Strava to track those is welcome to participate in
                       the study. However, we want to emphasize that in the first phase we will focus on users in
                       Saarland and ExploX
-                      will only work there. With this open system, we want to gain a large number of users in order to
-                      collect very diverse data.
-                      Also, with a smaller number of people who are particularly active, we want to perform a more
-                      controlled type of analysis in order to analyze their cycling patterns.</p>
+                      will only work there. With this openly accessible website, we want to gain a large number of users
+                      in order to
+                      collect very diverse data. If you want to join the study, simply go to Login and connect your
+                      Strava profile.</p>
                   </v-card-text>
                 </v-card>
               </v-flex>
