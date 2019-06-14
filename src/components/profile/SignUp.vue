@@ -113,33 +113,22 @@
                 <v-radio label="Male" value=1></v-radio>
                 <v-radio label="Female" value=2></v-radio>
                 <v-radio label="Other" value=3></v-radio>
-                <v-radio label="Prefer not to say" value=4></v-radio>
               </v-radio-group>
 
-              <v-radio-group v-model="user.demographics.q2">
-                <p class="title">Age:</p>
-                <v-radio label="Under 18" value=1></v-radio>
-                <v-radio label="18-27" value=2></v-radio>
-                <v-radio label="28-37" value=3></v-radio>
-                <v-radio label="38-47" value=4></v-radio>
-                <v-radio label="48-57" value=5></v-radio>
-                <v-radio label="58-67" value=6></v-radio>
-                <v-radio label="68 or up" value=7></v-radio>
-                <v-radio label="Prefer not to say" value=8></v-radio>
-              </v-radio-group>
+              <p class="title">Age:</p>
+              <v-text-field v-model="user.demographics.q2" type="number" label="" min="0" max="100"
+                            style="width: 100px;"></v-text-field>
 
               <v-radio-group v-model="user.demographics.q3">
                 <p class="title">Highest completed level of education:</p>
                 <v-radio label="Less than high school degree" value=1></v-radio>
                 <v-radio label="High school degree" value=2></v-radio>
-                <v-radio label="Bachelor's degree" value=3></v-radio>
-                <v-radio label="Master's degree" value=4></v-radio>
-                <v-radio label="Doctorate" value=5></v-radio>
-                <v-radio label="Prefer not to say" value=6></v-radio>
-                <v-radio label="Other" value=7></v-radio>
+                <v-radio label="University or College degree" value=3></v-radio>
+                <v-radio label="Prefer not to say" value=4></v-radio>
+                <v-radio label="Other" value=5></v-radio>
               </v-radio-group>
 
-              <v-layout row wrap v-if="user.demographics.q3 === '7'">
+              <v-layout row wrap v-if="user.demographics.q3 === '5'">
                 <v-flex xs12 sm6 md3>
                   <v-text-field label="Please specify" v-model="user.demographics.q3Text"></v-text-field>
                 </v-flex>
@@ -176,17 +165,6 @@
                 </v-flex>
               </v-layout>
 
-              <v-radio-group v-model="user.demographics.q7">
-                <p class="title">Income per month after tax:</p>
-                <v-radio label="Less than 2.000€" value=1></v-radio>
-                <v-radio label="2.001€ - 4.000€" value=2></v-radio>
-                <v-radio label="4.001€ - 6.000€" value=3></v-radio>
-                <v-radio label="6.001€ - 8.000€" value=4></v-radio>
-                <v-radio label="8.001€ - 10.000€" value=5></v-radio>
-                <v-radio label="More than 10.000€" value=6></v-radio>
-                <v-radio label="Prefer not to say" value=7></v-radio>
-              </v-radio-group>
-
               <v-btn class="gradient gradient-orange" style="width: 200px;" dark round @click="e1 = 2"
                      v-on:click="logUser">Continue
               </v-btn>
@@ -216,13 +194,14 @@
               </v-radio-group>
 
               <v-radio-group v-model="user.cyclingBehaviour.q4">
-                <p class="title">How often do you ride your bike?</p>
+                <p class="title">How often do you ride your bike during the biking season (spring to fall)?</p>
                 <v-radio label="Every day" value=1></v-radio>
-                <v-radio label="Multiple times a week" value=2></v-radio>
-                <v-radio label="More than 4 times a month" value=3></v-radio>
-                <v-radio label="Less than 4 times a month" value=4></v-radio>
-                <v-radio label="Less than once a year" value=5></v-radio>
-                <v-radio label="Never" value=6></v-radio>
+                <v-radio label="1 or 2 times a week" value=2></v-radio>
+                <v-radio label="Multiple times a week" value=3></v-radio>
+                <v-radio label="More than 4 times a month" value=4></v-radio>
+                <v-radio label="Less than 4 times a month" value=5></v-radio>
+                <v-radio label="Less than once a year" value=6></v-radio>
+                <v-radio label="Never" value=7></v-radio>
               </v-radio-group>
 
               <p class="title">Which of the following equipment do you use for tracking your bicycle rides?</p>
@@ -264,7 +243,7 @@
 
               <p class="title">What are the main reasons you ride your bike on <b style="color:#ee5b19;">working
                 days</b>?</p>
-              <v-checkbox v-model="user.cyclingBehaviour.q8" label="Recreational" value="Recreational"
+              <v-checkbox v-model="user.cyclingBehaviour.q8" label="Sports and Training" value="Sport"
                           style="margin-top: -10px;"></v-checkbox>
               <v-checkbox v-model="user.cyclingBehaviour.q8" label="Visiting friends" value="Visiting friends"
                           style="margin-top: -15px;"></v-checkbox>
@@ -273,6 +252,8 @@
               <v-checkbox v-model="user.cyclingBehaviour.q8" label="Social activities" value="Social activities"
                           style="margin-top: -15px;"></v-checkbox>
               <v-checkbox v-model="user.cyclingBehaviour.q8" label="School or university" value="School or university"
+                          style="margin-top: -15px;"></v-checkbox>
+              <v-checkbox v-model="user.cyclingBehaviour.q8" label="Shopping" value="Shopping"
                           style="margin-top: -15px;"></v-checkbox>
               <v-checkbox v-model="user.cyclingBehaviour.q8" label="I do not ride on working days"
                           value="I do not ride on working days" style="margin-top: -15px;"></v-checkbox>
@@ -299,7 +280,7 @@
               <br>
               <p class="title">What are the main reasons you ride your bike on the <b style="color:#ee5b19;">weekend</b>?
               </p>
-              <v-checkbox v-model="user.cyclingBehaviour.q10" label="Recreational" value="Recreational"
+              <v-checkbox v-model="user.cyclingBehaviour.q10" label="Sports and Training" value="Sport"
                           style="margin-top: -10px;"></v-checkbox>
               <v-checkbox v-model="user.cyclingBehaviour.q10" label="Visiting friends" value="Visiting friends"
                           style="margin-top: -15px;"></v-checkbox>
@@ -309,8 +290,10 @@
                           style="margin-top: -15px;"></v-checkbox>
               <v-checkbox v-model="user.cyclingBehaviour.q10" label="School or university" value="School or university"
                           style="margin-top: -15px;"></v-checkbox>
-              <v-checkbox v-model="user.cyclingBehaviour.q10" label="I do not ride on weekends"
-                          value="I do not ride on weekends" style="margin-top: -15px;"></v-checkbox>
+              <v-checkbox v-model="user.cyclingBehaviour.q10" label="Shopping" value="Shopping"
+                          style="margin-top: -15px;"></v-checkbox>
+              <v-checkbox v-model="user.cyclingBehaviour.q10" label="I do not ride on working days"
+                          value="I do not ride on working days" style="margin-top: -15px;"></v-checkbox>
               <v-checkbox v-model="user.cyclingBehaviour.q10" label="Other" value="Other"
                           style="margin-top: -15px;"></v-checkbox>
 
@@ -332,7 +315,7 @@
                 <v-radio label="More than 4 hours" value=5></v-radio>
               </v-radio-group>
 
-              <v-radio-group v-model="user.cyclingBehaviour.q12">
+              <v-radio-group v-model="user.cyclingBehaviour.q12a">
                 <p class="title">Tracking rides on Strava: Which of the following statements do you most agree with?</p>
                 <v-radio label="I track all my rides on Strava" value=1></v-radio>
                 <v-radio label="I track most of my rides on Strava" value=2></v-radio>
@@ -340,13 +323,19 @@
                 <v-radio label="I never track my rides on Strava" value=4></v-radio>
               </v-radio-group>
 
+              <v-radio-group v-model="user.cyclingBehaviour.q12b" v-if="user.cyclingBehaviour.q12a !== '4'">
+                <p class="title">Publishing activities: Which of the following statements do you most agree with?</p>
+                <v-radio label="I publish all my tracked activities" value=1></v-radio>
+                <v-radio label="I publish some of my tracked activities" value=2></v-radio>
+                <v-radio label="I publish none of my tracked activities" value=3></v-radio>
+              </v-radio-group>
 
               <v-radio-group v-model="user.cyclingBehaviour.q13">
                 <p class="title">Cycling purpose: Which of the following statements do you most agree with?</p>
                 <v-radio
                   label="I am a pure commuter, meaning I *only* use by bike as a mean of transportation (to get from A to B, e.g. to work or university)"
                   value=1></v-radio>
-                <v-radio label="I am a recreational cyclist and ride mostly as a hobby" value=2></v-radio>
+                <v-radio label="I am a recreational cyclist and ride mostly as a hobby (including commuting)" value=2></v-radio>
                 <v-radio
                   label="I am a professional cyclist, cycling is my main occupation and I make money from it or plan to make money from it in the future"
                   value=3></v-radio>
@@ -437,8 +426,8 @@
               <h1>Route Planning</h1>
 
               <v-radio-group v-model="user.routePlanning.q1">
-                <p class="title">Do you pay for Strava (Summit)?</p>
-                <v-radio label="Yes, I use Summit" value=1></v-radio>
+                <p class="title">Did you ever pay for Strava (Summit)?</p>
+                <v-radio label="Yes, I use Summit or have used it in the past" value=1></v-radio>
                 <v-radio label="No" value=2></v-radio>
               </v-radio-group>
 
@@ -535,30 +524,54 @@
               </v-layout>
 
               <section>
-                <p class="title">How do you go about planning your cycling routes?</p>
-                <v-checkbox v-model="user.routePlanning.q4" label="I plan spontaneously while I’m cycling"
+                <p class="title">How do you go about planning your cycling routes <b>when cycling on your own</b>?</p>
+                <v-checkbox v-model="user.routePlanning.q4a" label="I plan spontaneously while I’m cycling"
                             value="Spontaneous"
                             style="margin-top: -10px;"></v-checkbox>
-                <v-checkbox v-model="user.routePlanning.q4" label="I plan the route in my head beforehand" value="Head"
+                <v-checkbox v-model="user.routePlanning.q4a" label="I plan the route in my head beforehand" value="Head"
                             style="margin-top: -15px;"></v-checkbox>
-                <v-checkbox v-model="user.routePlanning.q4" label="I use a digital map or App (such as Google Maps)"
+                <v-checkbox v-model="user.routePlanning.q4a" label="I use a digital map or App (such as Google Maps)"
                             value="Digital"
                             style="margin-top: -15px;"></v-checkbox>
-                <v-checkbox v-model="user.routePlanning.q4" label="I use a physical (paper) map" value="Physical"
+                <v-checkbox v-model="user.routePlanning.q4a" label="I use a physical (paper) map" value="Physical"
                             style="margin-top: -15px;"></v-checkbox>
-                <v-checkbox v-model="user.routePlanning.q4" label="Other" value="Other"
+                <v-checkbox v-model="user.routePlanning.q4a" label="Other" value="Other"
                             style="margin-top: -15px;"></v-checkbox>
               </section>
-              <section v-if="user.routePlanning.q4.includes('Other')">
+              <section v-if="user.routePlanning.q4a.includes('Other')">
                 <v-layout row wrap>
                   <v-flex xs12 sm6 md6>
-                    <v-textarea label="Please specify" v-model="user.routePlanning.q4Text"></v-textarea>
+                    <v-textarea label="Please specify" v-model="user.routePlanning.q4aText"></v-textarea>
+                  </v-flex>
+                </v-layout>
+              </section>
+
+              <section>
+                <p class="title">How do you go about planning your cycling routes <b>when cycling in a group</b>?</p>
+                <v-checkbox v-model="user.routePlanning.q4b" label="We plan spontaneously while we're cycling"
+                            value="Spontaneous"
+                            style="margin-top: -10px;"></v-checkbox>
+                <v-checkbox v-model="user.routePlanning.q4b" label="We plan the route in our head beforehand" value="Head"
+                            style="margin-top: -15px;"></v-checkbox>
+                <v-checkbox v-model="user.routePlanning.q4b" label="We use a digital map or App (such as Google Maps)"
+                            value="Digital"
+                            style="margin-top: -15px;"></v-checkbox>
+                <v-checkbox v-model="user.routePlanning.q4b" label="We use a physical (paper) map" value="Physical"
+                            style="margin-top: -15px;"></v-checkbox>
+                <v-checkbox v-model="user.routePlanning.q4b" label="Other" value="Other"
+                            style="margin-top: -15px;"></v-checkbox>
+              </section>
+              <section v-if="user.routePlanning.q4b.includes('Other')">
+                <v-layout row wrap>
+                  <v-flex xs12 sm6 md6>
+                    <v-textarea label="Please specify" v-model="user.routePlanning.q4bText"></v-textarea>
                   </v-flex>
                 </v-layout>
               </section>
 
 
-              <p class="title">Which digital maps, apps or websites do you use for planning your rides?</p>
+
+              <p class="title">Which digital maps, apps or websites do you use for planning your rides in advance?</p>
               <v-layout row wrap>
                 <v-flex xs12 sm6 md6>
                   <v-textarea label="Please specify" v-model="user.routePlanning.q5"></v-textarea>
@@ -667,13 +680,6 @@
                 <br>
               </section>
 
-              <p class="title">Consider your ratings on the previous question. How does your method of planning routes
-                help you fulfill the goals that are important to you?</p>
-              <v-layout row wrap>
-                <v-flex xs12 sm6 md6>
-                  <v-textarea label="Please elaborate" v-model="user.routePlanning.q9"></v-textarea>
-                </v-flex>
-              </v-layout>
               <v-btn class="gradient gradient-orange" style="width: 200px;" dark round @click="e1 = 4"
                      v-on:click="logUser">Continue
               </v-btn>
@@ -830,14 +836,14 @@
                       <h3>Introduction</h3>
                       <p>These Website Standard Terms and Conditions written on this webpage shall manage your use of
                         our
-                        website, ExploX accessible at umtl.dfki.de.</p>
+                        website, ExploX accessible at umtl.dfki.de/explox.</p>
                       <p>These Terms will be applied fully and affect to your use of this Website. By using this
                         Website,
                         you agreed to accept all terms and conditions written in here. You must not use this Website if
                         you disagree with any of these Website Standard Terms and Conditions.</p>
 
                       <h3>Intellectual Property Rights</h3>
-                      <p>Other than the content you own, under these Terms, DFKI and/or its licensors own all the
+                      <p>Other than the content you own, under these Terms, Saarland University and/or its licensors own all the
                         intellectual property rights and materials contained in this Website.</p>
                       <p>You are granted limited license only for purposes of viewing the material contained on this
                         Website.</p>
@@ -856,27 +862,27 @@
                           relation to this Website;
                         </li>
                       </ul>
-                      <p>Certain areas of this Website are restricted from being access by you and DFKI may further
+                      <p>Certain areas of this Website are restricted from being access by you and Saarland University may further
                         restrict access by you to any areas of this Website, at any time, in absolute discretion. Any
                         user
                         ID and password you may have for this Website are confidential and you must maintain
                         confidentiality as well.</p>
 
                       <h3>No warranties</h3>
-                      <p>This Website is provided "as is," with all faults, and DFKI express no representations or
+                      <p>This Website is provided "as is," with all faults, and Saarland University express no representations or
                         warranties, of any kind related to this Website or the materials contained on this Website.
                         Also,
                         nothing contained on this Website shall be interpreted as advising you.</p>
 
                       <h3>Limitation of liability</h3>
-                      <p>In no event shall DFKI, nor any of its officers, directors and employees, shall be held liable
+                      <p>In no event shall Saarland University, nor any of its officers, directors and employees, shall be held liable
                         for anything arising out of or in any way connected with your use of this Website whether such
-                        liability is under contract.  DFKI, including its officers, directors and employees shall not be
+                        liability is under contract. Saarland University, including its officers, directors and employees shall not be
                         held liable for any indirect, consequential or special liability arising out of or in any way
                         related to your use of this Website.</p>
 
                       <h3>Indemnification</h3>
-                      <p>You hereby indemnify to the fullest extent DFKI from and against any and/or all liabilities,
+                      <p>You hereby indemnify to the fullest extent Saarland University from and against any and/or all liabilities,
                         costs, demands, causes of action, damages and expenses arising in any way related to your breach
                         of any of the provisions of these Terms.</p>
 
@@ -886,23 +892,23 @@
                         shall be deleted without affecting the remaining provisions herein.</p>
 
                       <h3>Variation of Terms</h3>
-                      <p>DFKI is permitted to revise these Terms at any time as it sees fit, and by using this Website
+                      <p>Saarland University is permitted to revise these Terms at any time as it sees fit, and by using this Website
                         you
                         are expected to review these Terms on a regular basis.</p>
 
                       <h3>Assignment</h3>
-                      <p>The DFKI is allowed to assign, transfer, and subcontract its rights and/or obligations under
+                      <p>The Saarland University is allowed to assign, transfer, and subcontract its rights and/or obligations under
                         these Terms without any notification. However, you are not allowed to assign, transfer, or
                         subcontract any of your rights and/or obligations under these Terms.</p>
 
                       <h3>Entire Agreement</h3>
-                      <p>These Terms constitute the entire agreement between DFKI and you in relation to your use of
+                      <p>These Terms constitute the entire agreement between Saarland University and you in relation to your use of
                         this
                         Website, and supersede all prior agreements and understandings.</p>
 
                       <h3>Governing Law & Jurisdiction</h3>
-                      <p>These Terms will be governed by and interpreted in accordance with the laws of the State of de,
-                        and you submit to the non-exclusive jurisdiction of the state and federal courts located in de
+                      <p>These Terms will be governed by and interpreted in accordance with the laws of the State of Germany,
+                        and you submit to the non-exclusive jurisdiction of the state and federal courts located in Germany
                         for
                         the resolution of any disputes.</p>
                     </v-card-text>
@@ -1041,33 +1047,22 @@
                 <v-radio label="Männlich" value=1></v-radio>
                 <v-radio label="Weiblich" value=2></v-radio>
                 <v-radio label="Andere" value=3></v-radio>
-                <v-radio label="Keine Angabe" value=4></v-radio>
               </v-radio-group>
 
-              <v-radio-group v-model="user.demographics.q2">
-                <p class="title">Alter:</p>
-                <v-radio label="Unter 18" value=1></v-radio>
-                <v-radio label="18-27" value=2></v-radio>
-                <v-radio label="28-37" value=3></v-radio>
-                <v-radio label="38-47" value=4></v-radio>
-                <v-radio label="48-57" value=5></v-radio>
-                <v-radio label="58-67" value=6></v-radio>
-                <v-radio label="68 oder älter" value=7></v-radio>
-                <v-radio label="Keine Angabe" value=8></v-radio>
-              </v-radio-group>
+              <p class="title">Alter:</p>
+              <v-text-field v-model="user.demographics.q2" type="number" label="" min="0" max="100"
+                            style="width: 100px;"></v-text-field>
 
               <v-radio-group v-model="user.demographics.q3">
                 <p class="title">Höchster Bildungsabschluss:</p>
                 <v-radio label="Mittlere Reife" value=1></v-radio>
                 <v-radio label="Abitur" value=2></v-radio>
-                <v-radio label="Bachelor" value=3></v-radio>
-                <v-radio label="Master" value=4></v-radio>
-                <v-radio label="Doctorate" value=5></v-radio>
-                <v-radio label="Keine Angabe" value=6></v-radio>
-                <v-radio label="Anderen" value=7></v-radio>
+                <v-radio label="Universität oder Hochschulabschluss" value=3></v-radio>
+                <v-radio label="Keine Angabe" value=4></v-radio>
+                <v-radio label="Anderen" value=5></v-radio>
               </v-radio-group>
 
-              <v-layout row wrap v-if="user.demographics.q3 === '7'">
+              <v-layout row wrap v-if="user.demographics.q3 === '5'">
                 <v-flex xs12 sm6 md3>
                   <v-text-field label="Bitte angeben" v-model="user.demographics.q3Text"></v-text-field>
                 </v-flex>
@@ -1079,7 +1074,7 @@
                 <v-radio label="Teilzeit angestellt" value=2></v-radio>
                 <v-radio label="Student" value=3></v-radio>
                 <v-radio label="Selbstständig" value=4></v-radio>
-                <v-radio label="Arbeitslos" value=5></v-radio>
+                <v-radio label="Keine Beschäftigung" value=5></v-radio>
                 <v-radio label="Pensioniert" value=6></v-radio>
                 <v-radio label="Keine Angabe" value=7></v-radio>
               </v-radio-group>
@@ -1103,17 +1098,6 @@
                   <p>{{cyclingLocationDisplay}}</p>
                 </v-flex>
               </v-layout>
-
-              <v-radio-group v-model="user.demographics.q7">
-                <p class="title">Monatliches Einkommen (netto):</p>
-                <v-radio label="Weniger als 2.000€" value=1></v-radio>
-                <v-radio label="2.001€ - 4.000€" value=2></v-radio>
-                <v-radio label="4.001€ - 6.000€" value=3></v-radio>
-                <v-radio label="6.001€ - 8.000€" value=4></v-radio>
-                <v-radio label="8.001€ - 10.000€" value=5></v-radio>
-                <v-radio label="Mehr als 10.000€" value=6></v-radio>
-                <v-radio label="Keine Angabe" value=7></v-radio>
-              </v-radio-group>
 
               <v-btn class="gradient gradient-orange" style="width: 200px;" dark round @click="e1 = 2"
                      v-on:click="logUser">Weiter
@@ -1144,13 +1128,14 @@
               </v-radio-group>
 
               <v-radio-group v-model="user.cyclingBehaviour.q4">
-                <p class="title">Über das ganze Jahr betrachtet, wie oft fahren Sie im Durchschnitt Fahrrad?</p>
+                <p class="title">Wie oft fahren Sie während der Fahrradsaison (Frühjahr bis Herbst) im Durchschnitt Fahrrad?</p>
                 <v-radio label="Täglich" value=1></v-radio>
-                <v-radio label="Mehrmals wöchentlich" value=2></v-radio>
-                <v-radio label="Mehr als 4 mal monatlich" value=3></v-radio>
-                <v-radio label="Weniger als 4 mal monatlich" value=4></v-radio>
-                <v-radio label="Weniger als einmal jährlich" value=5></v-radio>
-                <v-radio label="Nie" value=6></v-radio>
+                <v-radio label="1-2 mal pro Woche" value=2></v-radio>
+                <v-radio label="Mehrmals wöchentlich" value=3></v-radio>
+                <v-radio label="Mehr als 4 mal monatlich" value=4></v-radio>
+                <v-radio label="Weniger als 4 mal monatlich" value=5></v-radio>
+                <v-radio label="Weniger als einmal jährlich" value=6></v-radio>
+                <v-radio label="Nie" value=7></v-radio>
               </v-radio-group>
 
               <p class="title">Welches Equipment nutzen Sie, um Ihre Fahrten zu tracken/aufzuzeichnen?</p>
@@ -1193,19 +1178,21 @@
 
               <p class="title">Was sind Ihre Hauptgründe <b style="color:#ee5b19;">an Werktagen (Mo-Fr)</b> ihr Fahrrad
                 zu benutzen?</p>
-              <v-checkbox v-model="user.cyclingBehaviour.q8" label="Freizeitaktivität" value="Recreational"
+              <v-checkbox v-model="user.cyclingBehaviour.q8" label="Sport und Training" value="Sport"
                           style="margin-top: -10px;"></v-checkbox>
               <v-checkbox v-model="user.cyclingBehaviour.q8" label="Freunde, Bekannte usw. besuchen"
                           value="Visiting friends"
                           style="margin-top: -15px;"></v-checkbox>
-              <v-checkbox v-model="user.cyclingBehaviour.q8" label="Transport zur Arbeit"
+              <v-checkbox v-model="user.cyclingBehaviour.q8" label="Pendeln zur Arbeit"
                           value="Work purpose or commute" style="margin-top: -15px;"></v-checkbox>
               <v-checkbox v-model="user.cyclingBehaviour.q8" label="Als soziale Aktivität (mit Freunden)"
                           value="Social activities"
                           style="margin-top: -15px;"></v-checkbox>
-              <v-checkbox v-model="user.cyclingBehaviour.q8" label="Transport zur Schule oder Universität"
+              <v-checkbox v-model="user.cyclingBehaviour.q8" label="Pendeln zur Schule oder Universität"
                           value="School or university"
                           style="margin-top: -15px;"></v-checkbox>
+              <v-checkbox v-model="user.cyclingBehaviour.q8" label="Sonstige Erledigungen (z.B. einkaufen)" value="Shopping"
+                          style="margin-top: -10px;"></v-checkbox>
               <v-checkbox v-model="user.cyclingBehaviour.q8" label="Ich fahre nicht an Werktagen"
                           value="I do not ride on working days" style="margin-top: -15px;"></v-checkbox>
               <v-checkbox v-model="user.cyclingBehaviour.q8" label="Andere Gründe" value="Other"
@@ -1232,21 +1219,23 @@
               <p class="title">Was sind Ihre Hauptgründe <b style="color:#ee5b19;">an Wochenenden (Sa, So)</b> ihr
                 Fahrrad
                 zu benutzen?</p>
-              <v-checkbox v-model="user.cyclingBehaviour.q10" label="Freizeitaktivität" value="Recreational"
+              <v-checkbox v-model="user.cyclingBehaviour.q10" label="Sport und Training" value="Sport"
                           style="margin-top: -10px;"></v-checkbox>
               <v-checkbox v-model="user.cyclingBehaviour.q10" label="Freunde, Bekannte usw. besuchen"
                           value="Visiting friends"
                           style="margin-top: -15px;"></v-checkbox>
-              <v-checkbox v-model="user.cyclingBehaviour.q10" label="Transport zur Arbeit"
+              <v-checkbox v-model="user.cyclingBehaviour.q10" label="Pendeln zur Arbeit"
                           value="Work purpose or commute" style="margin-top: -15px;"></v-checkbox>
               <v-checkbox v-model="user.cyclingBehaviour.q10" label="Als soziale Aktivität (mit Freunden)"
                           value="Social activities"
                           style="margin-top: -15px;"></v-checkbox>
-              <v-checkbox v-model="user.cyclingBehaviour.q10" label="Transport zur Schule oder Universität"
+              <v-checkbox v-model="user.cyclingBehaviour.q10" label="Pendeln zur Schule oder Universität"
                           value="School or university"
                           style="margin-top: -15px;"></v-checkbox>
-              <v-checkbox v-model="user.cyclingBehaviour.q10" label="Ich fahre nicht an Wochenenden"
-                          value="I do not ride on weekends" style="margin-top: -15px;"></v-checkbox>
+              <v-checkbox v-model="user.cyclingBehaviour.q10" label="Sonstige Erledigungen (z.B. einkaufen)" value="Shopping"
+                          style="margin-top: -10px;"></v-checkbox>
+              <v-checkbox v-model="user.cyclingBehaviour.q10" label="Ich fahre nicht an Werktagen"
+                          value="I do not ride on working days" style="margin-top: -15px;"></v-checkbox>
               <v-checkbox v-model="user.cyclingBehaviour.q10" label="Andere Gründe" value="Other"
                           style="margin-top: -15px;"></v-checkbox>
 
@@ -1268,21 +1257,27 @@
                 <v-radio label="Mehr als 4 Stunden" value=5></v-radio>
               </v-radio-group>
 
-              <v-radio-group v-model="user.cyclingBehaviour.q12">
+              <v-radio-group v-model="user.cyclingBehaviour.q12a">
                 <p class="title">Aktivitäten auf Strava: Welcher dieser Aussagen stimmen Sie am meisten zu?</p>
-                <v-radio label="I tracke alle meine Touren auf Strava" value=1></v-radio>
-                <v-radio label="I tracke die meisten meiner Touren auf Strava" value=2></v-radio>
-                <v-radio label="I tracke meine Touren nur manchmal" value=3></v-radio>
-                <v-radio label="I tracke nie meine Touren auf Strava" value=4></v-radio>
+                <v-radio label="Ich tracke alle meine Touren auf Strava" value=1></v-radio>
+                <v-radio label="Ich tracke die meisten meiner Touren auf Strava" value=2></v-radio>
+                <v-radio label="Ich tracke meine Touren nur manchmal" value=3></v-radio>
+                <v-radio label="Ich tracke nie meine Touren auf Strava" value=4></v-radio>
               </v-radio-group>
 
+              <v-radio-group v-model="user.cyclingBehaviour.q12b" v-if="user.cyclingBehaviour.q12a !== '4'">
+                <p class="title">Veröffentlichte Aktivitäten: Welcher dieser Aussagen stimmen Sie am meisten zu?</p>
+                <v-radio label="Ich veröffentliche alle meiner getrackten Aktivitäten" value=1></v-radio>
+                <v-radio label="Ich veröffentliche nur manche meiner getrackten Aktivitäten" value=2></v-radio>
+                <v-radio label="Ich veröffentliche keine meiner getrackten Aktivitäten" value=3></v-radio>
+              </v-radio-group>
 
               <v-radio-group v-model="user.cyclingBehaviour.q13">
                 <p class="title">Absicht beim Radfahren: Welcher dieser Aussagen stimmen Sie am meisten zu?</p>
                 <v-radio
                   label="Ich bin reiner Pendler. Ich nutze mein Fahrrad nur als Transportmittel (um von A nach B zu gelangen, z.B. zur Arbeit oder Universität)"
                   value=1></v-radio>
-                <v-radio label="Ich bin ein Freizeitfahrer. Radfahren ist ein Hobby für mich" value=2></v-radio>
+                <v-radio label="Ich bin ein Freizeitfahrer. Radfahren ist ein Hobby für mich (einschl. pendeln)" value=2></v-radio>
                 <v-radio
                   label="Ich bin ein Profi. Radfahren ist mein Beruf und verdiene dadurch meinen Unterhalt bzw. arbeite darauf hin"
                   value=3></v-radio>
@@ -1374,8 +1369,8 @@
               <h1>Routenplanung</h1>
 
               <v-radio-group v-model="user.routePlanning.q1">
-                <p class="title">Bezahlen Sie für Strava (Summit)?</p>
-                <v-radio label="Ja, ich nutze Summit" value=1></v-radio>
+                <p class="title">Haben Sie schonmal für Strava (Summit) bezahlt?</p>
+                <v-radio label="Ja, ich nutze Summit oder habe es in der Vergangenheit benutzt" value=1></v-radio>
                 <v-radio label="Nein" value=2></v-radio>
               </v-radio-group>
 
@@ -1474,34 +1469,63 @@
               </v-layout>
 
               <section>
-                <p class="title">Wie planen Sie Ihre Radtouren/Routen?</p>
-                <v-checkbox v-model="user.routePlanning.q4" label="Ich plane spontan während ich unterwegs bin"
+                <p class="title">Wie planen Sie Ihre Radtouren/Routen <b>wenn Sie alleine fahren</b>?</p>
+                <v-checkbox v-model="user.routePlanning.q4a" label="Ich plane spontan während ich unterwegs bin"
                             value="Spontaneous"
                             style="margin-top: -10px;"></v-checkbox>
-                <v-checkbox v-model="user.routePlanning.q4"
-                            label="Ich denke mir eine Route im Kopf aus, die ich dann fahre" value="Head"
+                <v-checkbox v-model="user.routePlanning.q4a"
+                            label="Ich denke mir im Voraus eine Route im Kopf aus, die ich dann fahre" value="Head"
                             style="margin-top: -15px;"></v-checkbox>
-                <v-checkbox v-model="user.routePlanning.q4"
+                <v-checkbox v-model="user.routePlanning.q4a"
                             label="Ich benutze eine App oder digitale Karte (z.B. Google Maps)"
                             value="Digital"
                             style="margin-top: -15px;"></v-checkbox>
-                <v-checkbox v-model="user.routePlanning.q4" label="Ich benutze eine echte Karte (aus Papier)"
+                <v-checkbox v-model="user.routePlanning.q4a" label="Ich benutze eine echte Karte (aus Papier)"
                             value="Physical"
                             style="margin-top: -15px;"></v-checkbox>
-                <v-checkbox v-model="user.routePlanning.q4" label="Andere" value="Other"
+                <v-checkbox v-model="user.routePlanning.q4a" label="Andere" value="Other"
                             style="margin-top: -15px;"></v-checkbox>
               </section>
-              <section v-if="user.routePlanning.q4.includes('Other')">
+
+              <section v-if="user.routePlanning.q4a.includes('Other')">
                 <v-layout row wrap>
                   <v-flex xs12 sm6 md6>
                     <v-textarea label="Bitte angeben, wie Sie außerdem planen"
-                                v-model="user.routePlanning.q4Text"></v-textarea>
+                                v-model="user.routePlanning.q4aText"></v-textarea>
+                  </v-flex>
+                </v-layout>
+              </section>
+
+              <section>
+                <p class="title">Wie planen Sie Ihre Radtouren/Routen <b> wenn Sie in einer Gruppe fahren</b>?</p>
+                <v-checkbox v-model="user.routePlanning.q4b" label="Wir planen spontan während wir unterwegs sind"
+                            value="Spontaneous"
+                            style="margin-top: -10px;"></v-checkbox>
+                <v-checkbox v-model="user.routePlanning.q4b"
+                            label="Wir denke uns im Voraus eine Route im Kopf aus, die wir dann fahren" value="Head"
+                            style="margin-top: -15px;"></v-checkbox>
+                <v-checkbox v-model="user.routePlanning.q4b"
+                            label="Wir benutze eine App oder digitale Karte (z.B. Google Maps)"
+                            value="Digital"
+                            style="margin-top: -15px;"></v-checkbox>
+                <v-checkbox v-model="user.routePlanning.q4b" label="Wir benutze eine echte Karte (aus Papier)"
+                            value="Physical"
+                            style="margin-top: -15px;"></v-checkbox>
+                <v-checkbox v-model="user.routePlanning.q4b" label="Andere" value="Other"
+                            style="margin-top: -15px;"></v-checkbox>
+              </section>
+
+              <section v-if="user.routePlanning.q4b.includes('Other')">
+                <v-layout row wrap>
+                  <v-flex xs12 sm6 md6>
+                    <v-textarea label="Bitte angeben, wie Sie außerdem planen"
+                                v-model="user.routePlanning.q4bText"></v-textarea>
                   </v-flex>
                 </v-layout>
               </section>
 
 
-              <p class="title">Welche digitalen Karte, Apps oder Webseiten nutzen Sie zur Planung ihre Routen?</p>
+              <p class="title">Welche digitalen Karte, Apps oder Webseiten nutzen Sie zur Planung ihre Routen im Voraus?</p>
               <v-layout row wrap>
                 <v-flex xs12 sm6 md6>
                   <v-textarea label="Bitte angeben" v-model="user.routePlanning.q5"></v-textarea>
@@ -1612,13 +1636,6 @@
                 <br>
               </section>
 
-              <p class="title">Wie hilft oder hindert ihre Vorgehensweise zum Planen neuer Routen Sie dabei, die
-                relevanten Punkte der vorherigen Frage zu erfüllen?</p>
-              <v-layout row wrap>
-                <v-flex xs12 sm6 md6>
-                  <v-textarea label="Bitte erläutern" v-model="user.routePlanning.q9"></v-textarea>
-                </v-flex>
-              </v-layout>
               <v-btn class="gradient gradient-orange" style="width: 200px;" dark round @click="e1 = 4"
                      v-on:click="logUser">Weiter
               </v-btn>
@@ -1703,7 +1720,7 @@
               <p>Dies ist die letzte Seite des Anmeldungsfragebogens. Sie können Ihre Antworten noch anpassen.
                 <b>Sobald Sie den Fragebogen über die untenstehenden Buttons abschließen können Sie ihre Antworten
                   nicht mehr ändern.</b><br>
-                Bitte lesen und aktzeptieren Sie die Geschäftsbedingungen.</p>
+                Bitte lesen und aktzeptieren Sie die Teilnahmebedingungen.</p>
               <br>
               <h1>Feldstudie</h1>
               <p>In der Feldstudie können Sie die Website in den kommenden 2-4 Wochen (bis 14. Juli) benutzen und sich
@@ -1733,9 +1750,9 @@
               <section v-if="this.isEligible || this.canUseWebsite">
                 <h1>Möchten Sie an der Studie teilnehmen?</h1>
                 <!--<v-checkbox :label="checkbox1_text" v-model="emailsCheckbox" style="margin-bottom: -20px;"></v-checkbox>-->
-                <v-btn depressed v-on:click="dialog = true" style="width: 300px;">Geschäftsbedingungen anzeigen
+                <v-btn depressed v-on:click="dialog = true" style="width: 300px;">Teilnahmebedingungen anzeigen
                 </v-btn>
-                <v-checkbox :rules="[rules.required]" label="Geschäftsbedingungen akzeptieren" v-model="termsCheckbox"
+                <v-checkbox :rules="[rules.required]" label="Teilnahmebedingungen akzeptieren" v-model="termsCheckbox"
                             v-bind:error="termsError"></v-checkbox>
                 <br>
               </section>
@@ -1776,14 +1793,14 @@
                     <h3>Introduction</h3>
                     <p>These Website Standard Terms and Conditions written on this webpage shall manage your use of
                       our
-                      website, ExploX accessible at umtl.dfki.de.</p>
+                      website, ExploX accessible at umtl.dfki.de/explox.</p>
                     <p>These Terms will be applied fully and affect to your use of this Website. By using this
                       Website,
                       you agreed to accept all terms and conditions written in here. You must not use this Website if
                       you disagree with any of these Website Standard Terms and Conditions.</p>
 
                     <h3>Intellectual Property Rights</h3>
-                    <p>Other than the content you own, under these Terms, DFKI and/or its licensors own all the
+                    <p>Other than the content you own, under these Terms, Saarland University and/or its licensors own all the
                       intellectual property rights and materials contained in this Website.</p>
                     <p>You are granted limited license only for purposes of viewing the material contained on this
                       Website.</p>
@@ -1802,27 +1819,27 @@
                         relation to this Website;
                       </li>
                     </ul>
-                    <p>Certain areas of this Website are restricted from being access by you and DFKI may further
+                    <p>Certain areas of this Website are restricted from being access by you and Saarland University may further
                       restrict access by you to any areas of this Website, at any time, in absolute discretion. Any
                       user
                       ID and password you may have for this Website are confidential and you must maintain
                       confidentiality as well.</p>
 
                     <h3>No warranties</h3>
-                    <p>This Website is provided "as is," with all faults, and DFKI express no representations or
+                    <p>This Website is provided "as is," with all faults, and Saarland University express no representations or
                       warranties, of any kind related to this Website or the materials contained on this Website.
                       Also,
                       nothing contained on this Website shall be interpreted as advising you.</p>
 
                     <h3>Limitation of liability</h3>
-                    <p>In no event shall DFKI, nor any of its officers, directors and employees, shall be held liable
+                    <p>In no event shall Saarland University, nor any of its officers, directors and employees, shall be held liable
                       for anything arising out of or in any way connected with your use of this Website whether such
-                      liability is under contract.  DFKI, including its officers, directors and employees shall not be
+                      liability is under contract.  Saarland University, including its officers, directors and employees shall not be
                       held liable for any indirect, consequential or special liability arising out of or in any way
                       related to your use of this Website.</p>
 
                     <h3>Indemnification</h3>
-                    <p>You hereby indemnify to the fullest extent DFKI from and against any and/or all liabilities,
+                    <p>You hereby indemnify to the fullest extent Saarland University from and against any and/or all liabilities,
                       costs, demands, causes of action, damages and expenses arising in any way related to your breach
                       of any of the provisions of these Terms.</p>
 
@@ -1832,23 +1849,23 @@
                       shall be deleted without affecting the remaining provisions herein.</p>
 
                     <h3>Variation of Terms</h3>
-                    <p>DFKI is permitted to revise these Terms at any time as it sees fit, and by using this Website
+                    <p>Saarland University is permitted to revise these Terms at any time as it sees fit, and by using this Website
                       you
                       are expected to review these Terms on a regular basis.</p>
 
                     <h3>Assignment</h3>
-                    <p>The DFKI is allowed to assign, transfer, and subcontract its rights and/or obligations under
+                    <p>The Saarland University is allowed to assign, transfer, and subcontract its rights and/or obligations under
                       these Terms without any notification. However, you are not allowed to assign, transfer, or
                       subcontract any of your rights and/or obligations under these Terms.</p>
 
                     <h3>Entire Agreement</h3>
-                    <p>These Terms constitute the entire agreement between DFKI and you in relation to your use of
+                    <p>These Terms constitute the entire agreement between Saarland University and you in relation to your use of
                       this
                       Website, and supersede all prior agreements and understandings.</p>
 
                     <h3>Governing Law & Jurisdiction</h3>
-                    <p>These Terms will be governed by and interpreted in accordance with the laws of the State of de,
-                      and you submit to the non-exclusive jurisdiction of the state and federal courts located in de
+                    <p>These Terms will be governed by and interpreted in accordance with the laws of the State of Germany,
+                      and you submit to the non-exclusive jurisdiction of the state and federal courts located in Germany
                       for
                       the resolution of any disputes.</p>
                   </v-card-text>
@@ -2022,7 +2039,7 @@
           if (!cache) {
             if (!err) {
               EventBus.$on('authenticated', () => {
-                this.$router.push('/dashboard')
+                this.$router.push('/creator')
               })
               EventBus.$emit('reloadData')
             }
@@ -2085,7 +2102,7 @@
         eligible &= this.user.cyclingBehaviour.q1 !== '3'         // Does not have access to a bike in working condition
         eligible &= parseInt(this.user.cyclingBehaviour.q4) < 5   // Cycles less than once a year
         eligible &= this.user.cyclingBehaviour.q13 === '2'        // Does not identify as a recreational cyclist
-        eligible &= parseInt(this.user.cyclingBehaviour.q12) < 4  // Tracks at least some rides on Strava
+        eligible &= parseInt(this.user.cyclingBehaviour.q12a) < 4  // Tracks at least some rides on Strava
         eligible &= this.checkCanUseWebsite()
         this.isEligible = eligible
         return this.isEligible

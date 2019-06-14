@@ -26,7 +26,7 @@
         <br>
         <h2>Exploration</h2>
         <under-construction></under-construction>
-        <activity-chart
+        <!--<activity-chart
           style="width: 100%"
           :data="datacollection"
           :options="{responsive: true, maintainAspectRatio: false}">
@@ -35,19 +35,20 @@
           style="width: 100%"
           :data="datacollection"
           :options="{responsive: true, maintainAspectRatio: false}">
-        </radar-chart>      </v-layout>
+        </radar-chart>-->
+      </v-layout>
     </section>
 
   </div>
 </template>
 
 <script>
-  import UnderConstruction from "../includes/UnderConstruction";
-  import ActivityChart from "./ActivityChart";
-  import RadarChart from "./RadarChart";
+  import UnderConstruction from '../includes/UnderConstruction'
+  import ActivityChart from './ActivityChart'
+  import RadarChart from './RadarChart'
 
   export default {
-    name: "Analytics",
+    name: 'Analytics',
     components: {RadarChart, ActivityChart, UnderConstruction},
     props: {
       user: Object,

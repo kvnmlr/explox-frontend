@@ -22,7 +22,13 @@
       </v-alert>
     </div>
     <section v-else>
-      <div style="width: 75%">
+      <h1 v-if="step === '1'">Step 1: Select Start Point</h1>
+      <h1 v-if="step === '2'">Step 2: Select End Point</h1>
+      <h1 v-if="step === '3'">Step 3: Choose Route Parameters</h1>
+      <h1 v-if="step === '4'">Inspect and Rate the result routes</h1>
+
+      <br>
+      <div style="width: 70%">
         <simple-map :current-select-start="step === '1'"
                     :select-enabled="step === '1' || step === '2'"
                     show-activity-map
@@ -37,8 +43,8 @@
       <v-navigation-drawer v-if="$vuetify.breakpoint.smAndUp && !results && drawer"
                            :mini-variant="mini"
                            absolute right fixed
-                           :width="400"
-                           permanent style="background-color: #F5F5F5">
+                           class="elevation-10"
+                           permanent style="background-color: white; width: 30%">
 
         <v-list>
           <v-list-tile v-if="mini" @click.stop="mini = !mini">
@@ -49,7 +55,7 @@
 
           <v-list-tile>
             <v-list-tile-content>
-              <v-list-tile-title><h3>Route Creator</h3></v-list-tile-title>
+              <v-list-tile-title><h2>Route Creator</h2></v-list-tile-title>
             </v-list-tile-content>
 
             <v-list-tile-action>
@@ -61,13 +67,12 @@
         </v-list>
 
         <div v-if="!mini">
-          <v-stepper v-model="step" class="elevation-0" vertical non-linear style="background-color: #F5F5F5">
+          <v-stepper v-model="step" class="elevation-0" vertical non-linear style="background-color: white">
             <v-stepper-step :complete="step > 1" step="1" editable>
-              Select Start Point
+              <h3>Select Start Point</h3>
             </v-stepper-step>
             <v-stepper-content step="1">
-              <p style="color: darkgrey;">
-                Click on the map to select a start point
+              <p>Click on the map to select a start point
                 &nbsp;<v-icon v-show="startSelectedDone">check</v-icon>
               </p>
               <p v-if="startSelectedDone" style="color: darkgray;">
@@ -79,10 +84,10 @@
             </v-stepper-content>
 
             <v-stepper-step :complete="step > 2" step="2" :editable="selectedStartPosition !== null">
-              Select End Point
+              <h3>Select End Point</h3>
             </v-stepper-step>
             <v-stepper-content step="2">
-              <p style="color: darkgray;">If the end point should be different from the start point click on the map to
+              <p>If the end point should be different from the start point click on the map to
                 select an end point
                 &nbsp;<v-icon>check</v-icon>
               </p>
@@ -97,7 +102,7 @@
 
             <v-stepper-step :complete="step > 3" step="3"
                             :editable="selectedStartPosition !== null && selectedEndPosition !== null">
-              Choose Route Properties
+              <h3>Choose Route Properties</h3>
             </v-stepper-step>
 
             <v-stepper-content step="3">
@@ -210,8 +215,10 @@
         <v-card>
           <v-card-title class="headline">Save Route</v-card-title>
           <v-card-text>
-            <p>You will be redirected to Strava. Please switch to route type 'Ride' and click 'Save'. Delete any activities starting with '[ExploX]' from your profile.</p>
-            <p style="color: #CCCCCC;"><i>Note: You can later see the route in your Dashboard after synchronizing.</i></p>
+            <p>You will be redirected to Strava. Please switch to route type 'Ride' and click 'Save'. Delete any
+              activities starting with '[ExploX]' from your profile.</p>
+            <p style="color: #CCCCCC;"><i>Note: You can later see the route in your Dashboard after synchronizing.</i>
+            </p>
             <v-btn flat round color="primary" v-on:click="saveRoute">
               Save New Route
             </v-btn>
@@ -380,6 +387,8 @@
         this.selectedEndPosition = data
       },
       submit () {
+        this.step = '4'
+
         this.loadingDialog = true
 
         const start = this.selectedStartPosition
@@ -483,7 +492,7 @@
                 console.log('Redirecting to ' + redirect)
                 setTimeout(() => {
                   this.stravaImportDialog = false
-                  window.location.href = redirect;
+                  window.location.href = redirect
                 }, 5000)
               }
             })
