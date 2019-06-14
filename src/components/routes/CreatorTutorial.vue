@@ -137,6 +137,7 @@
           </v-layout>
           <v-btn large round dark class="gradient gradient-orange" @click="e6 = 7">Continue</v-btn>
 
+
         </v-stepper-content>
         <v-stepper-content step="7">
           <v-layout row wrap style="margin:30px;" align-center>
