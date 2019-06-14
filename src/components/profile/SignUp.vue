@@ -2,7 +2,7 @@
   <section v-if="lang === 'en'">
     <v-layout row flex>
       <v-flex md10>
-        <h3>Switch language/Sprache wählen:</h3>
+        <h3>Switch language / Sprache wählen:</h3>
         <v-avatar style="margin: 10px;" size="32px" v-on:click="lang = 'en'">
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Square_Flag_of_the_United_Kingdom.svg/1024px-Square_Flag_of_the_United_Kingdom.svg.png"
@@ -930,7 +930,7 @@
   <section v-else>
     <v-layout row flex>
       <v-flex md10>
-        <h3>Switch language/Sprache wählen:</h3>
+        <h3>Switch language / Sprache wählen:</h3>
         <v-avatar style="margin: 10px;" size="32px" v-on:click="lang = 'en'">
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Square_Flag_of_the_United_Kingdom.svg/1024px-Square_Flag_of_the_United_Kingdom.svg.png"
