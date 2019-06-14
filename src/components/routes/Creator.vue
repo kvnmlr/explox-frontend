@@ -183,8 +183,8 @@
                         </v-btn>
                       </section>
                       <p style="color: #0ab45a" v-else>Your rating has been submitted!</p>
-                      <v-btn round class="gradient gradient-green" v-on:click="openSaveRouteDialog(i)">Save Route in
-                        Profile
+                      <v-btn v-if="ratingSubmitted[0] && ratingSubmitted[1]" round class="gradient gradient-green"
+                             v-on:click="openSaveRouteDialog(i)">Save Route on Strava
                       </v-btn>
                     </v-card-text>
                   </v-card>
@@ -210,15 +210,12 @@
         <v-card>
           <v-card-title class="headline">Save Route</v-card-title>
           <v-card-text>
-            <v-form ref="form" lazy-validation>
-              <v-text-field v-model="savedRouteTitle" label="Name" required></v-text-field>
-              <v-text-field v-model="savedRouteDescription" label="Description" required></v-text-field>
-              <p style="color: #CCCCCC;"><i>Note: You can later see the route in your Dashboard.</i></p>
-              <v-btn flat round color="primary" v-on:click.prevent="saveRoute">
-                Save New Route
-              </v-btn>
-              <v-btn flat round @click="saveRouteDialog = false">Cancel</v-btn>
-            </v-form>
+            <p>You will be redirected to Strava. Please switch to route type 'Ride' and click 'Save'. Delete any activities starting with '[ExploX]' from your profile.</p>
+            <p style="color: #CCCCCC;"><i>Note: You can later see the route in your Dashboard after synchronizing.</i></p>
+            <v-btn flat round color="primary" v-on:click="saveRoute">
+              Save New Route
+            </v-btn>
+            <v-btn flat round @click="saveRouteDialog = false">Cancel</v-btn>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -230,7 +227,7 @@
                       header="Creating new routes for you."
                       :width="500" dark>
       </loading-dialog>
-      <loading-dialog :show="stravaImportDialog" body="Please save the route on Strava."
+      <loading-dialog :show="stravaImportDialog" body="Please save the route as 'Ride' on Strava."
                       header="You will be redirected in some seconds."
                       :width="500">
       </loading-dialog>
@@ -472,7 +469,6 @@
         this.PUT('routes/' + this.savedRouteId, formData, requestParams, (data, err) => {
           console.log(data)
           if (!err) {
-            return
             this.saveRouteDialog = false
             this.stravaImportDialog = true
 
@@ -487,7 +483,7 @@
                 console.log('Redirecting to ' + redirect)
                 setTimeout(() => {
                   this.stravaImportDialog = false
-                  window.location.href = redirect
+                  window.location.href = redirect;
                 }, 5000)
               }
             })

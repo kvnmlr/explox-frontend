@@ -3,7 +3,7 @@
     <div class="elevation-5" style="padding: 8px;">
       <div id='images'></div>
       <section v-if="mapReady">
-        <div id="map"></div>
+        <div id="map" style="height: 600px"></div>
       </section>
       <v-layout v-else column align-center justify-center style="height: 300px;">
         <v-progress-circular
@@ -146,27 +146,23 @@
       }
 
       EventBus.$on('routeReady', async (data) => {
-        if (this.mapReady) {
-          return
-        }
         this.route = data
         this.routeGeoJSON = this.toGeoJSON(this.route.geo, false)
         this.routeWaypoints = this.toWaypoints(this.route.geo, true)
         this.routeInitialized = true
+
         if (this.activitiesInitialized || !this.showActivityMap) {
           this.mapReady = true
           setTimeout(this.reloadMap, 100)
         }
       })
       EventBus.$on('activitiesReady', async (data) => {
-        if (this.mapReady) {
-          return
-        }
         this.activities = data
         await this.asyncForEach(this.activities, async (activity) => {
           this.activitiesGeoJSON = this.activitiesGeoJSON.concat(this.toGeoJSON(this.normalizeGeos(activity.geo), true))
         })
         this.activitiesInitialized = true
+
         if (this.routeInitialized || !this.showRoute || this.$router.currentRoute.name.includes('Creator')) {
           this.mapReady = true
           setTimeout(this.reloadMap, 100)
@@ -174,6 +170,7 @@
       })
       EventBus.$on('removeMap', (next) => {
         try {
+          this.mapReady = false
           this.map.remove()
         } catch (ignored) {
           return
@@ -184,7 +181,7 @@
     },
 
     mounted () {
-      this.mapReady = false
+      this.mapReady = true
       this.initProviders()
       this.init()
     },
@@ -199,7 +196,6 @@
         let self = this
         this.map.on('click', function (click) {
           if (click.latlng && self.currentSelectStart && self.selectEnabled) {
-
             self.$emit('startSelected', click.latlng)
 
             const geojsonMarkerOptions = {

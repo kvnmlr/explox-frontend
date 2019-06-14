@@ -10,7 +10,7 @@
         <v-flex xs12 sm7 md7 style="padding-right:20px;">
           <br>
           <div v-if="user.activities.length">
-            <activity v-for="(activity, i) in user.activities" v-bind:activity="activity" :key="i"></activity>
+            <activity v-for="(activity, i) in user.activities.slice().sort((a1, a2) => {return a1.createdAt < a2.createdAt ? 1 : -1;})" v-bind:activity="activity" :key="i"></activity>
           </div>
           <p v-else>You do not have any activities</p>
 

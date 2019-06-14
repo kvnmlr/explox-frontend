@@ -100,7 +100,9 @@
                 the routes will receive a <b style="color:#ee5b19;">30€ Bike Gear Voucher</b>!
               </p>
               <br>
-              <v-btn class="gradient gradient-orange" style="width: 200px;" dark round @click="e1 = 1">Continue</v-btn>
+              <v-btn class="gradient gradient-orange" style="width: 200px;" dark round @click="e1 = 1"
+                     v-on:click="logUser">Continue
+              </v-btn>
             </v-layout>
           </v-stepper-content>
           <v-stepper-content step="1" v-if="user.demographics">
@@ -342,7 +344,7 @@
               <v-radio-group v-model="user.cyclingBehaviour.q13">
                 <p class="title">Cycling purpose: Which of the following statements do you most agree with?</p>
                 <v-radio
-                  label="I am a pure commuter, meaning I only use by bike as a mean of transportation (to get from A to B, e.g. to work or university)"
+                  label="I am a pure commuter, meaning I *only* use by bike as a mean of transportation (to get from A to B, e.g. to work or university)"
                   value=1></v-radio>
                 <v-radio label="I am a recreational cyclist and ride mostly as a hobby" value=2></v-radio>
                 <v-radio
@@ -680,14 +682,13 @@
           <v-stepper-content step="4">
             <v-layout column wrap style="margin-left: 20px;">
               <h1>Profile Information</h1>
+              <br>
               <v-alert :value="true" color="accent" icon="info" outline>
                 <h2>Privacy Note</h2>
-                We have extracted your profile information from your Strava profile. Please check whether the following
-                is correct. Your name, email and username <b>will not be used and
-                reported in the study</b>. Your questionnaire answers will not be connected to your name/e-mail and will
+                Your questionnaire answers will not be connected to your name/e-mail and will
                 be deleted from our database immediately after the study evaluation. Your E-Mail will not be visible for
-                anybody else. Your name and username can be seen by other ExploX users. You can change your profile
-                information later.<h3>We make sure to respect your privacy and handle your data anonymously!</h3>
+                anybody else. You can change your e-mail address later.<h3>We make sure to respect your privacy and
+                handle your data anonymously!</h3>
               </v-alert>
               <br>
               <v-text-field ref="emailEntry" :rules="[rules.required, rules.emailValid]"
@@ -697,11 +698,11 @@
                             v-model="user.email"></v-text-field>
               <p><b>Important:</b> If you participate in the study, you will receive the Amazon voucher on this e-mail.
                 Make sure it is the right e-mail address!</p>
-              <v-text-field label="First Name" hint="First Name" value="" v-model="user.firstName"></v-text-field>
+              <!--<v-text-field label="First Name" hint="First Name" value="" v-model="user.firstName"></v-text-field>
               <br>
               <v-text-field label="Last Name" hint="Last Name" value="" v-model="user.lastName"></v-text-field>
-              <br>
-              <v-text-field label="User Name" hint="User Name" value="" v-model="user.username"></v-text-field>
+              <br>-->
+              <!--<v-text-field label="User Name" hint="User Name" value="" v-model="user.username"></v-text-field>-->
               <!-- PASSWORD LOGIN IS NOT USED IN THE STUDY
               <v-flex xs12 sm6>
                 <v-text-field ref="passwordEntry1"
@@ -1626,16 +1627,14 @@
           <v-stepper-content step="4">
             <v-layout column wrap style="margin-left: 20px;">
               <h1>Profil Informationen</h1>
+              <br>
               <v-alert :value="true" color="accent" icon="info" outline>
                 <h2>Anmerkung zum Datenschutz</h2>
-                Wir haben Ihren Namen aus ihrem Strava Profil entnommen. Bitte überprüfen Sie folgende Felder und geben
-                Sie ihre E-Mail Adresse an. Ihr Name, Benutzername sowie Ihre E-Mail Adresse <b>werden nicht zur
-                Auswertung der Studie berücksichtigt</b>. Ihre Antworten zu den Fragebögen werden nicht in Verbindung
+                Ihre Antworten zu den Fragebögen werden nicht in Verbindung
                 mit
-                ihren persönlichen Daten gebracht und nach Auswertung der Studie gelöscht. Ihre E-Mail Adresse wird für
+                ihrer E-Mail Adresse gebracht und nach Auswertung der Studie gelöscht. Ihre E-Mail Adresse wird für
                 niemanden sonst sichtbar sein und dient nur der Kontaktaufnahme und erfolgreichen Durchführung und
-                Abschluss der Studie. Ihr Name und Nutzername kann, wie auch auf Strava, von anderen Nutzen eingesehen
-                werden. Sie können Ihre Profilinformationen nachträglich ändern.<h3>Wir respektieren Ihre Privatsphäre
+                Abschluss der Studie. <h3>Wir respektieren Ihre Privatsphäre
                 und behandeln alle Daten anonym!</h3>
               </v-alert>
               <br>
@@ -1648,11 +1647,11 @@
                 Gutscheine auf diese E-Mail
                 Adresse. Stellen Sie sicher, dass die Adresse korrekt ist und Sie Zugriff darauf haben! Achten Sie auf
                 E-Mails von "ExploX" (exploxcycling@gmail.com)</p>
-              <v-text-field label="Vorname" hint="First Name" value="" v-model="user.firstName"></v-text-field>
+              <!--<v-text-field label="Vorname" hint="First Name" value="" v-model="user.firstName"></v-text-field>
               <br>
               <v-text-field label="Nachname" hint="Last Name" value="" v-model="user.lastName"></v-text-field>
               <br>
-              <v-text-field label="Benutzername" hint="User Name" value="" v-model="user.username"></v-text-field>
+              <v-text-field label="Benutzername" hint="User Name" value="" v-model="user.username"></v-text-field>-->
               <!-- PASSWORD LOGIN IS NOT USED IN THE STUDY
               <v-flex xs12 sm6>
                 <v-text-field ref="passwordEntry1"
@@ -1935,12 +1934,14 @@
         }, 2000)
       },
       cache () {
-        if (this.user) {
-          this.signup(true)
+        if (this.$router.currentRoute.name === 'SignUp') {
+          if (this.user) {
+            this.signup(true)
+          }
+          setTimeout(() => {
+            this.cache()
+          }, Math.floor(Math.random() * (20000 - 5000 + 1)) + 5000)
         }
-        setTimeout(() => {
-          this.cache()
-        }, Math.floor(Math.random() * (20000 - 5000 + 1)) + 5000)
       },
 
       validateLocation (event, isHome) {

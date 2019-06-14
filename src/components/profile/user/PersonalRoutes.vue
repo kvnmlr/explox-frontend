@@ -11,7 +11,7 @@
         <v-flex xs12 sm7 style="padding-right:20px;">
           <br>
           <div v-if="user.routes.length" >
-            <route v-for="(route, i) in user.routes" v-bind:route="route" :key="i"></route>
+            <route v-for="(route, i) in user.routes.slice().sort((r1, r2) => {return r1.createdAt < r2.createdAt ? 1 : -1;})" v-bind:route="route" :key="i"></route>
           </div>
           <div v-else style="height:300px">
             <p>
