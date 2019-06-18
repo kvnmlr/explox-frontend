@@ -11,6 +11,9 @@
       <v-tab :href="`#tab-api`">
         General
       </v-tab>
+      <v-tab :href="`#tab-creator-results`">
+        Results
+      </v-tab>
       <v-tab :href="`#tab-users`">
         Users
       </v-tab>
@@ -23,14 +26,15 @@
       <v-tab :href="`#tab-activities`">
         Activities
       </v-tab>
-      <v-tab :href="`#tab-creator-results`">
-        Results
-      </v-tab>
+
     </v-tabs>
 
     <v-tabs-items v-model="currentTab" touchless>
       <v-tab-item lazy :id="`tab-api`">
         <api :results="creatorResults" :users="users" :invitations="invitations" :feedbacks="feedbacks" :limits="limits" :questionnaire-info="questionnaireInfo"></api>
+      </v-tab-item>
+      <v-tab-item lazy :id="`tab-creator-results`">
+        <creator-results :results="creatorResults"></creator-results>
       </v-tab-item>
       <v-tab-item lazy :id="`tab-users`">
         <users :users="users"></users>
@@ -43,9 +47,6 @@
       </v-tab-item>
       <v-tab-item lazy :id="`tab-activities`">
         <activities :activities="activities"></activities>
-      </v-tab-item>
-      <v-tab-item lazy :id="`tab-creator-results`">
-        <creator-results :results="creatorResults"></creator-results>
       </v-tab-item>
     </v-tabs-items>
 
