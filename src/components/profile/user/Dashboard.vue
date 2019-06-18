@@ -55,7 +55,7 @@
                     <p>{{ user.routes.length }}</p>
                     <h4>Activities:</h4>
                     <p>{{ user.activities.length }}</p>
-                    <router-link :to="'/users/'+this.user._id">View public profile</router-link>
+                    <!--<router-link :to="'/users/'+this.user._id">View public profile</router-link>-->
                     <br><br>
                   </v-flex>
                   <v-flex xs2 sm2 md2>

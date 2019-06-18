@@ -8,8 +8,7 @@
       <v-card-text>
         <div v-if="creatorResult.generatedRoutes.length > 1">
           <div v-for="(route, i) in creatorResult.generatedRoutes" v-bind:key="i">
-            <v-card light style="width: 100%; margin-bottom: 20px;" class="gradient-no-switch gradient-green"
-                    hover>
+            <v-card light style="width: 100%; margin-bottom: 20px;" class="gradient-no-switch gradient-green">
               <v-card-title primary-title>
                 <v-flex class="headline">
                   <h5>{{ route.title }}</h5>
