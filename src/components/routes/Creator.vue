@@ -161,7 +161,9 @@
                           <a target="_blank" :href="'/route/' + part._id">{{part.title}}</a><span v-if="j < generatedRoutes[i].parts.length - 1">, </span>
                         </span>
                       </div>
-
+                      <div v-else><span><b>Parts:</b></span>
+                        Your own activities
+                      </div>
                       <v-btn dark round class="gradient gradient-orange" v-on:click="routeSelected(i)">Show on Map
                       </v-btn>
                       <br><br>

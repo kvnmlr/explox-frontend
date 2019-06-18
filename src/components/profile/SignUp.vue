@@ -1916,7 +1916,6 @@
       </v-stepper>
     </v-container>
   </section>
-
 </template>
 
 <script>
