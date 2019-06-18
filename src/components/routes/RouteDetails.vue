@@ -238,7 +238,7 @@
       async deleteRoute() {
         this.DELETE('routes/' + this.id, (data, err) => {
           if (!err) {
-            this.$router.push('/');
+            this.$router.go(-1);
           }
           this.deleteDialog = false
         });

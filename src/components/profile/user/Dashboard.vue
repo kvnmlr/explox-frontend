@@ -9,12 +9,16 @@
         <v-tab :href="`#tab-activity-map`" v-on:click="broadcastData">
           Activity Map
         </v-tab>
-        <v-tab :href="`#tab-activities`">
-          Activities
+        <v-tab :href="`#tab-generated-routes`">
+          Generated Routes
         </v-tab>
         <v-tab :href="`#tab-routes`">
           Routes
         </v-tab>
+        <v-tab :href="`#tab-activities`">
+          Activities
+        </v-tab>
+
       </v-tabs>
       <v-tabs-items v-model="currentTab" style="margin-top: -10px;">
         <v-tab-item :id="`tab-profile`">
@@ -209,8 +213,8 @@
                       <v-list-tile-content>
                         <v-list-tile-title>Route Generations ({{ successfullGenerationsDone() }} / 15)
                         </v-list-tile-title>
-                        <v-list-tile-sub-title>You have done at least 15 successful route generations <b>and for each
-                          rated and commented both resulting routes</b>.<br>
+                        <v-list-tile-sub-title>You have done at least 15 successful route generations <b>+ comments and
+                          ratings</b>.<br>
                           <span style="color: #ee5b19">Deadline: 15. July 2019</span>
                         </v-list-tile-sub-title>
                       </v-list-tile-content>
@@ -264,15 +268,18 @@
             <v-flex xs12 sm12 md5>
               <v-container>
                 <v-flex row>
-                  <v-card class="elevation-5">
+                  <v-card class="elevation-5 gradient-no-switch gradient-secondary">
                     <v-container>
-                      <h3>Latest Activity</h3>
+                      <h3 style="color: white">Latest Route Generations</h3>
                       <br>
-                      <activity v-if="user.activities.length > 0"
-                                v-for="(activity, i) in user.activities.slice(0,3)" v-bind:activity="activity" dense
-                                :key="i"></activity>
-                      <p v-else>No Activity</p>
-                      <v-btn flat round v-on:click="currentTab='tab-activities'">View All</v-btn>
+
+                      <div v-if="user.creatorResults.length > 0"
+                           v-for="(cr, i) in user.creatorResults.slice(0,2)" v-bind:route="cr.generatedRoutes[0]"
+                           :key="i">
+                        <CreatorResult v-bind:creatorResult="cr" dense></CreatorResult>
+                      </div>
+                      <p v-else>No Routes Generated</p>
+                      <v-btn dark flat round v-on:click="currentTab='tab-generated-routes'">View All</v-btn>
                     </v-container>
                   </v-card>
                 </v-flex>
@@ -350,12 +357,16 @@
         <v-tab-item :id="`tab-activity-map`">
           <activity-map v-bind:user="user"></activity-map>
         </v-tab-item>
-        <v-tab-item :id="`tab-activities`">
-          <Activities v-bind:user="user"></Activities>
+        <v-tab-item :id="`tab-generated-routes`">
+          <generated-routes v-bind:user="user"></generated-routes>
         </v-tab-item>
         <v-tab-item :id="`tab-routes`">
           <personal-routes v-bind:user="user"></personal-routes>
         </v-tab-item>
+        <v-tab-item :id="`tab-activities`">
+          <Activities v-bind:user="user"></Activities>
+        </v-tab-item>
+
       </v-tabs-items>
     </div>
   </div>
@@ -374,10 +385,14 @@
   import {EventBus} from '@/eventBus.js'
   import InviteFriend from '../../general/InviteFriend'
   import formatDateMixin from '../../../mixins/formatDateMixin'
+  import GeneratedRoutes from './GeneratedRoutes'
+  import CreatorResult from '../../routes/CreatorResult'
 
   export default {
     name: 'User',
     components: {
+      CreatorResult,
+      GeneratedRoutes,
       InviteFriend,
       LoadingDialog, Route, SimpleMap, StravaAlert, PersonalRoutes, Activities, ActivityMap, Activity
     },
@@ -437,7 +452,7 @@
             && (gen.routeRatings[0].rating !== 0 && gen.routeRatings[1].rating !== 0)
             && (gen.routeRatings[0].comment !== '' && gen.routeRatings[1].comment !== '')
         }).length
-        return num;
+        return num
       },
 
       setUpdateUserFields () {

@@ -6,8 +6,12 @@
           <v-flex class="headline">
             <h5>{{ route.title }}</h5>
           </v-flex>
-          <v-flex v-if="!dense" style="color: grey">Created on {{ formatDate(route.strava.created_at, true) }}</v-flex><br>
-          <v-flex>{{ route.body }}</v-flex>
+          <v-flex v-if="!dense && route.strava" style="color: grey">Created on {{ formatDate(route.strava.created_at, true) }}</v-flex><br>
+          <v-flex v-if="!dense && !route.strava" style="color: grey">Created on {{ formatDate(route.createdAt, true) }}</v-flex><br>
+
+          <v-flex v-if="!generated">{{ route.body }}</v-flex>
+          <v-flex v-else="!generated">{{ route.rating }}</v-flex>
+
         </v-layout>
       </v-card-title>
       <v-card-actions v-if="!dense">
@@ -24,6 +28,7 @@
   export default {
     props: {
       dense: Boolean,
+      generated: Boolean,
       route: {
         type: Object,
         required: true,

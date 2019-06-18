@@ -156,6 +156,12 @@
                     <v-card-text>
                       <p><b>Distance: </b> {{ (generatedRoutes[i].distance / 1000).toFixed(3) }} km</p>
                       <p><b>Already Discovered: </b> {{ familiarityScores[i].toFixed(1)*100 }} %</p>
+                      <div v-if="generatedRoutes[i].parts.length > 0"><span><b>Parts:</b></span>
+                        <span v-for="(part, j) in generatedRoutes[i].parts">
+                          <a target="_blank" :href="'/route/' + part._id">{{part.title}}</a><span v-if="j < generatedRoutes[i].parts.length - 1">, </span>
+                        </span>
+                      </div>
+
                       <v-btn dark round class="gradient gradient-orange" v-on:click="routeSelected(i)">Show on Map
                       </v-btn>
                       <br><br>
@@ -188,9 +194,14 @@
                         </v-btn>
                       </section>
                       <p style="color: #0ab45a" v-else>Your rating has been submitted!</p>
-                      <v-btn v-if="ratingSubmitted[0] && ratingSubmitted[1]" round class="gradient gradient-green"
-                             v-on:click="openSaveRouteDialog(i)">Save Route on Strava
-                      </v-btn>
+                      <div v-if="ratingSubmitted[0] && ratingSubmitted[1]">
+
+                        <h2>Route generation and rating complete!</h2>
+                        <p>You can upload the routes to Strava from your Dashboard</p>
+                        <v-btn round class="gradient gradient-green"
+                               to="dashboard">Go to Dashboard
+                        </v-btn>
+                      </div>
                     </v-card-text>
                   </v-card>
                 </v-expansion-panel-content>
@@ -276,8 +287,8 @@
         selectedPreference: 0,
 
         // TAGS
-        tagsLabels: ['Mixed', 'Road', 'Trail'],
-        selectedTag: 'Mixed',
+        tagsLabels: ['Road', 'Mixed/Gravel', 'Trail'],
+        selectedTag: 'Road',
 
         startSelectedDone: false,
         endSelectedDone: false,
@@ -407,6 +418,7 @@
 
         this.POST('routes/generate', formData, null, (data, err) => {
           if (!err) {
+
             if (data.generatedRoutes.length > 0) {
               this.generatedRoutes = data.generatedRoutes
               this.familiarityScores = data.familiarityScores
@@ -414,6 +426,15 @@
               this.results = true
               this.id = data._id
               console.log('Done')
+
+              /* if (0.5 - Math.random()) {
+                console.log(this.familiarityScores);
+                this.generatedRoutes.reverse();
+                this.familiarityScores.reverse();
+                this.routeRatings.reverse();
+                console.log(this.familiarityScores);
+              } */
+
             } else {
               this.$emit('flash', {
                 type: 'error',

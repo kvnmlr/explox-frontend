@@ -2,7 +2,7 @@ export default {
   methods: {
     formatDate (dateString, short, time) {
       const date = new Date(dateString)
-      const monthNames = [
+      const monthNames = ['',
         'January', 'February', 'March',
         'April', 'May', 'June', 'July',
         'August', 'September', 'October',
@@ -15,7 +15,7 @@ export default {
       let monthIndex = date.getMonth() + 1;
       const year = date.getFullYear()
 
-      if (monthIndex < 10) {
+      if (monthIndex < 10 && short) {
         monthIndex = '0' + monthIndex;
       }
       if (day < 10) {

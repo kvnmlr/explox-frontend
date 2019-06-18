@@ -89,6 +89,7 @@
             this.performSearch()
           } else {
             EventBus.$emit('unauthenticated')
+            this.$router.push('login')
           }
         })
       },

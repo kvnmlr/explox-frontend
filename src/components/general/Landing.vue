@@ -5,7 +5,7 @@
         <v-layout column align-center justify-center class="white--text">
           <img src="@/assets/img/logo2.png" alt="ExploX" height="100">
           <h1 class="black--text mb-2 display-1 text-xs-center">ExploX</h1>
-          <div class="black--text subheading mb-3 text-xs-center">For Cyclists that want to go further</div>
+          <!--<div class="black--text subheading mb-3 text-xs-center">For Cyclists that want to go further</div>-->
           <img src="@/assets/img/strava/powered_white.png" alt="Powered by Strava" height="50px">
 
           <v-btn style="height: 70px;" class="gradient gradient-secondary" dark large round to="/guide">
