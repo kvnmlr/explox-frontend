@@ -53,6 +53,26 @@
               <p>You are invited to use ExploX for the next weeks and thereby contribute to our research on cycling
                 behaviour. By answering the following questionnaires and using this website for the next weeks,
                 you will participate in the study.</p>
+              <h2>Reward</h2>
+              <p>We will reward your participation in the study with the chance to win <b style="color:#ee5b19;">one of
+                6 x 25€ Amazon
+                Vouchers</b>. If you win, you will receive at the end of the study. You have to fulfill the following
+                criteria in order to receive the voucher:</p>
+              <ul>
+                <li>You have completed the following questionnaires and you are eligible to participate (~15 minutes)
+                </li>
+                <li>You have done at least 15 (successful) route generations and rated each of the resulting routes</li>
+                <li>You have filled out the User Experience Questionnaire at the end of the study (~10 minutes)</li>
+                <li>You have filled out a short qualitative questionnaire and provided feedback at the end of the
+                  study (~5-10 minutes)
+                </li>
+              </ul>
+              <br>
+              <p><b style="color: #ee5b19">Additionally:</b> The participants that fulfill the above criteria and
+                actually cycle at least 2 of
+                the generated routes, track and save them as Strava activities and give us detailed information about
+                the routes get the chance to win one of <b style="color:#ee5b19;">3 x 50€ Bike Gear Vouchers</b>!
+              </p>
               <h2>Time and dates for the study</h2>
               <p><b>Registration phase:</b> <span style="color: #ee5b19">17. June - 01. July 2019</span> (2 Weeks)</p>
               <p><b>Usage phase:</b> <span style="color: #ee5b19">17. June - 15. July 2019</span> (4 Weeks)</p>
@@ -79,26 +99,7 @@
                 </li>
               </ul>
               <br>
-              <h2>Reward</h2>
-              <p>We will reward your participation in the study with the chance to win <b style="color:#ee5b19;">one of
-                6 x 25€ Amazon
-                Vouchers</b>. If you win, you will receive at the end of the study. You have to fulfill the following
-                criteria in order to receive the voucher:</p>
-              <ul>
-                <li>You have completed the following questionnaires and you are eligible to participate (~15 minutes)
-                </li>
-                <li>You have done at least 15 (successful) route generations and rated each of the resulting routes</li>
-                <li>You have filled out the User Experience Questionnaire at the end of the study (~10 minutes)</li>
-                <li>You have filled out a short qualitative questionnaire and provided feedback at the end of the
-                  study (~5-10 minutes)
-                </li>
-              </ul>
-              <br>
-              <p><b style="color: #ee5b19">Additionally:</b> The first 5 participants to fulfill the above criteria and
-                actually cycle at least 2 of
-                the generated routes, track and save them as Strava activities and give us detailed information about
-                the routes will receive a <b style="color:#ee5b19;">30€ Bike Gear Voucher</b>!
-              </p>
+
               <br>
               <v-btn class="gradient gradient-orange" style="width: 200px;" dark round @click="e1 = 1"
                      v-on:click="logUser">Continue
@@ -335,7 +336,8 @@
                 <v-radio
                   label="I am a pure commuter, meaning I *only* use by bike as a mean of transportation (to get from A to B, e.g. to work or university)"
                   value=1></v-radio>
-                <v-radio label="I am a recreational cyclist and ride mostly as a hobby (including commuting)" value=2></v-radio>
+                <v-radio label="I am a recreational cyclist and ride mostly as a hobby (including commuting)"
+                         value=2></v-radio>
                 <v-radio
                   label="I am a professional cyclist, cycling is my main occupation and I make money from it or plan to make money from it in the future"
                   value=3></v-radio>
@@ -551,7 +553,8 @@
                 <v-checkbox v-model="user.routePlanning.q4b" label="We plan spontaneously while we're cycling"
                             value="Spontaneous"
                             style="margin-top: -10px;"></v-checkbox>
-                <v-checkbox v-model="user.routePlanning.q4b" label="We plan the route in our head beforehand" value="Head"
+                <v-checkbox v-model="user.routePlanning.q4b" label="We plan the route in our head beforehand"
+                            value="Head"
                             style="margin-top: -15px;"></v-checkbox>
                 <v-checkbox v-model="user.routePlanning.q4b" label="We use a digital map or App (such as Google Maps)"
                             value="Digital"
@@ -568,7 +571,6 @@
                   </v-flex>
                 </v-layout>
               </section>
-
 
 
               <p class="title">Which digital maps, apps or websites do you use for planning your rides in advance?</p>
@@ -770,11 +772,11 @@
                   Voucher</b>
                   that
                   you will receive
-                  at the end of the study. <b style="color: #ee5b19">Additionally:</b> The first 5 participants to
+                  at the end of the study. <b style="color: #ee5b19">Additionally:</b> The participants that
                   actually cycle at least 2 of
                   the generated routes,
-                  track and save them as Strava activities and give us detailed information about the routes will
-                  receive a <b>30€ cycling gear voucher</b>.
+                  track and save them as Strava activities and give us detailed information about the routes can win a
+                  <b>50€ cycling gear voucher</b>.
                 </p>
                 <br>
                 <v-alert :value="true" type="success" v-if="this.isEligible">
@@ -843,7 +845,8 @@
                         you disagree with any of these Website Standard Terms and Conditions.</p>
 
                       <h3>Intellectual Property Rights</h3>
-                      <p>Other than the content you own, under these Terms, Saarland University and/or its licensors own all the
+                      <p>Other than the content you own, under these Terms, Saarland University and/or its licensors own
+                        all the
                         intellectual property rights and materials contained in this Website.</p>
                       <p>You are granted limited license only for purposes of viewing the material contained on this
                         Website.</p>
@@ -862,27 +865,32 @@
                           relation to this Website;
                         </li>
                       </ul>
-                      <p>Certain areas of this Website are restricted from being access by you and Saarland University may further
+                      <p>Certain areas of this Website are restricted from being access by you and Saarland University
+                        may further
                         restrict access by you to any areas of this Website, at any time, in absolute discretion. Any
                         user
                         ID and password you may have for this Website are confidential and you must maintain
                         confidentiality as well.</p>
 
                       <h3>No warranties</h3>
-                      <p>This Website is provided "as is," with all faults, and Saarland University express no representations or
+                      <p>This Website is provided "as is," with all faults, and Saarland University express no
+                        representations or
                         warranties, of any kind related to this Website or the materials contained on this Website.
                         Also,
                         nothing contained on this Website shall be interpreted as advising you.</p>
 
                       <h3>Limitation of liability</h3>
-                      <p>In no event shall Saarland University, nor any of its officers, directors and employees, shall be held liable
+                      <p>In no event shall Saarland University, nor any of its officers, directors and employees, shall
+                        be held liable
                         for anything arising out of or in any way connected with your use of this Website whether such
-                        liability is under contract. Saarland University, including its officers, directors and employees shall not be
+                        liability is under contract. Saarland University, including its officers, directors and
+                        employees shall not be
                         held liable for any indirect, consequential or special liability arising out of or in any way
                         related to your use of this Website.</p>
 
                       <h3>Indemnification</h3>
-                      <p>You hereby indemnify to the fullest extent Saarland University from and against any and/or all liabilities,
+                      <p>You hereby indemnify to the fullest extent Saarland University from and against any and/or all
+                        liabilities,
                         costs, demands, causes of action, damages and expenses arising in any way related to your breach
                         of any of the provisions of these Terms.</p>
 
@@ -892,23 +900,28 @@
                         shall be deleted without affecting the remaining provisions herein.</p>
 
                       <h3>Variation of Terms</h3>
-                      <p>Saarland University is permitted to revise these Terms at any time as it sees fit, and by using this Website
+                      <p>Saarland University is permitted to revise these Terms at any time as it sees fit, and by using
+                        this Website
                         you
                         are expected to review these Terms on a regular basis.</p>
 
                       <h3>Assignment</h3>
-                      <p>The Saarland University is allowed to assign, transfer, and subcontract its rights and/or obligations under
+                      <p>The Saarland University is allowed to assign, transfer, and subcontract its rights and/or
+                        obligations under
                         these Terms without any notification. However, you are not allowed to assign, transfer, or
                         subcontract any of your rights and/or obligations under these Terms.</p>
 
                       <h3>Entire Agreement</h3>
-                      <p>These Terms constitute the entire agreement between Saarland University and you in relation to your use of
+                      <p>These Terms constitute the entire agreement between Saarland University and you in relation to
+                        your use of
                         this
                         Website, and supersede all prior agreements and understandings.</p>
 
                       <h3>Governing Law & Jurisdiction</h3>
-                      <p>These Terms will be governed by and interpreted in accordance with the laws of the State of Germany,
-                        and you submit to the non-exclusive jurisdiction of the state and federal courts located in Germany
+                      <p>These Terms will be governed by and interpreted in accordance with the laws of the State of
+                        Germany,
+                        and you submit to the non-exclusive jurisdiction of the state and federal courts located in
+                        Germany
                         for
                         the resolution of any disputes.</p>
                     </v-card-text>
@@ -984,6 +997,28 @@
                 Bereich des Verhaltens im Radsport beizutragen. Durch das Beantworten des folgenden Fragebogens und der
                 abschließenden Befragung, sowie der Nutzung der Website in den kommenden Wochen können Sie an der Studie
                 teilnehmen.</p>
+              <h2>Belohnung</h2>
+              <p>Wir Belohnen die Teilnahme an der Studie mit der Chance <b style="color:#ee5b19;">einen von
+                6 x 25€ Amazon Gutscheinen</b> zu gewinnen. Wenn Sie gewinnen erhalten Sie diesen am Ende der Studie.
+                Folgende Kriterien müssen Sie dabei erfüllen:</p>
+              <ul>
+                <li>Sie haben den folgenden Fragebogen vollständig ausgefüllt und sind für die Studie zugelassen (das
+                  erfahren Sie auf der letzen Seite "Fertig") <b>(ca. 15 min)</b>.
+                </li>
+                <li>Sie haben mindestens 15 (erfolgreiche) Routenvorschläge generiert und alle resultierenden Routen
+                  bewertet <b>(ca. 45 min)</b>.
+                </li>
+                <li>Sie haben den User Experience Questionnaire am Ende der Studie ausgefüllt (ca. 10 min).</li>
+                <li>Sie haben am Ende der Studie kurzes individuelles Feedback gegeben <b>(ca. 5-15 min)</b>.
+                </li>
+              </ul>
+              <p><b style="color: #ee5b19">Außerdem:</b> Unter allen Teilnehmern, die neben obigen Kriterien mindestens
+                2 der generierten Routenvorschläge tatsächlich fahren, tracken, in Strava als Aktivitäten speichern und
+                detailliertes Feedback zu den Routen geben, können einen von <b style="color:#ee5b19;">3 x 50€ Gutscheinn
+                  für
+                  Fahrradzubehör gewinnen</b>!
+              </p>
+              <br>
               <h2>Zeitraum der Studie und Termine</h2>
               <p><b>Registrierungsphase:</b> <span style="color: #ee5b19">17. Juni - 01. Juli 2019</span> (2 Wochen)</p>
               <p><b>Nutzungsphase:</b> <span style="color: #ee5b19">17. Juni - 15. Juli 2019</span> (4 Wochen)</p>
@@ -1014,27 +1049,9 @@
                 </li>
               </ul>
               <br>
-              <h2>Belohnung</h2>
-              <p>Wir Belohnen die Teilnahme an der Studie mit der Chance <b style="color:#ee5b19;">einen von
-                6 x 25€ Amazon Gutscheinen</b> zu gewinnen. Wenn Sie gewinnen erhalten Sie diesen am Ende der Studie.
-                Folgende Kriterien müssen Sie dabei erfüllen:</p>
-              <ul>
-                <li>Sie haben den folgenden Fragebogen vollständig ausgefüllt und sind für die Studie zugelassen (das
-                  erfahren Sie auf der letzen Seite "Fertig") (ca. 15 min).
-                </li>
-                <li>Sie haben mindestens 15 (erfolgreiche) Routenvorschläge generiert und alle resultierenden Routen
-                  bewertet.
-                </li>
-                <li>Sie haben den User Experience Questionnaire am Ende der Studie ausgefüllt (ca. 10 min).</li>
-                <li>Sie haben am Ende der Studie kurzes individuelles Feedback gegeben (ca. 5-10 min).
-                </li>
-              </ul>
+
               <br>
-              <p><b style="color: #ee5b19">Außerdem:</b> Die ersten 5 Teilnehmer, die neben obigen Kriterien mindestens
-                2 der generierten Routenvorschläge tatsächlich fahren, tracken, in Strava als Aktivitäten speichern und
-                detailliertes Feedback zu den Routen geben, erhalten einen <b style="color:#ee5b19;">30€ Gutschein für
-                  Fahrradzubehör</b>!
-              </p>
+
               <br>
               <v-btn class="gradient gradient-orange" style="width: 200px;" dark round @click="e1 = 1">Weiter</v-btn>
             </v-layout>
@@ -1128,7 +1145,8 @@
               </v-radio-group>
 
               <v-radio-group v-model="user.cyclingBehaviour.q4">
-                <p class="title">Wie oft fahren Sie während der Fahrradsaison (Frühjahr bis Herbst) im Durchschnitt Fahrrad?</p>
+                <p class="title">Wie oft fahren Sie während der Fahrradsaison (Frühjahr bis Herbst) im Durchschnitt
+                  Fahrrad?</p>
                 <v-radio label="Täglich" value=1></v-radio>
                 <v-radio label="1-2 mal pro Woche" value=2></v-radio>
                 <v-radio label="Mehrmals wöchentlich" value=3></v-radio>
@@ -1191,7 +1209,8 @@
               <v-checkbox v-model="user.cyclingBehaviour.q8" label="Pendeln zur Schule oder Universität"
                           value="School or university"
                           style="margin-top: -15px;"></v-checkbox>
-              <v-checkbox v-model="user.cyclingBehaviour.q8" label="Sonstige Erledigungen (z.B. einkaufen)" value="Shopping"
+              <v-checkbox v-model="user.cyclingBehaviour.q8" label="Sonstige Erledigungen (z.B. einkaufen)"
+                          value="Shopping"
                           style="margin-top: -10px;"></v-checkbox>
               <v-checkbox v-model="user.cyclingBehaviour.q8" label="Ich fahre nicht an Werktagen"
                           value="I do not ride on working days" style="margin-top: -15px;"></v-checkbox>
@@ -1232,7 +1251,8 @@
               <v-checkbox v-model="user.cyclingBehaviour.q10" label="Pendeln zur Schule oder Universität"
                           value="School or university"
                           style="margin-top: -15px;"></v-checkbox>
-              <v-checkbox v-model="user.cyclingBehaviour.q10" label="Sonstige Erledigungen (z.B. einkaufen)" value="Shopping"
+              <v-checkbox v-model="user.cyclingBehaviour.q10" label="Sonstige Erledigungen (z.B. einkaufen)"
+                          value="Shopping"
                           style="margin-top: -10px;"></v-checkbox>
               <v-checkbox v-model="user.cyclingBehaviour.q10" label="Ich fahre nicht an Werktagen"
                           value="I do not ride on working days" style="margin-top: -15px;"></v-checkbox>
@@ -1277,7 +1297,8 @@
                 <v-radio
                   label="Ich bin reiner Pendler. Ich nutze mein Fahrrad nur als Transportmittel (um von A nach B zu gelangen, z.B. zur Arbeit oder Universität)"
                   value=1></v-radio>
-                <v-radio label="Ich bin ein Freizeitfahrer. Radfahren ist ein Hobby für mich (einschl. pendeln)" value=2></v-radio>
+                <v-radio label="Ich bin ein Freizeitfahrer. Radfahren ist ein Hobby für mich (einschl. pendeln)"
+                         value=2></v-radio>
                 <v-radio
                   label="Ich bin ein Profi. Radfahren ist mein Beruf und verdiene dadurch meinen Unterhalt bzw. arbeite darauf hin"
                   value=3></v-radio>
@@ -1525,7 +1546,8 @@
               </section>
 
 
-              <p class="title">Welche digitalen Karte, Apps oder Webseiten nutzen Sie zur Planung ihre Routen im Voraus?</p>
+              <p class="title">Welche digitalen Karte, Apps oder Webseiten nutzen Sie zur Planung ihre Routen im
+                Voraus?</p>
               <v-layout row wrap>
                 <v-flex xs12 sm6 md6>
                   <v-textarea label="Bitte angeben" v-model="user.routePlanning.q5"></v-textarea>
@@ -1728,9 +1750,9 @@
                 Chance auf den Gewinn sichern.</p>
               <p>Ihre Teilnahme an der Studie belohnen wir mit der Chance <b>einen von 6 x 25€ Amazon Gutscheinen</b>
                 zu gewinnen. Gewinner erhalten diesen automatisch am Ende der Studie.<br><b style="color: #ee5b19">Hauptpreise:</b>
-                Die ersten 5 Teilnehmer, die neben obigen Kriterien mindestens 2 der generierten Routenvorschläge
+                Die Teilnehmer, die neben obigen Kriterien mindestens 2 der generierten Routenvorschläge
                 tatsächlich fahren, tracken, in Strava als Aktivitäten speichern und detailliertes Feedback zu den
-                Routen geben, erhalten einen <b>30€ Gutschein für Fahrradzubehör</b>.
+                Routen geben, können einen <b>50€ Gutschein für Fahrradzubehör</b> gewinnen.
               </p>
               <br>
               <v-alert :value="true" type="success" v-if="this.isEligible">
@@ -1800,7 +1822,8 @@
                       you disagree with any of these Website Standard Terms and Conditions.</p>
 
                     <h3>Intellectual Property Rights</h3>
-                    <p>Other than the content you own, under these Terms, Saarland University and/or its licensors own all the
+                    <p>Other than the content you own, under these Terms, Saarland University and/or its licensors own
+                      all the
                       intellectual property rights and materials contained in this Website.</p>
                     <p>You are granted limited license only for purposes of viewing the material contained on this
                       Website.</p>
@@ -1819,27 +1842,32 @@
                         relation to this Website;
                       </li>
                     </ul>
-                    <p>Certain areas of this Website are restricted from being access by you and Saarland University may further
+                    <p>Certain areas of this Website are restricted from being access by you and Saarland University may
+                      further
                       restrict access by you to any areas of this Website, at any time, in absolute discretion. Any
                       user
                       ID and password you may have for this Website are confidential and you must maintain
                       confidentiality as well.</p>
 
                     <h3>No warranties</h3>
-                    <p>This Website is provided "as is," with all faults, and Saarland University express no representations or
+                    <p>This Website is provided "as is," with all faults, and Saarland University express no
+                      representations or
                       warranties, of any kind related to this Website or the materials contained on this Website.
                       Also,
                       nothing contained on this Website shall be interpreted as advising you.</p>
 
                     <h3>Limitation of liability</h3>
-                    <p>In no event shall Saarland University, nor any of its officers, directors and employees, shall be held liable
+                    <p>In no event shall Saarland University, nor any of its officers, directors and employees, shall be
+                      held liable
                       for anything arising out of or in any way connected with your use of this Website whether such
-                      liability is under contract.  Saarland University, including its officers, directors and employees shall not be
+                      liability is under contract.  Saarland University, including its officers, directors and employees
+                      shall not be
                       held liable for any indirect, consequential or special liability arising out of or in any way
                       related to your use of this Website.</p>
 
                     <h3>Indemnification</h3>
-                    <p>You hereby indemnify to the fullest extent Saarland University from and against any and/or all liabilities,
+                    <p>You hereby indemnify to the fullest extent Saarland University from and against any and/or all
+                      liabilities,
                       costs, demands, causes of action, damages and expenses arising in any way related to your breach
                       of any of the provisions of these Terms.</p>
 
@@ -1849,23 +1877,28 @@
                       shall be deleted without affecting the remaining provisions herein.</p>
 
                     <h3>Variation of Terms</h3>
-                    <p>Saarland University is permitted to revise these Terms at any time as it sees fit, and by using this Website
+                    <p>Saarland University is permitted to revise these Terms at any time as it sees fit, and by using
+                      this Website
                       you
                       are expected to review these Terms on a regular basis.</p>
 
                     <h3>Assignment</h3>
-                    <p>The Saarland University is allowed to assign, transfer, and subcontract its rights and/or obligations under
+                    <p>The Saarland University is allowed to assign, transfer, and subcontract its rights and/or
+                      obligations under
                       these Terms without any notification. However, you are not allowed to assign, transfer, or
                       subcontract any of your rights and/or obligations under these Terms.</p>
 
                     <h3>Entire Agreement</h3>
-                    <p>These Terms constitute the entire agreement between Saarland University and you in relation to your use of
+                    <p>These Terms constitute the entire agreement between Saarland University and you in relation to
+                      your use of
                       this
                       Website, and supersede all prior agreements and understandings.</p>
 
                     <h3>Governing Law & Jurisdiction</h3>
-                    <p>These Terms will be governed by and interpreted in accordance with the laws of the State of Germany,
-                      and you submit to the non-exclusive jurisdiction of the state and federal courts located in Germany
+                    <p>These Terms will be governed by and interpreted in accordance with the laws of the State of
+                      Germany,
+                      and you submit to the non-exclusive jurisdiction of the state and federal courts located in
+                      Germany
                       for
                       the resolution of any disputes.</p>
                   </v-card-text>
