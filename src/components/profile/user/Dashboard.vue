@@ -274,7 +274,7 @@
                       <br>
 
                       <div v-if="user.creatorResults.length > 0"
-                           v-for="(cr, i) in user.creatorResults.slice(0,2)" v-bind:route="cr.generatedRoutes[0]"
+                           v-for="(cr, i) in user.creatorResults.slice().sort((r1, r2) => {return r1.createdAt < r2.createdAt ? 1 :-1;}).slice(0,2)" v-bind:route="cr.generatedRoutes[0]"
                            :key="i">
                         <CreatorResult v-bind:creatorResult="cr" dense></CreatorResult>
                       </div>

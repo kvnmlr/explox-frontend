@@ -1053,7 +1053,7 @@
               <br>
 
               <br>
-              <v-btn class="gradient gradient-orange" style="width: 200px;" dark round @click="e1 = 1">Weiter</v-btn>
+              <v-btn class="gradient gradient-orange" style="width: 200px;" v-on:click="logUser" dark round @click="e1 = 1">Weiter</v-btn>
             </v-layout>
           </v-stepper-content>
           <v-stepper-content step="1" v-if="user.demographics">

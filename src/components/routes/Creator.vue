@@ -199,9 +199,9 @@
                       <div v-if="ratingSubmitted[0] && ratingSubmitted[1]">
 
                         <h2>Route generation and rating complete!</h2>
-                        <p>You can upload the routes to Strava from your Dashboard</p>
+                        <p>You can <b>upload the routes to Strava</b> from your Dashboard</p>
                         <v-btn round class="gradient gradient-green"
-                               to="dashboard">Go to Dashboard
+                               href="dashboard">Go to Dashboard
                         </v-btn>
                       </div>
                     </v-card-text>

@@ -15,8 +15,6 @@
         <v-stepper-step editable :complete="e6 > 5" step="5">Inspect</v-stepper-step>
         <v-divider></v-divider>
         <v-stepper-step editable :complete="e6 > 6" step="6">Rate</v-stepper-step>
-        <v-divider></v-divider>
-        <v-stepper-step editable :complete="e6 > 7" step="7">Strava Import</v-stepper-step>
       </v-stepper-header>
 
       <v-stepper-items>
@@ -135,47 +133,11 @@
               </v-container>
             </v-flex>
           </v-layout>
-          <v-btn large round dark class="gradient gradient-orange" @click="e6 = 7">Continue</v-btn>
-
-
-        </v-stepper-content>
-        <v-stepper-content step="7">
-          <v-layout row wrap style="margin:30px;" align-center>
-            <v-flex xs12 md6>
-              <h2>Step 7: Import the Route to Strava (optional)</h2>
-              <br>
-              <b>If you plan to actually cycle one of the routes, you can import it into your Strava profile.</b>
-              <br>
-              <ul>
-                <li>Click 'Save Route on Strava'.</li>
-                <li>Read the notes and click 'Save new Route'.</li>
-                <li>When the Strava Website opens, switch to 'Ride' route type and click 'Save'</li>
-              </ul>
-            </v-flex>
-            <v-flex xs12 md6 class="hidden-sm-and-down">
-              <v-container>
-                <img src="@/assets/img/creator/save1.png" class="elevation-5">
-              </v-container>
-            </v-flex>
-          </v-layout>
-          <v-layout row wrap style="margin:30px;" align-center>
-            <v-flex xs12 md6>
-            </v-flex>
-            <v-flex xs12 md6 class="hidden-sm-and-down">
-              <v-container>
-                <img src="@/assets/img/creator/save2.png" class="elevation-5">
-              </v-container>
-              <v-container>
-                <img src="@/assets/img/creator/save3.png" style="width: 100%" class="elevation-5">
-              </v-container>
-            </v-flex>
-          </v-layout>
-
           <v-btn style="height: 80px;" dark large round color="success" outline v-on:click="finishTutorial">Create
             your first route now!
           </v-btn>
-        </v-stepper-content>
 
+        </v-stepper-content>
       </v-stepper-items>
     </v-stepper>
   </div>

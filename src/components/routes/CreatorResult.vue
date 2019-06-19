@@ -37,13 +37,14 @@
                 <v-flex style="margin-top: -20px; color: grey">Created on {{
                   formatDate(route.createdAt, true) }}
                 </v-flex>
-                <v-btn dark round small class="gradient gradient-orange" :to="{path: '/route/' + route._id}">
-                  Show Route on Map
-                </v-btn>
-                <v-btn light small round class="gradient gradient-green"
+                <v-btn dark small round class="gradient gradient-orange"
                        v-on:click="() => {saveRouteDialog = true; currentSelectedRoute = creatorResult.generatedRoutes[i]}">
                   Upload to Strava
                 </v-btn>
+                <v-btn light round small class="gradient gradient-green" :to="{path: '/route/' + route._id}">
+                  Show Route on Map
+                </v-btn>
+
               </v-card-text>
             </v-card>
           </div>
