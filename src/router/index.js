@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import About from '../components/general/About'
+import DataProtection from '../components/general/DataProtection'
 import Hub from '../components/general/home/Hub'
 import Landing from '../components/general/Landing'
 import Routes from '../components/routes/List'
@@ -49,6 +50,13 @@ export default new Router({
       name: 'About',
       component: About,
       meta: {title: 'About ExploX'}
+
+    },
+    {
+      path: '/dataprotection',
+      name: 'DataProtection',
+      component: DataProtection,
+      meta: {title: 'Data Protection'}
 
     },
     {

@@ -100,6 +100,7 @@
                   us detailed information about the routes will receive a <b style="color:#ee5b19;">30€ Bike Gear
                     Voucher</b>!
                 </p>
+                <v-btn round to="dataprotection">Data Protection Information</v-btn>
               </div>
             </v-card-title>
           </v-card>

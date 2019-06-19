@@ -118,6 +118,63 @@
                   </v-card-text>
                 </v-card>
               </v-flex>
+              <v-layout row wrap align-center>
+
+                <v-flex xs12 md6>
+                  <v-card class="elevation-0 transparent">
+                    <v-card-title primary-title class="layout justify-center">
+                      <div class="headline">Impressum & Legal Information</div>
+                    </v-card-title>
+                    <v-card-text>
+                      <p>Legal Information
+                        Deutsches Forschungszentrum für Künstliche Intelligenz GmbH, DFKI
+                        (German Research Center for Artificial Intelligence)<br>
+                        <br>
+                        E-Mail Contact<br>
+                        Frederik Wiehr<br>
+                        <br>
+                        Postal Address<br>
+                        Postfach 20 80<br>
+                        D-67608 Kaiserslautern<br>
+                        <br>
+                        Kaiserslautern Site<br>
+                        Trippstadter Strasse 122<br>
+                        D-67663 Kaiserslautern<br>
+                        Phone: +49 (0)631 / 205 75-0<br>
+                        Telefax: +49 (0)631 / 205 75-5030<br>
+                        <br>
+                        Saarbruecken Site<br>
+                        Stuhlsatzenhausweg 3 (Building D3 2)<br>
+                        D-66123 Saarbruecken<br>
+                        Phone: +49 (0)681 / 857 75-0<br>
+                        Telefax: +49 (0)681 / 857 75-5341<br>
+                        <br>
+                        Bremen Site<br>
+                        Robert-Hooke-Strasse 1<br>
+                        D-28359 Bremen<br>
+                        Phone: +49 (0)421 / 178 45-0<br>
+                        Telefax: +49 (0)421 / 178 45-4150<br>
+                        <br>
+                        DFKI Project Office Berlin<br>
+                        Alt-Moabit 91c<br>
+                        D-10559 Berlin<br>
+                        Phone: +49 (0)30 / 238 95-0<br>
+                        Email: info@dfki.de<br>
+                        <br>
+                        Management Board<br>
+                        Prof. Dr. Jana Koehler (Vorsitzende)<br>
+                        Dr. Walter Olthoff (CFO)<br>
+                        Head of Supervisory Board<br>
+                        Prof. Dr. h.c. Hans A. Aukes<br>
+                        <br>
+                        Register Court: Amtsgericht Kaiserslautern<br>
+                        Register Number: HRB 2313<br>
+                        ID-Number: DE 148 646 973<br>
+                      </p>
+                    </v-card-text>
+                  </v-card>
+                </v-flex>
+              </v-layout>
             </v-layout>
             <!--<v-parallax :src="require('@/assets/img/adventure-bikers-bikes.jpg')" height="350">
               <v-layout column align-center justify-center class="white--text">
