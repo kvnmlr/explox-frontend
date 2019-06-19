@@ -99,7 +99,7 @@
                 </li>
               </ul>
               <br>
-
+              <v-btn round to="dataprotection" style="width: 400px;">Data Protection Information</v-btn>
               <br>
               <v-btn class="gradient gradient-orange" style="width: 200px;" dark round @click="e1 = 1"
                      v-on:click="logUser">Continue
@@ -119,6 +119,28 @@
               <p class="title">Age:</p>
               <v-text-field v-model="user.demographics.q2" type="number" label="" min="0" max="100"
                             style="width: 100px;"></v-text-field>
+
+
+              <p class="title">Where do you live?</p>
+              <v-layout row wrap>
+                <v-flex xs12 sm6 md5>
+                  <v-text-field v-on:blur="validateLocation($event, true)"
+                                label="e.g. 66123 Saarbrücken or leave blank"
+                                v-model="user.demographics.q5"></v-text-field>
+                  <p>{{homeLocationDisplay}}</p>
+                </v-flex>
+              </v-layout>
+
+              <br>
+
+              <p class="title">Where do you ride your bike most often?</p>
+              <v-layout row wrap>
+                <v-flex xs12 sm6 md5>
+                  <v-text-field v-on:blur="validateLocation($event, false)"
+                                label="e.g. Landkreis Merzig-Wadern" v-model="user.demographics.q6"></v-text-field>
+                  <p>{{cyclingLocationDisplay}}</p>
+                </v-flex>
+              </v-layout>
 
               <v-radio-group v-model="user.demographics.q3">
                 <p class="title">Highest completed level of education:</p>
@@ -145,26 +167,6 @@
                 <v-radio label="Retired" value=6></v-radio>
                 <v-radio label="Prefer not to say" value=7></v-radio>
               </v-radio-group>
-
-              <p class="title">Where do you live?</p>
-              <v-layout row wrap>
-                <v-flex xs12 sm6 md5>
-                  <v-text-field v-on:blur="validateLocation($event, true)"
-                                label="e.g. 66123 Saarbrücken" v-model="user.demographics.q5"></v-text-field>
-                  <p>{{homeLocationDisplay}}</p>
-                </v-flex>
-              </v-layout>
-
-              <br>
-
-              <p class="title">Where do you ride your bike most often?</p>
-              <v-layout row wrap>
-                <v-flex xs12 sm6 md5>
-                  <v-text-field v-on:blur="validateLocation($event, false)"
-                                label="e.g. Landkreis Merzig-Wadern" v-model="user.demographics.q6"></v-text-field>
-                  <p>{{cyclingLocationDisplay}}</p>
-                </v-flex>
-              </v-layout>
 
               <v-btn class="gradient gradient-orange" style="width: 200px;" dark round @click="e1 = 2"
                      v-on:click="logUser">Continue
@@ -293,7 +295,7 @@
                           style="margin-top: -15px;"></v-checkbox>
               <v-checkbox v-model="user.cyclingBehaviour.q10" label="Shopping" value="Shopping"
                           style="margin-top: -15px;"></v-checkbox>
-              <v-checkbox v-model="user.cyclingBehaviour.q10" label="I do not ride on working days"
+              <v-checkbox v-model="user.cyclingBehaviour.q10" label="I do not ride on weekends"
                           value="I do not ride on working days" style="margin-top: -15px;"></v-checkbox>
               <v-checkbox v-model="user.cyclingBehaviour.q10" label="Other" value="Other"
                           style="margin-top: -15px;"></v-checkbox>
@@ -692,11 +694,10 @@
               <h1>Profile Information</h1>
               <br>
               <v-alert :value="true" color="accent" icon="info" outline>
-                <h2>Privacy Note</h2>
+                <h2>Note on Your E-Mail Address and Privacy</h2>
                 Your questionnaire answers will not be connected to your name/e-mail and will
                 be deleted from our database immediately after the study evaluation. Your E-Mail will not be visible for
-                anybody else. You can change your e-mail address later.<h3>We make sure to respect your privacy and
-                handle your data anonymously!</h3>
+                anybody else. You can change your e-mail address later.
               </v-alert>
               <br>
               <v-text-field ref="emailEntry" :rules="[rules.required, rules.emailValid]"
@@ -768,16 +769,6 @@
                 <p>In the field study, you will have to use the ExploX website for the next 2-4 weeks (until 15. July)
                   and can win the
                   rewards.</p>
-                <p>We will reward your participation in the study with the chance to win one of <b>6 x 25€ Amazon
-                  Voucher</b>
-                  that
-                  you will receive
-                  at the end of the study. <b style="color: #ee5b19">Additionally:</b> The participants that
-                  actually cycle at least 2 of
-                  the generated routes,
-                  track and save them as Strava activities and give us detailed information about the routes can win a
-                  <b>50€ cycling gear voucher</b>.
-                </p>
                 <br>
                 <v-alert :value="true" type="success" v-if="this.isEligible">
                   You are eligible to participate in the study.
@@ -789,14 +780,17 @@
 
 
                 <v-alert :value="true" type="error" v-if="!this.canUseWebsite">
-                  Sorry, but you are <b>not</b> eligible to use the website.
+                  Sorry, but you are <b>not</b> eligible to use the website because your cycling location is too far
+                  away from Saarland.
                 </v-alert>
                 <br>
 
                 <section v-if="this.isEligible || this.canUseWebsite">
                   <h1>Do you want to participate in the study?</h1>
                   <!--<v-checkbox :label="checkbox1_text" v-model="emailsCheckbox" style="margin-bottom: -20px;"></v-checkbox>-->
-                  <v-btn depressed v-on:click="dialog = true" style="width: 300px;">Show Terms and Conditions</v-btn>
+                  <v-btn depressed v-on:click="dialog = true" style="width: 600px;">Show Data Protection Information and
+                    Terms & Conditions
+                  </v-btn>
                   <v-checkbox :rules="[rules.required]" :label="checkbox2_text" v-model="termsCheckbox"
                               v-bind:error="termsError"></v-checkbox>
                   <br>
@@ -835,7 +829,8 @@
                       <span class="headline">Terms and Conditions for ExploX</span>
                     </v-card-title>
                     <v-card-text>
-                      <h3>Introduction</h3>
+                      <data-protection></data-protection>
+                      <h1>Terms and Conditions for ExploX</h1>
                       <p>These Website Standard Terms and Conditions written on this webpage shall manage your use of
                         our
                         website, ExploX accessible at umtl.dfki.de/explox.</p>
@@ -1014,7 +1009,8 @@
               </ul>
               <p><b style="color: #ee5b19">Außerdem:</b> Unter allen Teilnehmern, die neben obigen Kriterien mindestens
                 2 der generierten Routenvorschläge tatsächlich fahren, tracken, in Strava als Aktivitäten speichern und
-                detailliertes Feedback zu den Routen geben, können einen von <b style="color:#ee5b19;">3 x 50€ Gutscheinn
+                detailliertes Feedback zu den Routen geben, können einen von <b style="color:#ee5b19;">3 x 50€
+                  Gutscheinn
                   für
                   Fahrradzubehör gewinnen</b>!
               </p>
@@ -1049,11 +1045,14 @@
                 </li>
               </ul>
               <br>
+              <v-btn round to="dataprotection" style="width: 400px;">Data Protection Information</v-btn>
 
               <br>
 
               <br>
-              <v-btn class="gradient gradient-orange" style="width: 200px;" v-on:click="logUser" dark round @click="e1 = 1">Weiter</v-btn>
+              <v-btn class="gradient gradient-orange" style="width: 200px;" v-on:click="logUser" dark round
+                     @click="e1 = 1">Weiter
+              </v-btn>
             </v-layout>
           </v-stepper-content>
           <v-stepper-content step="1" v-if="user.demographics">
@@ -1069,6 +1068,28 @@
               <p class="title">Alter:</p>
               <v-text-field v-model="user.demographics.q2" type="number" label="" min="0" max="100"
                             style="width: 100px;"></v-text-field>
+
+              <p class="title">Wo leben/wohnen Sie? (ungefähre Angebe genügt)</p>
+              <v-layout row wrap>
+                <v-flex xs12 sm6 md5>
+                  <v-text-field v-on:blur="validateLocation($event, true)"
+                                label="z.B. 66123 Saarbrücken oder leer lassen"
+                                v-model="user.demographics.q5"></v-text-field>
+                  <p>{{homeLocationDisplay}}</p>
+                </v-flex>
+              </v-layout>
+
+              <br>
+
+              <p class="title">Wo fahren Sie am häufigsten Fahrrad?</p>
+              <v-layout row wrap>
+                <v-flex xs12 sm6 md5>
+                  <v-text-field v-on:blur="validateLocation($event, false)"
+                                label="z.B. Landkreis Merzig-Wadern" v-model="user.demographics.q6"></v-text-field>
+                  <p v-if="canUseWebsite" style="color: green">{{cyclingLocationDisplay}}</p>
+                  <p v-else style="color: red">Nicht in der Nähe des Saarlandes: {{cyclingLocationDisplay}}</p>
+                </v-flex>
+              </v-layout>
 
               <v-radio-group v-model="user.demographics.q3">
                 <p class="title">Höchster Bildungsabschluss:</p>
@@ -1095,26 +1116,6 @@
                 <v-radio label="Pensioniert" value=6></v-radio>
                 <v-radio label="Keine Angabe" value=7></v-radio>
               </v-radio-group>
-
-              <p class="title">Wo leben/wohnen Sie? (ungefähre Angebe genügt)</p>
-              <v-layout row wrap>
-                <v-flex xs12 sm6 md5>
-                  <v-text-field v-on:blur="validateLocation($event, true)"
-                                label="z.B. 66123 Saarbrücken" v-model="user.demographics.q5"></v-text-field>
-                  <p>{{homeLocationDisplay}}</p>
-                </v-flex>
-              </v-layout>
-
-              <br>
-
-              <p class="title">Wo fahren Sie am häufigsten Fahrrad?</p>
-              <v-layout row wrap>
-                <v-flex xs12 sm6 md5>
-                  <v-text-field v-on:blur="validateLocation($event, false)"
-                                label="z.B. Landkreis Merzig-Wadern" v-model="user.demographics.q6"></v-text-field>
-                  <p>{{cyclingLocationDisplay}}</p>
-                </v-flex>
-              </v-layout>
 
               <v-btn class="gradient gradient-orange" style="width: 200px;" dark round @click="e1 = 2"
                      v-on:click="logUser">Weiter
@@ -1254,7 +1255,7 @@
               <v-checkbox v-model="user.cyclingBehaviour.q10" label="Sonstige Erledigungen (z.B. einkaufen)"
                           value="Shopping"
                           style="margin-top: -10px;"></v-checkbox>
-              <v-checkbox v-model="user.cyclingBehaviour.q10" label="Ich fahre nicht an Werktagen"
+              <v-checkbox v-model="user.cyclingBehaviour.q10" label="Ich fahre nicht an Wochenenden"
                           value="I do not ride on working days" style="margin-top: -15px;"></v-checkbox>
               <v-checkbox v-model="user.cyclingBehaviour.q10" label="Andere Gründe" value="Other"
                           style="margin-top: -15px;"></v-checkbox>
@@ -1668,13 +1669,12 @@
               <h1>Profil Informationen</h1>
               <br>
               <v-alert :value="true" color="accent" icon="info" outline>
-                <h2>Anmerkung zum Datenschutz</h2>
+                <h2>Anmerkung zur E-Mail Adresse und Datenschutz</h2>
                 Ihre Antworten zu den Fragebögen werden nicht in Verbindung
                 mit
                 ihrer E-Mail Adresse gebracht und nach Auswertung der Studie gelöscht. Ihre E-Mail Adresse wird für
                 niemanden sonst sichtbar sein und dient nur der Kontaktaufnahme und erfolgreichen Durchführung und
-                Abschluss der Studie. <h3>Wir respektieren Ihre Privatsphäre
-                und behandeln alle Daten anonym!</h3>
+                Abschluss der Studie.
               </v-alert>
               <br>
               <v-text-field ref="emailEntry" :rules="[rules.required, rules.emailValid]"
@@ -1748,12 +1748,6 @@
               <p>In der Feldstudie können Sie die Website in den kommenden 2-4 Wochen (bis 14. Juli) benutzen und sich
                 dadurch die
                 Chance auf den Gewinn sichern.</p>
-              <p>Ihre Teilnahme an der Studie belohnen wir mit der Chance <b>einen von 6 x 25€ Amazon Gutscheinen</b>
-                zu gewinnen. Gewinner erhalten diesen automatisch am Ende der Studie.<br><b style="color: #ee5b19">Hauptpreise:</b>
-                Die Teilnehmer, die neben obigen Kriterien mindestens 2 der generierten Routenvorschläge
-                tatsächlich fahren, tracken, in Strava als Aktivitäten speichern und detailliertes Feedback zu den
-                Routen geben, können einen <b>50€ Gutschein für Fahrradzubehör</b> gewinnen.
-              </p>
               <br>
               <v-alert :value="true" type="success" v-if="this.isEligible">
                 Sie dürfen an der Studie teilnehmen!
@@ -1765,16 +1759,20 @@
 
 
               <v-alert :value="true" type="error" v-if="!this.canUseWebsite">
-                Sie können die Website leider <b>nicht</b> benutzen.
+                Sie können die Website leider <b>nicht</b> benutzen weil ihre Angabe wo Sie fahren zu weit vom Saarland
+                entfernt ist.
               </v-alert>
               <br>
 
               <section v-if="this.isEligible || this.canUseWebsite">
                 <h1>Möchten Sie an der Studie teilnehmen?</h1>
                 <!--<v-checkbox :label="checkbox1_text" v-model="emailsCheckbox" style="margin-bottom: -20px;"></v-checkbox>-->
-                <v-btn depressed v-on:click="dialog = true" style="width: 300px;">Teilnahmebedingungen anzeigen
+                <v-btn depressed v-on:click="dialog = true" style="width: 600px;">Datenschutzinformationen und
+                  Teilnahmebedingungen anzeigen
                 </v-btn>
-                <v-checkbox :rules="[rules.required]" label="Teilnahmebedingungen akzeptieren" v-model="termsCheckbox"
+                <v-checkbox :rules="[rules.required]"
+                            label="Datenschutzinformationen und Teilnahmebedingungen akzeptieren"
+                            v-model="termsCheckbox"
                             v-bind:error="termsError"></v-checkbox>
                 <br>
               </section>
@@ -1806,13 +1804,14 @@
                 </v-layout>
               </section>
 
-              <v-dialog v-model="dialog" persistent width="600px">
+              <v-dialog v-model="dialog" width="600px">
                 <v-card>
                   <v-card-title>
                     <span class="headline">Terms and Conditions for ExploX</span>
                   </v-card-title>
                   <v-card-text>
-                    <h3>Introduction</h3>
+                    <data-protection></data-protection>
+                    <h1>Terms and Conditions for ExploX</h1>
                     <p>These Website Standard Terms and Conditions written on this webpage shall manage your use of
                       our
                       website, ExploX accessible at umtl.dfki.de/explox.</p>
@@ -1923,9 +1922,11 @@
   import geoTransformMixin from '../../mixins/geoTransformMixin'
   import {EventBus} from '@/eventBus'
   import axios from 'axios'
+  import DataProtection from '../general/DataProtection'
 
   export default {
     name: 'SignUp',
+    components: {DataProtection},
     data () {
       return {
         e1: 0,
@@ -1942,7 +1943,7 @@
         termsCheckbox: false,
         termsError: false,
         checkbox1_text: 'Allow news via email',
-        checkbox2_text: 'Accept Terms and Conditions',
+        checkbox2_text: 'Accept Data Protection Information and Terms & Conditions',
         participates: false,
         homeLocationDisplay: '',
         cyclingLocationDisplay: '',
@@ -2120,7 +2121,7 @@
                     activitiesInRange++
                   }
                 })
-                if (activitiesInRange >= 9) {
+                if (activitiesInRange >= 0) {
                   console.log('User has ' + activitiesInRange + ' activities in range.')
                   this.eligibleByActivities = true
                 }
@@ -2132,7 +2133,7 @@
         let eligible = true
         eligible &= this.eligibleByActivities
         eligible &= this.user.cyclingBehaviour.q1 !== '3'         // Does not have access to a bike in working condition
-        eligible &= parseInt(this.user.cyclingBehaviour.q4) < 5   // Cycles less than once a year
+        eligible &= parseInt(this.user.cyclingBehaviour.q4) < 6   // Cycles less than once a year
         eligible &= this.user.cyclingBehaviour.q13 === '2'        // Does not identify as a recreational cyclist
         eligible &= parseInt(this.user.cyclingBehaviour.q12a) < 4  // Tracks at least some rides on Strava
         eligible &= this.checkCanUseWebsite()
