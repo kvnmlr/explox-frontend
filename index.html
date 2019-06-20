@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>ExploX</title>
-  <link href='static/favicon.png' rel="icon" Atype="image/x-icon" />
+  <link href='/static/favicon.png' rel="icon" Atype="image/x-icon" />
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
   <meta name="description" content="ExploX Website">
@@ -16,34 +16,36 @@
 
   <!-- Material Icons -->
   <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <!-- LeafletJS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
         integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
         crossorigin=""/>
 
-  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+  <!--<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />-->
+
+  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 
 
   <!-- MaskCanvas.js -->
-  <script src="https://github.com/domoritz/leaflet-maskcanvas/blob/master/src/QuadTree.js"></script>
-  <script src="https://github.com/domoritz/leaflet-maskcanvas/blob/master/src/L.GridLayer.MaskCanvas.js"></script>
+  <script src="https://raw.githubusercontent.com/domoritz/leaflet-maskcanvas/master/src/QuadTree.js"></script>
+  <script src="https://raw.githubusercontent.com/domoritz/leaflet-maskcanvas/master/src/L.GridLayer.MaskCanvas.js"></script>
 
   <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"
           integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
           crossorigin=""></script>
 
-  <!--<script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>-->
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8"></script>
 
 
-  <!-- Mapbox -->
-  <!--<script src='https://api.mapbox.com/mapbox.js/v3.2.0/mapbox.js'></script>
-  <link href='https://api.mapbox.com/mapbox.js/v3.2.0/mapbox.css' rel='stylesheet' />
-  <script src='https://api.mapbox.com/mapbox.js/plugins/mapbox-directions.js/v0.4.0/mapbox.directions.js'></script>
-  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.css' rel='stylesheet' />
-  <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
-  <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
-  <link rel='stylesheet' href='https://api.mapbox.com/mapbox.js/plugins/mapbox-directions.js/v0.4.0/mapbox.directions.css' type='text/css' />-->
+  <script src="/static/elevation/leaflet.elevation-0.0.4.min.js"></script>
+  <link rel="stylesheet" href="/static/elevation/leaflet.elevation-0.0.4.css">
+
+  <script src="/static/fullscreen/dist/Leaflet.fullscreen.min.js"></script>
+  <link rel="stylesheet" href="/static/fullscreen/dist/leaflet.fullscreen.css">
 </head>
 <body>
 <div id="app"></div>

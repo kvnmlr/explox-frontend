@@ -212,6 +212,8 @@
                           style="margin-top: -10px;"></v-checkbox>
               <v-checkbox v-model="user.cyclingBehaviour.q5" label="Smartphone with an other app" value="Other App"
                           style="margin-top: -15px;"></v-checkbox>
+              <v-checkbox v-model="user.cyclingBehaviour.q5" label="Smartwatch or Fitness Tracker" value="Smartwatch"
+                          style="margin-top: -15px;"></v-checkbox>
               <v-checkbox v-model="user.cyclingBehaviour.q5" label="A dedicated GPS device (e.g. Garmin Edge)"
                           value="GPS Device" style="margin-top: -15px;"></v-checkbox>
               <v-checkbox v-model="user.cyclingBehaviour.q5" label="Watt Meter" value="Watt"
@@ -346,7 +348,9 @@
               </v-radio-group>
 
               <section>
-                <p class="title">Rate the following items on their importance when choosing a cycling route?</p>
+                <p class="title">Rate the following route properties on their importance for you when choosing a cycling
+                  route? Move the slider using your mouse. If a property is totally irrelevant for you, leave the slider
+                  on the left position</p>
                 <v-layout row wrap align-center>
                   <v-flex xs12 md3>
                     Distance
@@ -354,7 +358,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.cyclingBehaviour.q14.i1"
                               :tick-labels="['Unimportant',' ','Neutral',' ', 'Important']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap align-center>
@@ -364,7 +368,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.cyclingBehaviour.q14.i2"
                               :tick-labels="['Unimportant',' ','Neutral',' ', 'Important']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap align-center>
@@ -374,7 +378,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.cyclingBehaviour.q14.i3"
                               :tick-labels="['Unimportant',' ','Neutral',' ', ' important']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap align-center>
@@ -384,7 +388,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.cyclingBehaviour.q14.i4"
                               :tick-labels="['Unimportant',' ','Neutral',' ', 'Important']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap align-center>
@@ -394,7 +398,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.cyclingBehaviour.q14.i5"
                               :tick-labels="['Unimportant',' ','Neutral',' ', 'Important']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap align-center>
@@ -404,7 +408,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.cyclingBehaviour.q14.i6"
                               :tick-labels="['Unimportant',' ','Neutral',' ', 'Important']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap align-center>
@@ -414,7 +418,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.cyclingBehaviour.q14.i7"
                               :tick-labels="['Unimportant',' ','Neutral',' ', 'Important']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <br>
@@ -464,7 +468,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.routePlanning.q3.i1"
                               :tick-labels="['Unimportant',' ','Neutral',' ', 'Important']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap align-center>
@@ -474,7 +478,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.routePlanning.q3.i2"
                               :tick-labels="['Unimportant',' ','Neutral',' ', 'Important']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap align-center>
@@ -484,7 +488,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.routePlanning.q3.i3"
                               :tick-labels="['Unimportant',' ','Neutral',' ', ' important']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap align-center>
@@ -494,7 +498,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.routePlanning.q3.i4"
                               :tick-labels="['Unimportant',' ','Neutral',' ', 'Important']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap align-center>
@@ -504,7 +508,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.routePlanning.q3.i5"
                               :tick-labels="['Unimportant',' ','Neutral',' ', 'Important']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap align-center>
@@ -514,7 +518,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.routePlanning.q3.i6"
                               :tick-labels="['Unimportant',' ','Neutral',' ', 'Important']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <br>
@@ -562,6 +566,8 @@
                             value="Digital"
                             style="margin-top: -15px;"></v-checkbox>
                 <v-checkbox v-model="user.routePlanning.q4b" label="We use a physical (paper) map" value="Physical"
+                            style="margin-top: -15px;"></v-checkbox>
+                <v-checkbox v-model="user.routePlanning.q4b" label="I let the others plan and navigate" value="Passive"
                             style="margin-top: -15px;"></v-checkbox>
                 <v-checkbox v-model="user.routePlanning.q4b" label="Other" value="Other"
                             style="margin-top: -15px;"></v-checkbox>
@@ -612,7 +618,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.routePlanning.q8.i1"
                               :tick-labels="['Unimportant',' ','Neutral',' ', 'Important']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap align-center>
@@ -623,7 +629,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.routePlanning.q8.i2"
                               :tick-labels="['Unimportant',' ','Neutral',' ', 'Important']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap align-center>
@@ -634,7 +640,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.routePlanning.q8.i3"
                               :tick-labels="['Unimportant',' ','Neutral',' ', ' important']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap align-center>
@@ -645,7 +651,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.routePlanning.q8.i4"
                               :tick-labels="['Unimportant',' ','Neutral',' ', 'Important']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap align-center>
@@ -656,7 +662,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.routePlanning.q8.i5"
                               :tick-labels="['Unimportant',' ','Neutral',' ', 'Important']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap align-center>
@@ -667,7 +673,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.routePlanning.q8.i6"
                               :tick-labels="['Unimportant',' ','Neutral',' ', 'Important']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap align-center>
@@ -678,7 +684,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.routePlanning.q8.i7"
                               :tick-labels="['Unimportant',' ','Neutral',' ', 'Important']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <br>
@@ -816,8 +822,7 @@
                   <v-layout row>
                     <v-flex coluxs12 sm3>
                       <v-btn large class="gradient gradient-blue" dark round v-on:click="signup(false)">
-                        <v-icon>check</v-icon>
-                        Finish Questionnaire
+                        Submit Questionnaire
                       </v-btn>
                     </v-flex>
                   </v-layout>
@@ -1162,6 +1167,8 @@
                           style="margin-top: -10px;"></v-checkbox>
               <v-checkbox v-model="user.cyclingBehaviour.q5" label="Smartphone mit einer anderen App" value="Other App"
                           style="margin-top: -15px;"></v-checkbox>
+              <v-checkbox v-model="user.cyclingBehaviour.q5" label="Smartwatch oder Fitnesstracker" value="Smartwatch"
+                          style="margin-top: -15px;"></v-checkbox>
               <v-checkbox v-model="user.cyclingBehaviour.q5" label="Ein GPS-Gerät (z.B. Garmin Edge)"
                           value="GPS Device" style="margin-top: -15px;"></v-checkbox>
               <v-checkbox v-model="user.cyclingBehaviour.q5" label="Watt Meter" value="Watt"
@@ -1306,15 +1313,17 @@
               </v-radio-group>
 
               <section>
-                <p class="title">Bewerten Sie folgende Aussagen nach ihrer Wichtigkeit für Sie.</p>
+                <p class="title">Bewerten Sie folgende Eigenschaften von Routen nach ihrer Wichtigkeit für Sie. Bewegen
+                  Sie den Schieberegler mit der Maus. Falls
+                  eine Eigenschaft keine Rolle spielt lassen Sie den Regler ganz links.</p>
                 <v-layout row wrap align-center>
                   <v-flex xs12 md3>
-                    Entfernung
+                    Entfernung / Distanz
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.cyclingBehaviour.q14.i1"
+                    <v-slider  style="width: 500px;" v-model="user.cyclingBehaviour.q14.i1"
                               :tick-labels="['Unwichtig',' ','Neutral',' ', 'Wichtig']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks></v-slider>
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap align-center>
@@ -1324,7 +1333,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.cyclingBehaviour.q14.i2"
                               :tick-labels="['Unwichtig',' ','Neutral',' ', 'Wichtig']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always" ></v-slider>
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap align-center>
@@ -1334,7 +1343,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.cyclingBehaviour.q14.i3"
                               :tick-labels="['Unwichtig',' ','Neutral',' ', ' Wichtig']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap align-center>
@@ -1344,7 +1353,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.cyclingBehaviour.q14.i4"
                               :tick-labels="['Unwichtig',' ','Neutral',' ', 'Wichtig']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap align-center>
@@ -1354,7 +1363,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.cyclingBehaviour.q14.i5"
                               :tick-labels="['Unwichtig',' ','Neutral',' ', 'Wichtig']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap align-center>
@@ -1364,7 +1373,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.cyclingBehaviour.q14.i6"
                               :tick-labels="['Unimportant',' ','Neutral',' ', 'Wichtig']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap align-center>
@@ -1375,7 +1384,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.cyclingBehaviour.q14.i7"
                               :tick-labels="['Unimportant',' ','Neutral',' ', 'Wichtig']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <br>
@@ -1426,7 +1435,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.routePlanning.q3.i1"
                               :tick-labels="['Unwichtig',' ','Neutral',' ', 'Wichtig']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap align-center>
@@ -1436,7 +1445,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.routePlanning.q3.i2"
                               :tick-labels="['Unwichtig',' ','Neutral',' ', 'Wichtig']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap align-center>
@@ -1446,7 +1455,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.routePlanning.q3.i3"
                               :tick-labels="['Unwichtig',' ','Neutral',' ', ' Wichtig']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap align-center>
@@ -1456,7 +1465,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.routePlanning.q3.i4"
                               :tick-labels="['Unwichtig',' ','Neutral',' ', 'Wichtig']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap align-center>
@@ -1466,7 +1475,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.routePlanning.q3.i5"
                               :tick-labels="['Unwichtig',' ','Neutral',' ', 'Wichtig']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap align-center>
@@ -1476,7 +1485,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.routePlanning.q3.i6"
                               :tick-labels="['Unwichtig',' ','Neutral',' ', 'Wichtig']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <br>
@@ -1533,6 +1542,10 @@
                 <v-checkbox v-model="user.routePlanning.q4b" label="Wir benutze eine echte Karte (aus Papier)"
                             value="Physical"
                             style="margin-top: -15px;"></v-checkbox>
+                <v-checkbox v-model="user.routePlanning.q4b"
+                            label="Ich lasse die anderen planen und navigieren und fahre nur mit"
+                            value="Passive"
+                            style="margin-top: -15px;"></v-checkbox>
                 <v-checkbox v-model="user.routePlanning.q4b" label="Andere" value="Other"
                             style="margin-top: -15px;"></v-checkbox>
               </section>
@@ -1587,7 +1600,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.routePlanning.q8.i1"
                               :tick-labels="['Stimme nicht zu',' ','Neutral',' ', 'Stimme zu']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap align-center>
@@ -1598,7 +1611,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.routePlanning.q8.i2"
                               :tick-labels="['Stimme nicht zu',' ','Neutral',' ', 'Stimme zu']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap align-center>
@@ -1609,7 +1622,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.routePlanning.q8.i3"
                               :tick-labels="['Stimme nicht zu',' ','Neutral',' ', ' Stimme zu']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap align-center>
@@ -1620,7 +1633,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.routePlanning.q8.i4"
                               :tick-labels="['Stimme nicht zu',' ','Neutral',' ', 'Stimme zu']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap align-center>
@@ -1631,7 +1644,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.routePlanning.q8.i5"
                               :tick-labels="['Stimme nicht zu',' ','Neutral',' ', 'Stimme zu']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap align-center>
@@ -1642,7 +1655,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.routePlanning.q8.i6"
                               :tick-labels="['Stimme nicht zu',' ','Neutral',' ', 'Stimme zu']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap align-center>
@@ -1653,7 +1666,7 @@
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.routePlanning.q8.i7"
                               :tick-labels="['Stimme nicht zu',' ','Neutral',' ', 'Stimme zu']" :max="4" step="1"
-                              ticks="always" tick-size="2"></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <br>
@@ -1754,7 +1767,7 @@
               </v-alert>
 
               <v-alert :value="true" type="info" v-if="!this.isEligible && this.canUseWebsite">
-                Sie dürfen leider <b>nicht</b> an der Studie teilnehmen, aber können die Website trotzdem benutzen.
+                Sie können <b>nicht</b> an der Studie teilnehmen, aber können die Website trotzdem benutzen.
               </v-alert>
 
 
@@ -1797,8 +1810,7 @@
                 <v-layout row>
                   <v-flex coluxs12 md5>
                     <v-btn large class="gradient gradient-blue" dark round v-on:click="signup(false)">
-                      <v-icon>check</v-icon>
-                      Anmeldung abschließen
+                      Fragebogen abschicken
                     </v-btn>
                   </v-flex>
                 </v-layout>

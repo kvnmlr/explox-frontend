@@ -26,6 +26,7 @@
               <h2>Step 1: Select a start point</h2>
               <br>
               <ul>
+                <li>You can use the controls in the top left corner to move to your current location</li>
                 <li>Click on the map where you want your route to start. An orange circle will appear.</li>
                 <li>Click continue.</li>
               </ul>

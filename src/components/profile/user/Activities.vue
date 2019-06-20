@@ -15,15 +15,14 @@
           <p v-else>You do not have any activities</p>
 
         </v-flex>
-        <v-flex class="hidden-sm-and-down" md5 style="padding-left:20px;">
+        <!--<v-flex class="hidden-sm-and-down" md5 style="padding-left:20px;">
           <br>
           <upload-file></upload-file>
           <br>
           <div v-if="user.activities.length <= 3" style="height:300px"></div>
           <img v-else-if="user.activities.length > 3" style="width:100%" src="@/assets/img/bicycle-cloud-clouds.jpg" class="elevation-5">
           <img v-else style="width:100%" src="@/assets/img/bicycle-cloud-clouds-2.jpg" class="elevation-5">
-
-        </v-flex>
+        </v-flex>-->
       </v-layout>
     </div>
   </v-container>

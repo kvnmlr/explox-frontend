@@ -93,7 +93,7 @@
                 <p>We will reward your participation in the study with the chance to win <b style="color:#ee5b19;">one
                   of
                   6 x 25€ Amazon
-                  Vouchers</b>. If you win, you will receive at the end of the study.</p>
+                  Vouchers</b>. If you win, you will receive the voucher at the end of the study.</p>
                 <p><b style="color: #ee5b19">Additionally:</b> The first 5 participants to fulfill the above criteria
                   and
                   actually cycle at least 2 of the generated routes, track and save them as Strava activities and give

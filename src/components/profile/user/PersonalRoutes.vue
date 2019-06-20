@@ -22,7 +22,7 @@
 
           <create-new-route-prompt></create-new-route-prompt>
         </v-flex>
-        <v-flex xs12 sm5 style="padding-left:20px;">
+        <!--<v-flex xs12 sm5 style="padding-left:20px;">
           <br>
           <upload-file route></upload-file>
           <br>
@@ -30,7 +30,7 @@
           <br>
           <p>You have not starred any routes</p>
           <route v-for="(route, i) in []" v-bind:route="route" :key="i"></route>
-        </v-flex>
+        </v-flex>-->
       </v-layout>
     </div>
   </v-container>

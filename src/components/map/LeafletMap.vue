@@ -23,7 +23,7 @@
                   <v-menu offset-y>
                     <v-btn slot="activator" class="gradient gradient-orange" dark round>Change Map Style</v-btn>
                     <v-list style="z-index: 900" v-for="map in mapLayers" :key="map.index">
-                      <v-list-tile @click="providerChanged(map.id)">
+                      <v-list-tile @click="() => {selectedMap = map.id; reloadMap()}">
                         <v-list-tile-title>{{map.name}}</v-list-tile-title>
                       </v-list-tile>
                     </v-list>
@@ -105,6 +105,8 @@
         routeInitialized: false,
         activitiesInitialized: false,
         mapReady: true,
+
+        elevation: null,
       }
     },
     props: {
@@ -115,6 +117,7 @@
       currentSelectStart: Boolean,     // indicates whether current mouse selection is the start point
       selectEnabled: Boolean,
       openPanel: Boolean,
+      hasElevationProfile: Boolean,
     },
 
     mixins: [geoTransformMixin],
@@ -122,6 +125,8 @@
       EventBus.$emit('removeMap', next)
     },
     created () {
+      console.log(this)
+
       this.routeInitialized = false
       this.activitiesInitialized = false
       this.mapReady = true
@@ -151,7 +156,7 @@
         this.routeWaypoints = this.toWaypoints(this.route.geo, true)
         this.routeInitialized = true
 
-        if (this.activitiesInitialized || !this.showActivityMap) {
+        if (this.activitiesInitialized || !this.showActivityMap || !this.user) {
           this.mapReady = true
           setTimeout(this.reloadMap, 100)
         }
@@ -162,7 +167,6 @@
           this.activitiesGeoJSON = this.activitiesGeoJSON.concat(this.toGeoJSON(this.normalizeGeos(activity.geo), true))
         })
         this.activitiesInitialized = true
-
         if (this.routeInitialized || !this.showRoute || this.$router.currentRoute.name.includes('Creator')) {
           this.mapReady = true
           setTimeout(this.reloadMap, 100)
@@ -435,7 +439,7 @@
         const routeLayer =
           {
             id: id,
-            label: 'route',
+            label: 'routeelevation',
             name: 'Route',
             style: {
               'color': color,
@@ -457,6 +461,7 @@
         this.featureLayers.push(routeLayerWhite)
         this.featureLayers.push(routeLayerBlack)
         this.featureLayers.push(routeLayer)
+
       },
 
       reloadMap () {
@@ -464,6 +469,9 @@
           this.init()
         } else {
           try {
+            if (this.elevation !== null) {
+              this.elevation.clear()
+            }
             this.map.remove()
             this.map = undefined
           } catch (e) {
@@ -508,32 +516,54 @@
 
       initView () {
         try {
-          if (!this.map) {
+          if (this.map === null || !this.map) {
             this.map = L.map('map', {
               minZoom: 0,
               maxZoom: 100,
-              scrollWheelZoom: false,
+              scrollWheelZoom: true,
               zoomControl: true,
-              fullscreenControl: {
-                pseudoFullscreen: false // if true, fullscreen to page width and height
-              }
+              fullscreenControl: true,
             }).setView([49.234, 6.997], 9)
+            L.control.locate({
+              // keepCurrentZoomLevel: true,
+              drawMarker: false,
+            }).addTo(this.map)
           }
         } catch (e) {
-          console.error(e)
+          // console.error(e)
           return false
         }
         return true
       },
 
       initProviders () {
+        const defaultMap = {
+          leafletObject: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          }),
+          id: 0,
+          name: 'Default'
+        }
+        this.mapLayers.push(defaultMap)
+
+        const explorationMap = {
+          leafletObject: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          }),
+          id: 1,
+          name: 'ExploX'
+        }
+        this.mapLayers.push(explorationMap)
+
         const lightMap = {
           leafletObject: L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}{r}.png', {
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
             subdomains: 'abcd',
             maxZoom: 19
           }),
-          id: 0,
+          id: 2,
           name: 'Light'
         }
         this.mapLayers.push(lightMap)
@@ -544,7 +574,7 @@
             subdomains: 'abcd',
             maxZoom: 19
           }),
-          id: 1,
+          id: 3,
           name: 'Dark'
         }
         this.mapLayers.push(darkMap)
@@ -554,7 +584,7 @@
             attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
             maxZoom: 22
           }),
-          id: 2,
+          id: 4,
           name: 'Road Cycling'
         }
         this.mapLayers.push(cyclingMap)
@@ -563,7 +593,7 @@
           leafletObject: L.tileLayer('http://tile.mtbmap.cz/mtbmap_tiles/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &amp; USGS'
           }),
-          id: 3,
+          id: 5,
           name: 'Mountainbike'
         }
         this.mapLayers.push(mtbMap)
@@ -571,89 +601,158 @@
 
       initLayers () {
         this.featureLayers.forEach((layer) => {
-          if (layer.label === 'start') {
-            const startIcon = L.icon({
-              iconUrl: 'https://raw.githubusercontent.com/kvnmlr/explox-frontend/master/src/assets/img/start.png',
-              iconSize: [50, 50], // size of the icon
-              iconAnchor: [15, 40], // point of the icon which will correspond to marker's location
-              popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
-            })
-            layer.leafletObject = L.marker(layer.coords, {icon: startIcon}).bindPopup(layer.name)
-            return
-          }
+            if (layer.label === 'start') {
+              const startIcon = L.icon({
+                iconUrl: 'https://raw.githubusercontent.com/kvnmlr/explox-frontend/master/src/assets/img/start.png',
+                iconSize: [50, 50], // size of the icon
+                iconAnchor: [15, 40], // point of the icon which will correspond to marker's location
+                popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
+              })
+              layer.leafletObject = L.marker(layer.coords, {icon: startIcon}).bindPopup(layer.name)
+              return
+            }
 
-          if (layer.label === 'end') {
-            const startIcon = L.icon({
-              iconUrl: 'https://raw.githubusercontent.com/kvnmlr/explox-frontend/master/src/assets/img/finish.png',
-              iconSize: [50, 50], // size of the icon
-              iconAnchor: [25, 50], // point of the icon which will correspond to marker's location
-              popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
-            })
-            layer.leafletObject = L.marker(layer.coords, {icon: startIcon}).bindPopup(layer.name)
-            return
-          }
+            if (layer.label === 'end') {
+              const startIcon = L.icon({
+                iconUrl: 'https://raw.githubusercontent.com/kvnmlr/explox-frontend/master/src/assets/img/finish.png',
+                iconSize: [50, 50], // size of the icon
+                iconAnchor: [25, 50], // point of the icon which will correspond to marker's location
+                popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
+              })
+              layer.leafletObject = L.marker(layer.coords, {icon: startIcon}).bindPopup(layer.name)
+              return
+            }
 
-          if (layer.label === 'route') {
-            if (false /*this.$router.currentRoute.name === 'Creator'*/) {
-              const options = {
-                z: 0,
-                allowUTurns: false,
-                geometryOnly: true,
+            if (layer.label === 'route' || layer.label === 'routeelevation') {
+              if (false /*this.$router.currentRoute.name === 'Creator'*/) {
+                const options = {
+                  z: 0,
+                  allowUTurns: false,
+                  geometryOnly: true,
+                }
+
+                const routingLayer = L.routing.control({
+
+                  router: new L.Routing.OSRMv1(options),
+                  waypoints: this.routeWaypoints,
+                  show: false,
+                })
+
+                layer.leafletObject = routingLayer
+                return
+              } else {
+
+                if (layer.label === 'routeelevation') {
+
+                  let geojson = {
+                    name: 'NewFeatureType',
+                    type: 'FeatureCollection',
+                    features: [layer]
+                  }
+
+                  this.elevation = new L.Control.Elevation({
+                    position: 'bottomright',
+                    theme: 'explox-theme', //default: lime-theme
+                    width: 500,
+                    height: 100,
+                    margins: {
+                      top: 10,
+                      right: 20,
+                      bottom: 30,
+                      left: 40
+                    },
+                    useHeightIndicator: this.hasElevationProfile, //if false a marker is drawn at map position
+                    interpolation: 'linear', //see https://github.com/mbostock/d3/wiki/SVG-Shapes#wiki-area_interpolate
+                    hoverNumber: {
+                      decimalsX: 3, //decimals on distance (always in km)
+                      decimalsY: 0, //deciamls on hehttps://www.npmjs.com/package/leaflet.coordinatesight (always in m)
+                      formatter: undefined //custom formatter function may be injected
+                    },
+                    xTicks: undefined, //number of ticks in x axis, calculated by default according to width
+                    yTicks: undefined, //number of ticks on y axis, calculated by default according to height
+                    collapsed: false,  //collapsed mode, show chart on click or mouseover
+                    imperial: false    //display imperial units instead of metric
+                  })
+                  this.elevation.addTo(this.map)
+
+                  let leafletObject = new L.geoJson(geojson, {
+                    style: layer.style,
+                    onEachFeature: this.elevation.addData.bind(this.elevation) //working on a better solution
+                  })
+                  layer.leafletObject = leafletObject // L.geoJSON(layer, layer.style)
+                }
+                else {
+                  layer.leafletObject = L.geoJSON(layer, layer.style)
+
+                }
+                return
               }
+            }
 
-              const routingLayer = L.routing.control({
+            if (layer.label === 'coverage') {
+              var addressPoints = this.activitiesGeoJSON
 
-                router: new L.Routing.OSRMv1(options),
-                waypoints: this.routeWaypoints,
-                show: false,
+              addressPoints = addressPoints.map(function (p) {
+                return [p[0], p[1]]
               })
 
-              layer.leafletObject = routingLayer
-              return
-            } else {
-              layer.leafletObject = L.geoJSON(layer, layer.style)
-              return
+              let opacity = 0
+              switch (this.selectedMap) {
+                case 0:
+                  opacity = 0.2
+                  break
+                case 1:
+                  opacity = 0.85
+                  break
+                case 2:
+                  opacity = 0.07
+                  break
+                case 3:
+                  opacity = 0.6
+                  break
+                case 4:
+                  opacity = 0.2
+                  break
+                case 5:
+                  opacity = 0.4
+                  break
+              }
+
+              let coverageLayer = new L.GridLayer.MaskCanvas(
+                {
+                  radius: this.selectedMap === 1 ? 100 : 10,                 // radius in pixels or in meters (see useAbsoluteRadius)
+                  useAbsoluteRadius: true,    // true: r in meters, false: r in pixels
+                  color: '#000',              // the color of the layer
+                  opacity: opacity,               // opacity of the not covered area
+                  noMask: false,              // true results in normal (filled) circled, instead masked circles
+                  lineColor: '#A00'           // color of the circle outline if noMask is true
+                }
+              )
+              coverageLayer.setData(this.activitiesGeoJSON)
+              layer.leafletObject = coverageLayer
+
+              if (this.selectedMap !== 1) {
+                try {
+                  const layerOptions = {
+                    minOpacity: 0.1,
+                    max: 1,
+                    radius: 30,
+                    blur: 15,
+                    gradient: {0.2: 'white', 0.3: 'lime', 0.5: 'orange'},
+                  }
+                  let heat = L.heatLayer(addressPoints, layerOptions).addTo(this.map)
+                  layer.leafletObject = L.featureGroup([heat, coverageLayer])
+                  layer.leafletObject.bounds = coverageLayer.bounds
+                }
+                catch
+                  (e) {
+                  console.log('Map data is not yet ready for heatmap ' + e.toString())
+                }
+                return
+              }
             }
           }
-
-          if (layer.label === 'coverage') {
-            var addressPoints = this.activitiesGeoJSON
-
-            addressPoints = addressPoints.map(function (p) {
-              return [p[0], p[1]]
-            })
-
-            let coverageLayer = new L.GridLayer.MaskCanvas(
-              {
-                radius: 10,                 // radius in pixels or in meters (see useAbsoluteRadius)
-                useAbsoluteRadius: false,    // true: r in meters, false: r in pixels
-                color: '#000',              // the color of the layer
-                opacity: 0.06,               // opacity of the not covered area
-                noMask: false,              // true results in normal (filled) circled, instead masked circles
-                lineColor: '#A00'           // color of the circle outline if noMask is true
-              }
-            )
-            coverageLayer.setData(this.activitiesGeoJSON)
-            layer.leafletObject = coverageLayer
-
-            try {
-              const layerOptions = {
-                minOpacity: 0.1,
-                max: 1,
-                radius: 30,
-                blur: 15,
-                gradient: {0.2: 'white', 0.3: 'lime', 0.5: 'orange'},
-              }
-              let heat = L.heatLayer(addressPoints, layerOptions).addTo(this.map)
-              layer.leafletObject = L.featureGroup([heat, coverageLayer])
-              layer.leafletObject.bounds = coverageLayer.bounds
-
-            } catch (e) {
-              console.log('Map data is not yet ready for heatmap ' + e.toString())
-            }
-            return
-          }
-        })
+        )
       },
 
       layerChanged (layerId, fit) {
@@ -690,6 +789,7 @@
       },
 
       providerChanged (mapId) {
+        console.log('provider changed')
         this.selectedMap = mapId
         this.mapLayers.forEach(map => {
           if (map.leafletObject) {

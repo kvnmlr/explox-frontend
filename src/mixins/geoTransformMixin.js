@@ -25,9 +25,9 @@ export default {
         if (geos[i].location) {
           let coords
           if (inverted) {
-            coords = [(geos[i].location.coordinates[1]), (geos[i].location.coordinates[0])]
+            coords = [(geos[i].location.coordinates[1]), (geos[i].location.coordinates[0]), (geos[i].altitude)]
           } else {
-            coords = [(geos[i].location.coordinates[0]), (geos[i].location.coordinates[1])]
+            coords = [(geos[i].location.coordinates[0]), (geos[i].location.coordinates[1]), (geos[i].altitude)]
           }
 
           routeData.push(coords)

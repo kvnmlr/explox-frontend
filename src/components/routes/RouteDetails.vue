@@ -102,7 +102,7 @@
         </p>
       </v-flex>
       <v-flex xs12 sm12 md8>
-        <simple-map show-activity-map show-route open-panel></simple-map>
+        <simple-map has-elevation-profile show-activity-map show-route open-panel></simple-map>
       </v-flex>
     </v-layout>
 
