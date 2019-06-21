@@ -55,6 +55,7 @@
         }
         this.user.routes = [];
         this.user.activities = [];
+        this.user.creatorResults = [];
         const formData = {
           _csrf: '',
           user: this.user,

@@ -91,7 +91,8 @@
         </v-layout>
         <p>Distance: {{ route.distance }} km</p>
         <p v-if="route.user">Athlete:
-          <router-link :to="{path: '/users/' + route.user._id}">{{ route.user.username}}</router-link>
+          <span>{{ route.user.username}}</span>
+          <!--<router-link :to="{path: '/users/' + route.user._id}">{{ route.user.username}}</router-link>-->
         </p>
         <p v-if="route.strava">
           <a style="color: #FC4C02;" :href="'https://www.strava.com/activities/' + route.strava.id">View on

@@ -34,8 +34,9 @@
           <ul>
             <li>General profile info</li>
             <li>Your own Activity Map</li>
-            <li>A list of all past activities</li>
-            <li>Your own and starred routes</li>
+            <li>A list of all route generations</li>
+            <li>Your past Strava activities</li>
+            <li>Your own Strava routes</li>
           </ul>
           <br>
           <p>Your profile is always synchronized with your Strava profile.</p>
@@ -47,7 +48,7 @@
         </v-flex>
       </v-layout>
       <v-divider></v-divider>
-      <v-layout row wrap style="margin:30px;">
+      <!--<v-layout row wrap style="margin:30px;">
         <v-flex xs12 sm6 md6>
           <h2>Step 3: Find Existing Routes</h2>
           <br>
@@ -65,10 +66,10 @@
           </v-container>
         </v-flex>
       </v-layout>
-      <v-divider></v-divider>
+      <v-divider></v-divider>-->
       <v-layout row wrap style="margin:30px;">
         <v-flex xs12 sm6 md6>
-          <h2>Step 4: Create New Routes</h2>
+          <h2>Step 3: Create New Routes</h2>
           <br>
           <p>
             <router-link to="creator">Creator</router-link>
@@ -85,7 +86,7 @@
       <v-layout row wrap style="margin:30px;">
         <v-flex xs12 sm6 md6>
           <br>
-          <h2>Step 5: Invite Some Friends</h2>
+          <h2>Step 4: Invite Some Friends</h2>
           <br>
           <p>Got some cycling buddies? Why not invite them and find new routes together?<br>
             ExploX is currently only available for a small set of users including you and everybody you want to invite.

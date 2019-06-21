@@ -110,8 +110,8 @@
         {icon: 'person', text: 'Dashboard', link: 'dashboard', loginOnly: true},
         {icon: 'add', text: 'Generate new Route', link: 'creator', loginOnly: true},
         {separator: true,  loginOnly: true},
-        {icon: 'near_me', text: 'Search Routes', link: 'routes', loginOnly: false},
-        {icon: 'flag', text: 'Analytics', link: 'analytics', loginOnly: true},
+        /*{icon: 'near_me', text: 'Search Routes', link: 'routes', loginOnly: false},
+        {icon: 'flag', text: 'Analytics', link: 'analytics', loginOnly: true},*/
         {icon: 'flight_takeoff', text: 'Get Started', link: 'guide', loginOnly: false},
         {icon: 'chat_bubble', text: 'Send feedback', link: 'feedback', loginOnly: false},
         {icon: 'help', text: 'About', link: 'about', loginOnly: false},

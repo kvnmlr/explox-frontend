@@ -699,7 +699,7 @@
               let opacity = 0
               switch (this.selectedMap) {
                 case 0:
-                  opacity = 0.2
+                  opacity = 0.15
                   break
                 case 1:
                   opacity = 0.85

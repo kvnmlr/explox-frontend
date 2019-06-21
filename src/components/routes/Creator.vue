@@ -158,7 +158,8 @@
                       <p><b>Already Discovered: </b> {{ familiarityScores[i].toFixed(1)*100 }} %</p>
                       <div v-if="generatedRoutes[i].parts.length > 0"><span><b>Parts:</b></span>
                         <span v-for="(part, j) in generatedRoutes[i].parts">
-                          <a target="_blank" :href="'/route/' + part._id">{{part.title}}</a><span v-if="j < generatedRoutes[i].parts.length - 1">, </span>
+                          <a target="_blank" :href="'/route/' + part._id">{{part.title}}</a><span
+                          v-if="j < generatedRoutes[i].parts.length - 1">, </span>
                         </span>
                       </div>
                       <div v-else><span><b>Parts:</b></span>
@@ -252,6 +253,23 @@
                       :width="500">
       </loading-dialog>
     </section>
+    <v-dialog v-model="errorDialog" max-width="400">
+      <v-card class="gradient-no-switch gradient-green">
+        <v-card-title class="gradient-no-switch gradient-orange headline white--text">
+          <v-icon>error</v-icon>
+          &nbsp;Could not find routes
+        </v-card-title>
+        <v-card-text>
+          Please try again using different parameters. Route creation only works in and around Saarland.
+        </v-card-text>
+        <v-card-actions>
+          <v-layout column align-center justify-center>
+            <v-btn round @click="errorDialog = false">Close</v-btn>
+            <br>
+          </v-layout>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -272,6 +290,7 @@
         step: '1',
         mini: false,
         loadingDialog: false,
+        errorDialog: false,
         rating: 0,
 
         // DISTANCE
@@ -370,7 +389,7 @@
       async performSearch () {
         this.GET('creator', (data, err) => {
           if (err) {
-            if (!this.user) {
+            if (!this.user || this.user === null) {
               // Creator only accessible by logged in user
               this.$router.push('/login')
               this.$emit('flash', err.flash)
@@ -419,32 +438,31 @@
         }
 
         this.POST('routes/generate', formData, null, (data, err) => {
-          if (!err) {
-
-            if (data.generatedRoutes.length > 0) {
-              this.generatedRoutes = data.generatedRoutes
-              this.familiarityScores = data.familiarityScores
-              this.routeRatings = data.routeRatings
-              this.results = true
-              this.id = data._id
-              console.log('Done')
-
-              /* if (0.5 - Math.random()) {
-                console.log(this.familiarityScores);
-                this.generatedRoutes.reverse();
-                this.familiarityScores.reverse();
-                this.routeRatings.reverse();
-                console.log(this.familiarityScores);
-              } */
-
-            } else {
-              this.$emit('flash', {
-                type: 'error',
-                text: 'Could not find suitable routes'
-              })
-            }
-
+          if (!this.user) {
+            this.$router.push('login')
           }
+          console.log(data)
+          if (!err && data && !data.err && data.generatedRoutes.length > 0) {
+            this.generatedRoutes = data.generatedRoutes
+            this.familiarityScores = data.familiarityScores
+            this.routeRatings = data.routeRatings
+            this.results = true
+            this.id = data._id
+            console.log('Done')
+
+            /* if (0.5 - Math.random()) {
+              console.log(this.familiarityScores);
+              this.generatedRoutes.reverse();
+              this.familiarityScores.reverse();
+              this.routeRatings.reverse();
+              console.log(this.familiarityScores);
+            } */
+
+          } else {
+            this.step = '1'
+            this.errorDialog = true;
+          }
+
           setTimeout(() => {
             this.loadingDialog = false
           }, 200)

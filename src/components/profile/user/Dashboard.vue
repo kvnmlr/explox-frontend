@@ -274,7 +274,8 @@
                       <br>
 
                       <div v-if="user.creatorResults.length > 0"
-                           v-for="(cr, i) in user.creatorResults.slice().sort((r1, r2) => {return r1.createdAt < r2.createdAt ? 1 :-1;}).slice(0,2)" v-bind:route="cr.generatedRoutes[0]"
+                           v-for="(cr, i) in user.creatorResults.slice().sort((r1, r2) => {return r1.createdAt < r2.createdAt ? 1 :-1;}).slice(0,2)"
+                           v-bind:route="cr.generatedRoutes[0]"
                            :key="i">
                         <CreatorResult v-bind:creatorResult="cr" dense></CreatorResult>
                       </div>
@@ -300,6 +301,44 @@
 
             </v-flex>
           </v-layout>
+
+          <v-dialog v-if="user" v-model="user.firstTimeUsage" persistent max-width="400">
+            <v-card>
+              <v-card-title class="gradient-no-switch gradient-orange headline white--text">Welcome to ExploX!
+              </v-card-title>
+              <v-card-text>
+                <p>Please keep in mind that this website has some problems. If something seems wrong or is not working
+                  please:</p>
+                <ul>
+                  <li>refresh the page</li>
+                  <li>check if you are still logged in (the upper right corner of the screen should dislay your Strava
+                    profile picture)
+                  </li>
+                  <li>try again in some minutes, maybe our server is restarting</li>
+                  <li>synchronize with your Strava profile by clicking "Synchronize Profile" in your personal profile
+                    (Dashboard)
+                  </li>
+                </ul>
+                <br>
+                <p>If the problem persists, go to "Send Feedback" or write an E-Mail to exploxcycling@gmail.com and
+                  describe the problem.</p>
+                <v-layout column align-center justify-center>
+                  <p><b>We recommend you start with generating your first routes!</b></p>
+                  <v-btn round class="gradient gradient-orange" dark to="creator" v-on:click="update">
+                    Generate new Route
+                  </v-btn>
+                  or
+                  <v-btn round class="gradient gradient-green" v-on:click="update">
+                    Stay in Dashboard
+                  </v-btn>
+                </v-layout>
+
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
 
           <v-dialog v-if="updatedUser" v-model="editDialog" persistent max-width="400">
             <v-card>
@@ -501,6 +540,7 @@
           name: this.updatedUser.name,
           username: this.updatedUser.username,
           email: this.updatedUser.email,
+          firstTimeUsage: false,
         }
 
         this.PUT('users/' + this.user._id, formData, null, (data, err) => {
@@ -508,6 +548,7 @@
             EventBus.$emit('reloadData')
           }
           this.editDialog = false
+          this.user.firstTimeUsage = false
         })
       },
 
