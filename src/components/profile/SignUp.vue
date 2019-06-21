@@ -2084,7 +2084,7 @@
           if (!cache) {
             if (!err) {
               EventBus.$on('authenticated', () => {
-                this.$router.push('/creator')
+                this.$router.push('/dashboard')
               })
               EventBus.$emit('reloadData')
             }
