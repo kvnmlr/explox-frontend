@@ -2,7 +2,7 @@
   <div>
     <v-card class="elevation-0 gradient-no-switch gradient-secondary"
             style="width: 100%;" :dark="!dense">
-      <v-card-title v-if="!dense"  primary-title>
+      <v-card-title v-if="!dense" primary-title>
         <h2 style="color: white">{{formatDate(creatorResult.createdAt, false)}}</h2>
       </v-card-title>
       <v-card-text>
@@ -15,12 +15,16 @@
                 </v-flex>
               </v-card-title>
               <v-card-text v-if="!dense">
+                <v-flex><b>Familiarity:</b> {{ (creatorResult.familiarityScores[i] * 100).toFixed(0) }} %</v-flex>
                 <v-flex><b>Your comment:</b> {{ creatorResult.routeRatings[i].comment }}</v-flex>
                 <v-flex><b>Your rating:</b> {{ ratingMapping[creatorResult.routeRatings[i].rating] }} ({{
                   creatorResult.routeRatings[i].rating }} / 4)
                 </v-flex>
-                <v-flex><b>Familiarity:</b> {{ (creatorResult.familiarityScores[i] * 100).toFixed(0) }} %</v-flex>
-                <br>
+                <v-btn flat round light
+                       @click="() => {editResult = creatorResult; editRating = creatorResult.routeRatings[i]; editRouteDialog = true}">
+                  <v-icon>edit</v-icon>&nbsp;Edit your rating
+                </v-btn>
+                <br><br>
                 <v-flex style="color: grey">Created on {{
                   formatDate(route.createdAt, true) }}
                 </v-flex>
@@ -55,6 +59,8 @@
                     header="You will be redirected in some seconds."
                     :width="500">
     </loading-dialog>
+
+
     <v-dialog v-model="saveRouteDialog" persistent max-width="600">
       <v-card>
         <v-card-title class="headline">Save Route</v-card-title>
@@ -67,6 +73,39 @@
             Save New Route
           </v-btn>
           <v-btn flat round @click="saveRouteDialog = false">Cancel</v-btn>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="editRouteDialog" persistent max-width="600">
+      <v-card>
+        <v-card-title class="headline">Edit Rating</v-card-title>
+        <v-card-text>
+          <p class="subheading">Would you ride the route soon?</p>
+          <v-btn-toggle v-model="editRating.rating">
+            <v-btn flat value="1">
+              Yes
+            </v-btn>
+            <v-btn flat value="2">
+              Rather yes
+            </v-btn>
+            <v-btn flat value="3">
+              Rather not
+            </v-btn>
+            <v-btn flat value="4">
+              No
+            </v-btn>
+          </v-btn-toggle>
+          <br><br>
+          <p class="subheading">Comment on the route. Why do you like it? Why not?</p>
+          <v-textarea v-model="editRating.comment" label="Your comment" required></v-textarea>
+          <v-btn flat round color="primary" v-on:click="saveRating">
+            Update
+          </v-btn>
+          <v-btn flat round @click="editRouteDialog = false">Cancel</v-btn>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -98,6 +137,10 @@
         stravaImportDialog: false,
         currentSelectedRoute: null,
         saveRouteDialog: false,
+        editRouteDialog: false,
+        editRating: {},
+        editResult: {},
+
         ratingMapping: ['Not rated', 'You want to cycle this route soon', 'You would give this route a try', 'You would rather not cycle this route', 'You do not want to cycle this route',]
       }
     },
@@ -124,7 +167,25 @@
           }
         })
 
-      }
+      },
+      saveRating () {
+        const formData = {
+          routeRatings: this.editResult.routeRatings,
+          acceptedRoutes: this.editResult.acceptedRoutes,
+          id: this.editResult._id
+        }
+        const requestParams = {
+          method: 'POST',
+          responseType: 'text',
+        }
+
+        this.POST('updateCreatorResult', formData, requestParams, (data, err) => {
+          if (err === null) {
+            this.editRouteDialog = false;
+            console.log(this.ratingSubmitted)
+          }
+        })
+      },
     },
     mixins: [formatDateMixin, apiMixin],
 

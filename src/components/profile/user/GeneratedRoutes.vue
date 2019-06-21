@@ -42,36 +42,9 @@
     },
     data () {
       return {
-        stravaImportDialog: false,
-        currentSelectedRoute: null,
-        saveRouteDialog: false,
-        ratingMapping: ['Not rated', 'You want to cycle this route soon', 'You would give this route a try', 'You would rather not cycle this route', 'You do not want to cycle this route',]
       }
     },
     methods: {
-      saveRoute () {
-        if (this.currentSelectedRoute === null) {
-          return
-        }
-        this.saveRouteDialog = false
-        this.stravaImportDialog = true
-        this.GET('stravaimport?id=' + this.currentSelectedRoute._id + '&title=' + this.currentSelectedRoute.title + '&description=' + this.currentSelectedRoute.description, (data, err) => {
-          if (!err) {
-            let redirect = ''
-            if (data.isActivity) {
-              redirect = 'https://www.strava.com/activities/' + data.activityId + '/route'
-            } else {
-              redirect = 'https://www.strava.com/routes/' + data.activityId
-            }
-            console.log('Redirecting to ' + redirect)
-            setTimeout(() => {
-              this.stravaImportDialog = false
-              window.location.href = redirect
-            }, 5000)
-          }
-        })
-
-      }
     },
     mixins: [formatDateMixin, apiMixin],
 
