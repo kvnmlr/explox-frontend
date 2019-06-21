@@ -17,8 +17,7 @@
               <v-card-text v-if="!dense">
                 <v-flex><b>Familiarity:</b> {{ (creatorResult.familiarityScores[i] * 100).toFixed(0) }} %</v-flex>
                 <v-flex><b>Your comment:</b> {{ creatorResult.routeRatings[i].comment }}</v-flex>
-                <v-flex><b>Your rating:</b> {{ ratingMapping[creatorResult.routeRatings[i].rating] }} ({{
-                  creatorResult.routeRatings[i].rating }} / 4)
+                <v-flex><b>Your rating:</b> {{ ratingMapping[creatorResult.routeRatings[i].rating] }}
                 </v-flex>
                 <v-btn flat round light
                        @click="() => {editResult = creatorResult; editRating = creatorResult.routeRatings[i]; editRouteDialog = true}">
