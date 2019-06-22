@@ -2,7 +2,6 @@ import './assets/css/app.css'
 import 'vuetify/dist/vuetify.min.css'
 import colors from 'vuetify/es5/util/colors'
 
-/* Vue imports */
 import Vue from 'vue'
 import App from './App'
 import Router from './router'
@@ -11,8 +10,6 @@ import Vuetify from 'vuetify'
 import VueResource from 'vue-resource'
 import VueCookies from 'vue-cookies'
 import Axios from 'axios'
-
-// import Mapbox from 'mapbox-gl-vue';
 
 Axios.defaults.withCredentials = true;
 Vue.config.productionTip = false;

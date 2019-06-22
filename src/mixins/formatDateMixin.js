@@ -12,14 +12,14 @@ export default {
       const minutes = date.getMinutes()
       const hours = date.getHours()
       let day = date.getDate()
-      let monthIndex = date.getMonth() + 1;
+      let monthIndex = date.getMonth() + 1
       const year = date.getFullYear()
 
       if (monthIndex < 10 && short) {
-        monthIndex = '0' + monthIndex;
+        monthIndex = '0' + monthIndex
       }
       if (day < 10) {
-        day = '0' + day;
+        day = '0' + day
       }
 
       if (short) {
