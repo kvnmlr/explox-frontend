@@ -978,8 +978,8 @@
       }
     },
     created () {
-      const enabled = new Date('01 July 2019 00:00:01')
-      const deadline = new Date('22 July 2019 23:59:59')
+      const enabled = new Date('08 July 2019 00:00:01')
+      const deadline = new Date('29 July 2019 23:59:59')
       const currentDate = new Date()
       if (currentDate > deadline) {
         this.deadlinePassed = true
