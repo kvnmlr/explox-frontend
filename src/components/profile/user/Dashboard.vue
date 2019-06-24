@@ -550,8 +550,11 @@
 
         this.PUT('users/' + this.user._id, formData, null, (data, err) => {
           if (!err) {
-            EventBus.$emit('reloadData')
+            // EventBus.$emit('reloadData')
           }
+          this.user.name = this.updatedUser.name;
+          this.user.username = this.updatedUser.username;
+          this.user.email = this.updatedUser.email;
           this.editDialog = false
           this.user.firstTimeUsage = false
         })
