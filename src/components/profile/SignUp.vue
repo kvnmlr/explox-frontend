@@ -2038,7 +2038,7 @@
               this.cyclingLocationDisplay = data.display_name
               this.user.demographics.cyclingLocation = data
             }
-            this.checkEligible()
+            // this.checkEligible()
           })
           .catch(error => {
             console.log(error)
@@ -2123,6 +2123,8 @@
         }
 
         if (!this.eligibleByActivities) {
+          this.validateLocation(null, true);
+
           this.GET('dashboard', (data, err) => {
             if (!err) {
               if (data.user.activities.length >= 9) {
