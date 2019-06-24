@@ -8,7 +8,7 @@
         <p>The deadline for using the route creation feature in the study has passed.
           <b>Please go to your Dashboard, scroll down to your <span style="color: #ee5b19">Study Duties</span> and see
             if you can take the <span style="color: #ee5b19">Post-Study Questionnaire</span>.</b></p>
-        <v-btn class="gradient gradient-orange" style="width: 200px;" dark round href="dashboard">Go to Dashboard
+        <v-btn class="gradient gradient-orange" style="width: 200px;" dark round to="dashboard">Go to Dashboard
         </v-btn>
       </v-alert>
       <v-alert v-else-if="creatorUnavailable" :value="true" color="accent" icon="info" outline>
@@ -158,7 +158,7 @@
                       <p><b>Already Discovered: </b> {{ familiarityScores[i].toFixed(1)*100 }} %</p>
                       <div v-if="generatedRoutes[i].parts.length > 0"><span><b>Parts:</b></span>
                         <span v-for="(part, j) in generatedRoutes[i].parts">
-                          <a target="_blank" :href="'/route/' + part._id">{{part.title}}</a><span
+                          <router-link target="_blank" tag="a" :to="'route/' + part._id"><a target="_blank">{{part.title}}</a></router-link><span
                           v-if="j < generatedRoutes[i].parts.length - 1">, </span>
                         </span>
                       </div>
@@ -202,7 +202,7 @@
                         <h2>Route generation and rating complete!</h2>
                         <p>You can <b>upload the routes to Strava</b> from your Dashboard</p>
                         <v-btn round class="gradient gradient-green"
-                               href="dashboard">Go to Dashboard
+                               to="dashboard">Go to Dashboard
                         </v-btn>
                       </div>
                     </v-card-text>
@@ -216,7 +216,7 @@
                 New Search
               </v-btn>-->
               <v-btn class="gradient gradient-orange" style="width: 100%;"
-                     href="creator" dark round>
+                     to="creator" dark round>
                 <v-icon>sync</v-icon>&nbsp;
                 New Search
               </v-btn>

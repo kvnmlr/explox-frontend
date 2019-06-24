@@ -218,7 +218,7 @@
                           <span style="color: #ee5b19">Deadline: 22. July 2019</span>
                         </v-list-tile-sub-title>
                       </v-list-tile-content>
-                      <v-btn v-if="this.user.creatorResults.length < 15" href="creator" outline round>Generate Route
+                      <v-btn v-if="this.user.creatorResults.length < 15" to="creator" outline round>Generate Route
                       </v-btn>
                     </v-list-tile>
 
@@ -234,7 +234,7 @@
                           <span style="color: #ee5b19">Starting: 08. July, deadline: 29. July</span>
                         </v-list-tile-sub-title>
                       </v-list-tile-content>
-                      <v-btn v-if="psq" href="psq" style="height: 60px;" color="success" round>Fill out<br>Questionnaire
+                      <v-btn v-if="psq" to="psq" style="height: 60px;" color="success" round>Fill out<br>Questionnaire
                       </v-btn>
                     </v-list-tile>
                   </v-list>

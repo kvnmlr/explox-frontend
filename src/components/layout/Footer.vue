@@ -4,9 +4,11 @@
       <v-footer style="z-index: 100; background-color: darkgray" class="pa-4">
         <img src="@/assets/img/strava/powered_white.png" alt="Powered by Strava" height="35px">
         <v-spacer></v-spacer>
-        <a style="color: white" href="dataprotection">Data protection</a>
+        <router-link tag="a" to="dataprotection"><a style="color: white">Data protection</a></router-link>
+
         &nbsp;&nbsp;&nbsp;
-        <a style="color: white" href="about">Impressum</a>
+        <router-link tag="a" to="about"><a style="color: white">Impressum</a></router-link>
+
         &nbsp;&nbsp;&nbsp;
         <div style="color: white">&copy; ExploX {{ new Date().getFullYear() }}</div>
       </v-footer>
@@ -16,9 +18,8 @@
 
 <script>
   export default {
-    components: {
-    },
-    name: "app-footer"
+    components: {},
+    name: 'app-footer'
   }
 </script>
 
