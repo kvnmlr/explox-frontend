@@ -1940,7 +1940,7 @@
     components: {DataProtection},
     data () {
       return {
-        loadingDialog: true,
+        loadingDialog: false,
         e1: 0,
         show: false,
         dialog: false,
