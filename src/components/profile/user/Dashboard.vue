@@ -307,7 +307,8 @@
               <v-card-title class="gradient-no-switch gradient-orange headline white--text">Welcome to ExploX!
               </v-card-title>
               <v-card-text>
-                <p>Please keep in mind that this website has some problems. If something seems wrong or is not working
+                <p>Please keep in mind that this website has some problems. Your routes and activities might not be up-to date
+                  right away. Click 'Synchronize Profile'. If still something seems wrong or is not working
                   please:</p>
                 <ul>
                   <li>refresh the page</li>
@@ -454,7 +455,7 @@
     },
 
     created () {
-      if (this.user.firstTimeUsage) {
+      if (this.user && this.user.firstTimeUsage) {
         EventBus.$emit('expandDrawer');
       }
 

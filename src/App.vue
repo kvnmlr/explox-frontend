@@ -42,6 +42,11 @@
       alertVisible: false,
     }),
     created () {
+      if (location.protocol !== 'https:' && !location.hostname.includes('localhost'))
+      {
+        location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+      }
+
       this.authorizeUser()
       EventBus.$on('reloadData', () => {
         this.authorizeUser()

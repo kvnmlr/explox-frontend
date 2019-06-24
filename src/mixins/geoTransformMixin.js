@@ -40,8 +40,8 @@ export default {
         return []
       }
 
-      const maxDistance = 0.02
-      const minDistance = 0.01
+      const maxDistance = 0.801
+      const minDistance = 0.400
       let totalDistance = 0
 
       for (let i = 0; i < geos.length - 1; ++i) {

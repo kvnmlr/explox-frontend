@@ -465,6 +465,7 @@
       },
 
       reloadMap () {
+        console.log('reload')
         if (!this.map) {
           this.init()
         } else {
@@ -479,10 +480,10 @@
           }
           this.init()
         }
-
       },
 
       init () {
+        console.log('init')
         if (!this.initView()) {
           return
         }
@@ -512,6 +513,13 @@
         this.selectedFeatures.forEach(feature => {
           this.layerChanged(feature, true)
         })
+
+        if (!this.hasElevationProfile && !this.$route.name.includes('Dashboard')) {
+          console.log('asdad')
+          let el = this.$el.querySelector('.fa-map-marker').parentElement
+          el.click()
+          this.map.setZoom(12)
+        }
       },
 
       initView () {
@@ -523,9 +531,13 @@
               scrollWheelZoom: true,
               zoomControl: true,
               fullscreenControl: true,
-            }).setView([49.234, 6.997], 9)
+            })
+
+            if (!this.hasElevationProfile && this.$route.name.includes('Dashboard')) {
+              this.map.setView([49.234, 6.997], 9)
+            }
             L.control.locate({
-              // keepCurrentZoomLevel: true,
+              keepCurrentZoomLevel: true,
               drawMarker: false,
             }).addTo(this.map)
           }
@@ -734,11 +746,11 @@
               if (this.selectedMap !== 1) {
                 try {
                   const layerOptions = {
-                    minOpacity: 0.1,
+                    minOpacity: 0.3,
                     max: 1,
                     radius: 30,
-                    blur: 15,
-                    gradient: {0.2: 'white', 0.3: 'lime', 0.5: 'orange'},
+                    blur: 30,
+                    gradient: {0.1: 'white', 0.2: 'lime', 0.6: 'orange'},
                   }
                   let heat = L.heatLayer(addressPoints, layerOptions).addTo(this.map)
                   layer.leafletObject = L.featureGroup([heat, coverageLayer])
@@ -776,7 +788,9 @@
                   } else {
                     bounds = layer.leafletObject.getBounds()
                   }
-                  this.map.fitBounds(bounds)
+                  if (this.hasElevationProfile) {
+                    this.map.fitBounds(bounds)
+                  }
                 } catch (e) {
                   return
                 }

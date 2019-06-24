@@ -462,7 +462,7 @@
                 <p class="title">Why do you use Strava? Rate the following reasons by importance</p>
                 <v-layout row wrap align-center>
                   <v-flex xs12 md3>
-                    Competing in segments
+                    Seeing my personal records in segments
                   </v-flex>
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.routePlanning.q3.i1"
@@ -1099,7 +1099,7 @@
                 <p class="title">Höchster Bildungsabschluss:</p>
                 <v-radio label="Mittlere Reife" value=1></v-radio>
                 <v-radio label="Abitur" value=2></v-radio>
-                <v-radio label="Universität oder Hochschulabschluss" value=3></v-radio>
+                <v-radio label="Hochschulabschluss" value=3></v-radio>
                 <v-radio label="Keine Angabe" value=4></v-radio>
                 <v-radio label="Anderen" value=5></v-radio>
               </v-radio-group>
@@ -1285,7 +1285,7 @@
               </v-radio-group>
 
               <v-radio-group v-model="user.cyclingBehaviour.q12a">
-                <p class="title">Aktivitäten auf Strava: Welcher dieser Aussagen stimmen Sie am meisten zu?</p>
+                <p class="title">Aktivitäten auf Strava: Welcher dieser Aussagen stimmen Sie zu?</p>
                 <v-radio label="Ich tracke alle meine Touren auf Strava" value=1></v-radio>
                 <v-radio label="Ich tracke die meisten meiner Touren auf Strava" value=2></v-radio>
                 <v-radio label="Ich tracke meine Touren nur manchmal" value=3></v-radio>
@@ -1293,7 +1293,7 @@
               </v-radio-group>
 
               <v-radio-group v-model="user.cyclingBehaviour.q12b" v-if="user.cyclingBehaviour.q12a !== '4'">
-                <p class="title">Veröffentlichte Aktivitäten: Welcher dieser Aussagen stimmen Sie am meisten zu?</p>
+                <p class="title">Veröffentlichte Aktivitäten: Welcher dieser Aussagen stimmen Sie zu?</p>
                 <v-radio label="Ich veröffentliche alle meiner getrackten Aktivitäten" value=1></v-radio>
                 <v-radio label="Ich veröffentliche nur manche meiner getrackten Aktivitäten" value=2></v-radio>
                 <v-radio label="Ich veröffentliche keine meiner getrackten Aktivitäten" value=3></v-radio>
@@ -1429,7 +1429,7 @@
                   Wichtigkeit</p>
                 <v-layout row wrap align-center>
                   <v-flex xs12 md3>
-                    Um Bestzeiten in Segmenten kämpfen
+                    Um meine Bestzeiten in Segmenten zu sehen
                   </v-flex>
                   <v-flex xs12 md6>
                     <v-slider style="width: 500px;" v-model="user.routePlanning.q3.i1"
@@ -1585,7 +1585,7 @@
                   label="Ich mag es, Routen zu fahren, die ich bereits kenne und sie ein bisschen abzuändern. Ich habe gerne ein bisschen Abwechslung."
                   value=3></v-radio>
                 <v-radio
-                  label="Ich versuche immer möglichst viele neue Straßen/Wege zu fahren, die ich vorher noch nicht gefahren bin."
+                  label="Ich versuche möglichst viele neue Straßen/Wege zu fahren, die ich vorher noch nicht gefahren bin."
                   value=4></v-radio>
               </v-radio-group>
 
