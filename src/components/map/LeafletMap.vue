@@ -125,8 +125,6 @@
       EventBus.$emit('removeMap', next)
     },
     created () {
-      console.log(this)
-
       this.routeInitialized = false
       this.activitiesInitialized = false
       this.mapReady = true
@@ -465,7 +463,6 @@
       },
 
       reloadMap () {
-        console.log('reload')
         if (!this.map) {
           this.init()
         } else {
@@ -483,7 +480,6 @@
       },
 
       init () {
-        console.log('init')
         if (!this.initView()) {
           return
         }
@@ -513,9 +509,7 @@
         this.selectedFeatures.forEach(feature => {
           this.layerChanged(feature, true)
         })
-
-        if (!this.hasElevationProfile && !this.$route.name.includes('Dashboard')) {
-          console.log('asdad')
+        if (!this.hasElevationProfile && !this.$route.name.includes('Dashboard') && (!this.routeGeoJSON || this.routeGeoJSON.length === 0)) {
           let el = this.$el.querySelector('.fa-map-marker').parentElement
           el.click()
           this.map.setZoom(12)
@@ -538,11 +532,10 @@
             }
             L.control.locate({
               keepCurrentZoomLevel: true,
-              drawMarker: false,
+              drawMarker: true,
             }).addTo(this.map)
           }
         } catch (e) {
-          // console.error(e)
           return false
         }
         return true
@@ -788,7 +781,7 @@
                   } else {
                     bounds = layer.leafletObject.getBounds()
                   }
-                  if (this.hasElevationProfile) {
+                  if (true || this.hasElevationProfile || this.showRoute) {
                     this.map.fitBounds(bounds)
                   }
                 } catch (e) {
@@ -803,7 +796,6 @@
       },
 
       providerChanged (mapId) {
-        console.log('provider changed')
         this.selectedMap = mapId
         this.mapLayers.forEach(map => {
           if (map.leafletObject) {

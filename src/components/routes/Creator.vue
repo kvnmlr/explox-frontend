@@ -216,7 +216,7 @@
                 New Search
               </v-btn>-->
               <v-btn class="gradient gradient-orange" style="width: 100%;"
-                     to="creator" dark round>
+                     @click="() => {this.$router.go()}" dark round>
                 <v-icon>sync</v-icon>&nbsp;
                 New Search
               </v-btn>
