@@ -803,13 +803,13 @@
                 <section v-if="this.isEligible">
                   <v-layout row>
                     <v-flex column xs12 md6>
-                      <v-btn large class="gradient gradient-success" dark round v-on:click="signupParticipate">
+                      <v-btn :disabled="loadingDialog" :loading="loadingDialog" large class="gradient gradient-success" dark round v-on:click="signupParticipate">
                         <v-icon>check</v-icon>
                         Participate in the study
                       </v-btn>
                     </v-flex>
                     <v-flex xs12 md6>
-                      <v-btn style="height: 60px;" large class="gradient gradient-green" round
+                      <v-btn :disabled="loadingDialog" :loading="loadingDialog" style="height: 60px;" large class="gradient gradient-green" round
                              v-on:click="signup(false)">
                         Finish without participating<br>in the study
                       </v-btn>
@@ -820,7 +820,7 @@
                 <section v-if="!this.isEligible && this.canUseWebsite">
                   <v-layout row>
                     <v-flex coluxs12 sm3>
-                      <v-btn large class="gradient gradient-blue" dark round v-on:click="signup(false)">
+                      <v-btn :disabled="loadingDialog" :loading="loadingDialog" large class="gradient gradient-blue" dark round v-on:click="signup(false)">
                         Submit Questionnaire
                       </v-btn>
                     </v-flex>
@@ -1791,14 +1791,14 @@
               <section v-if="this.isEligible">
                 <v-layout row>
                   <v-flex column xs12 md7>
-                    <v-btn style="height: 60px;" large class="gradient gradient-success" dark round
+                    <v-btn :disabled="loadingDialog" :loading="loadingDialog" style="height: 60px;" large class="gradient gradient-success" dark round
                            v-on:click="signupParticipate">
                       <v-icon>check</v-icon>
                       Teilnehmen und<br>Anmeldung abschließen
                     </v-btn>
                   </v-flex>
                   <v-flex column xs12 md5>
-                    <v-btn large class="gradient gradient-green" round v-on:click="signup(false)">
+                    <v-btn :disabled="loadingDialog" :loading="loadingDialog" large class="gradient gradient-green" round v-on:click="signup(false)">
                       Nicht teilnehmen
                     </v-btn>
                   </v-flex>
@@ -1808,7 +1808,7 @@
               <section v-if="!this.isEligible && this.canUseWebsite">
                 <v-layout row>
                   <v-flex coluxs12 md5>
-                    <v-btn large class="gradient gradient-blue" dark round v-on:click="signup(false)">
+                    <v-btn :disabled="loadingDialog" :loading="loadingDialog" large class="gradient gradient-blue" dark round v-on:click="signup(false)">
                       Fragebogen abschicken
                     </v-btn>
                   </v-flex>
@@ -1940,6 +1940,7 @@
     components: {DataProtection},
     data () {
       return {
+        loadingDialog: true,
         e1: 0,
         show: false,
         dialog: false,
@@ -2051,6 +2052,7 @@
 
       async signup (cache) {
         if (!cache) {
+          this.loadingDialog = true;
           if (!this.termsCheckbox) {
             this.termsError = true
             return
@@ -2080,6 +2082,7 @@
         }
 
         this.POST('finishRegistration', formData, null, (data, err) => {
+          this.loadingDialog = false;
           if (!cache) {
             if (!err) {
               EventBus.$on('authenticated', () => {
