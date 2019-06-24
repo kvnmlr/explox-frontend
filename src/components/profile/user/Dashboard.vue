@@ -454,6 +454,10 @@
     },
 
     created () {
+      if (this.user.firstTimeUsage) {
+        EventBus.$emit('expandDrawer');
+      }
+
       EventBus.$on('authenticated', (data) => {
         this.checkAndRedirect(data)
       })
