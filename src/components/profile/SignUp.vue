@@ -2052,13 +2052,13 @@
 
       async signup (cache) {
         if (!cache) {
-          this.loadingDialog = true;
           if (!this.termsCheckbox) {
             this.termsError = true
             return
           } else {
             this.termsError = false
           }
+          this.loadingDialog = true;
         }
 
         const formData = {
@@ -2124,8 +2124,9 @@
 
         if (!this.eligibleByActivities) {
           this.validateLocation(null, true);
+          this.eligibleByActivities = true
 
-          this.GET('dashboard', (data, err) => {
+          /*this.GET('dashboard', (data, err) => {
             if (!err) {
               if (data.user.activities.length >= 9) {
                 let activitiesInRange = 0
@@ -2143,7 +2144,7 @@
                 }
               }
             }
-          })
+          })*/
         }
 
         let eligible = true
