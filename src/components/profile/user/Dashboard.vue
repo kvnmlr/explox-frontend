@@ -137,7 +137,7 @@
                 <v-flex xs12>
                   <v-tooltip bottom close-delay="1500">
                     <v-btn slot="activator" :disabled="loadingDialog" :loading="loadingDialog"
-                           class="gradient gradient-orange" style="width: 50%;" @click.stop="synchronize"
+                           class="gradient gradient-orange" @click.stop="synchronize"
                            dark round>
                       <v-icon>sync</v-icon>&nbsp;Synchronize Profile
                     </v-btn>
