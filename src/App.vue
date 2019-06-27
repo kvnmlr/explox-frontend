@@ -73,7 +73,6 @@
     },
     methods: {
       onResize () {
-        console.log('resize')
         this.isMobile = this.$vuetify.breakpoint.xs
       },
       broadcastData () {
