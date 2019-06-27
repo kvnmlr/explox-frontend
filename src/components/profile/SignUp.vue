@@ -355,7 +355,7 @@
                     Distance
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.cyclingBehaviour.q14.i1"
+                    <v-slider style="width: 100%;" v-model="user.cyclingBehaviour.q14.i1"
                               :tick-labels="['Unimportant',' ','Neutral',' ', 'Important']" :max="4" step="1"
                               ticks="always"></v-slider>
                   </v-flex>
@@ -365,7 +365,7 @@
                     Travel time
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.cyclingBehaviour.q14.i2"
+                    <v-slider style="width: 100%;" v-model="user.cyclingBehaviour.q14.i2"
                               :tick-labels="['Unimportant',' ','Neutral',' ', 'Important']" :max="4" step="1"
                               ticks="always"></v-slider>
                   </v-flex>
@@ -375,7 +375,7 @@
                     Traffic safety
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.cyclingBehaviour.q14.i3"
+                    <v-slider style="width: 100%;" v-model="user.cyclingBehaviour.q14.i3"
                               :tick-labels="['Unimportant',' ','Neutral',' ', ' important']" :max="4" step="1"
                               ticks="always"></v-slider>
                   </v-flex>
@@ -385,7 +385,7 @@
                     Gradient and elevation profile
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.cyclingBehaviour.q14.i4"
+                    <v-slider style="width: 100%;" v-model="user.cyclingBehaviour.q14.i4"
                               :tick-labels="['Unimportant',' ','Neutral',' ', 'Important']" :max="4" step="1"
                               ticks="always"></v-slider>
                   </v-flex>
@@ -395,7 +395,7 @@
                     Scenery
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.cyclingBehaviour.q14.i5"
+                    <v-slider style="width: 100%;" v-model="user.cyclingBehaviour.q14.i5"
                               :tick-labels="['Unimportant',' ','Neutral',' ', 'Important']" :max="4" step="1"
                               ticks="always"></v-slider>
                   </v-flex>
@@ -405,7 +405,7 @@
                     Security (how secure is the area?)
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.cyclingBehaviour.q14.i6"
+                    <v-slider style="width: 100%;" v-model="user.cyclingBehaviour.q14.i6"
                               :tick-labels="['Unimportant',' ','Neutral',' ', 'Important']" :max="4" step="1"
                               ticks="always"></v-slider>
                   </v-flex>
@@ -415,7 +415,7 @@
                     Facilities (toilets, water sources, food and drinks, restaurants, repair stations)
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.cyclingBehaviour.q14.i7"
+                    <v-slider style="width: 100%;" v-model="user.cyclingBehaviour.q14.i7"
                               :tick-labels="['Unimportant',' ','Neutral',' ', 'Important']" :max="4" step="1"
                               ticks="always"></v-slider>
                   </v-flex>
@@ -465,7 +465,7 @@
                     Seeing my personal records in segments
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.routePlanning.q3.i1"
+                    <v-slider style="width: 100%;" v-model="user.routePlanning.q3.i1"
                               :tick-labels="['Unimportant',' ','Neutral',' ', 'Important']" :max="4" step="1"
                               ticks="always"></v-slider>
                   </v-flex>
@@ -475,7 +475,7 @@
                     Recording activities
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.routePlanning.q3.i2"
+                    <v-slider style="width: 100%;" v-model="user.routePlanning.q3.i2"
                               :tick-labels="['Unimportant',' ','Neutral',' ', 'Important']" :max="4" step="1"
                               ticks="always"></v-slider>
                   </v-flex>
@@ -485,7 +485,7 @@
                     Sharing activities with friends
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.routePlanning.q3.i3"
+                    <v-slider style="width: 100%;" v-model="user.routePlanning.q3.i3"
                               :tick-labels="['Unimportant',' ','Neutral',' ', ' important']" :max="4" step="1"
                               ticks="always"></v-slider>
                   </v-flex>
@@ -495,7 +495,7 @@
                     Tracking training performance and progress (statistics)
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.routePlanning.q3.i4"
+                    <v-slider style="width: 100%;" v-model="user.routePlanning.q3.i4"
                               :tick-labels="['Unimportant',' ','Neutral',' ', 'Important']" :max="4" step="1"
                               ticks="always"></v-slider>
                   </v-flex>
@@ -505,7 +505,7 @@
                     Planning routes
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.routePlanning.q3.i5"
+                    <v-slider style="width: 100%;" v-model="user.routePlanning.q3.i5"
                               :tick-labels="['Unimportant',' ','Neutral',' ', 'Important']" :max="4" step="1"
                               ticks="always"></v-slider>
                   </v-flex>
@@ -515,7 +515,7 @@
                     Following friends and seeing their activities
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.routePlanning.q3.i6"
+                    <v-slider style="width: 100%;" v-model="user.routePlanning.q3.i6"
                               :tick-labels="['Unimportant',' ','Neutral',' ', 'Important']" :max="4" step="1"
                               ticks="always"></v-slider>
                   </v-flex>
@@ -615,7 +615,7 @@
                     that I don’t know very well
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.routePlanning.q8.i1"
+                    <v-slider style="width: 100%;" v-model="user.routePlanning.q8.i1"
                               :tick-labels="['Unimportant',' ','Neutral',' ', 'Important']" :max="4" step="1"
                               ticks="always"></v-slider>
                   </v-flex>
@@ -626,7 +626,7 @@
                     knowledge of the area where I live
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.routePlanning.q8.i2"
+                    <v-slider style="width: 100%;" v-model="user.routePlanning.q8.i2"
                               :tick-labels="['Unimportant',' ','Neutral',' ', 'Important']" :max="4" step="1"
                               ticks="always"></v-slider>
                   </v-flex>
@@ -637,7 +637,7 @@
                     and towns when cycling
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.routePlanning.q8.i3"
+                    <v-slider style="width: 100%;" v-model="user.routePlanning.q8.i3"
                               :tick-labels="['Unimportant',' ','Neutral',' ', ' important']" :max="4" step="1"
                               ticks="always"></v-slider>
                   </v-flex>
@@ -648,7 +648,7 @@
                     and sights when cycling
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.routePlanning.q8.i4"
+                    <v-slider style="width: 100%;" v-model="user.routePlanning.q8.i4"
                               :tick-labels="['Unimportant',' ','Neutral',' ', 'Important']" :max="4" step="1"
                               ticks="always"></v-slider>
                   </v-flex>
@@ -659,7 +659,7 @@
                     take new routes
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.routePlanning.q8.i5"
+                    <v-slider style="width: 100%;" v-model="user.routePlanning.q8.i5"
                               :tick-labels="['Unimportant',' ','Neutral',' ', 'Important']" :max="4" step="1"
                               ticks="always"></v-slider>
                   </v-flex>
@@ -670,7 +670,7 @@
                     cycling routes with friends
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.routePlanning.q8.i6"
+                    <v-slider style="width: 100%;" v-model="user.routePlanning.q8.i6"
                               :tick-labels="['Unimportant',' ','Neutral',' ', 'Important']" :max="4" step="1"
                               ticks="always"></v-slider>
                   </v-flex>
@@ -681,7 +681,7 @@
                     recommended to me
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.routePlanning.q8.i7"
+                    <v-slider style="width: 100%;" v-model="user.routePlanning.q8.i7"
                               :tick-labels="['Unimportant',' ','Neutral',' ', 'Important']" :max="4" step="1"
                               ticks="always"></v-slider>
                   </v-flex>
@@ -749,190 +749,190 @@
             </v-layout>
           </v-stepper-content>
           <v-stepper-content step="5">
-            <v-layout column style="margin-left: 20px;">
+            <v-layout column wrap style="margin-left: 20px;">
               <h1>Almost Done...!</h1>
               <br>
-              <v-layout column wrap>
-                <!--NOT RELEVANT FOR STUDY LOGIN
-                <h4>First Name</h4>
-                <p>{{user.firstName}}</p>
+              <!--NOT RELEVANT FOR STUDY LOGIN
+              <h4>First Name</h4>
+              <p>{{user.firstName}}</p>
 
-                <h4>Last Name</h4>
-                <p>{{user.lastName}}</p>
+              <h4>Last Name</h4>
+              <p>{{user.lastName}}</p>
 
-                <h4>Username</h4>
-                <p>{{user.username}}</p>
+              <h4>Username</h4>
+              <p>{{user.username}}</p>
 
-                <h4>E-Mail</h4>
-                <p>{{user.email}}</p>-->
+              <h4>E-Mail</h4>
+              <p>{{user.email}}</p>-->
 
-                <p>This is the end of the sign-up questionnaire. You can still change your answers. <b>Once you finish
-                  the questionnaire, you cannot change your answers.</b> Please read and accept the terms and
-                  conditions for using this website.</p>
+              <p>This is the end of the sign-up questionnaire. You can still change your answers. <b>Once you finish
+                the questionnaire, you cannot change your answers.</b> Please read and accept the terms and
+                conditions for using this website.</p>
+              <br>
+              <h1>Field Study</h1>
+              <p>In the field study, you will have to use the ExploX website for the next 2-4 weeks (until 15. July)
+                and can win the
+                rewards.</p>
+              <br>
+              <!--<v-alert :value="true" type="success" v-if="this.isEligible">
+                You are eligible to participate in the study.
+              </v-alert>
+
+              <v-alert :value="true" type="info" v-if="!this.isEligible && this.canUseWebsite">
+                You are <b>not</b> eligible to participate in the study but you can use the website anyway.
+              </v-alert>
+
+
+              <v-alert :value="true" type="error" v-if="!this.canUseWebsite">
+                Sorry, but you are <b>not</b> eligible to use the website because your cycling location is too far
+                away from Saarland.
+              </v-alert>-->
+              <br>
+
+              <section v-if="this.isEligible || this.canUseWebsite">
+                <h1>Do you want to participate in the study?</h1>
+                <!--<v-checkbox :label="checkbox1_text" v-model="emailsCheckbox" style="margin-bottom: -20px;"></v-checkbox>-->
+                <v-btn depressed v-on:click="dialog = true" large>Terms & Conditions
+                </v-btn>
+                <v-checkbox :rules="[rules.required]" :label="checkbox2_text" v-model="termsCheckbox"
+                            v-bind:error="termsError"></v-checkbox>
                 <br>
-                <h1>Field Study</h1>
-                <p>In the field study, you will have to use the ExploX website for the next 2-4 weeks (until 15. July)
-                  and can win the
-                  rewards.</p>
-                <br>
-                <v-alert :value="true" type="success" v-if="this.isEligible">
-                  You are eligible to participate in the study.
-                </v-alert>
+              </section>
+              <section v-if="this.isEligible">
+                <v-layout row>
+                  <v-flex column xs12 md6>
+                    <v-btn :disabled="loadingDialog" :loading="loadingDialog" large class="gradient gradient-success"
+                           dark round v-on:click="signupParticipate">
+                      <v-icon>check</v-icon>
+                      &nbsp;Submit
+                    </v-btn>
+                  </v-flex>
+                  <!--<v-flex xs12 md6>
+                    <v-btn :disabled="loadingDialog" :loading="loadingDialog" style="height: 60px;" large
+                           class="gradient gradient-green" round
+                           v-on:click="signup(false)">
+                      Finish without participating<br>in the study
+                    </v-btn>
+                  </v-flex>-->
+                </v-layout>
+              </section>
 
-                <v-alert :value="true" type="info" v-if="!this.isEligible && this.canUseWebsite">
-                  You are <b>not</b> eligible to participate in the study but you can use the website anyway.
-                </v-alert>
+              <section v-if="!this.isEligible && this.canUseWebsite">
+                <v-layout row>
+                  <v-flex coluxs12 sm3>
+                    <v-btn :disabled="loadingDialog" :loading="loadingDialog" large class="gradient gradient-blue" dark
+                           round v-on:click="signup(false)">
+                      Submit
+                    </v-btn>
+                  </v-flex>
+                </v-layout>
+              </section>
 
+              <v-dialog v-model="dialog" width="600px">
+                <v-card>
+                  <v-card-title>
+                    <span class="headline">Terms and Conditions for ExploX</span>
+                  </v-card-title>
+                  <v-card-text>
+                    <data-protection></data-protection>
+                    <h1>Terms and Conditions for ExploX</h1>
+                    <p>These Website Standard Terms and Conditions written on this webpage shall manage your use of
+                      our
+                      website, ExploX accessible at umtl.dfki.de/explox.</p>
+                    <p>These Terms will be applied fully and affect to your use of this Website. By using this
+                      Website,
+                      you agreed to accept all terms and conditions written in here. You must not use this Website if
+                      you disagree with any of these Website Standard Terms and Conditions.</p>
 
-                <v-alert :value="true" type="error" v-if="!this.canUseWebsite">
-                  Sorry, but you are <b>not</b> eligible to use the website because your cycling location is too far
-                  away from Saarland.
-                </v-alert>
-                <br>
+                    <h3>Intellectual Property Rights</h3>
+                    <p>Other than the content you own, under these Terms, Saarland University and/or its licensors own
+                      all the
+                      intellectual property rights and materials contained in this Website.</p>
+                    <p>You are granted limited license only for purposes of viewing the material contained on this
+                      Website.</p>
 
-                <section v-if="this.isEligible || this.canUseWebsite">
-                  <h1>Do you want to participate in the study?</h1>
-                  <!--<v-checkbox :label="checkbox1_text" v-model="emailsCheckbox" style="margin-bottom: -20px;"></v-checkbox>-->
-                  <v-btn depressed v-on:click="dialog = true" style="width: 600px;">Show Data Protection Information and
-                    Terms & Conditions
-                  </v-btn>
-                  <v-checkbox :rules="[rules.required]" :label="checkbox2_text" v-model="termsCheckbox"
-                              v-bind:error="termsError"></v-checkbox>
-                  <br>
-                </section>
-                <section v-if="this.isEligible">
-                  <v-layout row>
-                    <v-flex column xs12 md6>
-                      <v-btn :disabled="loadingDialog" :loading="loadingDialog" large class="gradient gradient-success" dark round v-on:click="signupParticipate">
-                        <v-icon>check</v-icon>
-                        Participate in the study
-                      </v-btn>
-                    </v-flex>
-                    <v-flex xs12 md6>
-                      <v-btn :disabled="loadingDialog" :loading="loadingDialog" style="height: 60px;" large class="gradient gradient-green" round
-                             v-on:click="signup(false)">
-                        Finish without participating<br>in the study
-                      </v-btn>
-                    </v-flex>
-                  </v-layout>
-                </section>
+                    <h3>Restrictions</h3>
+                    <p>You are specifically restricted from all of the following:</p>
+                    <ul>
+                      <li>selling, sublicensing and/or otherwise commercializing any Website material;</li>
+                      <li>using this Website in any way that is or may be damaging to this Website;</li>
+                      <li>using this Website in any way that impacts user access to this Website;</li>
+                      <li>using this Website contrary to applicable laws and regulations, or in any way may cause harm
+                        to the Website, or to any person or business entity;
+                      </li>
+                      <li>engaging in any data mining, data harvesting, data extracting or any other similar activity
+                        in
+                        relation to this Website;
+                      </li>
+                    </ul>
+                    <p>Certain areas of this Website are restricted from being access by you and Saarland University
+                      may further
+                      restrict access by you to any areas of this Website, at any time, in absolute discretion. Any
+                      user
+                      ID and password you may have for this Website are confidential and you must maintain
+                      confidentiality as well.</p>
 
-                <section v-if="!this.isEligible && this.canUseWebsite">
-                  <v-layout row>
-                    <v-flex coluxs12 sm3>
-                      <v-btn :disabled="loadingDialog" :loading="loadingDialog" large class="gradient gradient-blue" dark round v-on:click="signup(false)">
-                        Submit Questionnaire
-                      </v-btn>
-                    </v-flex>
-                  </v-layout>
-                </section>
+                    <h3>No warranties</h3>
+                    <p>This Website is provided "as is," with all faults, and Saarland University express no
+                      representations or
+                      warranties, of any kind related to this Website or the materials contained on this Website.
+                      Also,
+                      nothing contained on this Website shall be interpreted as advising you.</p>
 
-                <v-dialog v-model="dialog" width="600px">
-                  <v-card>
-                    <v-card-title>
-                      <span class="headline">Terms and Conditions for ExploX</span>
-                    </v-card-title>
-                    <v-card-text>
-                      <data-protection></data-protection>
-                      <h1>Terms and Conditions for ExploX</h1>
-                      <p>These Website Standard Terms and Conditions written on this webpage shall manage your use of
-                        our
-                        website, ExploX accessible at umtl.dfki.de/explox.</p>
-                      <p>These Terms will be applied fully and affect to your use of this Website. By using this
-                        Website,
-                        you agreed to accept all terms and conditions written in here. You must not use this Website if
-                        you disagree with any of these Website Standard Terms and Conditions.</p>
+                    <h3>Limitation of liability</h3>
+                    <p>In no event shall Saarland University, nor any of its officers, directors and employees, shall
+                      be held liable
+                      for anything arising out of or in any way connected with your use of this Website whether such
+                      liability is under contract. Saarland University, including its officers, directors and
+                      employees shall not be
+                      held liable for any indirect, consequential or special liability arising out of or in any way
+                      related to your use of this Website.</p>
 
-                      <h3>Intellectual Property Rights</h3>
-                      <p>Other than the content you own, under these Terms, Saarland University and/or its licensors own
-                        all the
-                        intellectual property rights and materials contained in this Website.</p>
-                      <p>You are granted limited license only for purposes of viewing the material contained on this
-                        Website.</p>
+                    <h3>Indemnification</h3>
+                    <p>You hereby indemnify to the fullest extent Saarland University from and against any and/or all
+                      liabilities,
+                      costs, demands, causes of action, damages and expenses arising in any way related to your breach
+                      of any of the provisions of these Terms.</p>
 
-                      <h3>Restrictions</h3>
-                      <p>You are specifically restricted from all of the following:</p>
-                      <ul>
-                        <li>selling, sublicensing and/or otherwise commercializing any Website material;</li>
-                        <li>using this Website in any way that is or may be damaging to this Website;</li>
-                        <li>using this Website in any way that impacts user access to this Website;</li>
-                        <li>using this Website contrary to applicable laws and regulations, or in any way may cause harm
-                          to the Website, or to any person or business entity;
-                        </li>
-                        <li>engaging in any data mining, data harvesting, data extracting or any other similar activity
-                          in
-                          relation to this Website;
-                        </li>
-                      </ul>
-                      <p>Certain areas of this Website are restricted from being access by you and Saarland University
-                        may further
-                        restrict access by you to any areas of this Website, at any time, in absolute discretion. Any
-                        user
-                        ID and password you may have for this Website are confidential and you must maintain
-                        confidentiality as well.</p>
+                    <h3>Severability</h3>
+                    <p>If any provision of these Terms is found to be invalid under any applicable law, such
+                      provisions
+                      shall be deleted without affecting the remaining provisions herein.</p>
 
-                      <h3>No warranties</h3>
-                      <p>This Website is provided "as is," with all faults, and Saarland University express no
-                        representations or
-                        warranties, of any kind related to this Website or the materials contained on this Website.
-                        Also,
-                        nothing contained on this Website shall be interpreted as advising you.</p>
+                    <h3>Variation of Terms</h3>
+                    <p>Saarland University is permitted to revise these Terms at any time as it sees fit, and by using
+                      this Website
+                      you
+                      are expected to review these Terms on a regular basis.</p>
 
-                      <h3>Limitation of liability</h3>
-                      <p>In no event shall Saarland University, nor any of its officers, directors and employees, shall
-                        be held liable
-                        for anything arising out of or in any way connected with your use of this Website whether such
-                        liability is under contract. Saarland University, including its officers, directors and
-                        employees shall not be
-                        held liable for any indirect, consequential or special liability arising out of or in any way
-                        related to your use of this Website.</p>
+                    <h3>Assignment</h3>
+                    <p>The Saarland University is allowed to assign, transfer, and subcontract its rights and/or
+                      obligations under
+                      these Terms without any notification. However, you are not allowed to assign, transfer, or
+                      subcontract any of your rights and/or obligations under these Terms.</p>
 
-                      <h3>Indemnification</h3>
-                      <p>You hereby indemnify to the fullest extent Saarland University from and against any and/or all
-                        liabilities,
-                        costs, demands, causes of action, damages and expenses arising in any way related to your breach
-                        of any of the provisions of these Terms.</p>
+                    <h3>Entire Agreement</h3>
+                    <p>These Terms constitute the entire agreement between Saarland University and you in relation to
+                      your use of
+                      this
+                      Website, and supersede all prior agreements and understandings.</p>
 
-                      <h3>Severability</h3>
-                      <p>If any provision of these Terms is found to be invalid under any applicable law, such
-                        provisions
-                        shall be deleted without affecting the remaining provisions herein.</p>
-
-                      <h3>Variation of Terms</h3>
-                      <p>Saarland University is permitted to revise these Terms at any time as it sees fit, and by using
-                        this Website
-                        you
-                        are expected to review these Terms on a regular basis.</p>
-
-                      <h3>Assignment</h3>
-                      <p>The Saarland University is allowed to assign, transfer, and subcontract its rights and/or
-                        obligations under
-                        these Terms without any notification. However, you are not allowed to assign, transfer, or
-                        subcontract any of your rights and/or obligations under these Terms.</p>
-
-                      <h3>Entire Agreement</h3>
-                      <p>These Terms constitute the entire agreement between Saarland University and you in relation to
-                        your use of
-                        this
-                        Website, and supersede all prior agreements and understandings.</p>
-
-                      <h3>Governing Law & Jurisdiction</h3>
-                      <p>These Terms will be governed by and interpreted in accordance with the laws of the State of
-                        Germany,
-                        and you submit to the non-exclusive jurisdiction of the state and federal courts located in
-                        Germany
-                        for
-                        the resolution of any disputes.</p>
-                    </v-card-text>
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn color="green darken-1" flat="flat"
-                             @click="() => {this.dialog = false; this.termsCheckbox = true;}">Agree
-                      </v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
-              </v-layout>
+                    <h3>Governing Law & Jurisdiction</h3>
+                    <p>These Terms will be governed by and interpreted in accordance with the laws of the State of
+                      Germany,
+                      and you submit to the non-exclusive jurisdiction of the state and federal courts located in
+                      Germany
+                      for
+                      the resolution of any disputes.</p>
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="green darken-1" flat="flat"
+                           @click="() => {this.dialog = false; this.termsCheckbox = true;}">Agree
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
             </v-layout>
           </v-stepper-content>
         </v-stepper-items>
@@ -1320,7 +1320,7 @@
                     Entfernung / Distanz
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider  style="width: 500px;" v-model="user.cyclingBehaviour.q14.i1"
+                    <v-slider style="width: 100%;" v-model="user.cyclingBehaviour.q14.i1"
                               :tick-labels="['Unwichtig',' ','Neutral',' ', 'Wichtig']" :max="4" step="1"
                               ticks></v-slider>
                   </v-flex>
@@ -1330,9 +1330,9 @@
                     Fahrzeit
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.cyclingBehaviour.q14.i2"
+                    <v-slider style="width: 100%;" v-model="user.cyclingBehaviour.q14.i2"
                               :tick-labels="['Unwichtig',' ','Neutral',' ', 'Wichtig']" :max="4" step="1"
-                              ticks="always" ></v-slider>
+                              ticks="always"></v-slider>
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap align-center>
@@ -1340,7 +1340,7 @@
                     Sicherheit im Verkehr
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.cyclingBehaviour.q14.i3"
+                    <v-slider style="width: 100%;" v-model="user.cyclingBehaviour.q14.i3"
                               :tick-labels="['Unwichtig',' ','Neutral',' ', ' Wichtig']" :max="4" step="1"
                               ticks="always"></v-slider>
                   </v-flex>
@@ -1350,7 +1350,7 @@
                     Höhenprofil
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.cyclingBehaviour.q14.i4"
+                    <v-slider style="width: 100%;" v-model="user.cyclingBehaviour.q14.i4"
                               :tick-labels="['Unwichtig',' ','Neutral',' ', 'Wichtig']" :max="4" step="1"
                               ticks="always"></v-slider>
                   </v-flex>
@@ -1360,7 +1360,7 @@
                     Landschaft
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.cyclingBehaviour.q14.i5"
+                    <v-slider style="width: 100%;" v-model="user.cyclingBehaviour.q14.i5"
                               :tick-labels="['Unwichtig',' ','Neutral',' ', 'Wichtig']" :max="4" step="1"
                               ticks="always"></v-slider>
                   </v-flex>
@@ -1370,7 +1370,7 @@
                     Sicherheit bzw. Kriminalität
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.cyclingBehaviour.q14.i6"
+                    <v-slider style="width: 100%;" v-model="user.cyclingBehaviour.q14.i6"
                               :tick-labels="['Unimportant',' ','Neutral',' ', 'Wichtig']" :max="4" step="1"
                               ticks="always"></v-slider>
                   </v-flex>
@@ -1381,7 +1381,7 @@
                     Reparaturmöglichkeiten)
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.cyclingBehaviour.q14.i7"
+                    <v-slider style="width: 100%;" v-model="user.cyclingBehaviour.q14.i7"
                               :tick-labels="['Unimportant',' ','Neutral',' ', 'Wichtig']" :max="4" step="1"
                               ticks="always"></v-slider>
                   </v-flex>
@@ -1432,7 +1432,7 @@
                     Um meine Bestzeiten in Segmenten zu sehen
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.routePlanning.q3.i1"
+                    <v-slider style="width: 100%;" v-model="user.routePlanning.q3.i1"
                               :tick-labels="['Unwichtig',' ','Neutral',' ', 'Wichtig']" :max="4" step="1"
                               ticks="always"></v-slider>
                   </v-flex>
@@ -1442,7 +1442,7 @@
                     Aktivitäten aufzeichnen
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.routePlanning.q3.i2"
+                    <v-slider style="width: 100%;" v-model="user.routePlanning.q3.i2"
                               :tick-labels="['Unwichtig',' ','Neutral',' ', 'Wichtig']" :max="4" step="1"
                               ticks="always"></v-slider>
                   </v-flex>
@@ -1452,7 +1452,7 @@
                     Aktivitäten mit Freunden und Bekannten teilen
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.routePlanning.q3.i3"
+                    <v-slider style="width: 100%;" v-model="user.routePlanning.q3.i3"
                               :tick-labels="['Unwichtig',' ','Neutral',' ', ' Wichtig']" :max="4" step="1"
                               ticks="always"></v-slider>
                   </v-flex>
@@ -1462,7 +1462,7 @@
                     Training und Forschritte tracken (Analyse)
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.routePlanning.q3.i4"
+                    <v-slider style="width: 100%;" v-model="user.routePlanning.q3.i4"
                               :tick-labels="['Unwichtig',' ','Neutral',' ', 'Wichtig']" :max="4" step="1"
                               ticks="always"></v-slider>
                   </v-flex>
@@ -1472,7 +1472,7 @@
                     Routen finden und planen
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.routePlanning.q3.i5"
+                    <v-slider style="width: 100%;" v-model="user.routePlanning.q3.i5"
                               :tick-labels="['Unwichtig',' ','Neutral',' ', 'Wichtig']" :max="4" step="1"
                               ticks="always"></v-slider>
                   </v-flex>
@@ -1482,7 +1482,7 @@
                     Freunden und Bekannten folgen und deren Aktivitäten sehen
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.routePlanning.q3.i6"
+                    <v-slider style="width: 100%;" v-model="user.routePlanning.q3.i6"
                               :tick-labels="['Unwichtig',' ','Neutral',' ', 'Wichtig']" :max="4" step="1"
                               ticks="always"></v-slider>
                   </v-flex>
@@ -1597,7 +1597,7 @@
                     zu fahren, die ich noch nicht gut kenne.
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.routePlanning.q8.i1"
+                    <v-slider style="width: 100%;" v-model="user.routePlanning.q8.i1"
                               :tick-labels="['Stimme nicht zu',' ','Neutral',' ', 'Stimme zu']" :max="4" step="1"
                               ticks="always"></v-slider>
                   </v-flex>
@@ -1608,7 +1608,7 @@
                     ich wohne besser kennenzulernen.
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.routePlanning.q8.i2"
+                    <v-slider style="width: 100%;" v-model="user.routePlanning.q8.i2"
                               :tick-labels="['Stimme nicht zu',' ','Neutral',' ', 'Stimme zu']" :max="4" step="1"
                               ticks="always"></v-slider>
                   </v-flex>
@@ -1619,7 +1619,7 @@
                     Dörfer zu sehen wenn ich Fahrrad fahre.
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.routePlanning.q8.i3"
+                    <v-slider style="width: 100%;" v-model="user.routePlanning.q8.i3"
                               :tick-labels="['Stimme nicht zu',' ','Neutral',' ', ' Stimme zu']" :max="4" step="1"
                               ticks="always"></v-slider>
                   </v-flex>
@@ -1630,7 +1630,7 @@
                     und Sehenswürdigkeiten zu sehen.
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.routePlanning.q8.i4"
+                    <v-slider style="width: 100%;" v-model="user.routePlanning.q8.i4"
                               :tick-labels="['Stimme nicht zu',' ','Neutral',' ', 'Stimme zu']" :max="4" step="1"
                               ticks="always"></v-slider>
                   </v-flex>
@@ -1641,7 +1641,7 @@
                     ich neue Routen fahre.
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.routePlanning.q8.i5"
+                    <v-slider style="width: 100%;" v-model="user.routePlanning.q8.i5"
                               :tick-labels="['Stimme nicht zu',' ','Neutral',' ', 'Stimme zu']" :max="4" step="1"
                               ticks="always"></v-slider>
                   </v-flex>
@@ -1652,7 +1652,7 @@
                     meinen Routen zu berichten.
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.routePlanning.q8.i6"
+                    <v-slider style="width: 100%;" v-model="user.routePlanning.q8.i6"
                               :tick-labels="['Stimme nicht zu',' ','Neutral',' ', 'Stimme zu']" :max="4" step="1"
                               ticks="always"></v-slider>
                   </v-flex>
@@ -1663,7 +1663,7 @@
                     Freunden empfohlen wurden.
                   </v-flex>
                   <v-flex xs12 md6>
-                    <v-slider style="width: 500px;" v-model="user.routePlanning.q8.i7"
+                    <v-slider style="width: 100%;" v-model="user.routePlanning.q8.i7"
                               :tick-labels="['Stimme nicht zu',' ','Neutral',' ', 'Stimme zu']" :max="4" step="1"
                               ticks="always"></v-slider>
                   </v-flex>
@@ -1761,7 +1761,7 @@
                 dadurch die
                 Chance auf den Gewinn sichern.</p>
               <br>
-              <v-alert :value="true" type="success" v-if="this.isEligible">
+              <!--<v-alert :value="true" type="success" v-if="this.isEligible">
                 Sie dürfen an der Studie teilnehmen!
               </v-alert>
 
@@ -1774,13 +1774,12 @@
                 Sie können die Website leider <b>nicht</b> benutzen weil ihre Angabe wo Sie fahren zu weit vom Saarland
                 entfernt ist.
               </v-alert>
-              <br>
+              <br>-->
 
               <section v-if="this.isEligible || this.canUseWebsite">
                 <h1>Möchten Sie an der Studie teilnehmen?</h1>
                 <!--<v-checkbox :label="checkbox1_text" v-model="emailsCheckbox" style="margin-bottom: -20px;"></v-checkbox>-->
-                <v-btn depressed v-on:click="dialog = true" style="width: 600px;">Datenschutzinformationen und
-                  Teilnahmebedingungen anzeigen
+                <v-btn depressed v-on:click="dialog = true">Teilnahmebedingungen<br>anzeigen
                 </v-btn>
                 <v-checkbox :rules="[rules.required]"
                             label="Datenschutzinformationen und Teilnahmebedingungen akzeptieren"
@@ -1791,25 +1790,28 @@
               <section v-if="this.isEligible">
                 <v-layout row>
                   <v-flex column xs12 md7>
-                    <v-btn :disabled="loadingDialog" :loading="loadingDialog" style="height: 60px;" large class="gradient gradient-success" dark round
+                    <v-btn :disabled="loadingDialog" :loading="loadingDialog" style="height: 60px;" large
+                           class="gradient gradient-success" dark round
                            v-on:click="signupParticipate">
                       <v-icon>check</v-icon>
-                      Teilnehmen und<br>Anmeldung abschließen
+                      Anmeldung<br>abschließen
                     </v-btn>
                   </v-flex>
-                  <v-flex column xs12 md5>
-                    <v-btn :disabled="loadingDialog" :loading="loadingDialog" large class="gradient gradient-green" round v-on:click="signup(false)">
+                  <!--<v-flex column xs12 md5>
+                    <v-btn :disabled="loadingDialog" :loading="loadingDialog" large class="gradient gradient-green"
+                           round v-on:click="signup(false)">
                       Nicht teilnehmen
                     </v-btn>
-                  </v-flex>
+                  </v-flex>-->
                 </v-layout>
               </section>
 
               <section v-if="!this.isEligible && this.canUseWebsite">
                 <v-layout row>
                   <v-flex coluxs12 md5>
-                    <v-btn :disabled="loadingDialog" :loading="loadingDialog" large class="gradient gradient-blue" dark round v-on:click="signup(false)">
-                      Fragebogen abschicken
+                    <v-btn :disabled="loadingDialog" :loading="loadingDialog" large class="gradient gradient-blue" dark
+                           round v-on:click="signup(false)" style="height: 60px;">
+                      Fragebogen<br>abschicken
                     </v-btn>
                   </v-flex>
                 </v-layout>
@@ -2058,7 +2060,7 @@
           } else {
             this.termsError = false
           }
-          this.loadingDialog = true;
+          this.loadingDialog = true
         }
 
         const formData = {
@@ -2082,7 +2084,7 @@
         }
 
         this.POST('finishRegistration', formData, null, (data, err) => {
-          this.loadingDialog = false;
+          this.loadingDialog = false
           if (!cache) {
             if (!err) {
               EventBus.$on('authenticated', () => {
@@ -2123,7 +2125,7 @@
         }
 
         if (!this.eligibleByActivities) {
-          this.validateLocation(null, true);
+          this.validateLocation(null, true)
           this.eligibleByActivities = true
 
           /*this.GET('dashboard', (data, err) => {

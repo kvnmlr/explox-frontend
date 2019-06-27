@@ -10,8 +10,18 @@
       <v-container v-else fill-height fill-width>
         <v-layout justify-center>
           <v-flex>
-            <router-view v-bind:user="user" v-on:logout="logout" v-on:authorizeUser="authorizeUser" v-on:flash="flash">
+            <router-view v-if="!isMobile || (!$router.currentRoute.name.includes('Creator'))" v-bind:user="user" v-on:logout="logout" v-on:authorizeUser="authorizeUser"
+                         v-on:flash="flash">
             </router-view>
+            <v-card v-else>
+              <v-card-title>
+                <span class="headline">No Mobile Support</span>
+              </v-card-title>
+              <v-card-text>
+                <p>Some features are not optimized for mobile phones. Please use the website on your computer for the
+                  user study.</p>
+              </v-card-text>
+            </v-card>
           </v-flex>
         </v-layout>
       </v-container>
@@ -40,11 +50,14 @@
       user: null,
       alert: {},
       alertVisible: false,
+      isMobile: false
     }),
     created () {
-      if (location.protocol !== 'https:' && !location.hostname.includes('localhost'))
-      {
-        location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+      this.onResize()
+      window.addEventListener('resize', this.onResize, {passive: true})
+
+      if (location.protocol !== 'https:' && !location.hostname.includes('localhost')) {
+        location.href = 'https:' + window.location.href.substring(window.location.protocol.length)
       }
 
       this.authorizeUser()
@@ -59,6 +72,10 @@
       })
     },
     methods: {
+      onResize () {
+        console.log('resize')
+        this.isMobile = this.$vuetify.breakpoint.xs
+      },
       broadcastData () {
         setTimeout(() => {
           // EventBus.$emit('routesReady', this.user.routes);
@@ -114,7 +131,6 @@
             this.$emit('flash', err.flash)
           } else {
             this.user = data.user
-
             if (!this.user.fullyRegistered) {
               this.$router.push('/signup')
             }

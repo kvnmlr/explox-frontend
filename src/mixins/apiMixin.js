@@ -12,8 +12,8 @@ let self
 api.interceptors.response.use(
   function (response) {
     const data = response.data
-    console.debug('(' + response.config.method.toUpperCase() + ') Api returned data for ' + response.config.url + ': ')
-    console.debug(data)
+    // console.debug('(' + response.config.method.toUpperCase() + ') Api returned data for ' + response.config.url + ': ')
+    // console.debug(data)
 
     if (data.csrf_token) {
       csrfToken = data.csrf_token
