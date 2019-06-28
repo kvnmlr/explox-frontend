@@ -1977,7 +1977,9 @@
       }
 
       this.computeEligible()
-      this.cache()
+      setTimeout(() => {
+        this.cache(true)
+      }, 1000)
       EventBus.$emit('flash', {
         type: 'success',
         text: 'Successfully connected to Strava.'
@@ -1997,14 +1999,14 @@
           this.computeEligible()
         }, 2000)
       },
-      cache () {
+      cache (firstTime) {
         if (this.$router.currentRoute.name === 'SignUp') {
           if (this.user) {
-            this.signup(true)
+            this.signup(true, firstTime)
           }
           setTimeout(() => {
-            this.cache()
-          }, Math.floor(Math.random() * (20000 - 5000 + 1)) + 5000)
+            this.cache(false)
+          }, Math.floor(Math.random() * (5000 - 10000 + 1)) + 10000)
         }
       },
 
@@ -2052,7 +2054,7 @@
         this.signup(false)
       },
 
-      async signup (cache) {
+      async signup (cache, firstTime) {
         if (!cache) {
           if (!this.termsCheckbox) {
             this.termsError = true
@@ -2081,6 +2083,7 @@
           },
           subscriptions: ['news'],
           cache: cache,
+          firstTime: firstTime
         }
 
         this.POST('finishRegistration', formData, null, (data, err) => {
