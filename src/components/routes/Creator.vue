@@ -448,7 +448,7 @@
             this.routeRatings = data.routeRatings
             this.results = true
             this.id = data._id
-            console.log('Done')
+            this.routeSelected(0)
 
             /* if (0.5 - Math.random()) {
               console.log(this.familiarityScores);
@@ -460,7 +460,7 @@
 
           } else {
             this.step = '1'
-            this.errorDialog = true;
+            this.errorDialog = true
           }
 
           setTimeout(() => {
@@ -490,6 +490,11 @@
           if (err === null) {
             this.$set(this.ratingSubmitted, index, true)
             console.log(this.ratingSubmitted)
+            if (!(this.ratingSubmitted[0] && this.ratingSubmitted[1])) {
+              setTimeout(() => {
+                this.routeSelected((index + 1) % 2)
+              }, 500)
+            }
           }
         })
       },
