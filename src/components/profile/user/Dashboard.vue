@@ -183,7 +183,7 @@
                       <v-list-tile-content>
                         <v-list-tile-title>Pre-Study Questionnaire</v-list-tile-title>
                         <v-list-tile-sub-title>You completed the questionnaire before the study.<br>
-                          <span style="color: #ee5b19;">Deadline: 08. July 2019</span></v-list-tile-sub-title>
+                          <span style="color: #ee5b19;">Deadline: 21. July 2019</span></v-list-tile-sub-title>
                       </v-list-tile-content>
                     </v-list-tile>
 
@@ -196,7 +196,7 @@
                         <v-list-tile-title>Activity Heatmap</v-list-tile-title>
 
                         <v-list-tile-sub-title>You have seen your personalized Activity Heatmao.<br>
-                          <span style="color: #ee5b19">Deadline: 22. July 2019</span>
+                          <span style="color: #ee5b19">Deadline: 28. July 2019</span>
                         </v-list-tile-sub-title>
                       </v-list-tile-content>
                       <v-btn v-if="!user.visitedActivityMap"
@@ -215,7 +215,7 @@
                         </v-list-tile-title>
                         <v-list-tile-sub-title>You have done at least 15 successful route generations <b>+ comments and
                           ratings</b>.<br>
-                          <span style="color: #ee5b19">Deadline: 22. July 2019</span>
+                          <span style="color: #ee5b19">Deadline: 28. July 2019</span>
                         </v-list-tile-sub-title>
                       </v-list-tile-content>
                       <v-btn v-if="this.user.creatorResults.length < 15" to="creator" outline round>Generate Route
@@ -231,7 +231,7 @@
                         <v-list-tile-title>Post-Study Questionnaires</v-list-tile-title>
                         <v-list-tile-sub-title>You have done the questionnaire after using the for some time. You will
                           be notified vie e-mail when you can do this.<br>
-                          <span style="color: #ee5b19">Starting: 08. July, deadline: 29. July</span>
+                          <span style="color: #ee5b19">Starting: 21. July, deadline: 04. August</span>
                         </v-list-tile-sub-title>
                       </v-list-tile-content>
                       <v-btn v-if="psq" to="psq" style="height: 60px;" color="success" round>Fill out<br>Questionnaire
@@ -467,7 +467,7 @@
       })
 
       if (this.user) {
-        const enabled = new Date('08 July 2019 00:00:01')
+        const enabled = new Date('21 July 2019 00:00:01')
         const currentDate = new Date()
         if (enabled <= currentDate) {
           let psqPossible = true

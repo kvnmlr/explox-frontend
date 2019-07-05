@@ -85,10 +85,10 @@
                   for the next weeks, you will participate in the study. This will not require much time (at least 1-2
                   hours) and it can be done any time during the usage phase (4 weeks)</p>
                 <h2>Time and dates for the study</h2>
-                <p><b>Registration phase:</b> <span style="color: #ee5b19">24. June - 08. July 2019</span> (2 Weeks)</p>
-                <p><b>Usage phase:</b> <span style="color: #ee5b19">24. June - 22. July 2019</span> (4 Weeks)</p>
-                <p><b>User Experience Questionnaire und interviews after the study:</b> <span style="color: #ee5b19">01. July - 22. July 2019</span>
-                  (3 Weeks), earliest time is after extensive use of the website and fulfillment of all study duties</p>
+                <p><b>Registration phase:</b> <span style="color: #ee5b19">24. June - 21. July 2019</span> (4 Weeks)</p>
+                <p><b>Usage phase:</b> <span style="color: #ee5b19">24. June - 28. July 2019</span> (5 Weeks)</p>
+                <p><b>User Experience Questionnaire und interviews after the study:</b> <span style="color: #ee5b19">21. July - 04. Augustt 2019</span>
+                  (2 Weeks), earliest time is after extensive use of the website and fulfillment of all study duties</p>
                 <h2>Reward</h2>
                 <p>We will reward your participation in the study with the chance to win <b style="color:#ee5b19;">one
                   of

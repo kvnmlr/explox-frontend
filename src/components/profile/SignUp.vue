@@ -74,9 +74,9 @@
                 the routes get the chance to win one of <b style="color:#ee5b19;">3 x 50€ Bike Gear Vouchers</b>!
               </p>
               <h2>Time and dates for the study</h2>
-              <p><b>Registration phase:</b> <span style="color: #ee5b19">24. June - 08. July 2019</span> (2 Weeks)</p>
-              <p><b>Usage phase:</b> <span style="color: #ee5b19">24. June - 22. July 2019</span> (4 Weeks)</p>
-              <p><b>User Experience Questionnaire und interviews after the study:</b> <span style="color: #ee5b19">08. July - 29. July 2019</span>
+              <p><b>Registration phase:</b> <span style="color: #ee5b19">24. June - 21. July 2019</span> (4 Weeks)</p>
+              <p><b>Usage phase:</b> <span style="color: #ee5b19">24. June - 28. July 2019</span> (5 Weeks)</p>
+              <p><b>User Experience Questionnaire und interviews after the study:</b> <span style="color: #ee5b19">21. July - 04. August 2019</span>
                 (3 Weeks), earliest time is after extensive use of the website and fulfillment of all study duties</p>
               <h2>Preconditions and Eligibility</h2>
               <p>In the following, you will find some questionnaires that you have to answer thoroughly
@@ -1020,9 +1020,9 @@
               </p>
               <br>
               <h2>Zeitraum der Studie und Termine</h2>
-              <p><b>Registrierungsphase:</b> <span style="color: #ee5b19">24. Juni - 08. Juli 2019</span> (2 Wochen)</p>
-              <p><b>Nutzungsphase:</b> <span style="color: #ee5b19">24. Juni - 22. Juli 2019</span> (4 Wochen)</p>
-              <p><b>User Experience Questionnaire und Interviews nach der Studie:</b> <span style="color: #ee5b19">08. Juli - 29. Juli 2019</span>
+              <p><b>Registrierungsphase:</b> <span style="color: #ee5b19">24. Juni - 21. Juli 2019</span> (4 Wochen)</p>
+              <p><b>Nutzungsphase:</b> <span style="color: #ee5b19">24. Juni - 28. Juli 2019</span> (5 Wochen)</p>
+              <p><b>User Experience Questionnaire und Interviews nach der Studie:</b> <span style="color: #ee5b19">21. Juli - 04. August 2019</span>
                 (3 Wochen), frühestens nach ausführlicher Nutzung der Website und Erldigung der Aufgaben der Studie
                 (siehe unten "Belohnung").</p>
 
@@ -1970,7 +1970,7 @@
       }
     },
     created () {
-      const deadline = new Date('08 July 2019 23:59:59')
+      const deadline = new Date('21 July 2019 23:59:59')
       const currentDate = new Date()
       if (currentDate > deadline) {
         this.deadlinePassed = true
