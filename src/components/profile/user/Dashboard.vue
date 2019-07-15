@@ -471,10 +471,10 @@
         const currentDate = new Date()
         if (enabled <= currentDate) {
           let psqPossible = true
-          psqPossible &= this.user.questionnaireInfo.eligible && this.user.questionnaireInfo.participates
+          /* psqPossible &= this.user.questionnaireInfo.eligible && this.user.questionnaireInfo.participates
           psqPossible &= this.user.questionnaireInfo.canUseWebsite
           psqPossible &= this.user.creatorResults.length >= 0
-          psqPossible &= this.user.visitedActivityMap
+          psqPossible &= this.user.visitedActivityMap */
           this.psq = psqPossible
         }
 

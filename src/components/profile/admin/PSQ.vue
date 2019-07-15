@@ -1,5 +1,5 @@
 <template>
-  <div v-if="qis">
+  <div v-if="psq">
     <v-btn outline color="primary" to="/admin/dashboard">
       Back to Dashboard
     </v-btn>
@@ -19,7 +19,7 @@
 
     <v-expansion-panel v-model="panel">
       <v-expansion-panel-content
-        v-for="(qi, index) in qis.filter(this.filterMethod)"
+        v-for="(qi, index) in psq.filter(this.filterMethod)"
         :key="index">
         <div slot="header">
           <h2>User {{index}}</h2>
@@ -46,11 +46,11 @@
   import {EventBus} from '@/eventBus.js'
 
   export default {
-    name: 'Questionnaire',
+    name: 'PSQ',
     data () {
       return {
         text: '',
-        qis: [],
+        psq: [],
         radioGroup: 'All',
         panel: [true],
       }
@@ -60,13 +60,13 @@
     },
     methods: {
       exportCSV () {
-        let results = this.qis.filter(this.filterMethod)
+        let results = this.psq.filter(this.filterMethod)
         let text = ''
         let first = true
         for (let res of results) {
           if (first) {
             for (let category in res) {
-              if (category === '_id' || category === 'psq') continue
+              if (category !== 'psq') continue
               for (let question in res[category]) {
                 let q = res[category][question]
                 if (typeof q === 'object' && q !== null) {
@@ -85,16 +85,16 @@
           }
           text += '\n'
           for (let category in res) {
-            if (category === '_id' || category === 'psq') continue
+            if (category !== 'psq') continue
             for (let question in res[category]) {
               let q = res[category][question]
-              if (typeof q === 'object' && q !== null) {
-                for (let subQuestion in q) {
-                  text += q[subQuestion]
-                  text += ';'
+              for (let subQuestion in q) {
+                let subq = q[subQuestion]
+                if (typeof subq === 'object') {
+                  text += subq.value
+                } else {
+                  text += JSON.stringify(subq)
                 }
-              } else {
-                text += JSON.stringify(q)
                 text += ';'
               }
             }
@@ -106,7 +106,7 @@
 
       async getQuestionnaires () {
         this.GET('questionnaire', (data, err) => {
-          this.qis = data.questionnaires
+          this.psq = data.questionnaires
         })
       },
       filterMethod (qi) {
