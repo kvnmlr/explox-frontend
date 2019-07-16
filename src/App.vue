@@ -57,7 +57,7 @@
       window.addEventListener('resize', this.onResize, {passive: true})
 
       if (location.protocol !== 'https:' && !location.hostname.includes('localhost')) {
-        location.href = 'https:' + window.location.href.substring(window.location.protocol.length)
+        // location.href = 'https:' + window.location.href.substring(window.location.protocol.length)
       }
 
       this.authorizeUser()
