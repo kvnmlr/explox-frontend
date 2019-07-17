@@ -56,7 +56,7 @@
               <h2>Reward</h2>
               <p>We will reward your participation in the study with the chance to win <b style="color:#ee5b19;">one of
                 6 x 25€ Amazon
-                Vouchers</b>. If you win, you will receive at the end of the study. You have to fulfill the following
+                Vouchers</b>. If you win, you will receive the voucher at the end of the study. You have to fulfill the following
                 criteria in order to receive the voucher:</p>
               <ul>
                 <li>You have completed the following questionnaires and you are eligible to participate (~15 minutes)
@@ -79,8 +79,7 @@
               <p><b>User Experience Questionnaire und interviews after the study:</b> <span style="color: #ee5b19">21. July - 04. August 2019</span>
                 (3 Weeks), earliest time is after extensive use of the website and fulfillment of all study duties</p>
               <h2>Preconditions and Eligibility</h2>
-              <p>In the following, you will find some questionnaires that you have to answer thoroughly
-                carefully if you want to join the study. At the end of the questionnaires, you will see if you are
+              <p>In the following, you will find some questionnaires that you have to answer thoroughly if you want to join the study. At the end of the questionnaires, you will see if you are
                 eligible to participate in the study. Then, you can decide if you want to participate or not.
                 Please take your time and fill out the questionnaire thoroughly. Using the bar at the top, you can jump
                 between different parts of the questionnaire and review your answers. You have to give an answer to <b>all</b>
@@ -240,12 +239,12 @@
 
               <v-radio-group v-model="user.cyclingBehaviour.q7">
                 <p class="title">Check the statement that fits best.</p>
-                <v-radio label="A bike is a mean of transportation for (e.g. for commuting)" value=1></v-radio>
+                <v-radio label="A bike is a mean of transportation (e.g. for commuting)" value=1></v-radio>
                 <v-radio label="I use the bicycle for sports and training" value=2></v-radio>
                 <v-radio label="Both" value=3></v-radio>
               </v-radio-group>
 
-              <p class="title">What are the main reasons you ride your bike on <b style="color:#ee5b19;">working
+              <p class="title">What are the main reasons why you ride your bike on <b style="color:#ee5b19;">working
                 days</b>?</p>
               <v-checkbox v-model="user.cyclingBehaviour.q8" label="Sports and Training" value="Sport"
                           style="margin-top: -10px;"></v-checkbox>
@@ -282,7 +281,7 @@
               </v-radio-group>
 
               <br>
-              <p class="title">What are the main reasons you ride your bike on the <b style="color:#ee5b19;">weekend</b>?
+              <p class="title">What are the main reasons why you ride your bike on the <b style="color:#ee5b19;">weekend</b>?
               </p>
               <v-checkbox v-model="user.cyclingBehaviour.q10" label="Sports and Training" value="Sport"
                           style="margin-top: -10px;"></v-checkbox>
@@ -448,7 +447,7 @@
                             value="Live" style="margin-top: -15px;"></v-checkbox>
                 <v-checkbox v-model="user.routePlanning.q2" label="Beacon" value="Beacon"
                             style="margin-top: -15px;"></v-checkbox>
-                <v-checkbox v-model="user.routePlanning.q2" label="Peronal heatmaps"
+                <v-checkbox v-model="user.routePlanning.q2" label="Personal heatmaps"
                             value="Heatmaps" style="margin-top: -15px;"></v-checkbox>
                 <v-checkbox v-model="user.routePlanning.q2" label="Live segments"
                             value="Segments" style="margin-top: -15px;"></v-checkbox>
@@ -537,7 +536,7 @@
                             style="margin-top: -10px;"></v-checkbox>
                 <v-checkbox v-model="user.routePlanning.q4a" label="I plan the route in my head beforehand" value="Head"
                             style="margin-top: -15px;"></v-checkbox>
-                <v-checkbox v-model="user.routePlanning.q4a" label="I use a digital map or App (such as Google Maps)"
+                <v-checkbox v-model="user.routePlanning.q4a" label="I use a digital map or app (such as Google Maps)"
                             value="Digital"
                             style="margin-top: -15px;"></v-checkbox>
                 <v-checkbox v-model="user.routePlanning.q4a" label="I use a physical (paper) map" value="Physical"
@@ -561,7 +560,7 @@
                 <v-checkbox v-model="user.routePlanning.q4b" label="We plan the route in our head beforehand"
                             value="Head"
                             style="margin-top: -15px;"></v-checkbox>
-                <v-checkbox v-model="user.routePlanning.q4b" label="We use a digital map or App (such as Google Maps)"
+                <v-checkbox v-model="user.routePlanning.q4b" label="We use a digital map or app (such as Google Maps)"
                             value="Digital"
                             style="margin-top: -15px;"></v-checkbox>
                 <v-checkbox v-model="user.routePlanning.q4b" label="We use a physical (paper) map" value="Physical"
@@ -770,7 +769,7 @@
                 conditions for using this website.</p>
               <br>
               <h1>Field Study</h1>
-              <p>In the field study, you will have to use the ExploX website for the next 2-4 weeks (until 15. July)
+              <p>In the field study, you will have to use the ExploX website for the next 2-4 weeks
                 and can win the
                 rewards.</p>
               <br>
@@ -1001,14 +1000,13 @@
                 6 x 25€ Amazon Gutscheinen</b> zu gewinnen. Wenn Sie gewinnen erhalten Sie diesen am Ende der Studie.
                 Folgende Kriterien müssen Sie dabei erfüllen:</p>
               <ul>
-                <li>Sie haben den folgenden Fragebogen vollständig ausgefüllt und sind für die Studie zugelassen (das
-                  erfahren Sie auf der letzen Seite "Fertig") <b>(ca. 15 min)</b>.
+                <li>Sie haben den folgenden Fragebogen vollständig ausgefüllt.<b>(ca. 15 min)</b>.
                 </li>
                 <li>Sie haben mindestens 15 (erfolgreiche) Routenvorschläge generiert und alle resultierenden Routen
                   bewertet <b>(ca. 45 min)</b>.
                 </li>
-                <li>Sie haben den User Experience Questionnaire am Ende der Studie ausgefüllt (ca. 10 min).</li>
-                <li>Sie haben am Ende der Studie kurzes individuelles Feedback gegeben <b>(ca. 5-15 min)</b>.
+                <li>Sie haben den User Experience Questionnaire am Ende der Studie ausgefüllt (ca. 5 min).</li>
+                <li>Sie haben am Ende der Studie kurzes individuelles Feedback gegeben <b>(ca. 5-10 min)</b>.
                 </li>
               </ul>
               <p><b style="color: #ee5b19">Außerdem:</b> Unter allen Teilnehmern, die neben obigen Kriterien mindestens
@@ -1030,8 +1028,8 @@
               <p>Im Folgenden werden Sie durch einen Fragebogen geleitet, den Sie vollständig und sorgfältig ausfüllen
                 müssen. Am Ende des Fragebogens erfahren Sie, ob Sie (auf Grundlage Ihrer Antworten) an der Studie
                 teilnehmen dürfen.<br>
-                Bitte nehmen Sie sich die Zeit, die Fragen sorgfälltig und ausführlich zu beantworten. Über die obige
-                Leiste, können Sie zwischen den Kategorien wechseln und so ihre Antworten überprüfen. Sie müssen <b>alle
+                Bitte nehmen Sie sich die Zeit, die Fragen sorgfältig und ausführlich zu beantworten. Über die obige
+                Leiste, können Sie zwischen den Kategorien wechseln und so Ihre Antworten überprüfen. Sie müssen <b>alle
                   Fragen</b>
                 beantworten, wobei bei manchen offenen Fragen auch eine einfache Antwort wie bspw. "Nein" genügen
                 kann.<br>
@@ -1307,7 +1305,7 @@
                 <v-radio label="Ich bin ein Freizeitfahrer. Radfahren ist ein Hobby für mich (einschl. pendeln)"
                          value=2></v-radio>
                 <v-radio
-                  label="Ich bin ein Profi. Radfahren ist mein Beruf und verdiene dadurch meinen Unterhalt bzw. arbeite darauf hin"
+                  label="Ich bin ein Profi. Radfahren ist mein Beruf und ich verdiene dadurch meinen Unterhalt bzw. arbeite darauf hin"
                   value=3></v-radio>
               </v-radio-group>
 
@@ -1459,7 +1457,7 @@
                 </v-layout>
                 <v-layout row wrap align-center>
                   <v-flex xs12 md3>
-                    Training und Forschritte tracken (Analyse)
+                    Training und Fortschritte tracken (Analyse)
                   </v-flex>
                   <v-flex xs12 md6>
                     <v-slider style="width: 100%;" v-model="user.routePlanning.q3.i4"
@@ -1559,7 +1557,7 @@
               </section>
 
 
-              <p class="title">Welche digitalen Karte, Apps oder Webseiten nutzen Sie zur Planung ihre Routen im
+              <p class="title">Welche digitalen Karten, Apps oder Webseiten nutzen Sie zur Planung Ihre Routen im
                 Voraus?</p>
               <v-layout row wrap>
                 <v-flex xs12 sm6 md6>
@@ -1685,7 +1683,7 @@
                 Ihre Antworten zu den Fragebögen werden nicht in Verbindung
                 mit
                 ihrer E-Mail Adresse gebracht und nach Auswertung der Studie gelöscht. Ihre E-Mail Adresse wird für
-                niemanden sonst sichtbar sein und dient nur der Kontaktaufnahme und erfolgreichen Durchführung und
+                niemanden sonst sichtbar sein und dient nur zur Kontaktaufnahme und erfolgreichen Durchführung und
                 Abschluss der Studie.
               </v-alert>
               <br>
@@ -1751,13 +1749,13 @@
               <h4>E-Mail</h4>
               <p>{{user.email}}</p>-->
 
-              <p>Dies ist die letzte Seite des Anmeldungsfragebogens. Sie können Ihre Antworten noch anpassen.
+              <p>Dies ist die letzte Seite des Anmeldefragebogens. Sie können Ihre Antworten noch anpassen.
                 <b>Sobald Sie den Fragebogen über die untenstehenden Buttons abschließen können Sie ihre Antworten
                   nicht mehr ändern.</b><br>
                 Bitte lesen und aktzeptieren Sie die Teilnahmebedingungen.</p>
               <br>
               <h1>Feldstudie</h1>
-              <p>In der Feldstudie können Sie die Website in den kommenden 2-4 Wochen (bis 14. Juli) benutzen und sich
+              <p>In der Feldstudie können Sie die Website in den kommenden 2-4 Wochen benutzen und sich
                 dadurch die
                 Chance auf den Gewinn sichern.</p>
               <br>
@@ -1970,7 +1968,7 @@
       }
     },
     created () {
-      const deadline = new Date('21 July 2019 23:59:59')
+      const deadline = new Date('23 July 2019 23:59:59')
       const currentDate = new Date()
       if (currentDate > deadline) {
         this.deadlinePassed = true
