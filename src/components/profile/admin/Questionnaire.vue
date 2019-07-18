@@ -68,6 +68,9 @@
             for (let category in res) {
               if (category === '_id' || category === 'psq') continue
               for (let question in res[category]) {
+                if (question.includes('homeLocation') || question.includes('cyclingLocation')) {
+                  continue
+                }
                 let q = res[category][question]
                 if (typeof q === 'object' && q !== null) {
                   for (let subQuestion in q) {
@@ -87,9 +90,15 @@
           for (let category in res) {
             if (category === '_id' || category === 'psq') continue
             for (let question in res[category]) {
+              if (question.includes('homeLocation') || question.includes('cyclingLocation')) {
+                continue
+              }
               let q = res[category][question]
               if (typeof q === 'object' && q !== null) {
                 for (let subQuestion in q) {
+                  if (subQuestion.includes('homeLocation') || subQuestion.includes('cyclingLocation')) {
+                    continue
+                  }
                   text += q[subQuestion]
                   text += ';'
                 }

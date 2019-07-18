@@ -39,6 +39,10 @@
              to="/admin/dashboard/questionnaire">
         Open Questionnaire Results
       </v-btn>
+      <v-btn round class="gradient gradient-orange" dark
+             to="/admin/dashboard/psq">
+        Open PSQ Results
+      </v-btn>
     </section>
     <v-divider class="separator"></v-divider>
     <section>
