@@ -64,6 +64,7 @@
         let text = ''
         let first = true
         for (let res of results) {
+          console.log(res)
           if (first) {
             for (let category in res) {
               if (category === '_id' || category === 'psq') continue
@@ -72,12 +73,15 @@
                   continue
                 }
                 let q = res[category][question]
-                if (typeof q === 'object' && q !== null) {
+                console.log(question)
+                if (typeof q === 'object' && q !== null && !Array.isArray(q)) {
+                  console.log('object')
                   for (let subQuestion in q) {
                     text += (category.substr(0, 4) + '-' + question + '-' + subQuestion)
                     text += ';'
                   }
                 } else {
+                  console.log('else ' + question)
                   text += (category.substr(0, 4) + '-' + question)
                   text += ';'
                 }
@@ -94,7 +98,7 @@
                 continue
               }
               let q = res[category][question]
-              if (typeof q === 'object' && q !== null) {
+              if (typeof q === 'object' && q !== null && !Array.isArray(q)) {
                 for (let subQuestion in q) {
                   if (subQuestion.includes('homeLocation') || subQuestion.includes('cyclingLocation')) {
                     continue
@@ -110,6 +114,7 @@
           }
           text += '\n'
           this.text = text
+          return;
         }
       },
 
