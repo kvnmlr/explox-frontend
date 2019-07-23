@@ -114,7 +114,6 @@
           }
           text += '\n'
           this.text = text
-          return;
         }
       },
 
