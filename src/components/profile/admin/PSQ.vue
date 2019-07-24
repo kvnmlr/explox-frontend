@@ -71,8 +71,17 @@
                 let q = res[category][question]
                 if (typeof q === 'object' && q !== null) {
                   for (let subQuestion in q) {
-                    text += (category.substr(0, 4) + '-' + question + '-' + subQuestion)
-                    text += ';'
+                    let q = res[category][question][subQuestion]
+                    if (typeof q === 'object' && q !== null && !Array.isArray(q) && question !== 'ueq') {
+                      console.log(q)
+                      for (let subSubQuestion in q) {
+                        text += (category.substr(0, 4) + '-' + question + '-' + subQuestion + '-' + subSubQuestion)
+                        text += ';'
+                      }
+                    } else {
+                      text += (category.substr(0, 4) + '-' + question + '-' + subQuestion)
+                      text += ';'
+                    }
                   }
                 } else {
                   text += (category.substr(0, 4) + '-' + question)
@@ -90,12 +99,20 @@
               let q = res[category][question]
               for (let subQuestion in q) {
                 let subq = q[subQuestion]
-                if (typeof subq === 'object') {
-                  text += subq.value
+                if (typeof subq === 'object' && subq !== null && !Array.isArray(subq)) {
+                  if (subq.value) {
+                    text += subq.value
+                    text += ';'
+                  } else {
+                    for (let subSubQuestion in subq) {
+                      text += subq[subSubQuestion]
+                      text += ';'
+                    }
+                  }
                 } else {
                   text += JSON.stringify(subq)
+                  text += ';'
                 }
-                text += ';'
               }
             }
           }

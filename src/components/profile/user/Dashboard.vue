@@ -157,8 +157,6 @@
 
                   <v-list subheader two-line>
                     <h3>Study Duties</h3>
-                    <p>In order to complete the study and <b>have the change to win one 6 x 15€ Amazon vouchers</b>, you
-                      have to complete the following tasks:</p>
                     <v-list-tile style="margin-bottom: 15px;">
                       <v-list-tile-action>
                         <v-checkbox color="success"
@@ -234,7 +232,7 @@
                           <span style="color: #ee5b19">Starting: 21. July, deadline: 04. August</span>
                         </v-list-tile-sub-title>
                       </v-list-tile-content>
-                      <v-btn v-if="psq" to="psq" style="height: 60px;" color="success" round>Fill out<br>Questionnaire
+                      <v-btn to="psq" style="height: 60px;" color="success" round>Fill out<br>Questionnaire
                       </v-btn>
                     </v-list-tile>
                   </v-list>
