@@ -64,18 +64,18 @@
 
                   <div class="text-xs-center" v-for="(question, qi) in ueq_en">
                     <v-layout row wrap>
-                      <v-flex xs12 md3 lg4>
+                      <v-flex xs12 md3 lg3>
                         <div class="text-xs-right">{{ question.left}}</div>
                         <br v-if="$vuetify.breakpoint.xs">
                       </v-flex>
-                      <v-flex xs12 md6 lg4>
+                      <v-flex xs12 md6 lg6>
                     <span v-for="i in [1,2,3,4,5,6,7]">
                       <v-btn fab small :color="ueq_en[qi].value === i ? 'orange' : 'white'"
                              :style="$vuetify.breakpoint.xs ? 'height: 20px; width: 20px; margin-top:-10px;' : 'height: 30px; width: 30px; margin-top:-10px;'"
                              v-on:click="() => {ueq_en[qi].value = i;}"></v-btn>
                     </span>
                       </v-flex>
-                      <v-flex xs12 md3 lg4>
+                      <v-flex xs12 md3 lg3>
                         <br v-if="$vuetify.breakpoint.xs">
                         <div class="text-xs-left">{{ question.right}}</div>
                       </v-flex>
@@ -480,7 +480,8 @@
                   <v-textarea v-model="feedback.q2"></v-textarea>
 
                   <br>
-                  <p class="title">Was hat nicht funktioniert wie erwartet? Was muss verbessert werden? Welche Funktionen
+                  <p class="title">Was hat nicht funktioniert wie erwartet? Was muss verbessert werden? Welche
+                    Funktionen
                     fehlen Ihnen?</p>
                   <v-textarea v-model="feedback.q3"></v-textarea>
 
@@ -850,6 +851,7 @@
         c = c | 0
         const formData = {
           psq: {
+            name: 'Post-Study Questionnaire',
             ueq: this.ueq_en,
             feedback: this.feedback
           }

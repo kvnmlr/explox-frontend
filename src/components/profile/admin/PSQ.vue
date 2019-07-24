@@ -68,6 +68,10 @@
             for (let category in res) {
               if (category !== 'psq') continue
               for (let question in res[category]) {
+                if (question === 'name') {
+                  continue
+                }
+                first = false
                 let q = res[category][question]
                 if (typeof q === 'object' && q !== null) {
                   for (let subQuestion in q) {
@@ -90,12 +94,14 @@
 
               }
             }
-            first = false
           }
           text += '\n'
           for (let category in res) {
             if (category !== 'psq') continue
             for (let question in res[category]) {
+              if (question === 'name') {
+                continue
+              }
               let q = res[category][question]
               for (let subQuestion in q) {
                 let subq = q[subQuestion]
