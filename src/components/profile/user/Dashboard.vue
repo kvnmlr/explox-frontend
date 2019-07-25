@@ -30,7 +30,11 @@
                 <br>
                 <v-layout row>
                   <v-flex xs10 sm10 md10>
+                    <v-btn to="psq" style="height: 60px; width: 80%" color="success" round>Fill out Questionnaire<br>Fragebogen ausfüllen
+                    </v-btn>
+                    <br><br>
                     <v-layout row flex>
+
                       <v-flex xs12 sm4>
                         <v-avatar v-if="user.strava" size="96px" tile>
                           <img style="border-radius: 50%;" v-bind:src="this.user.strava.profile">
