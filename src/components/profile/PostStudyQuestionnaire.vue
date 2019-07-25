@@ -1,9 +1,16 @@
 <template>
   <section v-if="user">
+    <secton>
+      <h1>Note / Hinweis:</h1>
+      <h3>Please use the website before doing this questionnaire.</h3>
+      <h3>Bitte benutzen Sie die Webseite, bevor Sie diesen Fragebogen ausfüllen.</h3>
+      <br><br>
+    </secton>
     <secton v-if="user.psq && user.psq.feedback && user.psq.ueq">
       <h1>You have already submitted the questionnaire.</h1>
       Please contact exploxcycling@gmail.com if you have any problems.
     </secton>
+
     <section v-else>
       <section v-if="lang === 'en'">
         <h1 class="title">Post-Study Questionnaire</h1>
