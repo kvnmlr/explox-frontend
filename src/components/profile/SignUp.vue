@@ -41,14 +41,6 @@
               <br>
               <p><b>Thank you for signing up to ExploX. Please read the following notes carefully:</b></p>
 
-              <v-alert v-if="deadlinePassed" :value="true" color="accent" icon="info" outline>
-                <h2>Too late :(</h2>
-                Unfortunately, you have passed the time where you can enter the life field study. In order to focus on
-                the study participants, we can not let further users use the website.
-                <b>Your answes to this questionnaire will still be very useful for us. If you want, you can fill out the
-                  following questionnaire. We will then inform you when the website is available after the study.</b>
-              </v-alert>
-              <br>
               <h2>Purpose of this study</h2>
               <p>You are invited to use ExploX for the next weeks and thereby contribute to our research on cycling
                 behaviour. By answering the following questionnaires and using this website for the next weeks,
@@ -980,14 +972,6 @@
               <br>
               <p><b>Danke, dass Sie sich bei ExploX angemeldet haben. Bitte lesen Sie folgende Hinweise aufmerksam
                 durch:</b></p>
-              <v-alert v-if="deadlinePassed" :value="true" color="accent" icon="info" outline>
-                <h2>Zu spät :(</h2>
-                Leider ist die Anmeldefrist für die Studie bereits verstrichen. Um uns auf die Teilnehmer zu
-                konzentrieren, können wir keine weiteren Benutzer annehmen.
-                <b>Ihre Antwort auf diesen Fragebogen sind dennoch sehr hilfreich für uns. Wenn Sie möchten, können Sie
-                  die Fragen gerne beantworten. Wir werden Sie dann informieren, wenn ExploX nach der Studie wieder
-                  verfügbar ist.</b>
-              </v-alert>
               <br>
 
               <h2>Ziel der Studie</h2>
@@ -1968,7 +1952,7 @@
       }
     },
     created () {
-      const deadline = new Date('23 July 2019 23:59:59')
+      const deadline = new Date('10 August 2019 23:59:59')
       const currentDate = new Date()
       if (currentDate > deadline) {
         this.deadlinePassed = true
