@@ -1,6 +1,6 @@
 <template>
   <section v-if="user">
-    <secton v-if="false && (user.psq && user.psq.feedback)">
+    <secton v-if="user.psq && user.psq.feedback && user.psq.ueq">
       <h1>You have already submitted the questionnaire.</h1>
       Please contact exploxcycling@gmail.com if you have any problems.
     </secton>
