@@ -30,7 +30,8 @@
                 <br>
                 <v-layout row>
                   <v-flex xs10 sm10 md10>
-                    <v-btn to="psq" style="height: 60px; width: 80%" color="success" round>Fill out Questionnaire<br>Fragebogen ausfüllen
+                    <v-btn v-if="!user.psq || !user.psq.feedback" to="psq" style="height: 60px; width: 80%"
+                           color="success" round>Fill out Questionnaire<br>Fragebogen ausfüllen
                     </v-btn>
                     <br><br>
                     <v-layout row flex>
@@ -185,7 +186,7 @@
                       <v-list-tile-content>
                         <v-list-tile-title>Pre-Study Questionnaire</v-list-tile-title>
                         <v-list-tile-sub-title>You completed the questionnaire before the study.<br>
-                          </v-list-tile-sub-title>
+                        </v-list-tile-sub-title>
                       </v-list-tile-content>
                     </v-list-tile>
 
@@ -209,24 +210,26 @@
 
                     <v-list-tile style="margin-bottom: 15px;">
                       <v-list-tile-action>
-                        <v-checkbox v-model="this.successfullGenerationsDone() >= 15" disabled></v-checkbox>
+                        <v-checkbox v-model="this.successfullGenerationsDone() >= 10" disabled></v-checkbox>
                       </v-list-tile-action>
 
                       <v-list-tile-content>
-                        <v-list-tile-title>Route Generations ({{ successfullGenerationsDone() }} / 15)
+                        <v-list-tile-title>Route Generations ({{ successfullGenerationsDone() }} / 10)
                         </v-list-tile-title>
-                        <v-list-tile-sub-title>You have done at least 15 successful route generations <b>+ comments and
+                        <v-list-tile-sub-title>You have done at least 10 successful route generations <b>+ comments and
                           ratings</b>.<br>
 
                         </v-list-tile-sub-title>
                       </v-list-tile-content>
-                      <v-btn v-if="this.user.creatorResults.length < 15" to="creator" outline round>Generate Route
+                      <v-btn v-if="this.user.creatorResults.length < 10" to="creator" outline round>Generate Route
                       </v-btn>
                     </v-list-tile>
 
+                    {{ }}
+
                     <v-list-tile>
                       <v-list-tile-action>
-                        <v-checkbox :v-model="false" disabled></v-checkbox>
+                        <v-checkbox v-model="user.psq && user.psq.feedback" disabled></v-checkbox>
                       </v-list-tile-action>
 
                       <v-list-tile-content>
@@ -236,7 +239,8 @@
 
                         </v-list-tile-sub-title>
                       </v-list-tile-content>
-                      <v-btn to="psq" style="height: 60px;" color="success" round>Fill out<br>Questionnaire
+                      <v-btn v-if="!user.psq || !user.psq.feedback" to="psq" style="height: 60px;" color="success"
+                             round>Fill out<br>Questionnaire
                       </v-btn>
                     </v-list-tile>
                   </v-list>
@@ -309,7 +313,8 @@
               <v-card-title class="gradient-no-switch gradient-orange headline white--text">Welcome to ExploX!
               </v-card-title>
               <v-card-text>
-                <p>Please keep in mind that this website has some problems. Your routes and activities might not be up-to date
+                <p>Please keep in mind that this website has some problems. Your routes and activities might not be
+                  up-to date
                   right away. Click 'Synchronize Profile'. If still something seems wrong or is not working
                   please:</p>
                 <ul>
@@ -458,7 +463,7 @@
 
     created () {
       if (this.user && this.user.firstTimeUsage) {
-        EventBus.$emit('expandDrawer');
+        EventBus.$emit('expandDrawer')
       }
 
       EventBus.$on('authenticated', (data) => {
@@ -554,9 +559,9 @@
           if (!err) {
             // EventBus.$emit('reloadData')
           }
-          this.user.name = this.updatedUser.name;
-          this.user.username = this.updatedUser.username;
-          this.user.email = this.updatedUser.email;
+          this.user.name = this.updatedUser.name
+          this.user.username = this.updatedUser.username
+          this.user.email = this.updatedUser.email
           this.editDialog = false
           this.user.firstTimeUsage = false
         })

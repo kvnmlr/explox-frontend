@@ -52,7 +52,25 @@
             <v-stepper-items>
               <v-stepper-content step="0">
                 <v-layout column style="margin-left: 20px;">
-                  <h1>User Experience Questionnaire</h1>
+                  <section>
+                    <h1 class="title">Explanation</h1>
+                    <p>Whenever you generated a route the website showed you 2 possible routes. There were different
+                      methods used to find those two routes</p>
+                    <ol>
+                      <li><b>Explorative Route:</b> One of the routes was always explorative, meaning that we tried to
+                        include no (or only a few) roads that you already know based on your Strava activities. The
+                        generated routes
+                        always included several popular Strava segments and routes of other users.
+                      </li>
+                      <li><b>Familiar Route:</b> The other route was always a familiar route, meaning that we tried to
+                        include big portions of your existing activities. By riding such a route, you would only see a
+                        few roads that you haven't seen before. The downside is that such a route could not always be
+                        created if you have too few activities in the area where you want to find a new route.
+                      </li>
+                    </ol>
+                  </section>
+                  <br><br>
+                  <h1 class="title">User Experience Questionnaire</h1>
                   <br>
                   <p>For the assessment of the product, please fill out the following questionnaire. The questionnaire
                     consists of pairs of contrasting attributes that may apply to the product. The circles between the
@@ -212,6 +230,24 @@
                   </section>
 
                   <br>
+
+                  <section>
+                    <h1 class="title">Explanation</h1>
+                    <p>Remember that the website always generated two routes:</p>
+                    <ol>
+                      <li><b>Explorative Route</b>
+                      </li>
+                      <li><b>Familiar Route</b>
+                      </li>
+                    </ol>
+                  </section>
+
+                  <br>
+                  <p class="title">What are your thoughts on this personalization based on your familiar activities?
+                    Which type of route would you prefer (familiar or explorative)?</p>
+                  <v-textarea v-model="feedback.q0"></v-textarea>
+
+                  <br>
                   <p class="title">Which of the features did you like the most and why?</p>
                   <v-textarea v-model="feedback.q1"></v-textarea>
 
@@ -265,8 +301,7 @@
                   <section v-else>
                     <div class="headline">Upload failed, please try again</div>
                     <br>
-                    <v-btn v-if="(feedback.q1 + feedback.q2 +feedback.q3 +feedback.q4 +feedback.q5).length > 50"
-                           class="gradient gradient-green" style="width: 200px;" round
+                    <v-btn class="gradient gradient-green" style="width: 200px;" round
                            v-on:click="update" @click="e1 = 2">Submit again
                     </v-btn>
                   </section>
@@ -317,7 +352,24 @@
             <v-stepper-items>
               <v-stepper-content step="0">
                 <v-layout column style="margin-left: 20px;">
-                  <h1>User Experience Questionnaire</h1>
+
+                  <section>
+                    <h1 class="title">Erklärung</h1>
+                    <p>Immer wenn Sie eine Route generiert haben wurden Ihnen zwei Routen vorgeschlagen. Zur Findung
+                      dieser Routen kamen unterschiedliche Methoden zum Einsatz:</p>
+                    <ol>
+                      <li><b>Explorierende/Erkundende Route:</b> Eine der Routen ging durch Gebiete, in denen Sie noch
+                        nicht gefahren sind. Straßen und Wege Ihrer Strava Aktivitäten wurden also gemieden. Diese Route beinhaltete immer
+                        beliebte Strava Segmente und Teile von Routen anderer Benutzer.
+                      </li>
+                      <li><b>Bekannte Route:</b> Die andere Route war Ihnen immer zu Großteilen bekannt. Zur Findung
+                        dieser Route wurden Ihre vergangenen Strava Aktivitäten genutzt. Es wurde versucht Straßen und
+                        Wege zu meiden, die Ihnen unbekannt sind.
+                      </li>
+                    </ol>
+                  </section>
+                  <br><br>
+                  <h1 class="title">User Experience Fragebogen</h1>
                   <br>
                   <p>Um das Produkt zu bewerten, füllen Sie bitte den nachfolgenden Fragebogen aus. Er besteht aus
                     Gegensatzpaaren von Eigenschaften, die das Produkt haben kann. Abstufungen zwischen den Gegensätzen
@@ -476,6 +528,23 @@
                                 style="margin-top: -15px;"></v-checkbox>
                   </section>
 
+                  <section>
+                    <h1 class="title">Erklärung</h1>
+                    <p>Beachten Sie, dass die Webseite immer zwei unterschiedliche Routen generiert hat:</p>
+                    <ol>
+                      <li><b>Explorierende Route</b>
+                      </li>
+                      <li><b>Bekannte Route</b>
+                      </li>
+                    </ol>
+                  </section>
+
+                  <br>
+                  <p class="title">Was halten Sie von dieser Art die Routen zu personalisieren?
+                    Welche Art von Route würden Sie prinzipiell bevorzugen (explorierend oder bekannt)?</p>
+                  <v-textarea v-model="feedback.q0"></v-textarea>
+
+
                   <br>
                   <p class="title">Welche der Funktionen hat Ihnen am besten gefallen und warum?</p>
                   <v-textarea v-model="feedback.q1"></v-textarea>
@@ -502,7 +571,7 @@
                   <v-textarea v-model="feedback.q5"></v-textarea>
                   <br>
 
-                  <v-btn v-if="(feedback.q1 + feedback.q2 +feedback.q3 +feedback.q4 +feedback.q5).length > 100"
+                  <v-btn v-if="(feedback.q0 + feedback.q1 + feedback.q2 +feedback.q3 +feedback.q4 +feedback.q5).length > 100"
                          class="gradient gradient-orange" style="width: 200px;" dark round
                          v-on:click="update" @click="e1 = 2">Absenden
                   </v-btn>
@@ -531,7 +600,7 @@
                   <section v-else>
                     <div class="headline">Übermittlung fehlgeschlagen, bitte versuchen Sie es nochmal.</div>
                     <br>
-                    <v-btn v-if="(feedback.q1 + feedback.q2 +feedback.q3 +feedback.q4 +feedback.q5).length > 50"
+                    <v-btn v-if="(feedback.q0 + feedback.q1 + feedback.q2 +feedback.q3 +feedback.q4 +feedback.q5).length > 50"
                            class="gradient gradient-green" style="width: 200px;" round
                            v-on:click="update" @click="e1 = 2">Nochmal abschicken
                     </v-btn>
@@ -577,6 +646,7 @@
         feedback: {
           features: [],
           rating: {},
+          q0: '',
           q1: '',
           q2: '',
           q3: '',
