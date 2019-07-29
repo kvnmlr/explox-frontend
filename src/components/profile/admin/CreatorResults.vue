@@ -1,14 +1,14 @@
 <template>
   <section>
-    <h3>Ratings</h3>
+    <v-checkbox v-model="allResults" label="Use incomplete ratings"></v-checkbox>
     <br>
-    <v-checkbox v-model="allResults" label="Show all results"></v-checkbox>
+    <h3>Ratings</h3>
     <br>
     <v-layout row wrap align-center>
       <v-flex xs12 md3>
         <h4>Route Type</h4><br>
-        <p>Familair</p>
         <p>Explorative</p>
+        <p>Familair</p>
       </v-flex>
       <v-flex xs12 md3>
         <h4>E (rating)</h4><br>
@@ -26,6 +26,44 @@
         <p>{{ ratings(true, false)[1] }}</p>
       </v-flex>
     </v-layout>
+
+    <br>
+    <h3>Algorithm Metrics</h3>
+    <br>
+    <v-layout row wrap align-center>
+      <v-flex xs12 md3>
+        <h4>Metric</h4><br>
+        <p>Average tracks after distance filter: </p>
+        <p>Average tracks after lower bounds filter: </p>
+        <p>Average combos found: </p>
+        <p>Average parts in combos: </p>
+        <p>Average familiarity scores: </p>
+        <p>Average total runtime: </p>
+      </v-flex>
+      <v-flex xs12 md3>
+        <h4>Explorative</h4><br>
+        <p>{{ metrics().distance[0] }}</p>
+        <p>{{ metrics().lower[0] }}</p>
+        <p>{{ metrics().combos[0] }}</p>
+        <p>{{ metrics().parts[0] }}</p>
+        <p>{{ metrics().scores[0] }}</p>
+        <p>{{ metrics().runtime }}</p>
+
+      </v-flex>
+      <v-flex xs12 md3>
+        <h4>Familiar</h4><br>
+        <p>{{ metrics().distance[1] }}</p>
+        <p>{{ metrics().lower[1] }}</p>
+        <p>{{ metrics().combos[1] }}</p>
+        <p>{{ metrics().parts[1] }}</p>
+        <p>{{ metrics().scores[1] }}</p>
+        <p>{{ metrics().runtime }}</p>
+
+      </v-flex>
+    </v-layout>
+
+
+    <br>
 
     <div class="separator"></div>
     <h3>Creator Results</h3>
@@ -69,6 +107,12 @@
           <b>Comment:</b> {{ props.item.routeRatings[1].comment }}<br><br>
         </td>
         <td class="text-xs-left">{{ formatDate(props.item.createdAt, true) }}</td>
+        <td class="text-xs-left"><br>
+          <b>Distance:</b> {{ props.item.query.metadata.distanceFilter }}<br>
+          <b>Lower Bound:</b> {{ props.item.query.metadata.lowerBoundsFilter }}<br>
+          <b>Combine:</b> {{ props.item.query.metadata.combine }}<br>
+          <b>Time:</b> {{ Math.round(props.item.query.metadata.totalTime / 1000) }} s<br>
+        </td>
       </template>
     </v-data-table>
     <div class="separator"></div>
@@ -86,7 +130,7 @@
     },
     data () {
       return {
-        allResults: false,
+        allResults: true,
         currentTab: 'tab-api',
         columns: [
           {
@@ -98,34 +142,38 @@
             value: 'user',
           },
           {
-            text: 'Familiar',
-            value: 'familiarRating',
-          },
-          {
             text: 'Explorative',
             value: 'explorativeRating',
           },
           {
+            text: 'Familiar',
+            value: 'familiarRating',
+          },
+          {
             text: 'Created',
             value: 'createdAt',
+          },
+          {
+            text: 'Metadata',
+            value: 'metadata',
           },
         ],
       }
     },
     computed: {
       rows () {
-        let self= this;
+        let self = this
         let rows = []
         if (this.results.length > 0) {
           this.results.forEach(function (a) {
             if (!self.allResults) {
-              let isCompleted = true;
+              let isCompleted = true
               a.routeRatings.forEach((rating) => {
                 if (rating.rating === 0) {
-                  isCompleted = false;
+                  isCompleted = false
                 }
                 if (rating.comment === '') {
-                  isCompleted = false;
+                  isCompleted = false
                 }
               })
               if (isCompleted) {
@@ -141,58 +189,121 @@
       },
     },
     methods: {
+      metrics () {
+        let num = 0
+        let ret = {
+          distance: [0, 0],
+          lower: [0, 0],
+          combos: [0, 0],
+          parts: [0, 0],
+          scores: [0, 0],
+          runtime: 0,
+        }
+
+        if (this.results.length > 0) {
+          this.results.forEach(function (a) {
+            const metadata = a.query.metadata
+            console.log(a)
+            ret.distance[0] += (metadata.distanceFilter[0] + metadata.distanceFilter[1])
+            ret.distance[1] += (metadata.distanceFilter[1] + metadata.distanceFilter[2])
+
+            ret.lower[0] += (metadata.lowerBoundsFilter[0] + metadata.lowerBoundsFilter[1])
+            ret.lower[1] += (metadata.lowerBoundsFilter[1] + metadata.lowerBoundsFilter[2])
+
+            ret.combos[0] += metadata.combine[0]
+            ret.combos[1] += metadata.combine[1]
+
+            ret.parts[0] += Math.round(metadata.combine[2])
+            ret.parts[1] += Math.round(metadata.combine[3])
+
+            ret.scores[0] += Math.round(a.familiarityScores[0] * 100)
+            ret.scores[1] += Math.round(a.familiarityScores[1] * 100)
+
+            ret.runtime += Math.round(metadata.totalTime / 1000)
+            num += 1
+          })
+        }
+        ret.distance[0] /= num
+        ret.distance[1] /= num
+
+        ret.lower[0] /= num
+        ret.lower[1] /= num
+
+        ret.combos[0] /= num
+        ret.combos[1] /= num
+
+        ret.parts[0] /= num
+        ret.parts[1] /= num
+
+        ret.scores[0] /= num
+        ret.scores[1] /= num
+
+        ret.runtime /= num
+
+        return ret
+      },
+
       ratings (conditional, positive) {
-        let self = this;
-        let totalFamiliarRatings = 0
-        let totalFamiliarRatingsSum = 0.0
-        let totalExplorativeRatings = 0
-        let totalExplorativeRatingsSum = 0.0
+
+        let self = this
+        let totalExplRatings = 0
+        let totalExplRatingsSum = 0.0
+        let totalFamRatings = 0
+        let totalFamRatingsSum = 0.0
         if (this.results.length > 0) {
           this.results.forEach(function (a) {
             if (!self.allResults) {
-              let isCompleted = true;
+              let isCompleted = true
               a.routeRatings.forEach((rating) => {
                 if (rating.rating === 0) {
-                  isCompleted = false;
+                  isCompleted = false
                 }
                 if (rating.comment === '') {
-                  isCompleted = false;
+                  isCompleted = false
                 }
               })
               if (!isCompleted) {
-                return;
+                return
               }
             }
+
             if (!a.user) {
               return
             }
+
             if (!conditional) {
-              if (a.routeRatings[0]) {
-                totalFamiliarRatings++
-                totalFamiliarRatingsSum += parseInt(a.routeRatings[0].rating)
+              if (a.routeRatings[0] && a.routeRatings[0].rating > 0) {
+                totalExplRatings++
+                totalExplRatingsSum += parseInt(a.routeRatings[0].rating)
               }
-              if (a.routeRatings[1]) {
-                totalExplorativeRatings++
-                totalExplorativeRatingsSum += parseInt(a.routeRatings[1].rating)
+              if (a.routeRatings[1] && a.routeRatings[1].rating > 0) {
+                totalFamRatings++
+                totalFamRatingsSum += parseInt(a.routeRatings[1].rating)
               }
             }
             else {
-              if (a.routeRatings[0]) {
-                if (a.user.TODO && positive) {
-                  totalFamiliarRatings++
-                  totalFamiliarRatingsSum += a.routeRatings[0].rating
-                } else if (a.user.ANTITODO && !positive) {
-                  totalFamiliarRatings++
-                  totalFamiliarRatingsSum += a.routeRatings[0].rating
+              if (a.routeRatings[0] && a.routeRatings[0].rating) {
+                // Explorative route
+                if (a.user.routePlanning.q7 > 3 && positive) {
+                  // Explorative preference
+                  totalExplRatings++
+                  totalExplRatingsSum += parseInt(a.routeRatings[0].rating)
+                } else if (a.user.routePlanning.q7 <= 3 && !positive) {
+                  // Familiar preference and negative weight
+                  totalExplRatings++
+                  totalExplRatingsSum += parseInt(a.routeRatings[0].rating)
                 }
               }
-              if (a.routeRatings[1]) {
-                if (a.user.TODO && positive) {
-                  totalExplorativeRatings++
-                  totalExplorativeRatingsSum += a.routeRatings[1].rating
-                } else if (a.user.ANTITODO && !positive) {
-                  totalExplorativeRatings++
-                  totalExplorativeRatingsSum += a.routeRatings[0].rating
+              if (a.routeRatings[1] && a.routeRatings[1].rating) {
+                // Familiar route
+                if (a.user.routePlanning.q7 <= 3 && positive) {
+                  // Familiar preference
+                  totalFamRatings++
+                  totalFamRatingsSum += parseInt(a.routeRatings[1].rating)
+                } else if (a.user.routePlanning.q7 > 3 && !positive) {
+                  // Explorative preference and negative weight
+                  totalFamRatings++
+                  totalFamRatingsSum += parseInt(a.routeRatings[1].rating)
                 }
               }
             }
@@ -202,15 +313,14 @@
         let avgFamiliarRating = 0.0
         let avgExplorativeRating = 0.0
 
-        if (totalFamiliarRatings > 0) {
-          avgFamiliarRating = totalFamiliarRatingsSum / totalFamiliarRatings
+        if (totalExplRatings > 0) {
+          avgExplorativeRating = (totalExplRatingsSum / totalExplRatings).toFixed(2)
         }
 
-        if (totalExplorativeRatings > 0) {
-          avgExplorativeRating = totalExplorativeRatingsSum / totalExplorativeRatings
+        if (totalFamRatings > 0) {
+          avgFamiliarRating = (totalFamRatingsSum / totalFamRatings).toFixed(2)
         }
-
-        return [avgFamiliarRating, avgExplorativeRating]
+        return [avgExplorativeRating, avgFamiliarRating]
       },
     },
     mixins: [formatDateMixin]
