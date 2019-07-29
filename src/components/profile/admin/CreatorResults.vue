@@ -89,10 +89,10 @@
           <b>End:</b> ({{ props.item.query.end.lat.toString().substr(0,6) + ', ' +
           props.item.query.end.lng.toString().substr(0,6) }})<br><br>
         </td>
-        <td class="text-xs-left">{{ (props.item.user ? props.item.user.username : '') }}</td>
+        <td class="text-xs-left"><a :href="'/explox/users/'+props.item.user._id">{{ (props.item.user ? props.item.user.username : '') }}</a></td>
         <!--<td class="text-xs-left">{{ props.item.generatedRoutes }}</td>-->
         <td class="text-xs-left" v-if="props.item.routeRatings[0]"><br>
-          <b>Route:</b><a :href="'/route/'+props.item.routeRatings[0].route"> {{ props.item.routeRatings[0].route }}</a><br>
+          <a :href="'/explox/route/'+props.item.routeRatings[0].route"> Go to Route</a><br>
           <b>Familiarity:</b> {{ Math.floor(props.item.familiarityScores[0] * 100) }} %<br><br>
 
           <b>Rating:</b> {{ props.item.routeRatings[0].rating }} <br>
@@ -100,7 +100,7 @@
 
         </td>
         <td class="text-xs-left" v-if="props.item.routeRatings[1]"><br>
-          <b>Route:</b> {{ props.item.routeRatings[1].route }}<br>
+          <a :href="'/explox/route/'+props.item.routeRatings[1].route"> Go to Route</a><br>
           <b>Comment:</b> {{ Math.floor(props.item.familiarityScores[1] * 100) }} %<br><br>
 
           <b>Rating:</b> {{ props.item.routeRatings[1].rating }} <br>
@@ -267,7 +267,9 @@
               }
             }
 
-            if (!a.user) {
+            console.log(a)
+
+            if (!a.user || !a.user.routePlanning) {
               return
             }
 
