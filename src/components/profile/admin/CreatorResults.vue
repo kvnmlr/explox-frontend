@@ -12,25 +12,25 @@
       </v-flex>
       <v-flex xs12 md3>
         <h4>E (rating)</h4><br>
-        <p>{{ ratings(false, false)[0] }}</p>
-        <p>{{ ratings(false, false)[1] }}</p>
+        <p>{{ ratings(false, false)[0] }} ({{ ratings(false, false)[2] }})</p>
+        <p>{{ ratings(false, false)[1] }} ({{ ratings(false, false)[3] }})</p>
       </v-flex>
       <v-flex xs12 md3>
         <h4>E (rating | user likes the type)</h4><br>
-        <p>{{ ratings(true, true)[0] }}</p>
-        <p>{{ ratings(true, true)[1] }}</p>
+        <p>{{ ratings(true, true)[0] }} ({{ ratings(true, true)[2] }})</p>
+        <p>{{ ratings(true, true)[1] }} ({{ ratings(true, true)[3] }})</p>
       </v-flex>
       <v-flex xs12 md3>
         <h4> E (rating | user dislikes the type)</h4><br>
-        <p>{{ ratings(true, false)[0] }}</p>
-        <p>{{ ratings(true, false)[1] }}</p>
+        <p>{{ ratings(true, false)[0] }} ({{ ratings(true, false)[2] }})</p>
+        <p>{{ ratings(true, false)[1] }} ({{ ratings(true, false)[3] }})</p>
       </v-flex>
     </v-layout>
 
     <br>
     <h3>Algorithm Metrics</h3>
     <br>
-    <v-layout row wrap align-center>
+    <v-layout v-for="metric in metrics()" row wrap align-center>
       <v-flex xs12 md3>
         <h4>Metric</h4><br>
         <p>Average tracks after distance filter: </p>
@@ -42,22 +42,22 @@
       </v-flex>
       <v-flex xs12 md3>
         <h4>Explorative</h4><br>
-        <p>{{ metrics().distance[0] }}</p>
-        <p>{{ metrics().lower[0] }}</p>
-        <p>{{ metrics().combos[0] }}</p>
-        <p>{{ metrics().parts[0] }}</p>
-        <p>{{ metrics().scores[0] }}</p>
-        <p>{{ metrics().runtime }}</p>
+        <p>{{ metric.distance[0] }}</p>
+        <p>{{ metric.lower[0] }}</p>
+        <p>{{ metric.combos[0] }}</p>
+        <p>{{ metric.parts[0] }}</p>
+        <p>{{ metric.scores[0] }}</p>
+        <p>{{ metric.runtime }}</p>
 
       </v-flex>
       <v-flex xs12 md3>
         <h4>Familiar</h4><br>
-        <p>{{ metrics().distance[1] }}</p>
-        <p>{{ metrics().lower[1] }}</p>
-        <p>{{ metrics().combos[1] }}</p>
-        <p>{{ metrics().parts[1] }}</p>
-        <p>{{ metrics().scores[1] }}</p>
-        <p>{{ metrics().runtime }}</p>
+        <p>{{ metric.distance[1] }}</p>
+        <p>{{ metric.lower[1] }}</p>
+        <p>{{ metric.combos[1] }}</p>
+        <p>{{ metric.parts[1] }}</p>
+        <p>{{ metric.scores[1] }}</p>
+        <p>{{ metric.runtime }}</p>
 
       </v-flex>
     </v-layout>
@@ -89,7 +89,8 @@
           <b>End:</b> ({{ props.item.query.end.lat.toString().substr(0,6) + ', ' +
           props.item.query.end.lng.toString().substr(0,6) }})<br><br>
         </td>
-        <td class="text-xs-left"><a :href="'/explox/users/'+props.item.user._id">{{ (props.item.user ? props.item.user.username : '') }}</a></td>
+        <td class="text-xs-left"><a :href="'/explox/users/'+props.item.user._id">{{ (props.item.user ?
+          props.item.user.username : '') }}</a></td>
         <!--<td class="text-xs-left">{{ props.item.generatedRoutes }}</td>-->
         <td class="text-xs-left" v-if="props.item.routeRatings[0]"><br>
           <a :href="'/explox/route/'+props.item.routeRatings[0].route"> Go to Route</a><br>
@@ -219,7 +220,11 @@
             ret.scores[0] += Math.round(a.familiarityScores[0] * 100)
             ret.scores[1] += Math.round(a.familiarityScores[1] * 100)
 
-            ret.runtime += Math.round(metadata.totalTime / 1000)
+            if (metadata.totalTime || metadata.totalTime === 'NaN') {
+              ret.runtime += Math.round(metadata.totalTime / 1000)
+            } else {
+              ret.runtime += ret.runtime /= num
+            }
             num += 1
           })
         }
@@ -240,7 +245,7 @@
 
         ret.runtime /= num
 
-        return ret
+        return [ret]
       },
 
       ratings (conditional, positive) {
@@ -322,7 +327,7 @@
         if (totalFamRatings > 0) {
           avgFamiliarRating = (totalFamRatingsSum / totalFamRatings).toFixed(2)
         }
-        return [avgExplorativeRating, avgFamiliarRating]
+        return [avgExplorativeRating, avgFamiliarRating, totalExplRatings, totalFamRatings]
       },
     },
     mixins: [formatDateMixin]
