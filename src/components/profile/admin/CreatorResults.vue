@@ -289,7 +289,7 @@
               }
             }
             else {
-              if (a.routeRatings[0] && a.routeRatings[0].rating) {
+              if (a.routeRatings[0] && a.routeRatings[0].rating > 0) {
                 // Explorative route
                 if (a.user.routePlanning.q7 > 3 && positive) {
                   // Explorative preference
@@ -301,7 +301,7 @@
                   totalExplRatingsSum += parseInt(a.routeRatings[0].rating)
                 }
               }
-              if (a.routeRatings[1] && a.routeRatings[1].rating) {
+              if (a.routeRatings[1] && a.routeRatings[1].rating > 0) {
                 // Familiar route
                 if (a.user.routePlanning.q7 <= 3 && positive) {
                   // Familiar preference
@@ -317,8 +317,8 @@
           })
         }
 
-        let avgFamiliarRating = 0.0
         let avgExplorativeRating = 0.0
+        let avgFamiliarRating = 0.0
 
         if (totalExplRatings > 0) {
           avgExplorativeRating = (totalExplRatingsSum / totalExplRatings).toFixed(2)
