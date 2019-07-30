@@ -31,10 +31,11 @@
 
     <v-tabs-items v-model="currentTab" touchless>
       <v-tab-item lazy :id="`tab-api`">
-        <api :results="creatorResults" :users="users" :invitations="invitations" :feedbacks="feedbacks" :limits="limits" :questionnaire-info="questionnaireInfo"></api>
+        <api :results="creatorResults" :users="users" :invitations="invitations" :feedbacks="feedbacks" :limits="limits"
+             :questionnaire-info="questionnaireInfo"></api>
       </v-tab-item>
       <v-tab-item lazy :id="`tab-creator-results`">
-        <creator-results :results="creatorResults"></creator-results>
+        <creator-results :results="creatorResults" :routes="generated"></creator-results>
       </v-tab-item>
       <v-tab-item lazy :id="`tab-users`">
         <users :users="users"></users>
@@ -58,10 +59,10 @@
   import Users from './Users'
   import Activities from './Activities'
   import Routes from './Routes'
-  import {EventBus} from '@/eventBus.js';
-  import apiMixin from "../../../mixins/apiMixin";
-  import Segments from "./Segments";
-  import CreatorResults from "./CreatorResults";
+  import {EventBus} from '@/eventBus.js'
+  import apiMixin from '../../../mixins/apiMixin'
+  import Segments from './Segments'
+  import CreatorResults from './CreatorResults'
 
   export default {
     components: {
@@ -72,13 +73,14 @@
       Activities,
       Routes
     },
-    name: "Admin",
-    data() {
+    name: 'Admin',
+    data () {
       return {
         currentTab: 'tab-api',
         users: [],
         activities: [],
         routes: [],
+        generated: [],
         segments: [],
         creatorResults: [],
         invitations: [],
@@ -91,55 +93,56 @@
           eligible: 0,
           participants: 0,
         }
-      };
+      }
     },
-    created() {
-      this.performSearch();
-      EventBus.$emit('authenticate');
+    created () {
+      this.performSearch()
+      EventBus.$emit('authenticate')
     },
     methods: {
-      async performSearch() {
+      async performSearch () {
         this.GET('dashboard/admin?general=true&users=true', (data, err) => {
-          console.log(data);
+          console.log(data)
           if (!err) {
-            this.users = data.users;
-            this.feedbacks = data.feedbacks;
-            this.limits = data.limits;
-            this.invitations = data.invitations;
+            this.users = data.users
+            this.feedbacks = data.feedbacks
+            this.limits = data.limits
+            this.invitations = data.invitations
 
             this.users.forEach((user) => {
               if (user.role === 'admin' || user.provider !== 'strava') {
-                return;
+                return
               }
               const qi = user.questionnaireInfo
-              this.questionnaireInfo.totalRegistrations++;
+              this.questionnaireInfo.totalRegistrations++
               if (qi) {
                 if (qi.canUseWebsite) {
-                  this.questionnaireInfo.canUseWebsite++;
+                  this.questionnaireInfo.canUseWebsite++
                 }
                 if (qi.eligible) {
-                  this.questionnaireInfo.eligible++;
+                  this.questionnaireInfo.eligible++
                 }
                 if (qi.participates) {
-                  this.questionnaireInfo.participants++;
+                  this.questionnaireInfo.participants++
                 }
               }
             })
           }
-        });
+        })
         this.GET('dashboard/admin?activities=true', (data, err) => {
-          console.log(data);
+          console.log(data)
           if (!err) {
-            this.activities = data.activities;
+            this.activities = data.activities
           }
-        });
+        })
         this.GET('dashboard/admin?routes=true', (data, err) => {
-          console.log(data);
+          console.log(data)
           if (!err) {
-            this.routes = data.routes;
-            this.creatorResults = data.creatorResults;
+            this.routes = data.routes
+            this.creatorResults = data.creatorResults
+            this.generated = data.generated
           }
-        });
+        })
         /* this.GET('dashboard/admin?segments=true', (data, err) => {
           console.log(data);
           if (!err) {

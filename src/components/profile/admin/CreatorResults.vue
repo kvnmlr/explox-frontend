@@ -30,39 +30,44 @@
     <br>
     <h3>Algorithm Metrics</h3>
     <br>
-    <v-layout v-for="metric in metrics()" row wrap align-center>
+    <v-layout v-for="(metric, index) in metrics()" v-bind:key="index" row wrap align-center>
       <v-flex xs12 md3>
         <h4>Metric</h4><br>
         <p>Average tracks after distance filter: </p>
         <p>Average tracks after lower bounds filter: </p>
         <p>Average combos found: </p>
         <p>Average parts in combos: </p>
-        <p>Average familiarity scores: </p>
         <p>Average total runtime: </p>
+        <p>Average familiarity scores: </p>
+        <p>Maximum Familiarity: </p>
+        <p>Minimum Familiarity: </p>
+        <p>Distance Accuracy: </p>
       </v-flex>
       <v-flex xs12 md3>
         <h4>Explorative</h4><br>
-        <p>{{ metric.distance[0] }}</p>
-        <p>{{ metric.lower[0] }}</p>
-        <p>{{ metric.combos[0] }}</p>
-        <p>{{ metric.parts[0] }}</p>
-        <p>{{ metric.scores[0] }}</p>
-        <p>{{ metric.runtime }}</p>
-
+        <p>{{ metric.distance[0].toFixed(1) }}</p>
+        <p>{{ metric.lower[0].toFixed(1) }}</p>
+        <p>{{ metric.combos[0].toFixed(1) }}</p>
+        <p>{{ metric.parts[0].toFixed(1) }}</p>
+        <p>{{ Math.round(metric.runtime) }}</p>
+        <p>{{ Math.round(metric.scores[0])}} %</p>
+        <p>{{ Math.round(metric.maxFam[0] * 100) }} %</p>
+        <p>{{ Math.round(metric.minFam[0] * 100) }} %</p>
+        <p>{{ Math.round(metric.distanceDeviation * 100) }} %</p>
       </v-flex>
       <v-flex xs12 md3>
         <h4>Familiar</h4><br>
-        <p>{{ metric.distance[1] }}</p>
-        <p>{{ metric.lower[1] }}</p>
-        <p>{{ metric.combos[1] }}</p>
-        <p>{{ metric.parts[1] }}</p>
-        <p>{{ metric.scores[1] }}</p>
-        <p>{{ metric.runtime }}</p>
-
+        <p>{{ metric.distance[1].toFixed(1) }}</p>
+        <p>{{ metric.lower[1].toFixed(1) }}</p>
+        <p>{{ metric.combos[1].toFixed(1) }}</p>
+        <p>{{ metric.parts[1].toFixed(1) }}</p>
+        <p>{{ Math.round(metric.runtime) }}</p>
+        <p>{{ Math.round(metric.scores[1])}} %</p>
+        <p>{{ Math.round(metric.maxFam[1] * 100) }} %</p>
+        <p>{{ Math.round(metric.minFam[1] * 100) }} %</p>
+        <p>{{ Math.round(metric.distanceDeviation * 100) }} %</p>
       </v-flex>
     </v-layout>
-
-
     <br>
 
     <div class="separator"></div>
@@ -128,6 +133,7 @@
     name: 'CreatorResults',
     props: {
       results: Array,
+      routes: Array,
     },
     data () {
       return {
@@ -199,12 +205,42 @@
           parts: [0, 0],
           scores: [0, 0],
           runtime: 0,
+          maxFam: [0, 0],
+          minFam: [1, 1],
+          distanceDeviation: 0
+        }
+
+        const routes = this.routes.filter((r) => {
+          return r.isGenerated
+        })
+        if (routes.length > 0) {
+          let n = 0
+          routes.forEach((r) => {
+            ret.distanceDeviation += r.queryDistance / r.distance
+            n++
+          })
+          ret.distanceDeviation /= n
         }
 
         if (this.results.length > 0) {
           this.results.forEach(function (a) {
+            let exFam = a.familiarityScores[0]
+            let famFam = a.familiarityScores[1]
+
+            if (exFam > ret.maxFam[0]) {
+              ret.maxFam[0] = exFam
+            }
+            if (famFam > ret.maxFam[1]) {
+              ret.maxFam[1] = famFam
+            }
+            if (exFam < ret.minFam[0]) {
+              ret.minFam[0] = exFam
+            }
+            if (famFam < ret.minFam[1]) {
+              ret.minFam[1] = famFam
+            }
+
             const metadata = a.query.metadata
-            console.log(a)
             ret.distance[0] += (metadata.distanceFilter[0] + metadata.distanceFilter[1])
             ret.distance[1] += (metadata.distanceFilter[1] + metadata.distanceFilter[2])
 
@@ -271,8 +307,6 @@
                 return
               }
             }
-
-            console.log(a)
 
             if (!a.user || !a.user.routePlanning) {
               return
