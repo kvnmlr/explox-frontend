@@ -6,12 +6,12 @@
       <h3>Bitte benutzen Sie die Webseite, bevor Sie diesen Fragebogen ausfüllen.</h3>
       <br><br>
     </secton>
-    <secton v-if="user.psq && user.psq.feedback && user.psq.ueq">
+    <!--<secton v-if="user.psq && user.psq.feedback && user.psq.ueq">
       <h1>You have already submitted the questionnaire.</h1>
       Please contact exploxcycling@gmail.com if you have any problems.
-    </secton>
+    </secton>-->
 
-    <section v-else>
+    <section>
       <section v-if="lang === 'en'">
         <h1 class="title">Post-Study Questionnaire</h1>
         <br>
@@ -896,7 +896,7 @@
     },
     created () {
       const enabled = new Date('21 July 2019 00:00:01')
-      const deadline = new Date('10 August 2019 23:59:59')
+      const deadline = new Date('30 August 2019 23:59:59')
       const currentDate = new Date()
       if (currentDate > deadline) {
         this.deadlinePassed = true
