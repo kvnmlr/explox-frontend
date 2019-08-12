@@ -74,7 +74,7 @@
     <h3>Creator Results</h3>
     <br>
 
-    <v-data-table :headers="this.columns" :items="this.rows" :rows-per-page-items=[10,50,100,200]>
+    <v-data-table :headers="this.columns" :items="this.rows" :rows-per-page-items=[100,200,500,1000]>
       <template slot="headerCell" slot-scope="props">
         <v-tooltip bottom>
               <span slot="activator">
