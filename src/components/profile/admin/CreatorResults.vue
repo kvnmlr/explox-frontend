@@ -174,20 +174,19 @@
         let rows = []
         if (this.results.length > 0) {
           this.results.forEach(function (a) {
+            if (!a.user) {
+              return
+            }
             if (!self.allResults) {
               let isCompleted = true
-              if (!a.user) {
-                isCompleted = false
-              } else {
-                a.routeRatings.forEach((rating) => {
-                  if (rating.rating === 0) {
-                    isCompleted = false
-                  }
-                  if (rating.comment === '') {
-                    isCompleted = false
-                  }
-                })
-              }
+              a.routeRatings.forEach((rating) => {
+                if (rating.rating === 0) {
+                  isCompleted = false
+                }
+                if (rating.comment === '') {
+                  isCompleted = false
+                }
+              })
               if (isCompleted) {
                 rows.push(a)
               }
