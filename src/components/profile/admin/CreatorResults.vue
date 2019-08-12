@@ -312,10 +312,6 @@
               }
             }
 
-            if (!a.user || !a.user.routePlanning) {
-              return
-            }
-
             if (!conditional) {
               if (a.routeRatings[0] && a.routeRatings[0].rating > 0) {
                 totalExplRatings++
@@ -327,6 +323,9 @@
               }
             }
             else {
+              if (!a.user || !a.user.routePlanning) {
+                return
+              }
               if (a.routeRatings[0] && a.routeRatings[0].rating > 0) {
                 // Explorative route
                 if (a.user.routePlanning.q7 > 3 && positive) {
