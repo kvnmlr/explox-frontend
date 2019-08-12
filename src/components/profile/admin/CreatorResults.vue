@@ -94,7 +94,7 @@
           <b>End:</b> ({{ props.item.query.end.lat.toString().substr(0,6) + ', ' +
           props.item.query.end.lng.toString().substr(0,6) }})<br><br>
         </td>
-        <td class="text-xs-left"><a :href="'/explox/users/'+props.item.user._id">{{ (props.item.user ?
+        <td class="text-xs-left" v-if="props.item.user"><a :href="'/explox/users/'+props.item.user._id">{{ (props.item.user ?
           props.item.user.username : '') }}</a></td>
         <!--<td class="text-xs-left">{{ props.item.generatedRoutes }}</td>-->
         <td class="text-xs-left" v-if="props.item.routeRatings[0]"><br>
