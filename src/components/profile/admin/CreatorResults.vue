@@ -94,7 +94,8 @@
           <b>End:</b> ({{ props.item.query.end.lat.toString().substr(0,6) + ', ' +
           props.item.query.end.lng.toString().substr(0,6) }})<br><br>
         </td>
-        <td class="text-xs-left" v-if="props.item.user"><a :href="'/explox/users/'+props.item.user._id">{{ (props.item.user ?
+        <td class="text-xs-left" v-if="props.item.user"><a :href="'/explox/users/'+props.item.user._id">{{
+          (props.item.user ?
           props.item.user.username : '') }}</a></td>
         <!--<td class="text-xs-left">{{ props.item.generatedRoutes }}</td>-->
         <td class="text-xs-left" v-if="props.item.routeRatings[0]"><br>
@@ -175,14 +176,18 @@
           this.results.forEach(function (a) {
             if (!self.allResults) {
               let isCompleted = true
-              a.routeRatings.forEach((rating) => {
-                if (rating.rating === 0) {
-                  isCompleted = false
-                }
-                if (rating.comment === '') {
-                  isCompleted = false
-                }
-              })
+              if (!a.user) {
+                isCompleted = false
+              } else {
+                a.routeRatings.forEach((rating) => {
+                  if (rating.rating === 0) {
+                    isCompleted = false
+                  }
+                  if (rating.comment === '') {
+                    isCompleted = false
+                  }
+                })
+              }
               if (isCompleted) {
                 rows.push(a)
               }
