@@ -362,7 +362,7 @@
     mounted () {
       const deadline = new Date('10 August 2019 23:59:59')
       const currentDate = new Date()
-      if (currentDate > deadline) {
+      if (false && currentDate > deadline) {
         this.deadlinePassed = true
       }
 

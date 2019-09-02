@@ -2136,12 +2136,13 @@
 
         let eligible = true
         eligible &= this.eligibleByActivities
-        eligible &= this.user.cyclingBehaviour.q1 !== '3'         // Does not have access to a bike in working condition
-        eligible &= parseInt(this.user.cyclingBehaviour.q4) < 6   // Cycles less than once a year
-        eligible &= this.user.cyclingBehaviour.q13 === '2'        // Does not identify as a recreational cyclist
-        eligible &= parseInt(this.user.cyclingBehaviour.q12a) < 4  // Tracks at least some rides on Strava
-        eligible &= this.checkCanUseWebsite()
-        this.isEligible = eligible
+        const e1 = this.user.cyclingBehaviour.q1 !== '3'         // Does not have access to a bike in working condition
+        const e2 = parseInt(this.user.cyclingBehaviour.q4) < 6   // Cycles less than once a year
+        const e3 = this.user.cyclingBehaviour.q13 === '2'        // Does not identify as a recreational cyclist
+        const e4 = parseInt(this.user.cyclingBehaviour.q12a) < 4  // Tracks at least some rides on Strava
+        const e5 = this.checkCanUseWebsite()
+        this.isEligible = (eligible && e1 && e2 && e3 && e4 && e5)
+        console.log(eligible + ', ' + e1 + ', ' + e2 + ', ' + e3 + ', ' + e4 + ', ' + e5)
         return this.isEligible
       },
       checkCanUseWebsite: function () {
